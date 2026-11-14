@@ -10,6 +10,7 @@ import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
 import { MIN_DEATHS, areaFacts, areaHead, areaPanel, councilUnits, localNotes } from "./filter.js";
 import { niceTicks } from "./scale.js";
+import { lookupPostcode, parseQuery, searchNames } from "./search.js";
 import { aeChart, ratioChart, tables } from "./scenes.js";
 import {
   ageLayout,
@@ -565,7 +566,7 @@ function wireTooltips(getStage, geo, pin) {
   });
   document.addEventListener("click", (e) => {
     // controls and the card keep their own clicks
-    if (e.target.closest?.("select, button, a, label, input, .area-panel, details")) return;
+    if (e.target.closest?.("select, button, a, label, input, form, .area-panel, details")) return;
     const st = getStage();
     if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
       const i = zoneAt(st, e.clientX, e.clientY);
@@ -583,6 +584,62 @@ function wireTooltips(getStage, geo, pin) {
     }
     if (!e.target.closest?.(".step") && !handle(e)) hide();
   });
+}
+
+/**
+ * The search boxes: a postcode or a neighbourhood name pins that neighbourhood, as clicking its
+ * dot does. Postcode files load per postcode area, on demand.
+ */
+function wireSearch(geo, pin) {
+  const tables = new Map(); // postcode area -> { postcode: zone index }
+  const loadArea = async (area) => {
+    if (!tables.has(area)) {
+      const r = await fetch(`data/postcodes/${area}.json`);
+      tables.set(area, r.ok ? await r.json() : {});
+    }
+    return tables.get(area);
+  };
+  for (const form of document.querySelectorAll("form.search")) {
+    const input = form.querySelector("input");
+    const list = form.querySelector(".search-results");
+    const msg = form.querySelector(".search-msg");
+    const choose = (i) => {
+      pin(geo.councils[geo.zones[i][5]].council, i);
+      list.innerHTML = "";
+      input.value = "";
+      msg.textContent = `Pinned: ${geo.zone_names[i]}, ${geo.councils[geo.zones[i][5]].council}. Scroll on: the story follows it.`;
+    };
+    const show = (found) => {
+      list.innerHTML = "";
+      for (const i of found) {
+        const li = document.createElement("li");
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = `${geo.zone_names[i]} · ${geo.councils[geo.zones[i][5]].council}`;
+        b.onclick = () => choose(i);
+        li.appendChild(b);
+        list.appendChild(li);
+      }
+    };
+    input.addEventListener("input", () => {
+      msg.textContent = "";
+      const q = parseQuery(input.value);
+      show(q.type === "name" ? searchNames(geo.zone_names, q.text) : []);
+    });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const q = parseQuery(input.value);
+      if (q.type === "postcode") {
+        const i = lookupPostcode(await loadArea(q.area), q.key);
+        if (i >= 0) choose(i);
+        else msg.textContent = "That postcode is not in the Scottish postcode list.";
+        return;
+      }
+      const found = searchNames(geo.zone_names, q.text);
+      if (found.length) choose(found[0]);
+      else msg.textContent = "No neighbourhood by that name. Try a postcode.";
+    });
+  }
 }
 
 function wireSteps(getStage, story) {
@@ -623,6 +680,7 @@ async function main() {
   const { setFilter, render } = wireFilter(getStage, story, geo, () => current());
   render(); // fills every figure in the cards
   wireTooltips(getStage, geo, setFilter);
+  wireSearch(geo, setFilter);
   fetch("data/domains.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {

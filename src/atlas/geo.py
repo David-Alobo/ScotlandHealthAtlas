@@ -26,6 +26,7 @@ import openpyxl
 from .population import LOOKUP
 
 SHAPES = Path("data/external/dz2011/SG_DataZone_Bdry_2011.shp")
+POSTCODES = Path("data/external/simd2020v2_postcode_lookup_2025.xlsx")
 DERIVED = Path("data/derived")
 MAPSHAPER = Path("web/node_modules/mapshaper/bin/mapshaper")
 WIDTH = 600.0  # SVG units across Scotland's bounding box
@@ -118,6 +119,7 @@ def zone_points(out: Path, table: Path) -> list[dict]:
     feats = json.loads(out.read_text(encoding="utf-8"))["features"]
     return [
         {
+            "code": f["properties"]["DataZone"],
             "x": f["geometry"]["coordinates"][0],
             "y": f["geometry"]["coordinates"][1],
             "name": f["properties"]["name"],
@@ -130,6 +132,34 @@ def zone_points(out: Path, table: Path) -> list[dict]:
         for f in feats
         if f["geometry"]
     ]
+
+
+def write_postcodes(folder: Path, zone_index: dict[str, int]) -> int:
+    """Postcode to neighbourhood, one small JSON file per postcode area (G, EH, AB, ...).
+
+    The page loads only the area a reader types, so the 200,000-odd postcodes never load at once.
+
+    Args:
+        folder: Where to write {AREA}.json files ({postcode without spaces: zone index}).
+        zone_index: Zone index by data zone code, in geo.json's zone order.
+
+    Returns:
+        The number of postcodes written.
+    """
+    ws = openpyxl.load_workbook(POSTCODES, read_only=True)["All postcodes"]
+    areas: dict[str, dict[str, int]] = {}
+    for pc, dz, *_ in ws.iter_rows(min_row=2, values_only=True):
+        if not pc or dz not in zone_index:
+            continue
+        key = "".join(pc.split()).upper()
+        area = "".join(ch for ch in key[:2] if ch.isalpha())
+        areas.setdefault(area, {})[key] = zone_index[dz]
+    folder.mkdir(parents=True, exist_ok=True)
+    for area, table in areas.items():
+        (folder / f"{area}.json").write_text(
+            json.dumps(table, separators=(",", ":")), encoding="utf-8"
+        )
+    return sum(len(t) for t in areas.values())
 
 
 def rings(geometry: dict) -> list[list[list[float]]]:
@@ -283,6 +313,8 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(geo, separators=(",", ":")) + "\n", encoding="utf-8")
     # the seven domain ranks per zone, in zone order: loaded by the page after first paint
+    n = write_postcodes(out.parent / "postcodes", {p["code"]: i for i, p in enumerate(points)})
+    print(f"wrote {n} postcodes")
     detail = out.with_name("domains.json")
     detail.write_text(
         json.dumps({"domains": list(DOMAINS.values()), "ranks": [p["domains"] for p in points]},

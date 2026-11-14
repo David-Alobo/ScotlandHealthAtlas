@@ -26,6 +26,13 @@
         <p class="lede">Every dot on this map is a neighbourhood of about 800 people:
           <span data-fact="zonesTotal"></span> of them. The brighter the dot, the more deprived the
           neighbourhood.</p>
+        <form class="search" role="search" autocomplete="off">
+          <label><span>Find your neighbourhood</span>
+            <input type="search" name="q" placeholder="Postcode or neighbourhood name"
+              ></label>
+          <ul class="search-results" role="listbox" aria-label="Matching neighbourhoods"></ul>
+          <p class="search-msg" aria-live="polite"></p>
+        </form>
         <div class="day">
           <p data-fact="dayHeading"></p>
           <div><b data-fact="dayAe"></b><span data-fact="dayAeLabel"></span></div>
@@ -166,6 +173,13 @@
             <select id="council-select"><option value="">Choose a council area</option></select>
           </label>
           <p id="council-sentence" class="sentence" aria-live="polite"></p>
+          <form class="search" role="search" autocomplete="off">
+            <label><span>Find your neighbourhood</span>
+              <input type="search" name="q" placeholder="Postcode or neighbourhood name"
+                ></label>
+            <ul class="search-results" role="listbox" aria-label="Matching neighbourhoods"></ul>
+            <p class="search-msg" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 

@@ -178,3 +178,11 @@ describe("neighbourhood card", () => {
     expect(detail.ranks.every((r) => r.length === 7 && r.every((v) => v >= 1 && v <= 6976))).toBe(true);
   });
 });
+
+describe("ordinal with thousands", () => {
+  it("separates thousands", async () => {
+    const { ordinal } = await import("../js/stage.js");
+    expect(ordinal(3349)).toBe("3,349th");
+    expect(ordinal(6971)).toBe("6,971st");
+  });
+});

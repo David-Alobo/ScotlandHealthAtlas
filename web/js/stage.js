@@ -125,11 +125,11 @@ export function councilSentence(name, councils, scotland) {
   );
 }
 
-/** 1 -> "1st", 2 -> "2nd", 11 -> "11th", 23 -> "23rd". */
+/** 1 -> "1st", 2 -> "2nd", 11 -> "11th", 23 -> "23rd", 3349 -> "3,349th". */
 export function ordinal(n) {
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  return n.toLocaleString("en-GB") + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
 /** A grid index over points [[x, y, ...]] for fast nearest-point lookups. */
