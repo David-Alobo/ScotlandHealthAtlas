@@ -1,0 +1,2259 @@
+[
+ {
+  "name": "ae_activity",
+  "file": "data/raw/data-viz-2026/data/A&E/Level_1_Activity.csv",
+  "rows": 39744,
+  "columns": [
+   {
+    "name": "Month",
+    "type": "BIGINT",
+    "distinct": 228,
+    "missing": 0,
+    "min": "200707",
+    "max": "202606"
+   },
+   {
+    "name": "HBName",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 0,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      2410
+     ],
+     [
+      "NHS Borders",
+      1781
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      2254
+     ],
+     [
+      "NHS Fife",
+      2059
+     ],
+     [
+      "NHS Forth Valley",
+      988
+     ],
+     [
+      "NHS Grampian",
+      6453
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      4293
+     ],
+     [
+      "NHS Highland",
+      8611
+     ],
+     [
+      "NHS Lanarkshire",
+      2124
+     ],
+     [
+      "NHS Lothian",
+      2370
+     ],
+     [
+      "NHS Orkney",
+      523
+     ],
+     [
+      "NHS Shetland",
+      523
+     ],
+     [
+      "NHS Tayside",
+      3853
+     ],
+     [
+      "NHS Western Isles",
+      1502
+     ]
+    ]
+   },
+   {
+    "name": "DepartmentType",
+    "type": "VARCHAR",
+    "distinct": 2,
+    "missing": 0,
+    "min": "Type 1",
+    "max": "Type 3",
+    "values": [
+     [
+      "Type 1",
+      15699
+     ],
+     [
+      "Type 3",
+      24045
+     ]
+    ]
+   },
+   {
+    "name": "HospitalName",
+    "type": "VARCHAR",
+    "distinct": 87,
+    "missing": 2946,
+    "min": "Aberdeen Royal Infirmary",
+    "max": "Whitehills Health and Community Care Centre"
+   },
+   {
+    "name": "AddressLine1",
+    "type": "VARCHAR",
+    "distinct": 85,
+    "missing": 2946,
+    "min": "1053 Great Western Road",
+    "max": "Whitefield Road"
+   },
+   {
+    "name": "AddressLine2",
+    "type": "VARCHAR",
+    "distinct": 74,
+    "missing": 6118,
+    "min": "Aberdeen",
+    "max": "Wishaw"
+   },
+   {
+    "name": "Postcode",
+    "type": "VARCHAR",
+    "distinct": 87,
+    "missing": 2946,
+    "min": "AB252ZG",
+    "max": "ZE1 0TB"
+   },
+   {
+    "name": "AttendanceCategory",
+    "type": "VARCHAR",
+    "distinct": 3,
+    "missing": 0,
+    "min": "All",
+    "max": "Unplanned",
+    "values": [
+     [
+      "All",
+      18839
+     ],
+     [
+      "New planned",
+      2066
+     ],
+     [
+      "Unplanned",
+      18839
+     ]
+    ]
+   },
+   {
+    "name": "NumberOfAttendancesAll",
+    "type": "BIGINT",
+    "distinct": 5642,
+    "missing": 0,
+    "min": "1",
+    "max": "11920"
+   },
+   {
+    "name": "NumberWithin4HoursAll",
+    "type": "BIGINT",
+    "distinct": 5228,
+    "missing": 0,
+    "min": "0",
+    "max": "10130"
+   },
+   {
+    "name": "NumberOver4HoursAll",
+    "type": "BIGINT",
+    "distinct": 2128,
+    "missing": 0,
+    "min": "-27",
+    "max": "5963"
+   },
+   {
+    "name": "PercentageWithin4HoursAll",
+    "type": "DOUBLE",
+    "distinct": 614,
+    "missing": 0,
+    "min": "0.0",
+    "max": "139.1"
+   },
+   {
+    "name": "NumberOfAttendancesEpisode",
+    "type": "DOUBLE",
+    "distinct": 5613,
+    "missing": 16926,
+    "min": "1.0",
+    "max": "11920.0"
+   },
+   {
+    "name": "NumberWithin4HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 5189,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "10130.0"
+   },
+   {
+    "name": "NumberOver4HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 2127,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "5963.0"
+   },
+   {
+    "name": "PercentageWithin4HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 613,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "100.0"
+   },
+   {
+    "name": "NumberOver8HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 1121,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "2893.0"
+   },
+   {
+    "name": "PercentageOver8HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 321,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "100.0"
+   },
+   {
+    "name": "NumberOver12HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 639,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "1709.0"
+   },
+   {
+    "name": "PercentageOver12HoursEpisode",
+    "type": "DOUBLE",
+    "distinct": 189,
+    "missing": 16926,
+    "min": "0.0",
+    "max": "33.3"
+   }
+  ]
+ },
+ {
+  "name": "ae_demographics",
+  "file": "data/raw/data-viz-2026/data/A&E/Level_2_Demographics.csv",
+  "rows": 139269,
+  "columns": [
+   {
+    "name": "Month",
+    "type": "BIGINT",
+    "distinct": 102,
+    "missing": 0,
+    "min": "201801",
+    "max": "202606"
+   },
+   {
+    "name": "HBName",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 0,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      7306
+     ],
+     [
+      "NHS Borders",
+      7382
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      7572
+     ],
+     [
+      "NHS Fife",
+      14118
+     ],
+     [
+      "NHS Forth Valley",
+      14310
+     ],
+     [
+      "NHS Grampian",
+      9724
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      14730
+     ],
+     [
+      "NHS Highland",
+      10233
+     ],
+     [
+      "NHS Lanarkshire",
+      7853
+     ],
+     [
+      "NHS Lothian",
+      14379
+     ],
+     [
+      "NHS Orkney",
+      5269
+     ],
+     [
+      "NHS Shetland",
+      4432
+     ],
+     [
+      "NHS Tayside",
+      14106
+     ],
+     [
+      "NHS Western Isles",
+      7855
+     ]
+    ]
+   },
+   {
+    "name": "DepartmentType",
+    "type": "VARCHAR",
+    "distinct": 2,
+    "missing": 0,
+    "min": "Type 1",
+    "max": "Type 3",
+    "values": [
+     [
+      "Type 1",
+      94978
+     ],
+     [
+      "Type 3",
+      44291
+     ]
+    ]
+   },
+   {
+    "name": "Age",
+    "type": "VARCHAR",
+    "distinct": 6,
+    "missing": 2188,
+    "min": "18-24",
+    "max": "Under 18",
+    "values": [
+     [
+      "18-24",
+      22325
+     ],
+     [
+      "25-39",
+      23358
+     ],
+     [
+      "40-64",
+      23829
+     ],
+     [
+      "65-74",
+      22384
+     ],
+     [
+      "75 plus",
+      22213
+     ],
+     [
+      "Under 18",
+      22972
+     ],
+     [
+      "None",
+      2188
+     ]
+    ]
+   },
+   {
+    "name": "Sex",
+    "type": "VARCHAR",
+    "distinct": 2,
+    "missing": 2188,
+    "min": "Female",
+    "max": "Male",
+    "values": [
+     [
+      "Female",
+      68313
+     ],
+     [
+      "Male",
+      68768
+     ],
+     [
+      "None",
+      2188
+     ]
+    ]
+   },
+   {
+    "name": "Deprivation",
+    "type": "DOUBLE",
+    "distinct": 5,
+    "missing": 19096,
+    "min": "1.0",
+    "max": "5.0",
+    "values": [
+     [
+      "1.0",
+      21728
+     ],
+     [
+      "2.0",
+      25459
+     ],
+     [
+      "3.0",
+      25799
+     ],
+     [
+      "4.0",
+      24615
+     ],
+     [
+      "5.0",
+      22572
+     ],
+     [
+      "None",
+      19096
+     ]
+    ]
+   },
+   {
+    "name": "NumberOfAttendances",
+    "type": "BIGINT",
+    "distinct": 1397,
+    "missing": 0,
+    "min": "1",
+    "max": "2412"
+   }
+  ]
+ },
+ {
+  "name": "injury_admissions",
+  "file": "data/raw/data-viz-2026/data/Unintentional_Injuries/Admissions.csv",
+  "rows": 237951,
+  "columns": [
+   {
+    "name": "Dataset",
+    "type": "VARCHAR",
+    "distinct": 1,
+    "missing": 0,
+    "min": "Admissions",
+    "max": "Admissions",
+    "values": [
+     [
+      "Admissions",
+      237951
+     ]
+    ]
+   },
+   {
+    "name": "Year Type",
+    "type": "VARCHAR",
+    "distinct": 1,
+    "missing": 0,
+    "min": "Financial",
+    "max": "Financial",
+    "values": [
+     [
+      "Financial",
+      237951
+     ]
+    ]
+   },
+   {
+    "name": "Year",
+    "type": "VARCHAR",
+    "distinct": 10,
+    "missing": 0,
+    "min": "2015/16",
+    "max": "2024/25",
+    "values": [
+     [
+      "2015/16",
+      24290
+     ],
+     [
+      "2016/17",
+      24311
+     ],
+     [
+      "2017/18",
+      24654
+     ],
+     [
+      "2018/19",
+      24234
+     ],
+     [
+      "2019/20",
+      24388
+     ],
+     [
+      "2020/21",
+      22106
+     ],
+     [
+      "2021/22",
+      23492
+     ],
+     [
+      "2022/23",
+      23128
+     ],
+     [
+      "2023/24",
+      23849
+     ],
+     [
+      "2024/25",
+      23499
+     ]
+    ]
+   },
+   {
+    "name": "AgeGroup",
+    "type": "VARCHAR",
+    "distinct": 8,
+    "missing": 0,
+    "min": "0-4 years",
+    "max": "75plus years",
+    "values": [
+     [
+      "0-4 years",
+      20377
+     ],
+     [
+      "10-14 years",
+      24248
+     ],
+     [
+      "15-24 years",
+      28721
+     ],
+     [
+      "25-44 years",
+      34279
+     ],
+     [
+      "45-64 years",
+      37163
+     ],
+     [
+      "5-9 years",
+      24213
+     ],
+     [
+      "65-74 years",
+      33355
+     ],
+     [
+      "75plus years",
+      35595
+     ]
+    ]
+   },
+   {
+    "name": "Sex",
+    "type": "VARCHAR",
+    "distinct": 2,
+    "missing": 0,
+    "min": "Female",
+    "max": "Male",
+    "values": [
+     [
+      "Female",
+      110306
+     ],
+     [
+      "Male",
+      127645
+     ]
+    ]
+   },
+   {
+    "name": "InjuryLocation",
+    "type": "VARCHAR",
+    "distinct": 12,
+    "missing": 0,
+    "min": "Farm",
+    "max": "Unspecified place",
+    "values": [
+     [
+      "Farm",
+      6454
+     ],
+     [
+      "Home",
+      34391
+     ],
+     [
+      "Industrial and construction area",
+      6321
+     ],
+     [
+      "Not Applicable",
+      31871
+     ],
+     [
+      "Other specified places",
+      28658
+     ],
+     [
+      "Residential Institute",
+      11991
+     ],
+     [
+      "School",
+      22897
+     ],
+     [
+      "Sports and athletics area",
+      19670
+     ],
+     [
+      "Street and highway",
+      22617
+     ],
+     [
+      "Trade and service area",
+      17724
+     ],
+     [
+      "Undisclosed",
+      133
+     ],
+     [
+      "Unspecified place",
+      35224
+     ]
+    ]
+   },
+   {
+    "name": "InjuryType",
+    "type": "VARCHAR",
+    "distinct": 7,
+    "missing": 0,
+    "min": "Crushing",
+    "max": "Struck by, against",
+    "values": [
+     [
+      "Crushing",
+      33993
+     ],
+     [
+      "Falls",
+      33993
+     ],
+     [
+      "Other",
+      33993
+     ],
+     [
+      "Poisoning",
+      33993
+     ],
+     [
+      "RTI",
+      33993
+     ],
+     [
+      "Scalds",
+      33993
+     ],
+     [
+      "Struck by, against",
+      33993
+     ]
+    ]
+   },
+   {
+    "name": "Number",
+    "type": "BIGINT",
+    "distinct": 355,
+    "missing": 0,
+    "min": "0",
+    "max": "922"
+   },
+   {
+    "name": "HBR",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 0,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      23184
+     ],
+     [
+      "NHS Borders",
+      7539
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      8694
+     ],
+     [
+      "NHS Fife",
+      9520
+     ],
+     [
+      "NHS Forth Valley",
+      20286
+     ],
+     [
+      "NHS Grampian",
+      24031
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      44016
+     ],
+     [
+      "NHS Highland",
+      15092
+     ],
+     [
+      "NHS Lanarkshire",
+      17150
+     ],
+     [
+      "NHS Lothian",
+      30681
+     ],
+     [
+      "NHS Orkney",
+      3997
+     ],
+     [
+      "NHS Shetland",
+      4333
+     ],
+     [
+      "NHS Tayside",
+      24969
+     ],
+     [
+      "NHS Western Isles",
+      4459
+     ]
+    ]
+   },
+   {
+    "name": "CAName",
+    "type": "VARCHAR",
+    "distinct": 32,
+    "missing": 0,
+    "min": "Aberdeen City",
+    "max": "West Lothian"
+   },
+   {
+    "name": "HSCPName",
+    "type": "VARCHAR",
+    "distinct": 31,
+    "missing": 0,
+    "min": "Aberdeen City",
+    "max": "Western Isles"
+   }
+  ]
+ },
+ {
+  "name": "injury_deaths",
+  "file": "data/raw/data-viz-2026/data/Unintentional_Injuries/Deaths.csv",
+  "rows": 45836,
+  "columns": [
+   {
+    "name": "Dataset",
+    "type": "VARCHAR",
+    "distinct": 1,
+    "missing": 0,
+    "min": "Deaths",
+    "max": "Deaths",
+    "values": [
+     [
+      "Deaths",
+      45836
+     ]
+    ]
+   },
+   {
+    "name": "Year Type",
+    "type": "VARCHAR",
+    "distinct": 1,
+    "missing": 0,
+    "min": "Calendar",
+    "max": "Calendar",
+    "values": [
+     [
+      "Calendar",
+      45836
+     ]
+    ]
+   },
+   {
+    "name": "Year",
+    "type": "BIGINT",
+    "distinct": 10,
+    "missing": 0,
+    "min": "2015",
+    "max": "2024",
+    "values": [
+     [
+      "2015",
+      4515
+     ],
+     [
+      "2016",
+      4634
+     ],
+     [
+      "2017",
+      4459
+     ],
+     [
+      "2018",
+      4382
+     ],
+     [
+      "2019",
+      4718
+     ],
+     [
+      "2020",
+      4655
+     ],
+     [
+      "2021",
+      4515
+     ],
+     [
+      "2022",
+      4515
+     ],
+     [
+      "2023",
+      4704
+     ],
+     [
+      "2024",
+      4739
+     ]
+    ]
+   },
+   {
+    "name": "AgeGroup",
+    "type": "VARCHAR",
+    "distinct": 8,
+    "missing": 0,
+    "min": "0-4 years",
+    "max": "75plus years",
+    "values": [
+     [
+      "0-4 years",
+      497
+     ],
+     [
+      "10-14 years",
+      301
+     ],
+     [
+      "15-24 years",
+      4102
+     ],
+     [
+      "25-44 years",
+      9954
+     ],
+     [
+      "45-64 years",
+      10745
+     ],
+     [
+      "5-9 years",
+      140
+     ],
+     [
+      "65-74 years",
+      7371
+     ],
+     [
+      "75plus years",
+      12726
+     ]
+    ]
+   },
+   {
+    "name": "Sex",
+    "type": "VARCHAR",
+    "distinct": 2,
+    "missing": 0,
+    "min": "Female",
+    "max": "Male",
+    "values": [
+     [
+      "Female",
+      18641
+     ],
+     [
+      "Male",
+      27195
+     ]
+    ]
+   },
+   {
+    "name": "InjuryLocation",
+    "type": "VARCHAR",
+    "distinct": 12,
+    "missing": 0,
+    "min": "Farm",
+    "max": "Unspecified place",
+    "values": [
+     [
+      "Farm",
+      238
+     ],
+     [
+      "Home",
+      14868
+     ],
+     [
+      "Industrial and construction area",
+      343
+     ],
+     [
+      "Not applicable",
+      8505
+     ],
+     [
+      "Other specified places",
+      3486
+     ],
+     [
+      "Residential Institute",
+      3031
+     ],
+     [
+      "School",
+      679
+     ],
+     [
+      "Sports and athletics area",
+      63
+     ],
+     [
+      "Street and highway",
+      581
+     ],
+     [
+      "Trade and service area",
+      861
+     ],
+     [
+      "Undisclosed",
+      147
+     ],
+     [
+      "Unspecified place",
+      13034
+     ]
+    ]
+   },
+   {
+    "name": "InjuryType",
+    "type": "VARCHAR",
+    "distinct": 7,
+    "missing": 0,
+    "min": "Crushing",
+    "max": "Struck by, against",
+    "values": [
+     [
+      "Crushing",
+      6548
+     ],
+     [
+      "Falls",
+      6548
+     ],
+     [
+      "Land transport accidents",
+      6548
+     ],
+     [
+      "Other",
+      6548
+     ],
+     [
+      "Poisoning",
+      6548
+     ],
+     [
+      "Scalds",
+      6548
+     ],
+     [
+      "Struck by, against",
+      6548
+     ]
+    ]
+   },
+   {
+    "name": "Number",
+    "type": "BIGINT",
+    "distinct": 62,
+    "missing": 0,
+    "min": "0",
+    "max": "97"
+   },
+   {
+    "name": "HBR",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 0,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      4074
+     ],
+     [
+      "NHS Borders",
+      1463
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      1617
+     ],
+     [
+      "NHS Fife",
+      2219
+     ],
+     [
+      "NHS Forth Valley",
+      3703
+     ],
+     [
+      "NHS Grampian",
+      4837
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      8582
+     ],
+     [
+      "NHS Highland",
+      3612
+     ],
+     [
+      "NHS Lanarkshire",
+      4088
+     ],
+     [
+      "NHS Lothian",
+      5894
+     ],
+     [
+      "NHS Orkney",
+      455
+     ],
+     [
+      "NHS Shetland",
+      462
+     ],
+     [
+      "NHS Tayside",
+      4242
+     ],
+     [
+      "NHS Western Isles",
+      588
+     ]
+    ]
+   },
+   {
+    "name": "CAName",
+    "type": "VARCHAR",
+    "distinct": 32,
+    "missing": 0,
+    "min": "Aberdeen City",
+    "max": "West Lothian"
+   },
+   {
+    "name": "HSCPName",
+    "type": "VARCHAR",
+    "distinct": 31,
+    "missing": 0,
+    "min": "Aberdeen City",
+    "max": "Western Isles"
+   }
+  ]
+ },
+ {
+  "name": "prescribing_a",
+  "file": "data/raw/data-viz-2026/data/Prescribing/File_A_2019-21.csv",
+  "rows": 966738,
+  "columns": [
+   {
+    "name": "PaidDateMonth",
+    "type": "BIGINT",
+    "distinct": 36,
+    "missing": 0,
+    "min": "201901",
+    "max": "202112"
+   },
+   {
+    "name": "DispLocationCode",
+    "type": "BIGINT",
+    "distinct": 1399,
+    "missing": 0,
+    "min": "1030",
+    "max": "90204"
+   },
+   {
+    "name": "BNFChapter",
+    "type": "BIGINT",
+    "distinct": 21,
+    "missing": 0,
+    "min": "0",
+    "max": "23",
+    "values": [
+     [
+      "0",
+      47944
+     ],
+     [
+      "1",
+      48354
+     ],
+     [
+      "10",
+      48351
+     ],
+     [
+      "11",
+      48324
+     ],
+     [
+      "12",
+      48294
+     ],
+     [
+      "13",
+      48345
+     ],
+     [
+      "14",
+      23103
+     ],
+     [
+      "15",
+      46698
+     ],
+     [
+      "19",
+      39608
+     ],
+     [
+      "2",
+      48344
+     ],
+     [
+      "20",
+      48203
+     ],
+     [
+      "21",
+      48630
+     ],
+     [
+      "22",
+      39725
+     ],
+     [
+      "23",
+      44710
+     ],
+     [
+      "3",
+      48347
+     ],
+     [
+      "4",
+      48353
+     ],
+     [
+      "5",
+      48349
+     ],
+     [
+      "6",
+      48344
+     ],
+     [
+      "7",
+      48319
+     ],
+     [
+      "8",
+      48077
+     ],
+     [
+      "9",
+      48316
+     ]
+    ]
+   },
+   {
+    "name": "Chapter Description",
+    "type": "VARCHAR",
+    "distinct": 21,
+    "missing": 0,
+    "min": "ANAESTHESIA",
+    "max": "STOMA APPLIANCES",
+    "values": [
+     [
+      "ANAESTHESIA",
+      46698
+     ],
+     [
+      "APPLIANCES",
+      48630
+     ],
+     [
+      "CARDIOVASCULAR SYSTEM",
+      48344
+     ],
+     [
+      "CENTRAL NERVOUS SYSTEM",
+      48353
+     ],
+     [
+      "DRESSINGS",
+      48203
+     ],
+     [
+      "EAR, NOSE AND OROPHARYNX",
+      48294
+     ],
+     [
+      "ENDOCRINE SYSTEM",
+      48344
+     ],
+     [
+      "EYE",
+      48324
+     ],
+     [
+      "GASTRO-INTESTINAL SYSTEM",
+      48354
+     ],
+     [
+      "IMMUNOLOGICAL PRODUCTS AND VACCINES",
+      23103
+     ],
+     [
+      "INCONTINENCE APPLIANCES",
+      39725
+     ],
+     [
+      "INFECTIONS",
+      48349
+     ],
+     [
+      "MALIGNANT DISEASE AND IMMUNOSUPPRESSION",
+      48077
+     ],
+     [
+      "MUSCULOSKELETAL AND JOINT DISEASES",
+      48351
+     ],
+     [
+      "Missing",
+      47944
+     ],
+     [
+      "NUTRITION AND BLOOD",
+      48316
+     ],
+     [
+      "OBSTETRICS, GYNAECOLOGY AND URINARY-TRAC",
+      48319
+     ],
+     [
+      "OTHER DRUGS AND PREPARATIONS",
+      39608
+     ],
+     [
+      "RESPIRATORY SYSTEM",
+      48347
+     ],
+     [
+      "SKIN",
+      48345
+     ],
+     [
+      "STOMA APPLIANCES",
+      44710
+     ]
+    ]
+   },
+   {
+    "name": "NumberOfPaidItems",
+    "type": "BIGINT",
+    "distinct": 4481,
+    "missing": 0,
+    "min": "1",
+    "max": "6482"
+   },
+   {
+    "name": "PaidQuantity",
+    "type": "DOUBLE",
+    "distinct": 138257,
+    "missing": 0,
+    "min": "1.0",
+    "max": "889403.5"
+   },
+   {
+    "name": "GrossIngredientCost",
+    "type": "DOUBLE",
+    "distinct": 512736,
+    "missing": 0,
+    "min": "0.0",
+    "max": "385023.35"
+   },
+   {
+    "name": "DispLocationAddress1",
+    "type": "VARCHAR",
+    "distinct": 986,
+    "missing": 230344,
+    "min": "1 ALPIN ROAD",
+    "max": "YELL HEALTH CENTRE"
+   },
+   {
+    "name": "DispLocationAddress2",
+    "type": "VARCHAR",
+    "distinct": 659,
+    "missing": 231010,
+    "min": "1 CENTRE PARK COURT",
+    "max": "WOODSIDE ROAD"
+   },
+   {
+    "name": "DispLocationAddress3",
+    "type": "VARCHAR",
+    "distinct": 223,
+    "missing": 635016,
+    "min": "(UNIT 4 CRADLEHALL SHOPPING CENTRE)",
+    "max": "WISHAW"
+   },
+   {
+    "name": "DispLocationAddress4",
+    "type": "VARCHAR",
+    "distinct": 66,
+    "missing": 891298,
+    "min": "ABERDEEN",
+    "max": "WIGTOWNSHIRE"
+   },
+   {
+    "name": "DispLocationPostcode",
+    "type": "VARCHAR",
+    "distinct": 1023,
+    "missing": 229605,
+    "min": "AB101HW",
+    "max": "ZE2 9RW"
+   },
+   {
+    "name": "HSCPName",
+    "type": "VARCHAR",
+    "distinct": 31,
+    "missing": 229605,
+    "min": "Aberdeen City",
+    "max": "Western Isles"
+   },
+   {
+    "name": "HBName",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 229605,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      59745
+     ],
+     [
+      "NHS Borders",
+      19649
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      22500
+     ],
+     [
+      "NHS Fife",
+      47753
+     ],
+     [
+      "NHS Forth Valley",
+      42806
+     ],
+     [
+      "NHS Grampian",
+      83686
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      155421
+     ],
+     [
+      "NHS Highland",
+      61687
+     ],
+     [
+      "NHS Lanarkshire",
+      79447
+     ],
+     [
+      "NHS Lothian",
+      89875
+     ],
+     [
+      "NHS Orkney",
+      3582
+     ],
+     [
+      "NHS Shetland",
+      6366
+     ],
+     [
+      "NHS Tayside",
+      57399
+     ],
+     [
+      "NHS Western Isles",
+      7217
+     ],
+     [
+      "None",
+      229605
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "name": "prescribing_b",
+  "file": "data/raw/data-viz-2026/data/Prescribing/File_B_2022-24.csv",
+  "rows": 946782,
+  "columns": [
+   {
+    "name": "PaidDateMonth",
+    "type": "BIGINT",
+    "distinct": 36,
+    "missing": 0,
+    "min": "202201",
+    "max": "202412"
+   },
+   {
+    "name": "DispLocationCode",
+    "type": "BIGINT",
+    "distinct": 1603,
+    "missing": 0,
+    "min": "1030",
+    "max": "90204"
+   },
+   {
+    "name": "BNFChapter",
+    "type": "BIGINT",
+    "distinct": 22,
+    "missing": 0,
+    "min": "0",
+    "max": "23",
+    "values": [
+     [
+      "0",
+      46582
+     ],
+     [
+      "1",
+      48237
+     ],
+     [
+      "10",
+      48224
+     ],
+     [
+      "11",
+      48185
+     ],
+     [
+      "12",
+      48184
+     ],
+     [
+      "13",
+      48219
+     ],
+     [
+      "14",
+      9274
+     ],
+     [
+      "15",
+      47184
+     ],
+     [
+      "18",
+      2
+     ],
+     [
+      "19",
+      37105
+     ],
+     [
+      "2",
+      48235
+     ],
+     [
+      "20",
+      47663
+     ],
+     [
+      "21",
+      48503
+     ],
+     [
+      "22",
+      39389
+     ],
+     [
+      "23",
+      44591
+     ],
+     [
+      "3",
+      48233
+     ],
+     [
+      "4",
+      48257
+     ],
+     [
+      "5",
+      48228
+     ],
+     [
+      "6",
+      48215
+     ],
+     [
+      "7",
+      48195
+     ],
+     [
+      "8",
+      47872
+     ],
+     [
+      "9",
+      48205
+     ]
+    ]
+   },
+   {
+    "name": "Chapter Description",
+    "type": "VARCHAR",
+    "distinct": 22,
+    "missing": 0,
+    "min": "ANAESTHESIA",
+    "max": "STOMA APPLIANCES",
+    "values": [
+     [
+      "ANAESTHESIA",
+      47184
+     ],
+     [
+      "APPLIANCES",
+      48503
+     ],
+     [
+      "CARDIOVASCULAR SYSTEM",
+      48235
+     ],
+     [
+      "CENTRAL NERVOUS SYSTEM",
+      48257
+     ],
+     [
+      "DRESSINGS",
+      47663
+     ],
+     [
+      "EAR, NOSE AND OROPHARYNX",
+      48184
+     ],
+     [
+      "ENDOCRINE SYSTEM",
+      48215
+     ],
+     [
+      "EYE",
+      48185
+     ],
+     [
+      "GASTRO-INTESTINAL SYSTEM",
+      48237
+     ],
+     [
+      "IMMUNOLOGICAL PRODUCTS AND VACCINES",
+      9274
+     ],
+     [
+      "INCONTINENCE APPLIANCES",
+      39389
+     ],
+     [
+      "INFECTIONS",
+      48228
+     ],
+     [
+      "MALIGNANT DISEASE AND IMMUNOSUPPRESSION",
+      47872
+     ],
+     [
+      "MUSCULOSKELETAL AND JOINT DISEASES",
+      48224
+     ],
+     [
+      "Missing",
+      46582
+     ],
+     [
+      "NUTRITION AND BLOOD",
+      48205
+     ],
+     [
+      "OBSTETRICS, GYNAECOLOGY AND URINARY-TRAC",
+      48195
+     ],
+     [
+      "OTHER DRUGS AND PREPARATIONS",
+      37105
+     ],
+     [
+      "PREPARATIONS USED IN DIAGNOSIS",
+      2
+     ],
+     [
+      "RESPIRATORY SYSTEM",
+      48233
+     ],
+     [
+      "SKIN",
+      48219
+     ],
+     [
+      "STOMA APPLIANCES",
+      44591
+     ]
+    ]
+   },
+   {
+    "name": "NumberOfPaidItems",
+    "type": "BIGINT",
+    "distinct": 4741,
+    "missing": 0,
+    "min": "1",
+    "max": "11496"
+   },
+   {
+    "name": "PaidQuantity",
+    "type": "DOUBLE",
+    "distinct": 175740,
+    "missing": 0,
+    "min": "0.0",
+    "max": "3876282.0"
+   },
+   {
+    "name": "GrossIngredientCost",
+    "type": "DOUBLE",
+    "distinct": 532423,
+    "missing": 0,
+    "min": "0.0",
+    "max": "810280.28"
+   },
+   {
+    "name": "DispLocationAddress1",
+    "type": "VARCHAR",
+    "distinct": 1212,
+    "missing": 124878,
+    "min": "1 ALPIN ROAD",
+    "max": "YELL HEALTH CENTRE"
+   },
+   {
+    "name": "DispLocationAddress2",
+    "type": "VARCHAR",
+    "distinct": 766,
+    "missing": 124999,
+    "min": "1 CENTRE PARK COURT",
+    "max": "YOKER"
+   },
+   {
+    "name": "DispLocationAddress3",
+    "type": "VARCHAR",
+    "distinct": 257,
+    "missing": 572799,
+    "min": "(UNIT 4 CRADLEHALL SHOPPING CENTRE)",
+    "max": "WISHAW"
+   },
+   {
+    "name": "DispLocationAddress4",
+    "type": "VARCHAR",
+    "distinct": 74,
+    "missing": 863658,
+    "min": "ABERDEEN",
+    "max": "WIGTOWNSHIRE"
+   },
+   {
+    "name": "DispLocationPostcode",
+    "type": "VARCHAR",
+    "distinct": 1254,
+    "missing": 124149,
+    "min": "AB101HW",
+    "max": "ZE2 9RW"
+   },
+   {
+    "name": "HSCPName",
+    "type": "VARCHAR",
+    "distinct": 31,
+    "missing": 124149,
+    "min": "Aberdeen City",
+    "max": "Western Isles"
+   },
+   {
+    "name": "HBName",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 124149,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      65315
+     ],
+     [
+      "NHS Borders",
+      20110
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      26102
+     ],
+     [
+      "NHS Fife",
+      54762
+     ],
+     [
+      "NHS Forth Valley",
+      48180
+     ],
+     [
+      "NHS Grampian",
+      88169
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      173050
+     ],
+     [
+      "NHS Highland",
+      70534
+     ],
+     [
+      "NHS Lanarkshire",
+      90665
+     ],
+     [
+      "NHS Lothian",
+      106756
+     ],
+     [
+      "NHS Orkney",
+      3556
+     ],
+     [
+      "NHS Shetland",
+      6284
+     ],
+     [
+      "NHS Tayside",
+      61961
+     ],
+     [
+      "NHS Western Isles",
+      7189
+     ],
+     [
+      "None",
+      124149
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "name": "prescribing_c",
+  "file": "data/raw/data-viz-2026/data/Prescribing/File_C_2025-26.csv",
+  "rows": 440542,
+  "columns": [
+   {
+    "name": "PaidDateMonth",
+    "type": "BIGINT",
+    "distinct": 17,
+    "missing": 0,
+    "min": "202501",
+    "max": "202605",
+    "values": [
+     [
+      "202501",
+      25862
+     ],
+     [
+      "202502",
+      25786
+     ],
+     [
+      "202503",
+      25815
+     ],
+     [
+      "202504",
+      25850
+     ],
+     [
+      "202505",
+      25862
+     ],
+     [
+      "202506",
+      25857
+     ],
+     [
+      "202507",
+      25909
+     ],
+     [
+      "202508",
+      25882
+     ],
+     [
+      "202509",
+      25933
+     ],
+     [
+      "202510",
+      26020
+     ],
+     [
+      "202511",
+      25957
+     ],
+     [
+      "202512",
+      25988
+     ],
+     [
+      "202601",
+      25983
+     ],
+     [
+      "202602",
+      25929
+     ],
+     [
+      "202603",
+      26018
+     ],
+     [
+      "202604",
+      25956
+     ],
+     [
+      "202605",
+      25935
+     ]
+    ]
+   },
+   {
+    "name": "DispLocationCode",
+    "type": "BIGINT",
+    "distinct": 1373,
+    "missing": 0,
+    "min": "1030",
+    "max": "90204"
+   },
+   {
+    "name": "BNFChapter",
+    "type": "BIGINT",
+    "distinct": 22,
+    "missing": 0,
+    "min": "0",
+    "max": "23",
+    "values": [
+     [
+      "0",
+      21190
+     ],
+     [
+      "1",
+      22590
+     ],
+     [
+      "10",
+      22586
+     ],
+     [
+      "11",
+      22568
+     ],
+     [
+      "12",
+      22558
+     ],
+     [
+      "13",
+      22590
+     ],
+     [
+      "14",
+      2436
+     ],
+     [
+      "15",
+      22184
+     ],
+     [
+      "18",
+      1
+     ],
+     [
+      "19",
+      17369
+     ],
+     [
+      "2",
+      22585
+     ],
+     [
+      "20",
+      22209
+     ],
+     [
+      "21",
+      22676
+     ],
+     [
+      "22",
+      18083
+     ],
+     [
+      "23",
+      20993
+     ],
+     [
+      "3",
+      22583
+     ],
+     [
+      "4",
+      22590
+     ],
+     [
+      "5",
+      22579
+     ],
+     [
+      "6",
+      22585
+     ],
+     [
+      "7",
+      22558
+     ],
+     [
+      "8",
+      22446
+     ],
+     [
+      "9",
+      22583
+     ]
+    ]
+   },
+   {
+    "name": "Chapter Description",
+    "type": "VARCHAR",
+    "distinct": 22,
+    "missing": 0,
+    "min": "ANAESTHESIA",
+    "max": "STOMA APPLIANCES",
+    "values": [
+     [
+      "ANAESTHESIA",
+      22184
+     ],
+     [
+      "APPLIANCES",
+      22676
+     ],
+     [
+      "CARDIOVASCULAR SYSTEM",
+      22585
+     ],
+     [
+      "CENTRAL NERVOUS SYSTEM",
+      22590
+     ],
+     [
+      "DRESSINGS",
+      22209
+     ],
+     [
+      "EAR, NOSE AND OROPHARYNX",
+      22558
+     ],
+     [
+      "ENDOCRINE SYSTEM",
+      22585
+     ],
+     [
+      "EYE",
+      22568
+     ],
+     [
+      "GASTRO-INTESTINAL SYSTEM",
+      22590
+     ],
+     [
+      "IMMUNOLOGICAL PRODUCTS AND VACCINES",
+      2436
+     ],
+     [
+      "INCONTINENCE APPLIANCES",
+      18083
+     ],
+     [
+      "INFECTIONS",
+      22579
+     ],
+     [
+      "MALIGNANT DISEASE AND IMMUNOSUPPRESSION",
+      22446
+     ],
+     [
+      "MUSCULOSKELETAL AND JOINT DISEASES",
+      22586
+     ],
+     [
+      "Missing",
+      21190
+     ],
+     [
+      "NUTRITION AND BLOOD",
+      22583
+     ],
+     [
+      "OBSTETRICS, GYNAECOLOGY AND URINARY-TRAC",
+      22558
+     ],
+     [
+      "OTHER DRUGS AND PREPARATIONS",
+      17369
+     ],
+     [
+      "PREPARATIONS USED IN DIAGNOSIS",
+      1
+     ],
+     [
+      "RESPIRATORY SYSTEM",
+      22583
+     ],
+     [
+      "SKIN",
+      22590
+     ],
+     [
+      "STOMA APPLIANCES",
+      20993
+     ]
+    ]
+   },
+   {
+    "name": "NumberOfPaidItems",
+    "type": "BIGINT",
+    "distinct": 4402,
+    "missing": 0,
+    "min": "1",
+    "max": "17150"
+   },
+   {
+    "name": "PaidQuantity",
+    "type": "DOUBLE",
+    "distinct": 137633,
+    "missing": 0,
+    "min": "0.0",
+    "max": "2017403.0"
+   },
+   {
+    "name": "GrossIngredientCost",
+    "type": "DOUBLE",
+    "distinct": 314395,
+    "missing": 0,
+    "min": "0.0",
+    "max": "845767.97"
+   },
+   {
+    "name": "DispLocationAddress1",
+    "type": "VARCHAR",
+    "distinct": 1251,
+    "missing": 8195,
+    "min": "1 ALPIN ROAD",
+    "max": "YELL HEALTH CENTRE"
+   },
+   {
+    "name": "DispLocationAddress2",
+    "type": "VARCHAR",
+    "distinct": 775,
+    "missing": 8456,
+    "min": "1 CENTRE PARK COURT",
+    "max": "YOKER"
+   },
+   {
+    "name": "DispLocationAddress3",
+    "type": "VARCHAR",
+    "distinct": 263,
+    "missing": 243070,
+    "min": "(UNIT 4 CRADLEHALL SHOPPING CENTRE)",
+    "max": "WISHAW"
+   },
+   {
+    "name": "DispLocationAddress4",
+    "type": "VARCHAR",
+    "distinct": 75,
+    "missing": 397378,
+    "min": "ABERDEEN",
+    "max": "WIGTOWNSHIRE"
+   },
+   {
+    "name": "DispLocationPostcode",
+    "type": "VARCHAR",
+    "distinct": 1291,
+    "missing": 7847,
+    "min": "AB101HW",
+    "max": "ZE2 9RW"
+   },
+   {
+    "name": "HSCPName",
+    "type": "VARCHAR",
+    "distinct": 31,
+    "missing": 7847,
+    "min": "Aberdeen City",
+    "max": "Western Isles"
+   },
+   {
+    "name": "HBName",
+    "type": "VARCHAR",
+    "distinct": 14,
+    "missing": 7847,
+    "min": "NHS Ayrshire and Arran",
+    "max": "NHS Western Isles",
+    "values": [
+     [
+      "NHS Ayrshire and Arran",
+      33759
+     ],
+     [
+      "NHS Borders",
+      10251
+     ],
+     [
+      "NHS Dumfries and Galloway",
+      14160
+     ],
+     [
+      "NHS Fife",
+      28656
+     ],
+     [
+      "NHS Forth Valley",
+      25680
+     ],
+     [
+      "NHS Grampian",
+      43851
+     ],
+     [
+      "NHS Greater Glasgow and Clyde",
+      91893
+     ],
+     [
+      "NHS Highland",
+      37711
+     ],
+     [
+      "NHS Lanarkshire",
+      47994
+     ],
+     [
+      "NHS Lothian",
+      58129
+     ],
+     [
+      "NHS Orkney",
+      1996
+     ],
+     [
+      "NHS Shetland",
+      3231
+     ],
+     [
+      "NHS Tayside",
+      32018
+     ],
+     [
+      "NHS Western Isles",
+      3366
+     ],
+     [
+      "None",
+      7847
+     ]
+    ]
+   }
+  ]
+ }
+]

@@ -21,7 +21,7 @@ built further as an open, reproducible atlas.
 
 ## Status
 
-Starting (14 November 2026): data downloaded; the data audit comes first.
+Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); next: population data for rates, and a shortlist of stories.
 
 ## Data
 
