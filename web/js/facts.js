@@ -80,6 +80,19 @@ export function facts(story) {
     rhoPoisoning: formatNum(councils.rho_poisoning_deaths, 2),
     rhoFalls: formatNum(councils.rho_falls_admissions, 2),
 
+    zonesTotal: formatInt(story.deprived_zones.total),
+    zonesQ1: formatInt(story.deprived_zones.total_q1),
+    glasgowQ1: formatInt(story.deprived_zones.by_council["Glasgow City"].q1),
+    glasgowShareOfQ1: pct(
+      story.deprived_zones.by_council["Glasgow City"].q1 / story.deprived_zones.total_q1,
+      0,
+    ),
+    glasgowQ1Pct: pct(
+      story.deprived_zones.by_council["Glasgow City"].q1 /
+        story.deprived_zones.by_council["Glasgow City"].zones,
+      0,
+    ),
+
     cnsQ1: cns ? pct(cns.q1) : "",
     cnsQ5: cns ? pct(cns.q5) : "",
     medicinesPeriod: medicines.period,

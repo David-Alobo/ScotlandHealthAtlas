@@ -25,6 +25,7 @@ The package's own README (`data/raw/data-viz-2026/README.md`) describes every co
 |---|---|---|---|---|
 | `simd2020v2_datazone_lookup_2025.xlsx` | Scottish Government | [SIMD 2020v2 data zone look-up](https://www.gov.scot/publications/scottish-index-of-multiple-deprivation-2020v2-data-zone-look-up/) | Open Government Licence v3.0 | 14 Nov 2026 |
 | `simd2020v2_postcode_lookup_2025.xlsx` | Scottish Government | [SIMD 2020v2 postcode look-up](https://www.gov.scot/publications/scottish-index-of-multiple-deprivation-2020v2-postcode-look-up/) | Open Government Licence v3.0 | 14 Nov 2026 |
+| `dz2011/` | Scottish Government | [Data zone boundaries 2011](https://maps.gov.scot/ATOM/shapefiles/SG_DataZoneBdry_2011.zip) (shapefile, British National Grid) | Open Government Licence v3.0 | 14 Nov 2026 |
 | `nrs_sape_2011dz/` rebased mid-2011 to mid-2021 (corrected) | National Records of Scotland | [Rebased small area population estimates 2011-2021 (2011 data zones)](https://www.nrscotland.gov.uk/publications/rebased-small-area-population-estimates-for-2011-to-2021-2011-data-zones) | Open Government Licence v3.0 | 14 Nov 2026 |
 | `nrs_sape_2011dz/` mid-2023 and mid-2024 | National Records of Scotland | [Small area population estimates mid-2023 and mid-2024 (2011 data zones)](https://www.nrscotland.gov.uk/publications/small-area-population-estimates-mid-2023-and-mid-2024-2011-data-zones) | Open Government Licence v3.0 | 14 Nov 2026 |
 

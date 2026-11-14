@@ -16,3 +16,5 @@ web/dist/
 .vscode/
 .DS_Store
 Thumbs.db
+# intermediate map files from atlas.geo (rebuilt from data/external/dz2011)
+data/derived/geo_*.json

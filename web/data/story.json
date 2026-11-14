@@ -512,5 +512,139 @@
    }
   ]
  },
+ "deprived_zones": {
+  "total_q1": 1395,
+  "total": 6976,
+  "by_council": {
+   "Aberdeen City": {
+    "q1": 29,
+    "zones": 283
+   },
+   "Aberdeenshire": {
+    "q1": 9,
+    "zones": 340
+   },
+   "Angus": {
+    "q1": 12,
+    "zones": 155
+   },
+   "Argyll and Bute": {
+    "q1": 13,
+    "zones": 125
+   },
+   "City of Edinburgh": {
+    "q1": 71,
+    "zones": 597
+   },
+   "Clackmannanshire": {
+    "q1": 18,
+    "zones": 72
+   },
+   "Dumfries and Galloway": {
+    "q1": 19,
+    "zones": 201
+   },
+   "Dundee City": {
+    "q1": 70,
+    "zones": 188
+   },
+   "East Ayrshire": {
+    "q1": 51,
+    "zones": 163
+   },
+   "East Dunbartonshire": {
+    "q1": 5,
+    "zones": 130
+   },
+   "East Lothian": {
+    "q1": 8,
+    "zones": 132
+   },
+   "East Renfrewshire": {
+    "q1": 7,
+    "zones": 122
+   },
+   "Falkirk": {
+    "q1": 35,
+    "zones": 214
+   },
+   "Fife": {
+    "q1": 97,
+    "zones": 494
+   },
+   "Glasgow City": {
+    "q1": 339,
+    "zones": 746
+   },
+   "Highland": {
+    "q1": 30,
+    "zones": 312
+   },
+   "Inverclyde": {
+    "q1": 51,
+    "zones": 114
+   },
+   "Midlothian": {
+    "q1": 10,
+    "zones": 115
+   },
+   "Moray": {
+    "q1": 4,
+    "zones": 126
+   },
+   "Na h-Eileanan Siar": {
+    "q1": 0,
+    "zones": 36
+   },
+   "North Ayrshire": {
+    "q1": 74,
+    "zones": 186
+   },
+   "North Lanarkshire": {
+    "q1": 153,
+    "zones": 447
+   },
+   "Orkney Islands": {
+    "q1": 0,
+    "zones": 29
+   },
+   "Perth and Kinross": {
+    "q1": 11,
+    "zones": 186
+   },
+   "Renfrewshire": {
+    "q1": 56,
+    "zones": 225
+   },
+   "Scottish Borders": {
+    "q1": 9,
+    "zones": 143
+   },
+   "Shetland Islands": {
+    "q1": 0,
+    "zones": 30
+   },
+   "South Ayrshire": {
+    "q1": 28,
+    "zones": 153
+   },
+   "South Lanarkshire": {
+    "q1": 88,
+    "zones": 431
+   },
+   "Stirling": {
+    "q1": 15,
+    "zones": 121
+   },
+   "West Dunbartonshire": {
+    "q1": 48,
+    "zones": 121
+   },
+   "West Lothian": {
+    "q1": 35,
+    "zones": 239
+   }
+  }
+ },
  "source": "Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2. Analysis: Monstrous Data."
 }

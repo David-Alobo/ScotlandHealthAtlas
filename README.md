@@ -44,6 +44,7 @@ uv run python -m atlas.distributions results/2026-11-14-distributions
 uv run python -m atlas.injuries results/2026-11-14-injuries
 uv run python -m atlas.prescribing results/2026-11-14-prescribing
 uv run python -m atlas.validate results/2026-11-14-validation
+uv run python -m atlas.geo                    # writes web/data/geo.json (needs npm ci in web/ first)
 uv run python -m atlas.export_web             # writes web/data/story.json
 ```
 
@@ -66,7 +67,7 @@ Started 14 November 2026. Done:
 - [injury figures checked against PHS publications](results/2026-11-14-validation/README.md);
 - [story shortlist](docs/STORIES.md) for the competition entry;
 
-- first draft of the entry page ([web/](web/index.html)).
+- the entry page ([web/](web/index.html)): one scrolling atlas, Monstrous Night design;
 
 Next: review the page, then polish for screen and phone.
 

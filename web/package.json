@@ -8,6 +8,8 @@
     "serve": "python -m http.server 8000"
   },
   "devDependencies": {
+    "mapshaper": "^0.6.102",
+    "puppeteer-core": "^24.10.2",
     "vitest": "^3.2.4"
   }
 }

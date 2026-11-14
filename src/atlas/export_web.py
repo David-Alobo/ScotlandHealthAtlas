@@ -2,8 +2,9 @@
 
 Usage (from the repository root): uv run python -m atlas.export_web [output file]
 
-Reads only committed tables in results/, never the raw data, so the page can be rebuilt anywhere
-and every number on it traces to a table. Writes web/data/story.json by default.
+Reads only committed tables (results/ and the data zone look-up in data/derived/ written by
+atlas.geo), never the raw data, so the page can be rebuilt anywhere and every number on it traces
+to a table. Writes web/data/story.json by default.
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ AE = RESULTS / "2026-11-14-ae-deprivation"
 DIST = RESULTS / "2026-11-14-distributions"
 INJ = RESULTS / "2026-11-14-injuries"
 RX = RESULTS / "2026-11-14-prescribing"
+LOOKUP = Path("data/derived/dz_lookup.csv")  # data zone, SIMD quintile, council (atlas.geo)
 AE_YEAR = 2025  # latest whole calendar year of A&E data
 CHAPTERS = 6
 
@@ -178,6 +180,25 @@ def medicines() -> dict:
     }
 
 
+def deprived_zones() -> dict:
+    """Where Scotland's most deprived neighbourhoods are: SIMD quintile 1 data zones by council.
+
+    Returns:
+        The number of quintile-1 zones in Scotland, and for each council its quintile-1 zones and
+        all its zones.
+    """
+    by: dict[str, list[int]] = {}
+    for r in read(LOOKUP):
+        c = by.setdefault(r["council"], [0, 0])
+        c[0] += r["quintile"] == "1"
+        c[1] += 1
+    return {
+        "total_q1": sum(v[0] for v in by.values()),
+        "total": sum(v[1] for v in by.values()),
+        "by_council": {k: {"q1": v[0], "zones": v[1]} for k, v in sorted(by.items())},
+    }
+
+
 def story() -> dict:
     """Everything the page needs.
 
@@ -190,6 +211,7 @@ def story() -> dict:
         "injury_ages": injury_ages(),
         "councils": councils(),
         "medicines": medicines(),
+        "deprived_zones": deprived_zones(),
         "source": "Public Health Scotland (Data Lab competition package, 2026); NRS small area "
         "population estimates; SIMD 2020v2. Analysis: Monstrous Data.",
     }

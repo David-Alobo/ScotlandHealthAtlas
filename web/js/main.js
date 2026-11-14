@@ -1,117 +1,388 @@
-// The page: load the data, fill the text, draw the charts, wire tooltips, tables and scroll steps.
-// All logic lives in the imported modules; this file only touches the DOM.
+// The scrolling atlas: one stage, many states, in three layers:
+//   #stage-under (SVG): council areas, the map's land and the poisoning map;
+//   #dots (canvas): 6,976 neighbourhood dots and about 2,300 death dots, animated smoothly;
+//   #stage (SVG): charts, the council scatter and labels.
+// Each scroll step sets a state; layouts come from stage.js, text from facts.js (all tested).
 
-import { dotInterval, dumbbell, groupedBars, lineChart } from "./charts.js";
+import { dumbbell, lineChart } from "./charts.js";
+import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
+import { aeChart, medicineChart, tables } from "./scenes.js";
 import {
-  SHARE_LEGEND,
-  aeChart,
-  ageChart,
-  councilChart,
-  medicineChart,
-  tables,
-} from "./scenes.js";
+  ageLayout,
+  binColour,
+  councilSentence,
+  crowdLayout,
+  deathUnits,
+  gridIndex,
+  nearest,
+  scatterLayout,
+  splitLayout,
+  zoneTip,
+} from "./stage.js";
 
-async function load() {
-  const res = await fetch("data/story.json");
-  if (!res.ok) throw new Error(`story.json: ${res.status}`);
-  return res.json();
+const NS = "http://www.w3.org/2000/svg";
+// Monstrous Data brand, validated for colour-blind separation on Night (#07080C)
+const C = {
+  ramp: ["#e4dcff", "#b9a3fc", "#8f6ff0", "#6a4fd0", "#4a3a9a"], // quintile 1 (most deprived) brightest
+  q1: "#cbbcff",
+  dim: "#2a2e40",
+  violet: "#b9a3fc",
+  cyan: "#22d3ee",
+  falls: "#22d3ee",
+  poisoning: "#9b6cf7",
+  crowd: "#b8bccb",
+  grey: "#3a3f52",
+};
+const RATE_STEPS = [12, 18, 24, 30]; // poisoning deaths per 100,000 a year, map bins
+const RATE_COLOURS = ["#2b2550", "#4a3a9a", "#6a4fd0", "#9b7cf4", "#d8ccff"];
+const MAP_STATES = new Set(["intro", "deprived", "glasgow", "end"]);
+
+const el = (tag, attrs = {}, parent) => {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+};
+const place = (node, [x, y]) => {
+  node.style.transform = `translate(${x}px, ${y}px)`;
+};
+
+/** The stage size and the area the visuals use, for wide screens and for phones. */
+function frame() {
+  const wide = window.innerWidth / window.innerHeight > 1.05 && window.innerWidth > 760;
+  return wide
+    ? { wide, W: 1000, H: 640, area: { x: 400, y: 40, w: 570, h: 560 } }
+    : { wide, W: 600, H: 900, area: { x: 24, y: 24, w: 552, h: 560 } };
 }
 
-function fillFacts(story) {
-  const f = facts(story);
-  for (const el of document.querySelectorAll("[data-fact]")) {
-    const v = f[el.dataset.fact];
-    if (v === undefined) console.warn(`unknown fact: ${el.dataset.fact}`);
-    else el.textContent = v;
+function build(story, geo) {
+  const f = frame();
+  const A = f.area;
+  const under = document.getElementById("stage-under");
+  const svg = document.getElementById("stage");
+  for (const s of [under, svg]) {
+    s.setAttribute("viewBox", `0 0 ${f.W} ${f.H}`);
+    s.innerHTML = "";
   }
-}
 
-function drawCharts(story) {
-  const put = (id, svg) => {
-    document.getElementById(id).innerHTML = svg;
+  // map transforms: Scotland in the area, and zoomed on Glasgow
+  const k = Math.min(A.w / geo.width, A.h / geo.height);
+  const base = { tx: A.x + (A.w - geo.width * k) / 2, ty: A.y + (A.h - geo.height * k) / 2, s: k };
+  const glasgow = geo.councils.find((c) => c.council === "Glasgow City");
+  const z = 5.2;
+  const zoom = { tx: A.x + A.w / 2 - glasgow.cx * k * z, ty: A.y + A.h / 2 - glasgow.cy * k * z, s: k * z };
+
+  // council areas, under the dots
+  const map = el("g", { class: "layer map" }, under);
+  const councilPaths = new Map();
+  for (const c of geo.councils) {
+    councilPaths.set(c.council, el("path", { d: c.path, class: "council" }, map));
+  }
+  const setMap = (t) => map.setAttribute("transform", `translate(${t.tx} ${t.ty}) scale(${t.s})`);
+  setMap(base);
+
+  // charts, built by the tested chart functions and nested in the top layer
+  const charts = el("g", { class: "layer charts" }, svg);
+  const nest = (markup, name) => {
+    const g = el("g", { class: `chart-layer ${name}` }, charts);
+    const vb = /viewBox="0 0 (\d+) (\d+)"/.exec(markup);
+    const h = (A.w * Number(vb[2])) / Number(vb[1]);
+    g.innerHTML = markup.replace("<svg ", `<svg x="${A.x}" y="${A.y + (A.h - h) / 2}" width="${A.w}" height="${h}" `);
   };
-  put("chart-ae", lineChart(aeChart(story)));
-  put("chart-ages", groupedBars(ageChart(story, "deaths")));
-  put("chart-councils", dotInterval(councilChart(story)));
-  put("chart-medicines", dumbbell(medicineChart(story)));
-  document.getElementById("legend-councils").innerHTML =
-    "<span>People in the most deprived fifth:</span>" +
-    SHARE_LEGEND.map(([t, c]) => `<span><i style="background:${c}"></i>${t}</span>`).join("");
+  const ae = aeChart(story, [C.violet, C.grey, C.grey, C.grey, C.cyan]);
+  for (const i of [1, 2, 3]) ae.series[i].label = "";
+  const last = story.ae.years.length - 1;
+  const q1 = ae.series[0].values[last];
+  const q5 = ae.series[4].values[last];
+  ae.note = { at: last, from: q1, to: q5, text: `${(q1 / q5).toFixed(1)}×` };
+  nest(lineChart(ae), "ae");
+  const med = medicineChart(story);
+  med.aColour = C.violet;
+  med.bColour = C.cyan;
+  nest(dumbbell(med), "medicines");
 
-  const t = tables(story);
-  for (const [key, html] of Object.entries(t)) {
-    document.getElementById(`table-${key}`).innerHTML = html;
-  }
+  // death dots: the three layouts
+  const a = story.injury_ages;
+  const units = deathUnits(a.bands, a.deaths.falls, a.deaths.poisoning);
+  const minSide = Math.min(A.w, A.h);
+  const crowd = crowdLayout(units, A.x + A.w / 2, A.y + A.h / 2, (0.44 * minSide) / Math.sqrt(units.length));
+  const nMax = Math.max(...["falls", "poisoning"].map((t) => units.filter((u) => u.type === t).length));
+  const split = splitLayout(
+    units,
+    { falls: A.x + A.w * 0.27, poisoning: A.x + A.w * 0.73 },
+    A.y + A.h / 2,
+    Math.min(A.w * 0.235, A.h * 0.42) / Math.sqrt(nMax),
+  );
+  const cols = 8;
+  const tallest = Math.max(...a.deaths.falls, ...a.deaths.poisoning);
+  const gap = Math.min((A.h - 80) / Math.ceil(tallest / cols), A.w / a.bands.length / (2 * cols * 1.2));
+  const age = ageLayout(units, a.bands, { x: A.x, y: A.y + 30, w: A.w, h: A.h - 80 }, cols, gap);
+
+  // the canvas, sharing the map transform with the council layer
+  const dots = new DotCanvas(document.getElementById("dots"), f.W, f.H, geo.zones, units, setMap);
+  dots.go({ map: base, positions: crowd, unitR: Math.max(1.3, gap * 0.42) }, true);
+
+  // councils as dots: from their place on the map to the scatter
+  const cs = story.councils.councils;
+  const box = { x: A.x + 56, y: A.y + 20, w: A.w - 80, h: A.h - 90 };
+  const scat = scatterLayout(cs, box, 0.5, 45);
+  const onMap = (name) => {
+    const g = geo.councils.find((c) => c.council === name);
+    return [base.tx + g.cx * k, base.ty + g.cy * k];
+  };
+  const scatter = el("g", { class: "layer scatter" }, svg);
+  el("g", { class: "axes" }, scatter).innerHTML = scatterAxes(box);
+  const councilDots = cs.map((c, i) => {
+    const d = el("circle", { r: 6, class: "cdot" }, scatter);
+    d.style.fill = binColour(c.rate, RATE_STEPS, RATE_COLOURS);
+    d.dataset.tip = councilSentence(c.council, cs, story.councils.scotland);
+    d.dataset.council = c.council;
+    d.dataset.scatter = JSON.stringify(scat[i]);
+    d.dataset.map = JSON.stringify(onMap(c.council));
+    place(d, onMap(c.council));
+    return d;
+  });
+
+  const labels = el("g", { class: "layer labels" }, svg);
+  const ring = el("circle", { r: 5, class: "hover-ring" }, svg);
+  return {
+    f, under, svg, base, zoom, councilPaths, dots, units, crowd, split, age, councilDots, labels,
+    ring, cs, index: gridIndex(geo.zones, 8), state: "intro",
+  };
 }
 
-function wireTables() {
-  for (const btn of document.querySelectorAll("[data-table]")) {
-    btn.addEventListener("click", () => {
-      const box = document.getElementById(btn.dataset.table);
-      const open = box.hidden;
-      box.hidden = !open;
-      btn.setAttribute("aria-expanded", String(open));
-      btn.textContent = open ? "Hide the numbers" : "Show the numbers";
-    });
+/** Axis lines and labels for the council scatter (share in quintile 1 by rate). */
+function scatterAxes(box) {
+  let s = `<line x1="${box.x}" x2="${box.x + box.w}" y1="${box.y + box.h}" y2="${box.y + box.h}" class="axis"/>`;
+  s += `<line x1="${box.x}" x2="${box.x}" y1="${box.y}" y2="${box.y + box.h}" class="axis"/>`;
+  for (const t of [0, 0.1, 0.2, 0.3, 0.4, 0.5]) {
+    const x = box.x + (t / 0.5) * box.w;
+    s += `<text x="${x}" y="${box.y + box.h + 18}" class="tick-label" text-anchor="middle">${t * 100}%</text>`;
   }
+  for (const t of [0, 10, 20, 30, 40]) {
+    const y = box.y + box.h - (t / 45) * box.h;
+    s += `<text x="${box.x - 8}" y="${y}" class="tick-label" text-anchor="end" dominant-baseline="middle">${t}</text>`;
+  }
+  s += `<text x="${box.x + box.w / 2}" y="${box.y + box.h + 42}" class="axis-title" text-anchor="middle">People in the most deprived fifth</text>`;
+  s += `<text x="${box.x - 40}" y="${box.y + box.h / 2}" class="axis-title" text-anchor="middle" transform="rotate(-90 ${box.x - 40} ${box.y + box.h / 2})">Poisoning deaths per 100,000</text>`;
+  return s;
 }
 
-function wireTooltips() {
+function label(st, x, y, text, cls = "") {
+  const t = el("text", { x, y, class: `stage-label ${cls}` }, st.labels);
+  t.textContent = text;
+}
+
+/** Put the stage into a named state. */
+function setState(st, name, story) {
+  st.state = name;
+  st.under.dataset.state = name;
+  st.svg.dataset.state = name;
+  st.labels.innerHTML = "";
+  st.ring.classList.remove("on");
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+  const A = st.f.area;
+
+  // the canvas: neighbourhoods and death dots
+  const spotlight = name === "deprived" || name === "glasgow";
+  const target = {
+    map: name === "glasgow" ? st.zoom : st.base,
+    zoneAlpha: MAP_STATES.has(name) ? 1 : 0,
+    zoneColours: spotlight
+      ? zoneColours([C.q1, C.dim, C.dim, C.dim, C.dim], [1, 0.9, 0.9, 0.9, 0.9])
+      : zoneColours(C.ramp),
+    unitAlpha: ["crowd", "split", "age"].includes(name) ? 1 : 0,
+    unitColours:
+      name === "crowd"
+        ? typeColours({ falls: C.crowd, poisoning: C.crowd })
+        : typeColours({ falls: C.falls, poisoning: C.poisoning }),
+  };
+  const pos = { crowd: st.crowd, split: st.split, age: st.age.positions }[name];
+  if (pos) target.positions = pos;
+  st.dots.go(target);
+
+  // council shapes: the poisoning map, else plain land; tooltips only on the poisoning map
+  const choropleth = name === "poison-map";
+  for (const c of st.cs) {
+    const p = st.councilPaths.get(c.council);
+    p.style.fill = choropleth ? binColour(c.rate, RATE_STEPS, RATE_COLOURS) : "";
+    if (choropleth) p.dataset.tip = councilSentence(c.council, st.cs, story.councils.scotland);
+    else delete p.dataset.tip;
+  }
+
+  // council dots: on the map until the scatter
+  const onScatter = name === "scatter" || name === "find";
+  for (const d of st.councilDots) place(d, JSON.parse(onScatter ? d.dataset.scatter : d.dataset.map));
+
+  // labels and legends
+  if (MAP_STATES.has(name) && name !== "end") legend.innerHTML = rampLegend(spotlight);
+  if (name === "glasgow") label(st, A.x + A.w / 2, A.y + 28, "Glasgow and the Clyde", "big centre");
+  if (name === "crowd") label(st, A.x + A.w / 2, A.y + A.h - 4, "1 dot = 1 death a year", "centre muted");
+  if (name === "split") {
+    label(st, A.x + A.w * 0.27, A.y + 34, "Falls", "big centre f");
+    label(st, A.x + A.w * 0.73, A.y + 34, "Poisoning", "big centre p");
+  }
+  if (name === "age") {
+    st.age.bandX.forEach((x, i) => label(st, x, A.y + A.h - 24, story.injury_ages.bands[i], "centre tick"));
+    label(st, A.x + A.w / 2, A.y + A.h - 2, "Age", "centre muted");
+    label(st, A.x, A.y + 12, "Falls", "f big");
+    label(st, A.x + 80, A.y + 12, "Poisoning", "p big");
+  }
+  if (choropleth) {
+    legend.innerHTML = rateLegend();
+    for (const n of ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands"]) {
+      const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.map);
+      label(st, x + 9, y + 4, n.replace(" City", "").replace(" Islands", ""), "small halo");
+    }
+  }
+  if (onScatter) {
+    for (const n of ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands", "East Renfrewshire"]) {
+      const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.scatter);
+      label(st, x + 10, y + 4, n.replace(" City", "").replace(" Islands", ""), "small");
+    }
+  }
+  highlightCouncil(st, name === "find" ? document.getElementById("council-select").value : "");
+}
+
+function rampLegend(q1Only) {
+  const names = ["Most deprived fifth", "", "", "", "Least deprived"];
+  return (
+    `<span class="legend-title">Neighbourhoods · hover a dot</span>` +
+    C.ramp
+      .map((c, i) => (q1Only && i > 0 ? "" : `<span><i style="background:${c}"></i>${names[i]}</span>`))
+      .join("")
+  );
+}
+
+function rateLegend() {
+  const t = RATE_STEPS;
+  const names = [`under ${t[0]}`, `${t[0]}-${t[1]}`, `${t[1]}-${t[2]}`, `${t[2]}-${t[3]}`, `${t[3]}+`];
+  return (
+    `<span class="legend-title">Poisoning deaths per 100,000 a year · hover a council</span>` +
+    RATE_COLOURS.map((c, i) => `<span><i style="background:${c}"></i>${names[i]}</span>`).join("")
+  );
+}
+
+function highlightCouncil(st, name) {
+  for (const d of st.councilDots) d.classList.toggle("chosen", name !== "" && d.dataset.council === name);
+  for (const [n, p] of st.councilPaths) p.classList.toggle("chosen", n === name);
+}
+
+function wireFind(getStage, story) {
+  const sel = document.getElementById("council-select");
+  const out = document.getElementById("council-sentence");
+  if (sel.options.length === 1) {
+    for (const c of [...story.councils.councils].sort((a, b) => a.council.localeCompare(b.council))) {
+      sel.add(new Option(c.council, c.council));
+    }
+  }
+  sel.onchange = () => {
+    out.textContent = councilSentence(sel.value, story.councils.councils, story.councils.scotland);
+    highlightCouncil(getStage(), sel.value);
+  };
+}
+
+/** Tooltips: neighbourhood dots on the canvas (nearest dot), and any SVG mark with data-tip. */
+function wireTooltips(getStage, geo) {
   const tip = document.getElementById("tooltip");
-  const show = (el, x, y) => {
-    tip.textContent = el.dataset.tip;
+  const show = (text, x, y) => {
+    tip.textContent = text;
     tip.hidden = false;
-    const pad = 12;
-    const w = tip.offsetWidth;
-    const left = Math.min(x + pad, window.innerWidth - w - pad);
-    tip.style.left = `${Math.max(pad, left)}px`;
-    tip.style.top = `${y + pad}px`;
+    tip.style.left = `${Math.min(x + 14, window.innerWidth - tip.offsetWidth - 12)}px`;
+    tip.style.top = `${Math.min(y + 14, window.innerHeight - tip.offsetHeight - 12)}px`;
   };
   document.addEventListener("pointermove", (e) => {
-    const el = e.target.closest?.("[data-tip]");
-    if (el) show(el, e.clientX, e.clientY);
-    else tip.hidden = true;
-  });
-  document.addEventListener("focusin", (e) => {
-    const el = e.target.closest?.("[data-tip]");
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    show(el, r.right, r.top);
-  });
-  document.addEventListener("focusout", () => {
+    const st = getStage();
+    const marked = e.target.closest?.("[data-tip]");
+    if (marked) {
+      st.ring.classList.remove("on");
+      show(marked.dataset.tip, e.clientX, e.clientY);
+      return;
+    }
+    if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
+      const pt = st.svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const p = pt.matrixTransform(st.svg.getScreenCTM().inverse()); // stage units
+      const m = st.dots.current(performance.now()).map;
+      const mx = (p.x - m.tx) / m.s; // map units
+      const my = (p.y - m.ty) / m.s;
+      const i = nearest(st.index, mx, my, 7 / m.s + 1.5);
+      if (i >= 0) {
+        const zone = geo.zones[i];
+        st.ring.setAttribute("cx", m.tx + zone[0] * m.s);
+        st.ring.setAttribute("cy", m.ty + zone[1] * m.s);
+        st.ring.classList.add("on");
+        show(zoneTip(zone, geo.zone_names[i], geo.councils, geo.zones.length), e.clientX, e.clientY);
+        return;
+      }
+    }
+    st.ring.classList.remove("on");
     tip.hidden = true;
   });
 }
 
-// Scene 3 highlights falls, then poisoning, as its text steps scroll past.
-function wireSteps() {
-  const chart = document.getElementById("chart-ages");
-  const steps = document.querySelectorAll("[data-step]");
-  if (!("IntersectionObserver" in window)) return;
+function wireSteps(getStage, story) {
+  const steps = [...document.querySelectorAll(".step")];
+  let current = "";
   const io = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
         if (!e.isIntersecting) continue;
         for (const s of steps) s.classList.toggle("active", s === e.target);
-        chart.dataset.highlight = e.target.dataset.step;
+        const name = e.target.dataset.state;
+        if (name !== current) {
+          current = name;
+          setState(getStage(), name, story);
+        }
       }
     },
-    { rootMargin: "-45% 0px -45% 0px" },
+    { rootMargin: "-50% 0px -50% 0px" },
   );
   for (const s of steps) io.observe(s);
+  return () => current;
 }
 
-load()
-  .then((story) => {
-    fillFacts(story);
-    drawCharts(story);
-    wireTables();
-    wireTooltips();
-    wireSteps();
-    document.body.classList.add("ready");
-  })
-  .catch((err) => {
-    console.error(err);
-    document.getElementById("load-error").hidden = false;
+async function main() {
+  const [story, geo] = await Promise.all(
+    ["data/story.json", "data/geo.json"].map((u) =>
+      fetch(u).then((r) => {
+        if (!r.ok) throw new Error(`${u}: ${r.status}`);
+        return r.json();
+      }),
+    ),
+  );
+  const f = facts(story);
+  for (const node of document.querySelectorAll("[data-fact]")) node.textContent = f[node.dataset.fact] ?? "";
+  for (const [key, html] of Object.entries(tables(story))) document.getElementById(`table-${key}`).innerHTML = html;
+
+  let st = build(story, geo);
+  const getStage = () => st;
+  wireFind(getStage, story);
+  wireTooltips(getStage, geo);
+  const current = wireSteps(getStage, story);
+  // ?state=<name> opens a scene directly (for sharing a scene)
+  const wanted = new URLSearchParams(location.search).get("state");
+  const step = wanted && document.querySelector(`.step[data-state="${CSS.escape(wanted)}"]`);
+  if (step) step.scrollIntoView({ block: "center" });
+  setState(st, step ? wanted : "intro", story);
+
+  let wasWide = st.f.wide;
+  window.addEventListener("resize", () => {
+    if (frame().wide !== wasWide) {
+      st = build(story, geo); // a new layout on orientation change
+      wasWide = st.f.wide;
+      setState(st, current() || "intro", story);
+    } else {
+      st.dots.resize();
+    }
   });
+  document.body.classList.add("ready");
+}
+
+main().catch((err) => {
+  console.error(err);
+  document.getElementById("load-error").hidden = false;
+});
