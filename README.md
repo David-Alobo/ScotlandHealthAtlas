@@ -15,15 +15,47 @@ atlas.
 | Folder | What it holds |
 |---|---|
 | `data/` | Where the data comes from (`data/README.md`); the files themselves are not in git |
-| `src/atlas/` | The data pipeline (Python): reading, checking and summarising the data |
+| `src/atlas/` | The data pipeline (Python package `atlas`): one module per analysis, plus `stats.py` (rates, intervals, correlation) and `style.py` (figure style) |
+| `tests/` | Unit tests (pytest); they need no data, so they run in CI |
 | `results/` | Tables and notes from each analysis, dated, with the scripts that made them |
 | `web/` | The visual story (vanilla JavaScript) |
 | `paper/` | A paper, if the analysis supports one |
 | `docs/` | Plans and notes |
 
+## Running it
+
+Needs [uv](https://docs.astral.sh/uv/) and Python 3.12. Dependencies are pinned in
+`pyproject.toml` and `uv.lock` to the versions the saved results were made with.
+
+```bash
+uv sync                      # create .venv with the locked dependencies
+uv run pytest                # unit tests
+uv run ruff check . && uv run ruff format --check .   # lint and format (also run in CI)
+```
+
+The analyses need the data in `data/raw/` and `data/external/` (see `data/README.md`). Run them
+from the repository root, in this order:
+
+```bash
+uv run python -m atlas.audit results/2026-11-14-data-audit
+uv run python -m atlas.population            # writes data/derived/
+uv run python -m atlas.ae_deprivation
+uv run python -m atlas.distributions results/2026-11-14-distributions
+uv run python -m atlas.injuries results/2026-11-14-injuries
+uv run python -m atlas.prescribing results/2026-11-14-prescribing
+```
+
 ## Status
 
-Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); population denominators added; first analysis: [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md); [distributions of every dataset](results/2026-11-14-distributions/README.md); [injury rates by council and deprivation](results/2026-11-14-injuries/README.md). Figures follow one publication style (src/atlas/style.py). Next: prescribing by deprivation of the dispensing pharmacy's area, then a story shortlist.
+Started 14 November 2026. Done:
+- data downloaded and audited ([data audit](results/2026-11-14-data-audit/README.md));
+- population denominators (NRS small area estimates, SIMD 2020v2);
+- [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md);
+- [distributions of every dataset](results/2026-11-14-distributions/README.md);
+- [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
+- [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md).
+
+Next: a story shortlist with first charts for the competition entry.
 
 ## Data
 
