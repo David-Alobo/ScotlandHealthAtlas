@@ -22,7 +22,9 @@ const text = (x, y, s, attrs = "") => `<text x="${x}" y="${y}" ${attrs}>${esc(s)
 
 /** Left axis: tick labels and short ticks, no gridlines. */
 function yAxis(ticks, y, left, fmt) {
-  return ticks
+  const top = Math.min(...ticks.map(y));
+  const bottom = Math.max(...ticks.map(y));
+  return `<line x1="${left}" x2="${left}" y1="${top}" y2="${bottom}" class="axis-line"/>` + ticks
     .map(
       (t) =>
         `<line x1="${left - 4}" x2="${left}" y1="${y(t)}" y2="${y(t)}" class="tick"/>` +
@@ -57,9 +59,13 @@ export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), la
   const y = linear([0, top], [H - m.b, m.t]);
   let out = svgOpen(H, label);
   out += yAxis(niceTicks(0, top), y, m.l, fmt);
-  out += `<line x1="${m.l}" x2="${W - m.r + 10}" y1="${y(0)}" y2="${y(0)}" class="baseline"/>`;
+  out += `<line x1="${m.l}" x2="${W - m.r + 10}" y1="${y(0)}" y2="${y(0)}" class="axis-line"/>`;
   out += years
-    .map((yr, i) => text(x(i), H - m.b + 18, yr, 'class="axis-label" text-anchor="middle"'))
+    .map(
+      (yr, i) =>
+        `<line x1="${x(i)}" x2="${x(i)}" y1="${y(0)}" y2="${y(0) + 4}" class="tick"/>` +
+        text(x(i), H - m.b + 18, yr, 'class="axis-label" text-anchor="middle"'),
+    )
     .join("");
   out += text(14, (H - m.b + m.t) / 2, yLabel,
     `class="axis-title" text-anchor="middle" transform="rotate(-90 14 ${(H - m.b + m.t) / 2})"`);
@@ -97,7 +103,7 @@ export function groupedBars({ bands, groups, yLabel, xLabel, label }) {
   const bw = (slot * 0.78) / groups.length;
   let out = svgOpen(H, label);
   out += yAxis(niceTicks(0, top), y, m.l, (v) => formatNum(v));
-  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" class="baseline"/>`;
+  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" class="axis-line"/>`;
   bands.forEach((b, i) => {
     const x0 = m.l + i * slot + slot * 0.11;
     out += text(m.l + (i + 0.5) * slot, H - m.b + 18, b, 'class="axis-label" text-anchor="middle"');
@@ -141,7 +147,8 @@ export function dotInterval({ rows, reference, xLabel, label }) {
   out += niceTicks(0, top)
     .map((t) => text(x(t), H - m.b + 18, formatNum(t), 'class="axis-label" text-anchor="middle"'))
     .join("");
-  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b + 4}" y2="${H - m.b + 4}" class="baseline"/>`;
+  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b + 4}" y2="${H - m.b + 4}" class="axis-line"/>`;
+  out += `<line x1="${m.l}" x2="${m.l}" y1="${m.t - 4}" y2="${H - m.b + 4}" class="axis-line"/>`;
   out += `<line x1="${x(reference.value)}" x2="${x(reference.value)}" y1="${m.t - 6}" y2="${H - m.b + 4}" class="reference"/>`;
   out += text(x(reference.value), m.t - 10, reference.label, 'class="ref-label" text-anchor="middle"');
   rows.forEach((r, i) => {
@@ -170,7 +177,8 @@ export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label
   out += niceTicks(0, top * 100)
     .map((t) => text(x(t / 100), H - m.b + 18, `${t}%`, 'class="axis-label" text-anchor="middle"'))
     .join("");
-  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b + 4}" y2="${H - m.b + 4}" class="baseline"/>`;
+  out += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b + 4}" y2="${H - m.b + 4}" class="axis-line"/>`;
+  out += `<line x1="${m.l}" x2="${m.l}" y1="${m.t - 4}" y2="${H - m.b + 4}" class="axis-line"/>`;
   rows.forEach((r, i) => {
     const cy = m.t + (i + 0.5) * rowH;
     out += text(m.l - 10, cy, r.label, 'class="row-label" text-anchor="end" dominant-baseline="middle"');

@@ -122,6 +122,7 @@ function build(story, geo) {
   const tallest = Math.max(...a.deaths.falls, ...a.deaths.poisoning);
   const gap = Math.min((A.h - 80) / Math.ceil(tallest / cols), A.w / a.bands.length / (2 * cols * 1.2));
   const age = ageLayout(units, a.bands, { x: A.x, y: A.y + 30, w: A.w, h: A.h - 80 }, cols, gap);
+  const ageAxis = { base: A.y + 30 + A.h - 80, gap, cols, tallest }; // for the scale in setState
 
   // the canvas, sharing the map transform with the council layer
   const dots = new DotCanvas(document.getElementById("dots"), f.W, f.H, geo.zones, units, setMap);
@@ -151,7 +152,7 @@ function build(story, geo) {
   const labels = el("g", { class: "layer labels" }, svg);
   const ring = el("circle", { r: 5, class: "hover-ring" }, svg);
   return {
-    f, under, svg, base, zoom, councilPaths, dots, units, crowd, split, age, councilDots, labels,
+    f, under, svg, base, zoom, councilPaths, dots, units, crowd, split, age, ageAxis, councilDots, labels,
     ring, cs, index: gridIndex(geo.zones, 8), state: "intro",
   };
 }
@@ -229,10 +230,24 @@ function setState(st, name, story) {
     label(st, A.x + A.w * 0.73, A.y + 34, "Poisoning", "big centre p");
   }
   if (name === "age") {
+    // axes: deaths a year (each row of dots is `cols` deaths) against age band
+    const { base, gap, cols, tallest } = st.ageAxis;
+    const yOf = (n) => base - (n / cols) * gap;
+    const left = A.x - 4;
+    const top = yOf(Math.ceil(tallest / 200) * 200);
+    el("line", { x1: left, x2: A.x + A.w, y1: base + gap, y2: base + gap, class: "axis" }, st.labels);
+    el("line", { x1: left, x2: left, y1: top, y2: base + gap, class: "axis" }, st.labels);
+    for (let n = 0; n <= tallest + 199; n += 200) {
+      el("line", { x1: left - 4, x2: left, y1: yOf(n), y2: yOf(n), class: "axis" }, st.labels);
+      label(st, left - 8, yOf(n) + 4, String(n), "tick end");
+    }
+    const ty = (top + base) / 2;
+    const title = el("text", { x: left - 46, y: ty, class: "stage-label muted centre", transform: `rotate(-90 ${left - 46} ${ty})` }, st.labels);
+    title.textContent = "Deaths a year";
     st.age.bandX.forEach((x, i) => label(st, x, A.y + A.h - 24, story.injury_ages.bands[i], "centre tick"));
     label(st, A.x + A.w / 2, A.y + A.h - 2, "Age", "centre muted");
-    label(st, A.x, A.y + 12, "Falls", "f big");
-    label(st, A.x + 80, A.y + 12, "Poisoning", "p big");
+    label(st, A.x + 40, A.y + 12, "Falls", "f big");
+    label(st, A.x + 120, A.y + 12, "Poisoning", "p big");
   }
   if (choropleth) {
     legend.innerHTML = rateLegend();

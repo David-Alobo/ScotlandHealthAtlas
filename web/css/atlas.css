@@ -192,7 +192,7 @@ strong.p { color: #b69af9; }
 .cdot { stroke: var(--night); stroke-width: 1.5; transition: transform 1.6s var(--ease), stroke 0.3s; cursor: default; }
 .cdot.chosen { stroke: #fff; stroke-width: 3; }
 
-.axis { stroke: rgb(255 255 255 / 0.25); stroke-width: 1; }
+.axis { stroke: rgb(255 255 255 / 0.5); stroke-width: 1.2; }
 .tick-label { font: 400 11px var(--mono); fill: var(--ink-3); }
 .axis-title { font: 400 12px var(--body); fill: var(--ink-2); }
 
@@ -200,7 +200,8 @@ strong.p { color: #b69af9; }
 .chart .end-label, .chart .legend-label, .chart .row-label { font-family: var(--body); fill: var(--ink-2); }
 .chart .end-label, .chart .legend-label { font-size: 13px; }
 .chart .row-label { font-size: 12px; }
-.chart .tick, .chart .baseline { stroke: rgb(255 255 255 / 0.22); }
+.chart .axis-line { stroke: rgb(255 255 255 / 0.5); stroke-width: 1.2; }
+.chart .tick { stroke: rgb(255 255 255 / 0.5); stroke-width: 1; }
 .chart .ring { stroke: var(--night); }
 .chart .annotation { stroke: var(--ink-2); stroke-width: 1.2; fill: none; }
 .chart .annotation-label { font: 600 15px var(--display); fill: var(--ink); paint-order: stroke; stroke: var(--night); stroke-width: 5px; }
@@ -209,6 +210,8 @@ strong.p { color: #b69af9; }
 .labels .big { font: 600 18px var(--display); fill: var(--ink); }
 .labels .f { fill: var(--falls); } .labels .p { fill: #b69af9; }
 .labels .centre { text-anchor: middle; }
+.labels .end { text-anchor: end; }
+.labels .axis { stroke: rgb(255 255 255 / 0.5); stroke-width: 1.2; }
 .labels .muted, .labels .tick { font: 400 11px var(--mono); fill: var(--ink-3); }
 .labels .small { font: 500 11px var(--body); fill: var(--ink-2); }
 .labels .halo { fill: var(--ink); paint-order: stroke; stroke: rgb(7 8 12 / 0.85); stroke-width: 3.5px; stroke-linejoin: round; }
