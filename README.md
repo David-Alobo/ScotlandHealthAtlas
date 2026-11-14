@@ -1,12 +1,14 @@
 # Scotland Health Atlas
 
-Telling Scotland's health story with open data: how emergency care, unintentional injuries and
-community prescribing differ across Scotland's places and communities, and how that has changed.
+An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
+prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
+from Public Health Scotland and National Records of Scotland open data, with every figure
+traceable to saved tables and the scripts that made them.
 
 A [Monstrous Data](https://monstrous.com.ng) project by David Obeh Alobo. It began as an entry to
-The Data Lab Community's [data visualisation competition](https://thedatalab.com/data-visualisation-competition/)
-(theme: *Telling Scotland's health story*, with data from Public Health Scotland) and is being
-built further as an open, reproducible atlas.
+The Data Lab Community's 2026 [data visualisation competition](https://thedatalab.com/data-visualisation-competition/)
+(theme: *Telling Scotland's health story*) and is being built further as an open, reproducible
+atlas.
 
 ## What is here
 
@@ -21,7 +23,7 @@ built further as an open, reproducible atlas.
 
 ## Status
 
-Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); population denominators added; first analysis: [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md); [distributions of every dataset](results/2026-11-14-distributions/README.md); [injury rates by council and deprivation](results/2026-11-14-injuries/README.md). Figures follow one publication style (src/atlas/style.py). Next: injuries and prescribing first looks, then a story shortlist.
+Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); population denominators added; first analysis: [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md); [distributions of every dataset](results/2026-11-14-distributions/README.md); [injury rates by council and deprivation](results/2026-11-14-injuries/README.md). Figures follow one publication style (src/atlas/style.py). Next: prescribing by deprivation of the dispensing pharmacy's area, then a story shortlist.
 
 ## Data
 
