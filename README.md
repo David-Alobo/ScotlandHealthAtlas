@@ -3,7 +3,7 @@
 **[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)** ·
 **[Read the paper](paper/main.pdf)** ·
 **[Poster](docs/poster/poster.pdf)** ·
-**[Video tour](docs/video/atlas-tour.mp4)** (3 minutes)
+**[Video tour](docs/video/atlas-tour.mp4)** (3 minutes, with [music](docs/video/music/CREDITS.md))
 
 An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
 prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
@@ -115,7 +115,7 @@ with ffmpeg:
 
 ```bash
 node tools/video.mjs <frames dir>                 # every scene and interaction, 1920 x 1080
-bash tools/video.sh <frames dir> ../docs/video/atlas-tour.mp4
+bash tools/video.sh <frames dir> ../docs/video/atlas-tour.mp4 ../docs/video/music/mist-covered-mountains.mp3
 ```
 
 The paper (TeX Live with latexmk; on Windows, inside WSL):
