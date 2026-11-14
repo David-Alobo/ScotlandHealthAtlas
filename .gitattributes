@@ -1,0 +1,5 @@
+# LF in the repository for every text file, whatever the OS that commits it
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.xlsx binary
