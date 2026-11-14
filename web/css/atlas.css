@@ -439,3 +439,4 @@ thead th { color: var(--ink-3); font-weight: 500; }
 @media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
   .area-panel:not(.compact) { top: 0.8rem; transform: none; }
 }
+.area-panel.away { display: none; }

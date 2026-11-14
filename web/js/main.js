@@ -206,6 +206,7 @@ function setState(st, name, story) {
   st.state = name;
   const panel = document.getElementById("area-panel");
   panel.classList.toggle("compact", !MAP_STATES.has(name)); // a pill over charts, full over maps
+  panel.classList.toggle("away", name === "end"); // the closing summary has the area's figures
   panel.classList.remove("open");
   st.under.dataset.state = name;
   st.svg.dataset.state = name;
