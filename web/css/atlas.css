@@ -299,3 +299,56 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .actions button:hover, .actions a:hover { border-color: var(--violet); }
 @media (max-width: 520px) { .takeaways { grid-template-columns: 1fr; gap: 0.2rem; } }
 .chart .value-label { font: 500 12px var(--mono); fill: var(--ink-2); }
+
+/* ---------- the pinned area: notes in cards, panel ---------- */
+.card .local {
+  margin: 0.8rem 0 0;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: rgb(139 92 246 / 0.12);
+  border-left: 2px solid var(--violet);
+  border-radius: 0 8px 8px 0;
+}
+
+.area-panel {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 6;
+  width: min(21rem, calc(100vw - 2rem));
+  max-height: min(70vh, 34rem);
+  overflow: auto;
+  padding: 1rem 1.1rem 0.9rem;
+  background: rgb(13 15 22 / 0.94);
+  border: 1px solid rgb(167 139 250 / 0.4);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  font-size: 0.82rem;
+  box-shadow: 0 18px 50px -20px rgb(0 0 0 / 0.8);
+}
+.ap-close { position: absolute; top: 0.45rem; right: 0.6rem; background: none; border: 0; color: var(--ink-3); font-size: 1.3rem; cursor: pointer; }
+.ap-close:hover { color: var(--ink); }
+.area-panel section { padding: 0.15rem 0 0.6rem; border-bottom: 1px solid var(--line); margin-bottom: 0.6rem; }
+.area-panel h4 { margin: 0 0 0.35rem; font: 500 0.68rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); }
+.area-panel p { margin: 0 0 0.35rem; color: var(--ink-2); line-height: 1.45; }
+.area-panel b { color: var(--ink); }
+.ap-name { font: 600 1rem var(--display) !important; color: var(--ink) !important; }
+.ap-grid { display: grid; grid-template-columns: 7.2rem 1fr; gap: 0.35rem 0.6rem; margin: 0; }
+.ap-grid dt { color: var(--ink-3); }
+.ap-grid dd { margin: 0; color: var(--ink-2); }
+.ap-note { font-size: 0.72rem !important; color: var(--ink-3) !important; margin: 0 !important; }
+
+@media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
+  .area-panel { top: 0.8rem; bottom: auto; right: 0.8rem; max-height: 42vh; }
+}
+
+.ap-title { display: block; width: calc(100% - 1.6rem); text-align: left; background: none; border: 0; padding: 0 0 0.5rem; font: 500 0.72rem var(--mono); color: var(--ink-3); cursor: pointer; }
+.area-panel.compact { width: auto; max-width: min(24rem, calc(100vw - 2rem)); padding: 0.55rem 2.4rem 0.55rem 1rem; }
+.area-panel.compact #area-panel-body { display: none; }
+.area-panel.compact .ap-title { padding: 0; color: var(--ink); width: auto; }
+.area-panel.compact .ap-title::after { content: " · details"; color: var(--violet); }
+.area-panel.compact.open .ap-title::after { content: ""; }
+.area-panel.compact.open { width: min(21rem, calc(100vw - 2rem)); padding: 1rem 1.1rem 0.9rem; }
+.area-panel.compact.open #area-panel-body { display: block; }
+.area-panel.compact.open .ap-title { padding-bottom: 0.5rem; color: var(--ink-3); }

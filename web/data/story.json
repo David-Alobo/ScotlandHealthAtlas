@@ -214,7 +214,10 @@
  },
  "councils": {
   "period": "2020 to 2024",
+  "falls_period": "2020/21 to 2024/25",
   "scotland": 22.22,
+  "scotland_falls": 651.52,
+  "pooled_years": 5,
   "councils": [
    {
     "council": "Aberdeen City",
@@ -222,7 +225,31 @@
     "lower": 22.12,
     "upper": 28.05,
     "share_q1": 0.0898,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 597.69,
+    "falls_vs": "below",
+    "falls_rank": 25,
+    "items_per_person": 16.23,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     1,
+     12,
+     6,
+     175
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     18,
+     122,
+     131,
+     11,
+     2
+    ]
    },
    {
     "council": "Aberdeenshire",
@@ -230,7 +257,31 @@
     "lower": 10.51,
     "upper": 14.5,
     "share_q1": 0.0286,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 474.39,
+    "falls_vs": "below",
+    "falls_rank": 31,
+    "items_per_person": 17.85,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     1,
+     10,
+     12,
+     195
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     10,
+     68,
+     70,
+     6,
+     3
+    ]
    },
    {
     "council": "Angus",
@@ -238,7 +289,31 @@
     "lower": 11.51,
     "upper": 18.34,
     "share_q1": 0.0678,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 759.9,
+    "falls_vs": "above",
+    "falls_rank": 5,
+    "items_per_person": 20.79,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     1,
+     0,
+     4,
+     9,
+     112
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     4,
+     37,
+     31,
+     1,
+     4
+    ]
    },
    {
     "council": "Argyll and Bute",
@@ -246,7 +321,31 @@
     "lower": 10.84,
     "upper": 18.54,
     "share_q1": 0.0864,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 789.35,
+    "falls_vs": "above",
+    "falls_rank": 3,
+    "items_per_person": 22.92,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     2,
+     3,
+     8,
+     7,
+     92
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     1,
+     26,
+     32,
+     0,
+     0
+    ]
    },
    {
     "council": "City of Edinburgh",
@@ -254,7 +353,31 @@
     "lower": 18.68,
     "upper": 22.26,
     "share_q1": 0.1187,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 627.52,
+    "falls_vs": "below",
+    "falls_rank": 19,
+    "items_per_person": 13.88,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     2,
+     7,
+     14,
+     30,
+     371
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     22,
+     222,
+     257,
+     14,
+     10
+    ]
    },
    {
     "council": "Clackmannanshire",
@@ -262,7 +385,31 @@
     "lower": 18.51,
     "upper": 31.45,
     "share_q1": 0.251,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 707.49,
+    "falls_vs": "above",
+    "falls_rank": 9,
+    "items_per_person": 22.17,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     2,
+     8,
+     46
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     0,
+     41,
+     16,
+     1,
+     1
+    ]
    },
    {
     "council": "Dumfries and Galloway",
@@ -270,7 +417,31 @@
     "lower": 18.55,
     "upper": 26.16,
     "share_q1": 0.0867,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 636.01,
+    "falls_vs": "similar",
+    "falls_rank": 17,
+    "items_per_person": 26.64,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     5,
+     12,
+     200
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     5,
+     70,
+     62,
+     2,
+     3
+    ]
    },
    {
     "council": "Dundee City",
@@ -278,7 +449,31 @@
     "lower": 27.87,
     "upper": 36.36,
     "share_q1": 0.3752,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 968.25,
+    "falls_vs": "above",
+    "falls_rank": 1,
+    "items_per_person": 19.98,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     1,
+     2,
+     12,
+     11,
+     125
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     8,
+     101,
+     111,
+     1,
+     6
+    ]
    },
    {
     "council": "East Ayrshire",
@@ -286,7 +481,31 @@
     "lower": 23.68,
     "upper": 32.51,
     "share_q1": 0.3006,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 638.68,
+    "falls_vs": "similar",
+    "falls_rank": 15,
+    "items_per_person": 24.52,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     1,
+     6,
+     9,
+     142
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     7,
+     82,
+     69,
+     1,
+     2
+    ]
    },
    {
     "council": "East Dunbartonshire",
@@ -294,7 +513,31 @@
     "lower": 9.37,
     "upper": 15.76,
     "share_q1": 0.0411,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 625.19,
+    "falls_vs": "below",
+    "falls_rank": 20,
+    "items_per_person": 19.05,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     2,
+     3,
+     5,
+     134
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     6,
+     23,
+     26,
+     4,
+     3
+    ]
    },
    {
     "council": "East Lothian",
@@ -302,7 +545,31 @@
     "lower": 13.4,
     "upper": 20.6,
     "share_q1": 0.0478,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 562.97,
+    "falls_vs": "below",
+    "falls_rank": 27,
+    "items_per_person": 16.41,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     10,
+     101
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     4,
+     38,
+     37,
+     6,
+     4
+    ]
    },
    {
     "council": "East Renfrewshire",
@@ -310,7 +577,31 @@
     "lower": 5.5,
     "upper": 10.94,
     "share_q1": 0.0495,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 616.01,
+    "falls_vs": "below",
+    "falls_rank": 24,
+    "items_per_person": 18.7,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     1,
+     0,
+     1,
+     2,
+     107
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     0,
+     12,
+     21,
+     2,
+     1
+    ]
    },
    {
     "council": "Falkirk",
@@ -318,7 +609,31 @@
     "lower": 16.07,
     "upper": 22.34,
     "share_q1": 0.1521,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 705.28,
+    "falls_vs": "above",
+    "falls_rank": 10,
+    "items_per_person": 20.43,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     7,
+     14,
+     136
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     11,
+     67,
+     65,
+     2,
+     4
+    ]
    },
    {
     "council": "Fife",
@@ -326,7 +641,31 @@
     "lower": 17.32,
     "upper": 21.51,
     "share_q1": 0.1956,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 761.22,
+    "falls_vs": "above",
+    "falls_rank": 4,
+    "items_per_person": 20.45,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     2,
+     2,
+     12,
+     28,
+     319
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     1,
+     32,
+     160,
+     122,
+     10,
+     14
+    ]
    },
    {
     "council": "Glasgow City",
@@ -334,7 +673,31 @@
     "lower": 36.64,
     "upper": 41.11,
     "share_q1": 0.4471,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 828.07,
+    "falls_vs": "above",
+    "falls_rank": 2,
+    "items_per_person": 20.78,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     10,
+     38,
+     38,
+     442
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     33,
+     482,
+     648,
+     36,
+     15
+    ]
    },
    {
     "council": "Highland",
@@ -342,7 +705,31 @@
     "lower": 12.72,
     "upper": 17.44,
     "share_q1": 0.0905,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 419.58,
+    "falls_vs": "below",
+    "falls_rank": 32,
+    "items_per_person": 19.67,
+    "deaths_falls": [
+     0,
+     0,
+     1,
+     2,
+     13,
+     24,
+     30,
+     229
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     16,
+     84,
+     48,
+     5,
+     11
+    ]
    },
    {
     "council": "Inverclyde",
@@ -350,7 +737,31 @@
     "lower": 29.15,
     "upper": 41.4,
     "share_q1": 0.4447,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 696.54,
+    "falls_vs": "above",
+    "falls_rank": 11,
+    "items_per_person": 27.08,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     1,
+     0,
+     6,
+     13,
+     91
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     4,
+     57,
+     61,
+     4,
+     7
+    ]
    },
    {
     "council": "Midlothian",
@@ -358,7 +769,31 @@
     "lower": 15.63,
     "upper": 23.8,
     "share_q1": 0.073,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 623.21,
+    "falls_vs": "below",
+    "falls_rank": 22,
+    "items_per_person": 16.52,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     6,
+     7,
+     46
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     5,
+     48,
+     36,
+     1,
+     2
+    ]
    },
    {
     "council": "Moray",
@@ -366,7 +801,31 @@
     "lower": 8.82,
     "upper": 15.54,
     "share_q1": 0.0245,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 510.47,
+    "falls_vs": "below",
+    "falls_rank": 29,
+    "items_per_person": 18.85,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     2,
+     4,
+     7,
+     100
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     4,
+     30,
+     16,
+     1,
+     1
+    ]
    },
    {
     "council": "Na h-Eileanan Siar",
@@ -374,7 +833,31 @@
     "lower": 5.98,
     "upper": 19.87,
     "share_q1": 0.0,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 731.9,
+    "falls_vs": "above",
+    "falls_rank": 6,
+    "items_per_person": 26.85,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     4,
+     4,
+     22
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     2,
+     6,
+     3,
+     1,
+     1
+    ]
    },
    {
     "council": "North Ayrshire",
@@ -382,7 +865,31 @@
     "lower": 25.74,
     "upper": 34.79,
     "share_q1": 0.3999,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 675.26,
+    "falls_vs": "above",
+    "falls_rank": 12,
+    "items_per_person": 24.19,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     9,
+     136
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     6,
+     97,
+     69,
+     3,
+     5
+    ]
    },
    {
     "council": "North Lanarkshire",
@@ -390,7 +897,31 @@
     "lower": 23.01,
     "upper": 27.87,
     "share_q1": 0.3099,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 638.64,
+    "falls_vs": "below",
+    "falls_rank": 16,
+    "items_per_person": 23.22,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     1,
+     1,
+     19,
+     35,
+     272
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     26,
+     221,
+     156,
+     20,
+     7
+    ]
    },
    {
     "council": "Orkney Islands",
@@ -398,7 +929,31 @@
     "lower": 1.58,
     "upper": 11.83,
     "share_q1": 0.0,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 482.88,
+    "falls_vs": "below",
+    "falls_rank": 30,
+    "items_per_person": 18.5,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     33
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     0,
+     3,
+     2,
+     0,
+     0
+    ]
    },
    {
     "council": "Perth and Kinross",
@@ -406,7 +961,31 @@
     "lower": 13.71,
     "upper": 19.94,
     "share_q1": 0.0622,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 724.56,
+    "falls_vs": "above",
+    "falls_rank": 7,
+    "items_per_person": 18.58,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     2,
+     1,
+     7,
+     5,
+     157
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     3,
+     64,
+     41,
+     5,
+     4
+    ]
    },
    {
     "council": "Renfrewshire",
@@ -414,7 +993,31 @@
     "lower": 23.69,
     "upper": 30.49,
     "share_q1": 0.2458,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 640.08,
+    "falls_vs": "similar",
+    "falls_rank": 14,
+    "items_per_person": 20.63,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     3,
+     3,
+     20,
+     163
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     9,
+     124,
+     108,
+     5,
+     4
+    ]
    },
    {
     "council": "Scottish Borders",
@@ -422,7 +1025,31 @@
     "lower": 9.41,
     "upper": 16.03,
     "share_q1": 0.0575,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 535.34,
+    "falls_vs": "below",
+    "falls_rank": 28,
+    "items_per_person": 21.74,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     4,
+     12,
+     123
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     5,
+     37,
+     16,
+     2,
+     0
+    ]
    },
    {
     "council": "Shetland Islands",
@@ -430,7 +1057,31 @@
     "lower": 9.67,
     "upper": 25.89,
     "share_q1": 0.0,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 622.78,
+    "falls_vs": "similar",
+    "falls_rank": 23,
+    "items_per_person": 21.47,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     24
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     1,
+     9,
+     7,
+     0,
+     1
+    ]
    },
    {
     "council": "South Ayrshire",
@@ -438,7 +1089,31 @@
     "lower": 17.52,
     "upper": 25.9,
     "share_q1": 0.1635,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 642.16,
+    "falls_vs": "similar",
+    "falls_rank": 13,
+    "items_per_person": 25.62,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     6,
+     11,
+     149
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     3,
+     49,
+     53,
+     1,
+     3
+    ]
    },
    {
     "council": "South Lanarkshire",
@@ -446,7 +1121,31 @@
     "lower": 21.95,
     "upper": 26.85,
     "share_q1": 0.189,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 623.26,
+    "falls_vs": "below",
+    "falls_rank": 21,
+    "items_per_person": 22.13,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     3,
+     16,
+     24,
+     307
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     17,
+     192,
+     161,
+     9,
+     11
+    ]
    },
    {
     "council": "Stirling",
@@ -454,7 +1153,31 @@
     "lower": 18.97,
     "upper": 28.35,
     "share_q1": 0.129,
-    "vs": "similar"
+    "vs": "similar",
+    "falls_rate": 634.43,
+    "falls_vs": "similar",
+    "falls_rank": 18,
+    "items_per_person": 21.59,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     2,
+     8,
+     4,
+     73
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     9,
+     44,
+     39,
+     4,
+     6
+    ]
    },
    {
     "council": "West Dunbartonshire",
@@ -462,7 +1185,31 @@
     "lower": 25.55,
     "upper": 36.2,
     "share_q1": 0.4047,
-    "vs": "above"
+    "vs": "above",
+    "falls_rate": 715.29,
+    "falls_vs": "above",
+    "falls_rank": 8,
+    "items_per_person": 21.76,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     5,
+     8,
+     89
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     0,
+     5,
+     59,
+     60,
+     4,
+     5
+    ]
    },
    {
     "council": "West Lothian",
@@ -470,7 +1217,31 @@
     "lower": 14.75,
     "upper": 20.29,
     "share_q1": 0.1395,
-    "vs": "below"
+    "vs": "below",
+    "falls_rate": 568.64,
+    "falls_vs": "below",
+    "falls_rank": 26,
+    "items_per_person": 18.48,
+    "deaths_falls": [
+     0,
+     0,
+     0,
+     0,
+     3,
+     8,
+     14,
+     110
+    ],
+    "deaths_poisoning": [
+     0,
+     0,
+     1,
+     10,
+     69,
+     69,
+     5,
+     4
+    ]
    }
   ],
   "rho_poisoning_deaths": 0.908,

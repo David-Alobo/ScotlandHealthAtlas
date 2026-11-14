@@ -1,0 +1,1025 @@
+dataset,period,injury_type,council,age_band,events
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,0-4 years,153
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,5-9 years,144
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,10-14 years,102
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,15-24 years,184
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,25-44 years,577
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,45-64 years,1225
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,65-74 years,984
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,75plus years,2867
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,0-4 years,181
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,5-9 years,215
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,10-14 years,167
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,15-24 years,178
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,25-44 years,434
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,45-64 years,1179
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,65-74 years,1147
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,75plus years,3150
+admissions,2020/21 to 2024/25,Falls,Angus,0-4 years,118
+admissions,2020/21 to 2024/25,Falls,Angus,5-9 years,127
+admissions,2020/21 to 2024/25,Falls,Angus,10-14 years,102
+admissions,2020/21 to 2024/25,Falls,Angus,15-24 years,126
+admissions,2020/21 to 2024/25,Falls,Angus,25-44 years,340
+admissions,2020/21 to 2024/25,Falls,Angus,45-64 years,864
+admissions,2020/21 to 2024/25,Falls,Angus,65-74 years,806
+admissions,2020/21 to 2024/25,Falls,Angus,75plus years,2689
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,0-4 years,55
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,5-9 years,65
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,10-14 years,49
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,15-24 years,74
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,25-44 years,278
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,45-64 years,679
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,65-74 years,744
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,75plus years,2359
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,0-4 years,218
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,5-9 years,247
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,10-14 years,161
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,15-24 years,374
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,25-44 years,972
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,45-64 years,2227
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,65-74 years,2067
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,75plus years,8055
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,0-4 years,50
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,5-9 years,55
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,10-14 years,54
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,15-24 years,30
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,25-44 years,132
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,45-64 years,384
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,65-74 years,309
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,75plus years,898
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,0-4 years,176
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,5-9 years,187
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,10-14 years,138
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,15-24 years,124
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,25-44 years,305
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,45-64 years,877
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,65-74 years,876
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,75plus years,3046
+admissions,2020/21 to 2024/25,Falls,Dundee City,0-4 years,150
+admissions,2020/21 to 2024/25,Falls,Dundee City,5-9 years,177
+admissions,2020/21 to 2024/25,Falls,Dundee City,10-14 years,130
+admissions,2020/21 to 2024/25,Falls,Dundee City,15-24 years,206
+admissions,2020/21 to 2024/25,Falls,Dundee City,25-44 years,589
+admissions,2020/21 to 2024/25,Falls,Dundee City,45-64 years,1311
+admissions,2020/21 to 2024/25,Falls,Dundee City,65-74 years,1061
+admissions,2020/21 to 2024/25,Falls,Dundee City,75plus years,3300
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,0-4 years,144
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,5-9 years,148
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,10-14 years,111
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,15-24 years,107
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,25-44 years,320
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,45-64 years,785
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,65-74 years,654
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,75plus years,1837
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,0-4 years,100
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,5-9 years,131
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,10-14 years,73
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,15-24 years,98
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,25-44 years,209
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,45-64 years,589
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,65-74 years,584
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,75plus years,2315
+admissions,2020/21 to 2024/25,Falls,East Lothian,0-4 years,54
+admissions,2020/21 to 2024/25,Falls,East Lothian,5-9 years,74
+admissions,2020/21 to 2024/25,Falls,East Lothian,10-14 years,40
+admissions,2020/21 to 2024/25,Falls,East Lothian,15-24 years,65
+admissions,2020/21 to 2024/25,Falls,East Lothian,25-44 years,160
+admissions,2020/21 to 2024/25,Falls,East Lothian,45-64 years,520
+admissions,2020/21 to 2024/25,Falls,East Lothian,65-74 years,544
+admissions,2020/21 to 2024/25,Falls,East Lothian,75plus years,1993
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,0-4 years,82
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,5-9 years,91
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,10-14 years,98
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,15-24 years,81
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,25-44 years,147
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,45-64 years,475
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,65-74 years,468
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,75plus years,1953
+admissions,2020/21 to 2024/25,Falls,Falkirk,0-4 years,130
+admissions,2020/21 to 2024/25,Falls,Falkirk,5-9 years,152
+admissions,2020/21 to 2024/25,Falls,Falkirk,10-14 years,117
+admissions,2020/21 to 2024/25,Falls,Falkirk,15-24 years,122
+admissions,2020/21 to 2024/25,Falls,Falkirk,25-44 years,418
+admissions,2020/21 to 2024/25,Falls,Falkirk,45-64 years,1037
+admissions,2020/21 to 2024/25,Falls,Falkirk,65-74 years,892
+admissions,2020/21 to 2024/25,Falls,Falkirk,75plus years,2855
+admissions,2020/21 to 2024/25,Falls,Fife,0-4 years,424
+admissions,2020/21 to 2024/25,Falls,Fife,5-9 years,307
+admissions,2020/21 to 2024/25,Falls,Fife,10-14 years,263
+admissions,2020/21 to 2024/25,Falls,Fife,15-24 years,311
+admissions,2020/21 to 2024/25,Falls,Fife,25-44 years,791
+admissions,2020/21 to 2024/25,Falls,Fife,45-64 years,2342
+admissions,2020/21 to 2024/25,Falls,Fife,65-74 years,2413
+admissions,2020/21 to 2024/25,Falls,Fife,75plus years,8598
+admissions,2020/21 to 2024/25,Falls,Glasgow City,0-4 years,537
+admissions,2020/21 to 2024/25,Falls,Glasgow City,5-9 years,537
+admissions,2020/21 to 2024/25,Falls,Glasgow City,10-14 years,405
+admissions,2020/21 to 2024/25,Falls,Glasgow City,15-24 years,641
+admissions,2020/21 to 2024/25,Falls,Glasgow City,25-44 years,2163
+admissions,2020/21 to 2024/25,Falls,Glasgow City,45-64 years,4686
+admissions,2020/21 to 2024/25,Falls,Glasgow City,65-74 years,3432
+admissions,2020/21 to 2024/25,Falls,Glasgow City,75plus years,8570
+admissions,2020/21 to 2024/25,Falls,Highland,0-4 years,75
+admissions,2020/21 to 2024/25,Falls,Highland,5-9 years,101
+admissions,2020/21 to 2024/25,Falls,Highland,10-14 years,75
+admissions,2020/21 to 2024/25,Falls,Highland,15-24 years,127
+admissions,2020/21 to 2024/25,Falls,Highland,25-44 years,334
+admissions,2020/21 to 2024/25,Falls,Highland,45-64 years,967
+admissions,2020/21 to 2024/25,Falls,Highland,65-74 years,949
+admissions,2020/21 to 2024/25,Falls,Highland,75plus years,3094
+admissions,2020/21 to 2024/25,Falls,Inverclyde,0-4 years,64
+admissions,2020/21 to 2024/25,Falls,Inverclyde,5-9 years,75
+admissions,2020/21 to 2024/25,Falls,Inverclyde,10-14 years,51
+admissions,2020/21 to 2024/25,Falls,Inverclyde,15-24 years,58
+admissions,2020/21 to 2024/25,Falls,Inverclyde,25-44 years,204
+admissions,2020/21 to 2024/25,Falls,Inverclyde,45-64 years,610
+admissions,2020/21 to 2024/25,Falls,Inverclyde,65-74 years,508
+admissions,2020/21 to 2024/25,Falls,Inverclyde,75plus years,1476
+admissions,2020/21 to 2024/25,Falls,Midlothian,0-4 years,94
+admissions,2020/21 to 2024/25,Falls,Midlothian,5-9 years,59
+admissions,2020/21 to 2024/25,Falls,Midlothian,10-14 years,46
+admissions,2020/21 to 2024/25,Falls,Midlothian,15-24 years,65
+admissions,2020/21 to 2024/25,Falls,Midlothian,25-44 years,165
+admissions,2020/21 to 2024/25,Falls,Midlothian,45-64 years,466
+admissions,2020/21 to 2024/25,Falls,Midlothian,65-74 years,525
+admissions,2020/21 to 2024/25,Falls,Midlothian,75plus years,1580
+admissions,2020/21 to 2024/25,Falls,Moray,0-4 years,59
+admissions,2020/21 to 2024/25,Falls,Moray,5-9 years,73
+admissions,2020/21 to 2024/25,Falls,Moray,10-14 years,89
+admissions,2020/21 to 2024/25,Falls,Moray,15-24 years,77
+admissions,2020/21 to 2024/25,Falls,Moray,25-44 years,171
+admissions,2020/21 to 2024/25,Falls,Moray,45-64 years,487
+admissions,2020/21 to 2024/25,Falls,Moray,65-74 years,428
+admissions,2020/21 to 2024/25,Falls,Moray,75plus years,1320
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,0-4 years,26
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,5-9 years,21
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,10-14 years,6
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,15-24 years,20
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,25-44 years,55
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,45-64 years,225
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,65-74 years,212
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,75plus years,639
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,0-4 years,134
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,5-9 years,149
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,10-14 years,123
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,15-24 years,121
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,25-44 years,356
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,45-64 years,964
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,65-74 years,908
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,75plus years,2349
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,0-4 years,290
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,5-9 years,289
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,10-14 years,242
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,15-24 years,288
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,25-44 years,946
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,45-64 years,2165
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,65-74 years,1777
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,75plus years,4496
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,0-4 years,11
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,5-9 years,13
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,10-14 years,9
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,15-24 years,11
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,25-44 years,34
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,45-64 years,107
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,65-74 years,108
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,75plus years,349
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,0-4 years,140
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,5-9 years,150
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,10-14 years,147
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,15-24 years,131
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,25-44 years,358
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,45-64 years,982
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,65-74 years,936
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,75plus years,3714
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,0-4 years,158
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,5-9 years,166
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,10-14 years,129
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,15-24 years,147
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,25-44 years,414
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,45-64 years,1144
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,65-74 years,977
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,75plus years,2900
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,0-4 years,152
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,5-9 years,104
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,10-14 years,107
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,15-24 years,69
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,25-44 years,198
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,45-64 years,572
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,65-74 years,577
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,75plus years,2023
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,0-4 years,10
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,5-9 years,12
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,10-14 years,18
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,15-24 years,15
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,25-44 years,64
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,45-64 years,152
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,65-74 years,117
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,75plus years,390
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,0-4 years,86
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,5-9 years,126
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,10-14 years,90
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,15-24 years,84
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,25-44 years,287
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,45-64 years,716
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,65-74 years,700
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,75plus years,2317
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,0-4 years,229
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,5-9 years,276
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,10-14 years,208
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,15-24 years,225
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,25-44 years,724
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,45-64 years,1929
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,65-74 years,1724
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,75plus years,5294
+admissions,2020/21 to 2024/25,Falls,Stirling,0-4 years,68
+admissions,2020/21 to 2024/25,Falls,Stirling,5-9 years,76
+admissions,2020/21 to 2024/25,Falls,Stirling,10-14 years,63
+admissions,2020/21 to 2024/25,Falls,Stirling,15-24 years,75
+admissions,2020/21 to 2024/25,Falls,Stirling,25-44 years,213
+admissions,2020/21 to 2024/25,Falls,Stirling,45-64 years,526
+admissions,2020/21 to 2024/25,Falls,Stirling,65-74 years,445
+admissions,2020/21 to 2024/25,Falls,Stirling,75plus years,1642
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,0-4 years,110
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,5-9 years,100
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,10-14 years,69
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,15-24 years,86
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,25-44 years,248
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,45-64 years,661
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,65-74 years,523
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,75plus years,1451
+admissions,2020/21 to 2024/25,Falls,West Lothian,0-4 years,142
+admissions,2020/21 to 2024/25,Falls,West Lothian,5-9 years,118
+admissions,2020/21 to 2024/25,Falls,West Lothian,10-14 years,95
+admissions,2020/21 to 2024/25,Falls,West Lothian,15-24 years,87
+admissions,2020/21 to 2024/25,Falls,West Lothian,25-44 years,308
+admissions,2020/21 to 2024/25,Falls,West Lothian,45-64 years,854
+admissions,2020/21 to 2024/25,Falls,West Lothian,65-74 years,752
+admissions,2020/21 to 2024/25,Falls,West Lothian,75plus years,2488
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,0-4 years,35
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,5-9 years,5
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,10-14 years,12
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,15-24 years,119
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,25-44 years,328
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,45-64 years,158
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,65-74 years,21
+admissions,2020/21 to 2024/25,Poisoning,Aberdeen City,75plus years,25
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,0-4 years,26
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,5-9 years,5
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,10-14 years,11
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,15-24 years,89
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,25-44 years,143
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,45-64 years,102
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,65-74 years,21
+admissions,2020/21 to 2024/25,Poisoning,Aberdeenshire,75plus years,29
+admissions,2020/21 to 2024/25,Poisoning,Angus,0-4 years,29
+admissions,2020/21 to 2024/25,Poisoning,Angus,5-9 years,8
+admissions,2020/21 to 2024/25,Poisoning,Angus,10-14 years,12
+admissions,2020/21 to 2024/25,Poisoning,Angus,15-24 years,54
+admissions,2020/21 to 2024/25,Poisoning,Angus,25-44 years,116
+admissions,2020/21 to 2024/25,Poisoning,Angus,45-64 years,59
+admissions,2020/21 to 2024/25,Poisoning,Angus,65-74 years,20
+admissions,2020/21 to 2024/25,Poisoning,Angus,75plus years,28
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,0-4 years,17
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,5-9 years,3
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,10-14 years,1
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,15-24 years,41
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,25-44 years,80
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,45-64 years,67
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,65-74 years,20
+admissions,2020/21 to 2024/25,Poisoning,Argyll and Bute,75plus years,36
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,0-4 years,60
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,5-9 years,10
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,10-14 years,11
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,15-24 years,112
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,25-44 years,392
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,45-64 years,332
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,65-74 years,65
+admissions,2020/21 to 2024/25,Poisoning,City of Edinburgh,75plus years,119
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,0-4 years,12
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,5-9 years,1
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,10-14 years,5
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,15-24 years,7
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,25-44 years,52
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,45-64 years,42
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,65-74 years,12
+admissions,2020/21 to 2024/25,Poisoning,Clackmannanshire,75plus years,11
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,0-4 years,44
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,5-9 years,8
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,10-14 years,7
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,15-24 years,22
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,25-44 years,88
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,45-64 years,60
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,65-74 years,30
+admissions,2020/21 to 2024/25,Poisoning,Dumfries and Galloway,75plus years,54
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,0-4 years,44
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,5-9 years,9
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,10-14 years,14
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,15-24 years,78
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,25-44 years,310
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,45-64 years,170
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,65-74 years,45
+admissions,2020/21 to 2024/25,Poisoning,Dundee City,75plus years,48
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,0-4 years,53
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,5-9 years,12
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,10-14 years,6
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,15-24 years,32
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,25-44 years,117
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,45-64 years,98
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,65-74 years,36
+admissions,2020/21 to 2024/25,Poisoning,East Ayrshire,75plus years,36
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,0-4 years,35
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,5-9 years,5
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,10-14 years,4
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,15-24 years,27
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,25-44 years,60
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,45-64 years,53
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,65-74 years,21
+admissions,2020/21 to 2024/25,Poisoning,East Dunbartonshire,75plus years,45
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,0-4 years,12
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,5-9 years,1
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,10-14 years,8
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,15-24 years,20
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,25-44 years,61
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,45-64 years,55
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,65-74 years,19
+admissions,2020/21 to 2024/25,Poisoning,East Lothian,75plus years,20
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,0-4 years,15
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,5-9 years,10
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,10-14 years,7
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,15-24 years,24
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,25-44 years,41
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,45-64 years,37
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,65-74 years,10
+admissions,2020/21 to 2024/25,Poisoning,East Renfrewshire,75plus years,25
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,0-4 years,36
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,5-9 years,10
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,10-14 years,10
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,15-24 years,33
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,25-44 years,178
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,45-64 years,116
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,65-74 years,41
+admissions,2020/21 to 2024/25,Poisoning,Falkirk,75plus years,49
+admissions,2020/21 to 2024/25,Poisoning,Fife,0-4 years,77
+admissions,2020/21 to 2024/25,Poisoning,Fife,5-9 years,15
+admissions,2020/21 to 2024/25,Poisoning,Fife,10-14 years,17
+admissions,2020/21 to 2024/25,Poisoning,Fife,15-24 years,242
+admissions,2020/21 to 2024/25,Poisoning,Fife,25-44 years,837
+admissions,2020/21 to 2024/25,Poisoning,Fife,45-64 years,413
+admissions,2020/21 to 2024/25,Poisoning,Fife,65-74 years,73
+admissions,2020/21 to 2024/25,Poisoning,Fife,75plus years,100
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,0-4 years,189
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,5-9 years,31
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,10-14 years,41
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,15-24 years,255
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,25-44 years,936
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,45-64 years,777
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,65-74 years,137
+admissions,2020/21 to 2024/25,Poisoning,Glasgow City,75plus years,181
+admissions,2020/21 to 2024/25,Poisoning,Highland,0-4 years,20
+admissions,2020/21 to 2024/25,Poisoning,Highland,5-9 years,3
+admissions,2020/21 to 2024/25,Poisoning,Highland,10-14 years,4
+admissions,2020/21 to 2024/25,Poisoning,Highland,15-24 years,65
+admissions,2020/21 to 2024/25,Poisoning,Highland,25-44 years,134
+admissions,2020/21 to 2024/25,Poisoning,Highland,45-64 years,98
+admissions,2020/21 to 2024/25,Poisoning,Highland,65-74 years,33
+admissions,2020/21 to 2024/25,Poisoning,Highland,75plus years,56
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,0-4 years,19
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,5-9 years,5
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,10-14 years,2
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,15-24 years,20
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,25-44 years,116
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,45-64 years,81
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,65-74 years,22
+admissions,2020/21 to 2024/25,Poisoning,Inverclyde,75plus years,29
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,0-4 years,10
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,5-9 years,3
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,10-14 years,2
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,15-24 years,25
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,25-44 years,82
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,45-64 years,37
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,65-74 years,14
+admissions,2020/21 to 2024/25,Poisoning,Midlothian,75plus years,27
+admissions,2020/21 to 2024/25,Poisoning,Moray,0-4 years,22
+admissions,2020/21 to 2024/25,Poisoning,Moray,5-9 years,7
+admissions,2020/21 to 2024/25,Poisoning,Moray,10-14 years,10
+admissions,2020/21 to 2024/25,Poisoning,Moray,15-24 years,27
+admissions,2020/21 to 2024/25,Poisoning,Moray,25-44 years,59
+admissions,2020/21 to 2024/25,Poisoning,Moray,45-64 years,45
+admissions,2020/21 to 2024/25,Poisoning,Moray,65-74 years,10
+admissions,2020/21 to 2024/25,Poisoning,Moray,75plus years,15
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,0-4 years,2
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,5-9 years,0
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,10-14 years,6
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,15-24 years,43
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,25-44 years,51
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,45-64 years,37
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,65-74 years,10
+admissions,2020/21 to 2024/25,Poisoning,Na h-Eileanan Siar,75plus years,12
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,0-4 years,57
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,5-9 years,11
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,10-14 years,9
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,15-24 years,41
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,25-44 years,97
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,45-64 years,92
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,65-74 years,27
+admissions,2020/21 to 2024/25,Poisoning,North Ayrshire,75plus years,47
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,0-4 years,89
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,5-9 years,14
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,10-14 years,15
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,15-24 years,83
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,25-44 years,378
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,45-64 years,273
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,65-74 years,73
+admissions,2020/21 to 2024/25,Poisoning,North Lanarkshire,75plus years,99
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,0-4 years,4
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,5-9 years,0
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,10-14 years,1
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,15-24 years,3
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,25-44 years,4
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,45-64 years,3
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,65-74 years,0
+admissions,2020/21 to 2024/25,Poisoning,Orkney Islands,75plus years,2
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,0-4 years,33
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,5-9 years,8
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,10-14 years,9
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,15-24 years,47
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,25-44 years,167
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,45-64 years,115
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,65-74 years,35
+admissions,2020/21 to 2024/25,Poisoning,Perth and Kinross,75plus years,57
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,0-4 years,63
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,5-9 years,4
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,10-14 years,12
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,15-24 years,81
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,25-44 years,229
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,45-64 years,147
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,65-74 years,38
+admissions,2020/21 to 2024/25,Poisoning,Renfrewshire,75plus years,40
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,0-4 years,56
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,5-9 years,9
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,10-14 years,2
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,15-24 years,1
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,25-44 years,17
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,45-64 years,19
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,65-74 years,8
+admissions,2020/21 to 2024/25,Poisoning,Scottish Borders,75plus years,22
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,0-4 years,3
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,5-9 years,1
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,10-14 years,0
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,15-24 years,3
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,25-44 years,10
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,45-64 years,10
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,65-74 years,3
+admissions,2020/21 to 2024/25,Poisoning,Shetland Islands,75plus years,5
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,0-4 years,31
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,5-9 years,6
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,10-14 years,4
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,15-24 years,35
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,25-44 years,103
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,45-64 years,115
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,65-74 years,26
+admissions,2020/21 to 2024/25,Poisoning,South Ayrshire,75plus years,35
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,0-4 years,71
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,5-9 years,12
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,10-14 years,25
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,15-24 years,64
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,25-44 years,230
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,45-64 years,227
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,65-74 years,56
+admissions,2020/21 to 2024/25,Poisoning,South Lanarkshire,75plus years,82
+admissions,2020/21 to 2024/25,Poisoning,Stirling,0-4 years,17
+admissions,2020/21 to 2024/25,Poisoning,Stirling,5-9 years,1
+admissions,2020/21 to 2024/25,Poisoning,Stirling,10-14 years,4
+admissions,2020/21 to 2024/25,Poisoning,Stirling,15-24 years,24
+admissions,2020/21 to 2024/25,Poisoning,Stirling,25-44 years,100
+admissions,2020/21 to 2024/25,Poisoning,Stirling,45-64 years,68
+admissions,2020/21 to 2024/25,Poisoning,Stirling,65-74 years,12
+admissions,2020/21 to 2024/25,Poisoning,Stirling,75plus years,25
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,0-4 years,29
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,5-9 years,6
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,10-14 years,8
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,15-24 years,32
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,25-44 years,124
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,45-64 years,81
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,65-74 years,13
+admissions,2020/21 to 2024/25,Poisoning,West Dunbartonshire,75plus years,32
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,0-4 years,48
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,5-9 years,9
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,10-14 years,5
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,15-24 years,33
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,25-44 years,142
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,45-64 years,88
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,65-74 years,24
+admissions,2020/21 to 2024/25,Poisoning,West Lothian,75plus years,50
+deaths,2020 to 2024,Falls,Aberdeen City,0-4 years,0
+deaths,2020 to 2024,Falls,Aberdeen City,5-9 years,0
+deaths,2020 to 2024,Falls,Aberdeen City,10-14 years,0
+deaths,2020 to 2024,Falls,Aberdeen City,15-24 years,0
+deaths,2020 to 2024,Falls,Aberdeen City,25-44 years,1
+deaths,2020 to 2024,Falls,Aberdeen City,45-64 years,12
+deaths,2020 to 2024,Falls,Aberdeen City,65-74 years,6
+deaths,2020 to 2024,Falls,Aberdeen City,75plus years,175
+deaths,2020 to 2024,Falls,Aberdeenshire,0-4 years,0
+deaths,2020 to 2024,Falls,Aberdeenshire,5-9 years,0
+deaths,2020 to 2024,Falls,Aberdeenshire,10-14 years,0
+deaths,2020 to 2024,Falls,Aberdeenshire,15-24 years,0
+deaths,2020 to 2024,Falls,Aberdeenshire,25-44 years,1
+deaths,2020 to 2024,Falls,Aberdeenshire,45-64 years,10
+deaths,2020 to 2024,Falls,Aberdeenshire,65-74 years,12
+deaths,2020 to 2024,Falls,Aberdeenshire,75plus years,195
+deaths,2020 to 2024,Falls,Angus,0-4 years,0
+deaths,2020 to 2024,Falls,Angus,5-9 years,0
+deaths,2020 to 2024,Falls,Angus,10-14 years,0
+deaths,2020 to 2024,Falls,Angus,15-24 years,1
+deaths,2020 to 2024,Falls,Angus,25-44 years,0
+deaths,2020 to 2024,Falls,Angus,45-64 years,4
+deaths,2020 to 2024,Falls,Angus,65-74 years,9
+deaths,2020 to 2024,Falls,Angus,75plus years,112
+deaths,2020 to 2024,Falls,Argyll and Bute,0-4 years,0
+deaths,2020 to 2024,Falls,Argyll and Bute,5-9 years,0
+deaths,2020 to 2024,Falls,Argyll and Bute,10-14 years,0
+deaths,2020 to 2024,Falls,Argyll and Bute,15-24 years,2
+deaths,2020 to 2024,Falls,Argyll and Bute,25-44 years,3
+deaths,2020 to 2024,Falls,Argyll and Bute,45-64 years,8
+deaths,2020 to 2024,Falls,Argyll and Bute,65-74 years,7
+deaths,2020 to 2024,Falls,Argyll and Bute,75plus years,92
+deaths,2020 to 2024,Falls,City of Edinburgh,0-4 years,0
+deaths,2020 to 2024,Falls,City of Edinburgh,5-9 years,0
+deaths,2020 to 2024,Falls,City of Edinburgh,10-14 years,0
+deaths,2020 to 2024,Falls,City of Edinburgh,15-24 years,2
+deaths,2020 to 2024,Falls,City of Edinburgh,25-44 years,7
+deaths,2020 to 2024,Falls,City of Edinburgh,45-64 years,14
+deaths,2020 to 2024,Falls,City of Edinburgh,65-74 years,30
+deaths,2020 to 2024,Falls,City of Edinburgh,75plus years,371
+deaths,2020 to 2024,Falls,Clackmannanshire,0-4 years,0
+deaths,2020 to 2024,Falls,Clackmannanshire,5-9 years,0
+deaths,2020 to 2024,Falls,Clackmannanshire,10-14 years,0
+deaths,2020 to 2024,Falls,Clackmannanshire,15-24 years,0
+deaths,2020 to 2024,Falls,Clackmannanshire,25-44 years,0
+deaths,2020 to 2024,Falls,Clackmannanshire,45-64 years,2
+deaths,2020 to 2024,Falls,Clackmannanshire,65-74 years,8
+deaths,2020 to 2024,Falls,Clackmannanshire,75plus years,46
+deaths,2020 to 2024,Falls,Dumfries and Galloway,0-4 years,0
+deaths,2020 to 2024,Falls,Dumfries and Galloway,5-9 years,0
+deaths,2020 to 2024,Falls,Dumfries and Galloway,10-14 years,0
+deaths,2020 to 2024,Falls,Dumfries and Galloway,15-24 years,0
+deaths,2020 to 2024,Falls,Dumfries and Galloway,25-44 years,0
+deaths,2020 to 2024,Falls,Dumfries and Galloway,45-64 years,5
+deaths,2020 to 2024,Falls,Dumfries and Galloway,65-74 years,12
+deaths,2020 to 2024,Falls,Dumfries and Galloway,75plus years,200
+deaths,2020 to 2024,Falls,Dundee City,0-4 years,0
+deaths,2020 to 2024,Falls,Dundee City,5-9 years,0
+deaths,2020 to 2024,Falls,Dundee City,10-14 years,0
+deaths,2020 to 2024,Falls,Dundee City,15-24 years,1
+deaths,2020 to 2024,Falls,Dundee City,25-44 years,2
+deaths,2020 to 2024,Falls,Dundee City,45-64 years,12
+deaths,2020 to 2024,Falls,Dundee City,65-74 years,11
+deaths,2020 to 2024,Falls,Dundee City,75plus years,125
+deaths,2020 to 2024,Falls,East Ayrshire,0-4 years,0
+deaths,2020 to 2024,Falls,East Ayrshire,5-9 years,0
+deaths,2020 to 2024,Falls,East Ayrshire,10-14 years,0
+deaths,2020 to 2024,Falls,East Ayrshire,15-24 years,0
+deaths,2020 to 2024,Falls,East Ayrshire,25-44 years,1
+deaths,2020 to 2024,Falls,East Ayrshire,45-64 years,6
+deaths,2020 to 2024,Falls,East Ayrshire,65-74 years,9
+deaths,2020 to 2024,Falls,East Ayrshire,75plus years,142
+deaths,2020 to 2024,Falls,East Dunbartonshire,0-4 years,0
+deaths,2020 to 2024,Falls,East Dunbartonshire,5-9 years,0
+deaths,2020 to 2024,Falls,East Dunbartonshire,10-14 years,0
+deaths,2020 to 2024,Falls,East Dunbartonshire,15-24 years,0
+deaths,2020 to 2024,Falls,East Dunbartonshire,25-44 years,2
+deaths,2020 to 2024,Falls,East Dunbartonshire,45-64 years,3
+deaths,2020 to 2024,Falls,East Dunbartonshire,65-74 years,5
+deaths,2020 to 2024,Falls,East Dunbartonshire,75plus years,134
+deaths,2020 to 2024,Falls,East Lothian,0-4 years,0
+deaths,2020 to 2024,Falls,East Lothian,5-9 years,0
+deaths,2020 to 2024,Falls,East Lothian,10-14 years,0
+deaths,2020 to 2024,Falls,East Lothian,15-24 years,0
+deaths,2020 to 2024,Falls,East Lothian,25-44 years,0
+deaths,2020 to 2024,Falls,East Lothian,45-64 years,0
+deaths,2020 to 2024,Falls,East Lothian,65-74 years,10
+deaths,2020 to 2024,Falls,East Lothian,75plus years,101
+deaths,2020 to 2024,Falls,East Renfrewshire,0-4 years,0
+deaths,2020 to 2024,Falls,East Renfrewshire,5-9 years,0
+deaths,2020 to 2024,Falls,East Renfrewshire,10-14 years,0
+deaths,2020 to 2024,Falls,East Renfrewshire,15-24 years,1
+deaths,2020 to 2024,Falls,East Renfrewshire,25-44 years,0
+deaths,2020 to 2024,Falls,East Renfrewshire,45-64 years,1
+deaths,2020 to 2024,Falls,East Renfrewshire,65-74 years,2
+deaths,2020 to 2024,Falls,East Renfrewshire,75plus years,107
+deaths,2020 to 2024,Falls,Falkirk,0-4 years,0
+deaths,2020 to 2024,Falls,Falkirk,5-9 years,0
+deaths,2020 to 2024,Falls,Falkirk,10-14 years,0
+deaths,2020 to 2024,Falls,Falkirk,15-24 years,0
+deaths,2020 to 2024,Falls,Falkirk,25-44 years,0
+deaths,2020 to 2024,Falls,Falkirk,45-64 years,7
+deaths,2020 to 2024,Falls,Falkirk,65-74 years,14
+deaths,2020 to 2024,Falls,Falkirk,75plus years,136
+deaths,2020 to 2024,Falls,Fife,0-4 years,0
+deaths,2020 to 2024,Falls,Fife,5-9 years,0
+deaths,2020 to 2024,Falls,Fife,10-14 years,0
+deaths,2020 to 2024,Falls,Fife,15-24 years,2
+deaths,2020 to 2024,Falls,Fife,25-44 years,2
+deaths,2020 to 2024,Falls,Fife,45-64 years,12
+deaths,2020 to 2024,Falls,Fife,65-74 years,28
+deaths,2020 to 2024,Falls,Fife,75plus years,319
+deaths,2020 to 2024,Falls,Glasgow City,0-4 years,0
+deaths,2020 to 2024,Falls,Glasgow City,5-9 years,0
+deaths,2020 to 2024,Falls,Glasgow City,10-14 years,0
+deaths,2020 to 2024,Falls,Glasgow City,15-24 years,0
+deaths,2020 to 2024,Falls,Glasgow City,25-44 years,10
+deaths,2020 to 2024,Falls,Glasgow City,45-64 years,38
+deaths,2020 to 2024,Falls,Glasgow City,65-74 years,38
+deaths,2020 to 2024,Falls,Glasgow City,75plus years,442
+deaths,2020 to 2024,Falls,Highland,0-4 years,0
+deaths,2020 to 2024,Falls,Highland,5-9 years,0
+deaths,2020 to 2024,Falls,Highland,10-14 years,1
+deaths,2020 to 2024,Falls,Highland,15-24 years,2
+deaths,2020 to 2024,Falls,Highland,25-44 years,13
+deaths,2020 to 2024,Falls,Highland,45-64 years,24
+deaths,2020 to 2024,Falls,Highland,65-74 years,30
+deaths,2020 to 2024,Falls,Highland,75plus years,229
+deaths,2020 to 2024,Falls,Inverclyde,0-4 years,0
+deaths,2020 to 2024,Falls,Inverclyde,5-9 years,0
+deaths,2020 to 2024,Falls,Inverclyde,10-14 years,0
+deaths,2020 to 2024,Falls,Inverclyde,15-24 years,1
+deaths,2020 to 2024,Falls,Inverclyde,25-44 years,0
+deaths,2020 to 2024,Falls,Inverclyde,45-64 years,6
+deaths,2020 to 2024,Falls,Inverclyde,65-74 years,13
+deaths,2020 to 2024,Falls,Inverclyde,75plus years,91
+deaths,2020 to 2024,Falls,Midlothian,0-4 years,0
+deaths,2020 to 2024,Falls,Midlothian,5-9 years,0
+deaths,2020 to 2024,Falls,Midlothian,10-14 years,0
+deaths,2020 to 2024,Falls,Midlothian,15-24 years,0
+deaths,2020 to 2024,Falls,Midlothian,25-44 years,0
+deaths,2020 to 2024,Falls,Midlothian,45-64 years,6
+deaths,2020 to 2024,Falls,Midlothian,65-74 years,7
+deaths,2020 to 2024,Falls,Midlothian,75plus years,46
+deaths,2020 to 2024,Falls,Moray,0-4 years,0
+deaths,2020 to 2024,Falls,Moray,5-9 years,0
+deaths,2020 to 2024,Falls,Moray,10-14 years,0
+deaths,2020 to 2024,Falls,Moray,15-24 years,0
+deaths,2020 to 2024,Falls,Moray,25-44 years,2
+deaths,2020 to 2024,Falls,Moray,45-64 years,4
+deaths,2020 to 2024,Falls,Moray,65-74 years,7
+deaths,2020 to 2024,Falls,Moray,75plus years,100
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,0-4 years,0
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,5-9 years,0
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,10-14 years,0
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,15-24 years,0
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,25-44 years,0
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,45-64 years,4
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,65-74 years,4
+deaths,2020 to 2024,Falls,Na h-Eileanan Siar,75plus years,22
+deaths,2020 to 2024,Falls,North Ayrshire,0-4 years,0
+deaths,2020 to 2024,Falls,North Ayrshire,5-9 years,0
+deaths,2020 to 2024,Falls,North Ayrshire,10-14 years,0
+deaths,2020 to 2024,Falls,North Ayrshire,15-24 years,0
+deaths,2020 to 2024,Falls,North Ayrshire,25-44 years,0
+deaths,2020 to 2024,Falls,North Ayrshire,45-64 years,1
+deaths,2020 to 2024,Falls,North Ayrshire,65-74 years,9
+deaths,2020 to 2024,Falls,North Ayrshire,75plus years,136
+deaths,2020 to 2024,Falls,North Lanarkshire,0-4 years,0
+deaths,2020 to 2024,Falls,North Lanarkshire,5-9 years,0
+deaths,2020 to 2024,Falls,North Lanarkshire,10-14 years,0
+deaths,2020 to 2024,Falls,North Lanarkshire,15-24 years,1
+deaths,2020 to 2024,Falls,North Lanarkshire,25-44 years,1
+deaths,2020 to 2024,Falls,North Lanarkshire,45-64 years,19
+deaths,2020 to 2024,Falls,North Lanarkshire,65-74 years,35
+deaths,2020 to 2024,Falls,North Lanarkshire,75plus years,272
+deaths,2020 to 2024,Falls,Orkney Islands,0-4 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,5-9 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,10-14 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,15-24 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,25-44 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,45-64 years,1
+deaths,2020 to 2024,Falls,Orkney Islands,65-74 years,0
+deaths,2020 to 2024,Falls,Orkney Islands,75plus years,33
+deaths,2020 to 2024,Falls,Perth and Kinross,0-4 years,0
+deaths,2020 to 2024,Falls,Perth and Kinross,5-9 years,0
+deaths,2020 to 2024,Falls,Perth and Kinross,10-14 years,0
+deaths,2020 to 2024,Falls,Perth and Kinross,15-24 years,2
+deaths,2020 to 2024,Falls,Perth and Kinross,25-44 years,1
+deaths,2020 to 2024,Falls,Perth and Kinross,45-64 years,7
+deaths,2020 to 2024,Falls,Perth and Kinross,65-74 years,5
+deaths,2020 to 2024,Falls,Perth and Kinross,75plus years,157
+deaths,2020 to 2024,Falls,Renfrewshire,0-4 years,0
+deaths,2020 to 2024,Falls,Renfrewshire,5-9 years,0
+deaths,2020 to 2024,Falls,Renfrewshire,10-14 years,0
+deaths,2020 to 2024,Falls,Renfrewshire,15-24 years,0
+deaths,2020 to 2024,Falls,Renfrewshire,25-44 years,3
+deaths,2020 to 2024,Falls,Renfrewshire,45-64 years,3
+deaths,2020 to 2024,Falls,Renfrewshire,65-74 years,20
+deaths,2020 to 2024,Falls,Renfrewshire,75plus years,163
+deaths,2020 to 2024,Falls,Scottish Borders,0-4 years,0
+deaths,2020 to 2024,Falls,Scottish Borders,5-9 years,0
+deaths,2020 to 2024,Falls,Scottish Borders,10-14 years,0
+deaths,2020 to 2024,Falls,Scottish Borders,15-24 years,0
+deaths,2020 to 2024,Falls,Scottish Borders,25-44 years,0
+deaths,2020 to 2024,Falls,Scottish Borders,45-64 years,4
+deaths,2020 to 2024,Falls,Scottish Borders,65-74 years,12
+deaths,2020 to 2024,Falls,Scottish Borders,75plus years,123
+deaths,2020 to 2024,Falls,Shetland Islands,0-4 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,5-9 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,10-14 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,15-24 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,25-44 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,45-64 years,0
+deaths,2020 to 2024,Falls,Shetland Islands,65-74 years,1
+deaths,2020 to 2024,Falls,Shetland Islands,75plus years,24
+deaths,2020 to 2024,Falls,South Ayrshire,0-4 years,0
+deaths,2020 to 2024,Falls,South Ayrshire,5-9 years,0
+deaths,2020 to 2024,Falls,South Ayrshire,10-14 years,0
+deaths,2020 to 2024,Falls,South Ayrshire,15-24 years,0
+deaths,2020 to 2024,Falls,South Ayrshire,25-44 years,0
+deaths,2020 to 2024,Falls,South Ayrshire,45-64 years,6
+deaths,2020 to 2024,Falls,South Ayrshire,65-74 years,11
+deaths,2020 to 2024,Falls,South Ayrshire,75plus years,149
+deaths,2020 to 2024,Falls,South Lanarkshire,0-4 years,0
+deaths,2020 to 2024,Falls,South Lanarkshire,5-9 years,0
+deaths,2020 to 2024,Falls,South Lanarkshire,10-14 years,0
+deaths,2020 to 2024,Falls,South Lanarkshire,15-24 years,0
+deaths,2020 to 2024,Falls,South Lanarkshire,25-44 years,3
+deaths,2020 to 2024,Falls,South Lanarkshire,45-64 years,16
+deaths,2020 to 2024,Falls,South Lanarkshire,65-74 years,24
+deaths,2020 to 2024,Falls,South Lanarkshire,75plus years,307
+deaths,2020 to 2024,Falls,Stirling,0-4 years,0
+deaths,2020 to 2024,Falls,Stirling,5-9 years,0
+deaths,2020 to 2024,Falls,Stirling,10-14 years,0
+deaths,2020 to 2024,Falls,Stirling,15-24 years,0
+deaths,2020 to 2024,Falls,Stirling,25-44 years,2
+deaths,2020 to 2024,Falls,Stirling,45-64 years,8
+deaths,2020 to 2024,Falls,Stirling,65-74 years,4
+deaths,2020 to 2024,Falls,Stirling,75plus years,73
+deaths,2020 to 2024,Falls,West Dunbartonshire,0-4 years,0
+deaths,2020 to 2024,Falls,West Dunbartonshire,5-9 years,0
+deaths,2020 to 2024,Falls,West Dunbartonshire,10-14 years,0
+deaths,2020 to 2024,Falls,West Dunbartonshire,15-24 years,0
+deaths,2020 to 2024,Falls,West Dunbartonshire,25-44 years,0
+deaths,2020 to 2024,Falls,West Dunbartonshire,45-64 years,5
+deaths,2020 to 2024,Falls,West Dunbartonshire,65-74 years,8
+deaths,2020 to 2024,Falls,West Dunbartonshire,75plus years,89
+deaths,2020 to 2024,Falls,West Lothian,0-4 years,0
+deaths,2020 to 2024,Falls,West Lothian,5-9 years,0
+deaths,2020 to 2024,Falls,West Lothian,10-14 years,0
+deaths,2020 to 2024,Falls,West Lothian,15-24 years,0
+deaths,2020 to 2024,Falls,West Lothian,25-44 years,3
+deaths,2020 to 2024,Falls,West Lothian,45-64 years,8
+deaths,2020 to 2024,Falls,West Lothian,65-74 years,14
+deaths,2020 to 2024,Falls,West Lothian,75plus years,110
+deaths,2020 to 2024,Poisoning,Aberdeen City,0-4 years,0
+deaths,2020 to 2024,Poisoning,Aberdeen City,5-9 years,0
+deaths,2020 to 2024,Poisoning,Aberdeen City,10-14 years,0
+deaths,2020 to 2024,Poisoning,Aberdeen City,15-24 years,18
+deaths,2020 to 2024,Poisoning,Aberdeen City,25-44 years,122
+deaths,2020 to 2024,Poisoning,Aberdeen City,45-64 years,131
+deaths,2020 to 2024,Poisoning,Aberdeen City,65-74 years,11
+deaths,2020 to 2024,Poisoning,Aberdeen City,75plus years,2
+deaths,2020 to 2024,Poisoning,Aberdeenshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,Aberdeenshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,Aberdeenshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,Aberdeenshire,15-24 years,10
+deaths,2020 to 2024,Poisoning,Aberdeenshire,25-44 years,68
+deaths,2020 to 2024,Poisoning,Aberdeenshire,45-64 years,70
+deaths,2020 to 2024,Poisoning,Aberdeenshire,65-74 years,6
+deaths,2020 to 2024,Poisoning,Aberdeenshire,75plus years,3
+deaths,2020 to 2024,Poisoning,Angus,0-4 years,0
+deaths,2020 to 2024,Poisoning,Angus,5-9 years,0
+deaths,2020 to 2024,Poisoning,Angus,10-14 years,0
+deaths,2020 to 2024,Poisoning,Angus,15-24 years,4
+deaths,2020 to 2024,Poisoning,Angus,25-44 years,37
+deaths,2020 to 2024,Poisoning,Angus,45-64 years,31
+deaths,2020 to 2024,Poisoning,Angus,65-74 years,1
+deaths,2020 to 2024,Poisoning,Angus,75plus years,4
+deaths,2020 to 2024,Poisoning,Argyll and Bute,0-4 years,0
+deaths,2020 to 2024,Poisoning,Argyll and Bute,5-9 years,0
+deaths,2020 to 2024,Poisoning,Argyll and Bute,10-14 years,0
+deaths,2020 to 2024,Poisoning,Argyll and Bute,15-24 years,1
+deaths,2020 to 2024,Poisoning,Argyll and Bute,25-44 years,26
+deaths,2020 to 2024,Poisoning,Argyll and Bute,45-64 years,32
+deaths,2020 to 2024,Poisoning,Argyll and Bute,65-74 years,0
+deaths,2020 to 2024,Poisoning,Argyll and Bute,75plus years,0
+deaths,2020 to 2024,Poisoning,City of Edinburgh,0-4 years,0
+deaths,2020 to 2024,Poisoning,City of Edinburgh,5-9 years,0
+deaths,2020 to 2024,Poisoning,City of Edinburgh,10-14 years,0
+deaths,2020 to 2024,Poisoning,City of Edinburgh,15-24 years,22
+deaths,2020 to 2024,Poisoning,City of Edinburgh,25-44 years,222
+deaths,2020 to 2024,Poisoning,City of Edinburgh,45-64 years,257
+deaths,2020 to 2024,Poisoning,City of Edinburgh,65-74 years,14
+deaths,2020 to 2024,Poisoning,City of Edinburgh,75plus years,10
+deaths,2020 to 2024,Poisoning,Clackmannanshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,Clackmannanshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,Clackmannanshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,Clackmannanshire,15-24 years,0
+deaths,2020 to 2024,Poisoning,Clackmannanshire,25-44 years,41
+deaths,2020 to 2024,Poisoning,Clackmannanshire,45-64 years,16
+deaths,2020 to 2024,Poisoning,Clackmannanshire,65-74 years,1
+deaths,2020 to 2024,Poisoning,Clackmannanshire,75plus years,1
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,0-4 years,0
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,5-9 years,0
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,10-14 years,0
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,15-24 years,5
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,25-44 years,70
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,45-64 years,62
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,65-74 years,2
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,75plus years,3
+deaths,2020 to 2024,Poisoning,Dundee City,0-4 years,0
+deaths,2020 to 2024,Poisoning,Dundee City,5-9 years,0
+deaths,2020 to 2024,Poisoning,Dundee City,10-14 years,0
+deaths,2020 to 2024,Poisoning,Dundee City,15-24 years,8
+deaths,2020 to 2024,Poisoning,Dundee City,25-44 years,101
+deaths,2020 to 2024,Poisoning,Dundee City,45-64 years,111
+deaths,2020 to 2024,Poisoning,Dundee City,65-74 years,1
+deaths,2020 to 2024,Poisoning,Dundee City,75plus years,6
+deaths,2020 to 2024,Poisoning,East Ayrshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,East Ayrshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,East Ayrshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,East Ayrshire,15-24 years,7
+deaths,2020 to 2024,Poisoning,East Ayrshire,25-44 years,82
+deaths,2020 to 2024,Poisoning,East Ayrshire,45-64 years,69
+deaths,2020 to 2024,Poisoning,East Ayrshire,65-74 years,1
+deaths,2020 to 2024,Poisoning,East Ayrshire,75plus years,2
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,15-24 years,6
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,25-44 years,23
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,45-64 years,26
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,65-74 years,4
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,75plus years,3
+deaths,2020 to 2024,Poisoning,East Lothian,0-4 years,0
+deaths,2020 to 2024,Poisoning,East Lothian,5-9 years,0
+deaths,2020 to 2024,Poisoning,East Lothian,10-14 years,0
+deaths,2020 to 2024,Poisoning,East Lothian,15-24 years,4
+deaths,2020 to 2024,Poisoning,East Lothian,25-44 years,38
+deaths,2020 to 2024,Poisoning,East Lothian,45-64 years,37
+deaths,2020 to 2024,Poisoning,East Lothian,65-74 years,6
+deaths,2020 to 2024,Poisoning,East Lothian,75plus years,4
+deaths,2020 to 2024,Poisoning,East Renfrewshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,East Renfrewshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,East Renfrewshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,East Renfrewshire,15-24 years,0
+deaths,2020 to 2024,Poisoning,East Renfrewshire,25-44 years,12
+deaths,2020 to 2024,Poisoning,East Renfrewshire,45-64 years,21
+deaths,2020 to 2024,Poisoning,East Renfrewshire,65-74 years,2
+deaths,2020 to 2024,Poisoning,East Renfrewshire,75plus years,1
+deaths,2020 to 2024,Poisoning,Falkirk,0-4 years,0
+deaths,2020 to 2024,Poisoning,Falkirk,5-9 years,0
+deaths,2020 to 2024,Poisoning,Falkirk,10-14 years,0
+deaths,2020 to 2024,Poisoning,Falkirk,15-24 years,11
+deaths,2020 to 2024,Poisoning,Falkirk,25-44 years,67
+deaths,2020 to 2024,Poisoning,Falkirk,45-64 years,65
+deaths,2020 to 2024,Poisoning,Falkirk,65-74 years,2
+deaths,2020 to 2024,Poisoning,Falkirk,75plus years,4
+deaths,2020 to 2024,Poisoning,Fife,0-4 years,0
+deaths,2020 to 2024,Poisoning,Fife,5-9 years,0
+deaths,2020 to 2024,Poisoning,Fife,10-14 years,1
+deaths,2020 to 2024,Poisoning,Fife,15-24 years,32
+deaths,2020 to 2024,Poisoning,Fife,25-44 years,160
+deaths,2020 to 2024,Poisoning,Fife,45-64 years,122
+deaths,2020 to 2024,Poisoning,Fife,65-74 years,10
+deaths,2020 to 2024,Poisoning,Fife,75plus years,14
+deaths,2020 to 2024,Poisoning,Glasgow City,0-4 years,0
+deaths,2020 to 2024,Poisoning,Glasgow City,5-9 years,0
+deaths,2020 to 2024,Poisoning,Glasgow City,10-14 years,0
+deaths,2020 to 2024,Poisoning,Glasgow City,15-24 years,33
+deaths,2020 to 2024,Poisoning,Glasgow City,25-44 years,482
+deaths,2020 to 2024,Poisoning,Glasgow City,45-64 years,648
+deaths,2020 to 2024,Poisoning,Glasgow City,65-74 years,36
+deaths,2020 to 2024,Poisoning,Glasgow City,75plus years,15
+deaths,2020 to 2024,Poisoning,Highland,0-4 years,0
+deaths,2020 to 2024,Poisoning,Highland,5-9 years,0
+deaths,2020 to 2024,Poisoning,Highland,10-14 years,0
+deaths,2020 to 2024,Poisoning,Highland,15-24 years,16
+deaths,2020 to 2024,Poisoning,Highland,25-44 years,84
+deaths,2020 to 2024,Poisoning,Highland,45-64 years,48
+deaths,2020 to 2024,Poisoning,Highland,65-74 years,5
+deaths,2020 to 2024,Poisoning,Highland,75plus years,11
+deaths,2020 to 2024,Poisoning,Inverclyde,0-4 years,0
+deaths,2020 to 2024,Poisoning,Inverclyde,5-9 years,0
+deaths,2020 to 2024,Poisoning,Inverclyde,10-14 years,0
+deaths,2020 to 2024,Poisoning,Inverclyde,15-24 years,4
+deaths,2020 to 2024,Poisoning,Inverclyde,25-44 years,57
+deaths,2020 to 2024,Poisoning,Inverclyde,45-64 years,61
+deaths,2020 to 2024,Poisoning,Inverclyde,65-74 years,4
+deaths,2020 to 2024,Poisoning,Inverclyde,75plus years,7
+deaths,2020 to 2024,Poisoning,Midlothian,0-4 years,0
+deaths,2020 to 2024,Poisoning,Midlothian,5-9 years,0
+deaths,2020 to 2024,Poisoning,Midlothian,10-14 years,0
+deaths,2020 to 2024,Poisoning,Midlothian,15-24 years,5
+deaths,2020 to 2024,Poisoning,Midlothian,25-44 years,48
+deaths,2020 to 2024,Poisoning,Midlothian,45-64 years,36
+deaths,2020 to 2024,Poisoning,Midlothian,65-74 years,1
+deaths,2020 to 2024,Poisoning,Midlothian,75plus years,2
+deaths,2020 to 2024,Poisoning,Moray,0-4 years,0
+deaths,2020 to 2024,Poisoning,Moray,5-9 years,0
+deaths,2020 to 2024,Poisoning,Moray,10-14 years,0
+deaths,2020 to 2024,Poisoning,Moray,15-24 years,4
+deaths,2020 to 2024,Poisoning,Moray,25-44 years,30
+deaths,2020 to 2024,Poisoning,Moray,45-64 years,16
+deaths,2020 to 2024,Poisoning,Moray,65-74 years,1
+deaths,2020 to 2024,Poisoning,Moray,75plus years,1
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,0-4 years,0
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,5-9 years,0
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,10-14 years,0
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,15-24 years,2
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,25-44 years,6
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,45-64 years,3
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,65-74 years,1
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,75plus years,1
+deaths,2020 to 2024,Poisoning,North Ayrshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,North Ayrshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,North Ayrshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,North Ayrshire,15-24 years,6
+deaths,2020 to 2024,Poisoning,North Ayrshire,25-44 years,97
+deaths,2020 to 2024,Poisoning,North Ayrshire,45-64 years,69
+deaths,2020 to 2024,Poisoning,North Ayrshire,65-74 years,3
+deaths,2020 to 2024,Poisoning,North Ayrshire,75plus years,5
+deaths,2020 to 2024,Poisoning,North Lanarkshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,North Lanarkshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,North Lanarkshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,North Lanarkshire,15-24 years,26
+deaths,2020 to 2024,Poisoning,North Lanarkshire,25-44 years,221
+deaths,2020 to 2024,Poisoning,North Lanarkshire,45-64 years,156
+deaths,2020 to 2024,Poisoning,North Lanarkshire,65-74 years,20
+deaths,2020 to 2024,Poisoning,North Lanarkshire,75plus years,7
+deaths,2020 to 2024,Poisoning,Orkney Islands,0-4 years,0
+deaths,2020 to 2024,Poisoning,Orkney Islands,5-9 years,0
+deaths,2020 to 2024,Poisoning,Orkney Islands,10-14 years,0
+deaths,2020 to 2024,Poisoning,Orkney Islands,15-24 years,0
+deaths,2020 to 2024,Poisoning,Orkney Islands,25-44 years,3
+deaths,2020 to 2024,Poisoning,Orkney Islands,45-64 years,2
+deaths,2020 to 2024,Poisoning,Orkney Islands,65-74 years,0
+deaths,2020 to 2024,Poisoning,Orkney Islands,75plus years,0
+deaths,2020 to 2024,Poisoning,Perth and Kinross,0-4 years,0
+deaths,2020 to 2024,Poisoning,Perth and Kinross,5-9 years,0
+deaths,2020 to 2024,Poisoning,Perth and Kinross,10-14 years,0
+deaths,2020 to 2024,Poisoning,Perth and Kinross,15-24 years,3
+deaths,2020 to 2024,Poisoning,Perth and Kinross,25-44 years,64
+deaths,2020 to 2024,Poisoning,Perth and Kinross,45-64 years,41
+deaths,2020 to 2024,Poisoning,Perth and Kinross,65-74 years,5
+deaths,2020 to 2024,Poisoning,Perth and Kinross,75plus years,4
+deaths,2020 to 2024,Poisoning,Renfrewshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,Renfrewshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,Renfrewshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,Renfrewshire,15-24 years,9
+deaths,2020 to 2024,Poisoning,Renfrewshire,25-44 years,124
+deaths,2020 to 2024,Poisoning,Renfrewshire,45-64 years,108
+deaths,2020 to 2024,Poisoning,Renfrewshire,65-74 years,5
+deaths,2020 to 2024,Poisoning,Renfrewshire,75plus years,4
+deaths,2020 to 2024,Poisoning,Scottish Borders,0-4 years,0
+deaths,2020 to 2024,Poisoning,Scottish Borders,5-9 years,0
+deaths,2020 to 2024,Poisoning,Scottish Borders,10-14 years,0
+deaths,2020 to 2024,Poisoning,Scottish Borders,15-24 years,5
+deaths,2020 to 2024,Poisoning,Scottish Borders,25-44 years,37
+deaths,2020 to 2024,Poisoning,Scottish Borders,45-64 years,16
+deaths,2020 to 2024,Poisoning,Scottish Borders,65-74 years,2
+deaths,2020 to 2024,Poisoning,Scottish Borders,75plus years,0
+deaths,2020 to 2024,Poisoning,Shetland Islands,0-4 years,0
+deaths,2020 to 2024,Poisoning,Shetland Islands,5-9 years,0
+deaths,2020 to 2024,Poisoning,Shetland Islands,10-14 years,0
+deaths,2020 to 2024,Poisoning,Shetland Islands,15-24 years,1
+deaths,2020 to 2024,Poisoning,Shetland Islands,25-44 years,9
+deaths,2020 to 2024,Poisoning,Shetland Islands,45-64 years,7
+deaths,2020 to 2024,Poisoning,Shetland Islands,65-74 years,0
+deaths,2020 to 2024,Poisoning,Shetland Islands,75plus years,1
+deaths,2020 to 2024,Poisoning,South Ayrshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,South Ayrshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,South Ayrshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,South Ayrshire,15-24 years,3
+deaths,2020 to 2024,Poisoning,South Ayrshire,25-44 years,49
+deaths,2020 to 2024,Poisoning,South Ayrshire,45-64 years,53
+deaths,2020 to 2024,Poisoning,South Ayrshire,65-74 years,1
+deaths,2020 to 2024,Poisoning,South Ayrshire,75plus years,3
+deaths,2020 to 2024,Poisoning,South Lanarkshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,South Lanarkshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,South Lanarkshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,South Lanarkshire,15-24 years,17
+deaths,2020 to 2024,Poisoning,South Lanarkshire,25-44 years,192
+deaths,2020 to 2024,Poisoning,South Lanarkshire,45-64 years,161
+deaths,2020 to 2024,Poisoning,South Lanarkshire,65-74 years,9
+deaths,2020 to 2024,Poisoning,South Lanarkshire,75plus years,11
+deaths,2020 to 2024,Poisoning,Stirling,0-4 years,0
+deaths,2020 to 2024,Poisoning,Stirling,5-9 years,0
+deaths,2020 to 2024,Poisoning,Stirling,10-14 years,0
+deaths,2020 to 2024,Poisoning,Stirling,15-24 years,9
+deaths,2020 to 2024,Poisoning,Stirling,25-44 years,44
+deaths,2020 to 2024,Poisoning,Stirling,45-64 years,39
+deaths,2020 to 2024,Poisoning,Stirling,65-74 years,4
+deaths,2020 to 2024,Poisoning,Stirling,75plus years,6
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,0-4 years,0
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,5-9 years,0
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,10-14 years,0
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,15-24 years,5
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,25-44 years,59
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,45-64 years,60
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,65-74 years,4
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,75plus years,5
+deaths,2020 to 2024,Poisoning,West Lothian,0-4 years,0
+deaths,2020 to 2024,Poisoning,West Lothian,5-9 years,0
+deaths,2020 to 2024,Poisoning,West Lothian,10-14 years,1
+deaths,2020 to 2024,Poisoning,West Lothian,15-24 years,10
+deaths,2020 to 2024,Poisoning,West Lothian,25-44 years,69
+deaths,2020 to 2024,Poisoning,West Lothian,45-64 years,69
+deaths,2020 to 2024,Poisoning,West Lothian,65-74 years,5
+deaths,2020 to 2024,Poisoning,West Lothian,75plus years,4

@@ -7,6 +7,8 @@
 import { dumbbell, lineChart } from "./charts.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
+import { areaPanel, councilUnits, localNotes } from "./filter.js";
+import { niceTicks } from "./scale.js";
 import { aeChart, medicineChart, ratioChart, tables } from "./scenes.js";
 import {
   ageLayout,
@@ -38,6 +40,9 @@ const C = {
 const RATE_STEPS = [12, 18, 24, 30]; // poisoning deaths per 100,000 a year, map bins
 const RATE_COLOURS = ["#2b2550", "#4a3a9a", "#6a4fd0", "#9b7cf4", "#d8ccff"];
 const MAP_STATES = new Set(["intro", "deprived", "glasgow", "end"]);
+// the area filter: a chosen council, and a pinned neighbourhood (index into geo.zones)
+const filter = { council: null, zone: null };
+let detail = null; // the seven domain ranks per zone, loaded after first paint
 
 const el = (tag, attrs = {}, parent) => {
   const e = document.createElementNS(NS, tag);
@@ -106,27 +111,43 @@ function build(story, geo) {
   med.bColour = C.cyan;
   nest(dumbbell({ ...med, height: fill, values: true }), "medicines");
 
-  // death dots: the three layouts
+  // death dots: the three layouts, for whichever dots are shown (Scotland, or one council)
   const a = story.injury_ages;
-  const units = deathUnits(a.bands, a.deaths.falls, a.deaths.poisoning);
-  const minSide = Math.min(A.w, A.h);
-  const crowd = crowdLayout(units, A.x + A.w / 2, A.y + A.h / 2, (0.44 * minSide) / Math.sqrt(units.length));
-  const nMax = Math.max(...["falls", "poisoning"].map((t) => units.filter((u) => u.type === t).length));
-  const split = splitLayout(
-    units,
-    { falls: A.x + A.w * 0.27, poisoning: A.x + A.w * 0.73 },
-    A.y + A.h / 2,
-    Math.min(A.w * 0.235, A.h * 0.42) / Math.sqrt(nMax),
-  );
-  const cols = 8;
-  const tallest = Math.max(...a.deaths.falls, ...a.deaths.poisoning);
-  const gap = Math.min((A.h - 80) / Math.ceil(tallest / cols), A.w / a.bands.length / (2 * cols * 1.2));
-  const age = ageLayout(units, a.bands, { x: A.x, y: A.y + 30, w: A.w, h: A.h - 80 }, cols, gap);
-  const ageAxis = { base: A.y + 30 + A.h - 80, gap, cols, tallest }; // for the scale in setState
+  const layoutsFor = (units) => {
+    const minSide = Math.min(A.w, A.h);
+    const count = (t) => units.filter((u) => u.type === t).length;
+    const crowd = crowdLayout(units, A.x + A.w / 2, A.y + A.h / 2, (0.44 * minSide) / Math.sqrt(Math.max(units.length, 1)));
+    const split = splitLayout(
+      units,
+      { falls: A.x + A.w * 0.27, poisoning: A.x + A.w * 0.73 },
+      A.y + A.h / 2,
+      Math.min(A.w * 0.235, A.h * 0.42) / Math.sqrt(Math.max(count("falls"), count("poisoning"), 1)),
+    );
+    const perBand = (t, b) => units.filter((u) => u.type === t && u.band === b).length;
+    const tallest = Math.max(1, ...a.bands.flatMap((b) => [perBand("falls", b), perBand("poisoning", b)]));
+    // columns `cols` dots wide: pick the width that makes the dots biggest while the tallest
+    // column fits the height and two columns fit each age band
+    const fitGap = (c) => Math.min((A.h - 80) / Math.ceil(tallest / c), A.w / a.bands.length / (2 * c * 1.2));
+    let cols = 1;
+    for (let c = 2; c <= 12; c++) if (fitGap(c) > fitGap(cols)) cols = c;
+    const gap = Math.min(fitGap(cols), 9);
+    const age = ageLayout(units, a.bands, { x: A.x, y: A.y + 30, w: A.w, h: A.h - 80 }, cols, gap);
+    const ageAxis = { base: A.y + 30 + A.h - 80, gap, cols, tallest };
+    return { units, crowd, split, age, ageAxis, unitR: Math.max(1.3, gap * 0.42) };
+  };
+  const national = layoutsFor(deathUnits(a.bands, a.deaths.falls, a.deaths.poisoning));
 
   // the canvas, sharing the map transform with the council layer
-  const dots = new DotCanvas(document.getElementById("dots"), f.W, f.H, geo.zones, units, setMap);
-  dots.go({ map: base, positions: crowd, unitR: Math.max(1.3, gap * 0.42) }, true);
+  const dots = new DotCanvas(document.getElementById("dots"), f.W, f.H, geo.zones, national.units, setMap);
+  dots.go({ map: base, positions: national.crowd, unitR: national.unitR }, true);
+
+  // a council fills the visual area when chosen
+  const councilIndex = new Map(geo.councils.map((c, i) => [c.council, i]));
+  const zoomTo = (name) => {
+    const [l, t, r, b] = geo.councils[councilIndex.get(name)].bbox;
+    const sc = Math.min(k * 9, (0.86 * A.w) / Math.max(r - l, 1), (0.86 * A.h) / Math.max(b - t, 1));
+    return { tx: A.x + A.w / 2 - ((l + r) / 2) * sc, ty: A.y + A.h / 2 - ((t + b) / 2) * sc, s: sc };
+  };
 
   // councils as dots: from their place on the map to the scatter
   const cs = story.councils.councils;
@@ -152,8 +173,9 @@ function build(story, geo) {
   const labels = el("g", { class: "layer labels" }, svg);
   const ring = el("circle", { r: 5, class: "hover-ring" }, svg);
   return {
-    f, under, svg, base, zoom, councilPaths, dots, units, crowd, split, age, ageAxis, councilDots, labels,
-    ring, cs, index: gridIndex(geo.zones, 8), state: "intro",
+    f, under, svg, base, zoom, zoomTo, councilIndex, councilPaths, dots, layoutsFor, national,
+    shown: national, shownFor: null, councilDots, labels, ring, cs, index: gridIndex(geo.zones, 8),
+    state: "intro",
   };
 }
 
@@ -182,6 +204,9 @@ function label(st, x, y, text, cls = "") {
 /** Put the stage into a named state. */
 function setState(st, name, story) {
   st.state = name;
+  const panel = document.getElementById("area-panel");
+  panel.classList.toggle("compact", !MAP_STATES.has(name)); // a pill over charts, full over maps
+  panel.classList.remove("open");
   st.under.dataset.state = name;
   st.svg.dataset.state = name;
   st.labels.innerHTML = "";
@@ -192,8 +217,18 @@ function setState(st, name, story) {
 
   // the canvas: neighbourhoods and death dots
   const spotlight = name === "deprived" || name === "glasgow" || name === "end";
+  // the dots to show: Scotland's (one a year), or the chosen council's (one per death in 5 years)
+  const wanted = filter.council ?? null;
+  if (st.shownFor !== wanted) {
+    st.shownFor = wanted;
+    st.shown = wanted ? st.layoutsFor(councilUnits(story, wanted).units) : st.national;
+    st.dots.setUnits(st.shown.units, st.shown.crowd);
+  }
+  const zoomed = filter.council && (name === "deprived" || name === "end");
   const target = {
-    map: name === "glasgow" ? st.zoom : st.base,
+    map: name === "glasgow" ? st.zoom : zoomed ? st.zoomTo(filter.council) : st.base,
+    focus: filter.council ? st.councilIndex.get(filter.council) : -1,
+    unitR: st.shown.unitR,
     zoneAlpha: MAP_STATES.has(name) ? 1 : 0,
     zoneColours: spotlight
       ? zoneColours([C.q1, C.dim, C.dim, C.dim, C.dim], [1, 0.9, 0.9, 0.9, 0.9])
@@ -204,7 +239,7 @@ function setState(st, name, story) {
         ? typeColours({ falls: C.crowd, poisoning: C.crowd })
         : typeColours({ falls: C.falls, poisoning: C.poisoning }),
   };
-  const pos = { crowd: st.crowd, split: st.split, age: st.age.positions }[name];
+  const pos = { crowd: st.shown.crowd, split: st.shown.split, age: st.shown.age.positions }[name];
   if (pos) target.positions = pos;
   st.dots.go(target);
 
@@ -224,27 +259,34 @@ function setState(st, name, story) {
   // labels and legends
   if (MAP_STATES.has(name)) legend.innerHTML = rampLegend(spotlight);
   if (name === "glasgow") label(st, A.x + A.w / 2, A.y + 28, "Glasgow and the Clyde", "big centre");
-  if (name === "crowd") label(st, A.x + A.w / 2, A.y + A.h - 4, "1 dot = 1 death a year", "centre muted");
+  if (name === "crowd") {
+    const unit = filter.council ? `${filter.council}: 1 dot = 1 death in five years` : "1 dot = 1 death a year";
+    label(st, A.x + A.w / 2, A.y + A.h - 4, unit, "centre muted");
+  }
+  if (["crowd", "split", "age"].includes(name) && st.shown.units.length === 0) {
+    label(st, A.x + A.w / 2, A.y + A.h / 2, "Too few deaths to show reliably", "big centre");
+  }
   if (name === "split") {
     label(st, A.x + A.w * 0.27, A.y + 34, "Falls", "big centre f");
     label(st, A.x + A.w * 0.73, A.y + 34, "Poisoning", "big centre p");
   }
   if (name === "age") {
     // axes: deaths a year (each row of dots is `cols` deaths) against age band
-    const { base, gap, cols, tallest } = st.ageAxis;
+    const { base, gap, cols, tallest } = st.shown.ageAxis;
     const yOf = (n) => base - (n / cols) * gap;
     const left = A.x - 4;
-    const top = yOf(Math.ceil(tallest / 200) * 200);
+    const ticks = niceTicks(0, tallest, 4); // none above the tallest column
+    const top = yOf(ticks[ticks.length - 1]);
     el("line", { x1: left, x2: A.x + A.w, y1: base + gap, y2: base + gap, class: "axis" }, st.labels);
     el("line", { x1: left, x2: left, y1: top, y2: base + gap, class: "axis" }, st.labels);
-    for (let n = 0; n <= tallest + 199; n += 200) {
+    for (const n of ticks) {
       el("line", { x1: left - 4, x2: left, y1: yOf(n), y2: yOf(n), class: "axis" }, st.labels);
       label(st, left - 8, yOf(n) + 4, String(n), "tick end");
     }
     const ty = (top + base) / 2;
     const title = el("text", { x: left - 46, y: ty, class: "stage-label muted centre", transform: `rotate(-90 ${left - 46} ${ty})` }, st.labels);
-    title.textContent = "Deaths a year";
-    st.age.bandX.forEach((x, i) => label(st, x, A.y + A.h - 24, story.injury_ages.bands[i], "centre tick"));
+    title.textContent = filter.council ? "Deaths in five years" : "Deaths a year";
+    st.shown.age.bandX.forEach((x, i) => label(st, x, A.y + A.h - 24, story.injury_ages.bands[i], "centre tick"));
     label(st, A.x + A.w / 2, A.y + A.h - 2, "Age", "centre muted");
     label(st, A.x + 40, A.y + 12, "Falls", "f big");
     label(st, A.x + 120, A.y + 12, "Poisoning", "p big");
@@ -252,25 +294,29 @@ function setState(st, name, story) {
   if (choropleth) {
     legend.innerHTML = rateLegend();
     const west = new Set(["Inverclyde"]); // labelled on its left, so it clears Glasgow
-    for (const n of ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands"]) {
+    const named = ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands"];
+    if (filter.council && !named.includes(filter.council)) named.push(filter.council);
+    for (const n of named) {
       const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.map);
-      const left = west.has(n);
+      const left = west.has(n) && n !== filter.council;
       label(st, left ? x - 9 : x + 9, y + 4, n.replace(" City", "").replace(" Islands", ""), `small halo${left ? " end" : ""}`);
     }
   }
   if (onScatter) {
-    for (const n of ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands", "East Renfrewshire"]) {
+    const named = ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands", "East Renfrewshire"];
+    if (filter.council && !named.includes(filter.council)) named.push(filter.council);
+    for (const n of named) {
       const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.scatter);
       label(st, x + 10, y + 4, n.replace(" City", "").replace(" Islands", ""), "small");
     }
   }
-  highlightCouncil(st, name === "find" ? document.getElementById("council-select").value : "");
+  highlightCouncil(st, filter.council ?? "");
 }
 
 function rampLegend(q1Only) {
   const names = ["Most deprived fifth", "", "", "", "Least deprived"];
   return (
-    `<span class="legend-title">Neighbourhoods · hover a dot</span>` +
+    `<span class="legend-title">Neighbourhoods · hover a dot · click to pin it and follow it</span>` +
     C.ramp
       .map((c, i) => (q1Only && i > 0 ? "" : `<span><i style="background:${c}"></i>${names[i]}</span>`))
       .join("")
@@ -291,18 +337,57 @@ function highlightCouncil(st, name) {
   for (const [n, p] of st.councilPaths) p.classList.toggle("chosen", n === name);
 }
 
-function wireFind(getStage, story) {
-  const sel = document.getElementById("council-select");
-  const out = document.getElementById("council-sentence");
-  if (sel.options.length === 1) {
-    for (const c of [...story.councils.councils].sort((a, b) => a.council.localeCompare(b.council))) {
-      sel.add(new Option(c.council, c.council));
-    }
+/**
+ * The area filter: pinning a neighbourhood on the map (click a dot; click it again, or the
+ * panel's ×, to unpin) or choosing in "Find your council", and the "your area" panel.
+ * Returns { setFilter(council, zone), render }.
+ */
+function wireFilter(getStage, story, geo, current) {
+  const find = document.getElementById("council-select");
+  const sentence = document.getElementById("council-sentence");
+  const panel = document.getElementById("area-panel");
+  const body = document.getElementById("area-panel-body");
+  const names = [...story.councils.councils].map((c) => c.council).sort((a, b) => a.localeCompare(b));
+  if (find.options.length === 1) for (const n of names) find.add(new Option(n, n));
+  // each card gets a line for the chosen area
+  for (const card of document.querySelectorAll(".step .card")) {
+    const note = document.createElement("p");
+    note.className = "local";
+    note.hidden = true;
+    card.appendChild(note);
   }
-  sel.onchange = () => {
-    out.textContent = councilSentence(sel.value, story.councils.councils, story.councils.scotland);
-    highlightCouncil(getStage(), sel.value);
+
+  const render = () => {
+    const notes = localNotes(story, geo, filter);
+    for (const step of document.querySelectorAll(".step")) {
+      const note = step.querySelector(".local");
+      if (!note) continue;
+      const text = notes[step.dataset.state] ?? "";
+      note.textContent = text;
+      note.hidden = !text;
+    }
+    find.value = filter.council ?? "";
+    sentence.textContent = filter.council
+      ? councilSentence(filter.council, story.councils.councils, story.councils.scotland)
+      : "";
+    body.innerHTML = areaPanel(story, geo, filter, detail);
+    document.getElementById("area-panel-title").textContent =
+      filter.zone !== null ? `Pinned: ${geo.zone_names[filter.zone]} · ${filter.council}` : filter.council ?? "";
+    panel.hidden = !filter.council;
   };
+
+  const setFilter = (council, zone = null) => {
+    filter.council = council || null;
+    filter.zone = filter.council ? zone : null;
+    const st = getStage();
+    st.dots.setPin(filter.zone ?? -1);
+    render();
+    setState(st, current() || "intro", story);
+  };
+  find.onchange = () => setFilter(find.value);
+  document.getElementById("area-panel-close").onclick = () => setFilter(null); // unpin
+  document.getElementById("area-panel-title").onclick = () => panel.classList.toggle("open");
+  return { setFilter, render };
 }
 
 /**
@@ -310,15 +395,8 @@ function wireFind(getStage, story) {
  * map and the seven domains; any SVG mark with data-tip gets its text. Pointers hover; a tap on a
  * touch screen does the same, and a tap elsewhere closes the card.
  */
-function wireTooltips(getStage, geo) {
+function wireTooltips(getStage, geo, pin) {
   const tip = document.getElementById("tooltip");
-  let detail = null; // the seven domain ranks per zone, loaded after first paint
-  fetch("data/domains.json")
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      detail = d;
-    })
-    .catch(() => {});
 
   const position = (x, y) => {
     const pad = 12;
@@ -377,12 +455,23 @@ function wireTooltips(getStage, geo) {
     }
     return false;
   };
+  window.addEventListener("scroll", hide, { passive: true });
   document.addEventListener("pointermove", (e) => {
     if (e.pointerType === "touch") return; // touch uses taps (below)
     if (!handle(e)) hide();
   });
   document.addEventListener("click", (e) => {
-    if (e.target.closest?.(".step, select, button, a")) return;
+    if (e.target.closest?.(".step, select, button, a, .area-panel")) return;
+    const st = getStage();
+    if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
+      const i = zoneAt(st, e.clientX, e.clientY);
+      if (i >= 0) {
+        if (i === filter.zone) pin(null); // clicking the pinned dot again unpins it
+        else pin(geo.councils[geo.zones[i][5]].council, i); // a click pins it: the panel shows it
+        hide();
+        return;
+      }
+    }
     if (!handle(e)) hide();
   });
 }
@@ -423,15 +512,23 @@ async function main() {
 
   let st = build(story, geo);
   const getStage = () => st;
-  wireFind(getStage, story);
-  wireTooltips(getStage, geo);
+  let current = () => "intro";
+  const { setFilter, render } = wireFilter(getStage, story, geo, () => current());
+  wireTooltips(getStage, geo, setFilter);
+  fetch("data/domains.json")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      detail = d;
+      render(); // the panel can now name the neighbourhood's most deprived domains
+    })
+    .catch(() => {});
   for (const b of document.querySelectorAll("[data-go]")) {
     b.addEventListener("click", () => {
       if (b.dataset.go === "top") window.scrollTo({ top: 0, behavior: "smooth" });
       else document.querySelector(`.step[data-state="${b.dataset.go}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
-  const current = wireSteps(getStage, story);
+  current = wireSteps(getStage, story);
   // ?state=<name> opens a scene directly (for sharing a scene)
   const wanted = new URLSearchParams(location.search).get("state");
   const step = wanted && document.querySelector(`.step[data-state="${CSS.escape(wanted)}"]`);
@@ -443,6 +540,7 @@ async function main() {
     if (frame().wide !== wasWide) {
       st = build(story, geo); // a new layout on orientation change
       wasWide = st.f.wide;
+      st.dots.setPin(filter.zone ?? -1);
       setState(st, current() || "intro", story);
     } else {
       st.dots.resize();

@@ -140,6 +140,7 @@ export function ratioChart(story, colours = { recorded: COLOURS.quintile[2], alt
     ],
     yLabel: "Ratio, most to least deprived fifth",
     fmt: (v) => formatNum(v, 1),
+    yMin: 1, // 1.0 = no gap: both fifths go equally often
     label: "Ratio of A&E attendance rates, most to least deprived fifth, as recorded and if the growth in unknown deprivation came from the most deprived",
   };
 }

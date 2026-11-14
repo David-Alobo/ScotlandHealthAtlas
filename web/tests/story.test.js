@@ -128,3 +128,13 @@ describe("chart sizes", () => {
     expect(lineChart({ ...aeChart(story), height: 560 })).toContain('viewBox="0 0 640 560"');
   });
 });
+
+describe("ratio chart", () => {
+  it("starts its value axis at 1.0 (no gap)", async () => {
+    const { ratioChart } = await import("../js/scenes.js");
+    const svg = lineChart(ratioChart(story));
+    expect(svg).toContain(">1.0<");
+    expect(svg).not.toContain(">0.5<");
+    expect(svg).not.toContain("NaN");
+  });
+});

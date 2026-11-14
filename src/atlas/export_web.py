@@ -128,24 +128,39 @@ def injury_ages() -> dict:
 
 
 def councils() -> dict:
-    """Poisoning death rates by council with intervals, and the deprivation correlations.
+    """Council figures for the poisoning map, the scatter and the council filter.
 
     Returns:
-        Period, Scotland rate, councils (rate, interval, quintile-1 share, against Scotland) and
-        Spearman's rho for poisoning deaths and falls admissions.
+        Period, Scotland rates, each council's poisoning death rate (interval, quintile-1 share,
+        against Scotland), falls admission rate, prescription items per person and deaths by age
+        band over the pooled years, and Spearman's rho for poisoning deaths and falls admissions.
     """
-    rows = [
-        r
-        for r in read(INJ / "council.csv")
-        if r["dataset"] == "deaths" and r["injury_type"] == "Poisoning"
-    ]
+    rate = {(r["dataset"], r["injury_type"], r["council"]): r for r in read(INJ / "council.csv")}
+    rows = [v for (d, t, _c), v in rate.items() if d == "deaths" and t == "Poisoning"]
+    falls = {c: v for (d, t, c), v in rate.items() if d == "admissions" and t == "Falls"}
+    falls_rank = {
+        c: k + 1 for k, c in enumerate(sorted(falls, key=lambda c: -float(falls[c]["rate"])))
+    }
+    items = {r["council"]: float(r["items_per_person"]) for r in read(RX / "council.csv")}
+    ages: dict[tuple, list[int]] = {}
+    bands: list[str] = []
+    for r in read(INJ / "council_age.csv"):
+        if r["dataset"] != "deaths":
+            continue
+        if r["age_band"] not in bands:
+            bands.append(r["age_band"])
+        ages.setdefault((r["council"], r["injury_type"]), []).append(int(r["events"]))
     eco = {
         (r["dataset"], r["injury_type"]): float(r["spearman_rho"])
         for r in read(INJ / "ecological.csv")
     }
+    any_falls = next(iter(falls.values()))
     return {
         "period": rows[0]["period"],
+        "falls_period": any_falls["period"],
         "scotland": float(rows[0]["scotland_rate"]),
+        "scotland_falls": float(any_falls["scotland_rate"]),
+        "pooled_years": int(rows[0]["period"][-4:]) - int(rows[0]["period"][:4]) + 1,
         "councils": [
             {
                 "council": r["council"],
@@ -154,8 +169,15 @@ def councils() -> dict:
                 "upper": float(r["upper"]),
                 "share_q1": float(r["share_simd_q1"]),
                 "vs": r["vs_scotland"],
+                "falls_rate": float(falls[r["council"]]["rate"]),
+                "falls_vs": falls[r["council"]]["vs_scotland"],
+                "falls_rank": falls_rank[r["council"]],
+                "items_per_person": items[r["council"]],
+                # deaths in the pooled years by age band (same bands as injury_ages)
+                "deaths_falls": ages[(r["council"], "Falls")],
+                "deaths_poisoning": ages[(r["council"], "Poisoning")],
             }
-            for r in rows
+            for r in sorted(rows, key=lambda r: r["council"])
         ],
         "rho_poisoning_deaths": eco[("deaths", "Poisoning")],
         "rho_falls_admissions": eco[("admissions", "Falls")],

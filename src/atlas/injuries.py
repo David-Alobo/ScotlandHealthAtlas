@@ -120,7 +120,7 @@ def main() -> None:
         ]
         return dsr(cells)
 
-    national, age_falls, council, eco, ages = [], [], [], [], []
+    national, age_falls, council, eco, ages, council_age = [], [], [], [], [], []
     for d in ("admissions", "deaths"):
         years = sorted({y for (d_, y) in labels if d_ == d})
         for y in years:
@@ -203,6 +203,25 @@ def main() -> None:
                             "rate_per_100000": round(1e5 * n / p, 2),
                         }
                     )
+            # and by council and age band, sexes together (for the web story's council filter)
+            for c in councils:
+                for a in ESP:
+                    council_age.append(
+                        {
+                            "dataset": d,
+                            "period": period,
+                            "injury_type": t,
+                            "council": c,
+                            "age_band": a,
+                            "events": int(
+                                sum(
+                                    counts.get((d, y, c, s, a, t), 0.0)
+                                    for y in pooled
+                                    for s in ("Female", "Male")
+                                )
+                            ),
+                        }
+                    )
 
     for name, table in (
         ("national", national),
@@ -210,6 +229,7 @@ def main() -> None:
         ("council", council),
         ("ecological", eco),
         ("age_profile", ages),
+        ("council_age", council_age),
     ):
         with (out / f"{name}.csv").open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(table[0]))

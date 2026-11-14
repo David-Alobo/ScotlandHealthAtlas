@@ -49,21 +49,24 @@ export function bracket(x, yTop, yBottom, label) {
 /**
  * Lines over years, labelled at their ends.
  * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label, height (default 340),
+ *         yMin: where the value axis starts (default 0),
  *         note: optional { at, from, to, text }, a bracket between two values at year index at }
  */
-export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), label, note, height = 340 }) {
+export function lineChart({
+  years, series, yLabel, fmt = (v) => formatNum(v), label, note, height = 340, yMin = 0,
+}) {
   const H = height;
   const m = { t: 18, r: note ? 200 : 150, b: 40, l: 58 }; // a note sits beyond the end labels
   const top = niceMax(Math.max(...series.flatMap((s) => s.values)));
   const x = linear([0, years.length - 1], [m.l + 10, W - m.r]);
-  const y = linear([0, top], [H - m.b, m.t]);
+  const y = linear([yMin, top], [H - m.b, m.t]);
   let out = svgOpen(H, label);
-  out += yAxis(niceTicks(0, top), y, m.l, fmt);
-  out += `<line x1="${m.l}" x2="${W - m.r + 10}" y1="${y(0)}" y2="${y(0)}" class="axis-line"/>`;
+  out += yAxis(niceTicks(yMin, top), y, m.l, fmt);
+  out += `<line x1="${m.l}" x2="${W - m.r + 10}" y1="${y(yMin)}" y2="${y(yMin)}" class="axis-line"/>`;
   out += years
     .map(
       (yr, i) =>
-        `<line x1="${x(i)}" x2="${x(i)}" y1="${y(0)}" y2="${y(0) + 4}" class="tick"/>` +
+        `<line x1="${x(i)}" x2="${x(i)}" y1="${y(yMin)}" y2="${y(yMin) + 4}" class="tick"/>` +
         text(x(i), H - m.b + 18, yr, 'class="axis-label" text-anchor="middle"'),
     )
     .join("");

@@ -28,6 +28,8 @@ export class DotCanvas {
     this.unitCol = { from: {}, to: {} };
     this.alpha = { zones: [0, 0], units: [0, 0] };
     this.zoneR = [1.15, 1.15];
+    this.focus = { from: -1, to: -1 }; // council index whose zones stay lit; -1: all
+    this.pin = -1; // a pinned zone, ringed
     this.unitR = 2;
     this.start = 0;
     this.running = false;
@@ -37,6 +39,7 @@ export class DotCanvas {
   resize() {
     const r = this.canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.dpr = dpr;
     this.canvas.width = Math.round(r.width * dpr);
     this.canvas.height = Math.round(r.height * dpr);
     const f = fit(this.W, this.H, r.width, r.height);
@@ -62,6 +65,10 @@ export class DotCanvas {
     if (target.unitAlpha !== undefined) this.alpha.units[1] = target.unitAlpha;
     if (target.zoneR !== undefined) this.zoneR[1] = target.zoneR;
     if (target.unitR !== undefined) this.unitR = target.unitR;
+    if (target.focus !== undefined) {
+      this.focus.from = this.focus.to;
+      this.focus.to = target.focus;
+    }
     if (target.positions) {
       target.positions.forEach(([x, y], i) => {
         this.pos.to[2 * i] = x;
@@ -74,6 +81,24 @@ export class DotCanvas {
       this.running = true;
       requestAnimationFrame((ts) => this.frame(ts));
     }
+  }
+
+  /** Ring a zone (index into zones), or none (-1), and redraw. */
+  setPin(i) {
+    this.pin = i;
+    if (!this.running) this.draw(performance.now());
+  }
+
+  /** Replace the death dots (a different area): they appear at `positions` and fade in. */
+  setUnits(units, positions) {
+    this.units = units;
+    const n = units.length;
+    this.pos = { from: new Float32Array(2 * n), to: new Float32Array(2 * n) };
+    positions.forEach(([x, y], i) => {
+      this.pos.from[2 * i] = this.pos.to[2 * i] = x;
+      this.pos.from[2 * i + 1] = this.pos.to[2 * i + 1] = y;
+    });
+    this.alpha.units = [0, 0];
   }
 
   /** The interpolated state at time now (everything except unit positions). */
@@ -95,6 +120,7 @@ export class DotCanvas {
       zoneAlpha: this.alpha.zones[0] + (this.alpha.zones[1] - this.alpha.zones[0]) * t,
       unitAlpha: this.alpha.units[0] + (this.alpha.units[1] - this.alpha.units[0]) * t,
       zoneR: this.zoneR[0] + (this.zoneR[1] - this.zoneR[0]) * t,
+      focusT: t,
       done: now - this.start > DURATION + SPREAD,
     };
   }
@@ -128,19 +154,44 @@ export class DotCanvas {
       ctx.setTransform(view.k * s.map.s, 0, 0, view.k * s.map.s, view.ox + view.k * s.map.tx, view.oy + view.k * s.map.ty);
       const r = s.zoneR / s.map.s ** 0.65; // dots shrink a little when zoomed in, so they stay apart
       ctx.globalCompositeOperation = "lighter"; // overlapping light adds up: cities glow
+      // outside the chosen council, dots fade to DIM of their alpha (animated with the move)
+      const DIM = 0.12;
+      const f = this.focus;
+      const outside = (z) => {
+        const was = f.from >= 0 && z[5] !== f.from ? DIM : 1;
+        const now = f.to >= 0 && z[5] !== f.to ? DIM : 1;
+        return was + (now - was) * s.focusT;
+      };
       for (const q of [5, 4, 3, 2, 1]) {
         const c = s.zoneCol[q];
         if (!c || c.a <= 0.01) continue;
-        ctx.fillStyle = `rgba(${c.rgb.map(Math.round).join(",")},${(c.a * s.zoneAlpha).toFixed(3)})`;
-        ctx.beginPath();
+        const rgb = c.rgb.map(Math.round).join(",");
+        const groups = new Map(); // alpha factor -> zones, so each colour is filled in few passes
         for (const z of this.zones) {
           if (z[2] !== q) continue;
-          ctx.moveTo(z[0] + r, z[1]);
-          ctx.arc(z[0], z[1], r, 0, 2 * Math.PI);
+          const k = Math.round(outside(z) * 20) / 20;
+          if (!groups.has(k)) groups.set(k, []);
+          groups.get(k).push(z);
         }
-        ctx.fill();
+        for (const [k, list] of groups) {
+          ctx.fillStyle = `rgba(${rgb},${(c.a * s.zoneAlpha * k).toFixed(3)})`;
+          ctx.beginPath();
+          for (const z of list) {
+            ctx.moveTo(z[0] + r, z[1]);
+            ctx.arc(z[0], z[1], r, 0, 2 * Math.PI);
+          }
+          ctx.fill();
+        }
       }
       ctx.globalCompositeOperation = "source-over";
+      if (this.pin >= 0) {
+        const z = this.zones[this.pin];
+        ctx.strokeStyle = `rgba(255,255,255,${s.zoneAlpha.toFixed(3)})`;
+        ctx.lineWidth = (2 * this.dpr) / (view.k * s.map.s); // 2 screen pixels at any zoom
+        ctx.beginPath();
+        ctx.arc(z[0], z[1], 6 / s.map.s, 0, 2 * Math.PI);
+        ctx.stroke();
+      }
     }
 
     // death dots, in stage units
