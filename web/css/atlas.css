@@ -115,6 +115,45 @@ strong.p { color: #b69af9; }
   margin: 0.4rem 0 0.2rem;
 }
 .select select:focus { outline: 2px solid var(--violet); outline-offset: 2px; }
+/* the atlas's own list in place of the browser's (js/picker.js) */
+.picker { position: relative; }
+.picker-button {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  width: 100%; text-align: left; cursor: pointer;
+  font: 500 1rem var(--body); color: var(--ink);
+  background: var(--panel); border: 1px solid rgb(167 139 250 / 0.5); border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+.picker-button::after {
+  content: ""; flex: none; width: 0.5rem; height: 0.5rem; margin-top: -0.25rem;
+  border: solid var(--violet); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  transition: transform 0.15s;
+}
+.picker-button[aria-expanded="true"]::after { transform: rotate(225deg); margin-top: 0.2rem; }
+.picker-button:hover { border-color: var(--violet); }
+.picker-button:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+.picker-list {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 0.35rem);
+  margin: 0; padding: 0.3rem; list-style: none;
+  max-height: min(18rem, 50vh); overflow-y: auto; overscroll-behavior: contain;
+  background: rgb(18 21 33 / 0.97); border: 1px solid rgb(167 139 250 / 0.45); border-radius: 10px;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.55);
+  scrollbar-width: thin; scrollbar-color: rgb(167 139 250 / 0.45) transparent;
+}
+.picker-list:focus { outline: none; }
+.picker-list::-webkit-scrollbar { width: 8px; }
+.picker-list::-webkit-scrollbar-thumb { background: rgb(167 139 250 / 0.4); border-radius: 4px; }
+.picker-list li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.45rem 0.65rem; border-radius: 6px; cursor: pointer;
+  font-size: 0.95rem; color: var(--ink-2);
+}
+.picker-list li.active { background: rgb(139 92 246 / 0.28); color: var(--ink); }
+.picker-list li[aria-selected="true"] { color: var(--ink); font-weight: 600; }
+.picker-list li[aria-selected="true"]::after {
+  content: ""; width: 0.35rem; height: 0.7rem; margin-left: 0.6rem;
+  border: solid var(--violet); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
 .sentence { color: var(--ink); margin: 0.6rem 0 0; }
 .sentence:empty { display: none; }
 

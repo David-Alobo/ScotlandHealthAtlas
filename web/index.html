@@ -191,9 +191,9 @@
             <ul class="search-results" role="listbox" aria-label="Matching neighbourhoods"></ul>
             <p class="search-msg" aria-live="polite"></p>
           </form>
-          <label class="select"><span>Or choose a council</span>
-            <select id="council-select"><option value="">All of Scotland</option></select>
-          </label>
+          <div class="select"><span id="council-label">Or choose a council</span>
+            <select id="council-select" aria-labelledby="council-label"><option value="">All of Scotland</option></select>
+          </div>
           <p id="council-sentence" class="sentence" aria-live="polite"></p>
         </div>
       </section>

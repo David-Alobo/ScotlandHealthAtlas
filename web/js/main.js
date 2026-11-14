@@ -9,6 +9,7 @@ import { formatNum } from "./format.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
 import { MIN_DEATHS, areaFacts, areaHead, areaPanel, councilUnits, localNotes } from "./filter.js";
+import { picker } from "./picker.js";
 import { niceTicks } from "./scale.js";
 import { lookupPostcode, parseQuery, searchNames } from "./search.js";
 import { aeChart, ratioChart, tables } from "./scenes.js";
@@ -389,6 +390,7 @@ function wireFilter(getStage, story, geo, current) {
   const body = document.getElementById("area-panel-body");
   const names = [...story.councils.councils].map((c) => c.council).sort((a, b) => a.localeCompare(b));
   if (find.options.length === 1) for (const n of names) find.add(new Option(n, n));
+  const councilList = picker(find, "council-label"); // the atlas's own list, not the browser's
   // each card gets a line for the chosen area
   for (const card of document.querySelectorAll(".step .card")) {
     const note = document.createElement("p");
@@ -418,6 +420,7 @@ function wireFilter(getStage, story, geo, current) {
       note.hidden = !text;
     }
     find.value = filter.council ?? "";
+    councilList.sync();
     sentence.textContent = filter.council
       ? councilSentence(filter.council, story.councils.councils, story.councils.scotland)
       : "";
@@ -585,7 +588,9 @@ function wireTooltips(getStage, geo, pin) {
   });
   document.addEventListener("click", (e) => {
     // controls and the card keep their own clicks
-    if (e.target.closest?.("select, button, a, label, input, form, .area-panel, details")) return;
+    if (e.target.closest?.("select, button, a, label, input, form, .area-panel, details, .picker")) {
+      return;
+    }
     const st = getStage();
     if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
       const i = zoneAt(st, e.clientX, e.clientY);
