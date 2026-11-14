@@ -700,14 +700,20 @@ async function main() {
   render(); // fills every figure in the cards
   wireTooltips(getStage, geo, setFilter);
   wireSearch(geo, setFilter);
-  // the opening keeps one quiet link; the search opens only when asked for
+  // the opening keeps one quiet link; asked for, it gives way to the search (whose label says the
+  // same), and Escape on an empty box brings the link back
   const find = document.getElementById("intro-find");
-  find.onclick = () => {
-    const form = document.getElementById("intro-search");
-    form.hidden = !form.hidden;
-    find.setAttribute("aria-expanded", String(!form.hidden));
-    if (!form.hidden) form.querySelector("input").focus();
+  const introForm = document.getElementById("intro-search");
+  const showSearch = (open) => {
+    introForm.hidden = !open;
+    find.parentElement.hidden = open;
+    find.setAttribute("aria-expanded", String(open));
+    (open ? introForm.querySelector("input") : find).focus();
   };
+  find.onclick = () => showSearch(true);
+  introForm.querySelector("input").addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !e.target.value) showSearch(false);
+  });
   fetch("data/domains.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
