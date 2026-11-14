@@ -61,6 +61,40 @@ def hero() -> dict:
     }
 
 
+def hero_by_council() -> dict:
+    """The opening's daily figures for each council (for a pinned area).
+
+    A&E is counted by the health board of the hospital (the data has no council of residence),
+    so each council carries its board's attendances, named; injuries and prescribing are the
+    council's own. Periods match hero().
+
+    Returns:
+        By council: health board, its A&E attendances, and the council's injury admissions,
+        injury deaths and prescription items in the hero periods.
+    """
+    board = {}
+    with Path("data/derived/population_ae.csv").open(encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            board.setdefault(r["council"], r["hb"])
+    ae = {r["health_board"]: int(r["attendances"]) for r in read(AE / "attendances_by_board.csv")}
+    nat = hero()
+    year = {
+        (r["dataset"], r["year"], r["council"]): int(r["events"])
+        for r in read(INJ / "council_year.csv")
+    }
+    items = {r["council"]: int(r["items"]) for r in read(RX / "council.csv")}
+    return {
+        c: {
+            "health_board": board[c],
+            "ae_attendances": ae[board[c]],
+            "injury_admissions": year[("admissions", nat["injury_admissions"]["period"], c)],
+            "injury_deaths": year[("deaths", nat["injury_deaths"]["period"], c)],
+            "prescription_items": items[c],
+        }
+        for c in sorted(items)
+    }
+
+
 def ae_gap() -> dict:
     """A&E attendance rates by quintile over time, and the sensitivity of the gap.
 
@@ -229,6 +263,7 @@ def story() -> dict:
     """
     return {
         "hero": hero(),
+        "hero_by_council": hero_by_council(),
         "ae": ae_gap(),
         "injury_ages": injury_ages(),
         "councils": councils(),

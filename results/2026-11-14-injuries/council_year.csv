@@ -1,0 +1,641 @@
+dataset,year,council,events
+admissions,2015/16,Aberdeen City,2150
+admissions,2015/16,Aberdeenshire,2209
+admissions,2015/16,Angus,1271
+admissions,2015/16,Argyll and Bute,1128
+admissions,2015/16,City of Edinburgh,4243
+admissions,2015/16,Clackmannanshire,466
+admissions,2015/16,Dumfries and Galloway,1574
+admissions,2015/16,Dundee City,1652
+admissions,2015/16,East Ayrshire,1395
+admissions,2015/16,East Dunbartonshire,1172
+admissions,2015/16,East Lothian,918
+admissions,2015/16,East Renfrewshire,917
+admissions,2015/16,Falkirk,1507
+admissions,2015/16,Fife,3857
+admissions,2015/16,Glasgow City,7356
+admissions,2015/16,Highland,2216
+admissions,2015/16,Inverclyde,1096
+admissions,2015/16,Midlothian,863
+admissions,2015/16,Moray,964
+admissions,2015/16,Na h-Eileanan Siar,322
+admissions,2015/16,North Ayrshire,1721
+admissions,2015/16,North Lanarkshire,3502
+admissions,2015/16,Orkney Islands,244
+admissions,2015/16,Perth and Kinross,1591
+admissions,2015/16,Renfrewshire,1914
+admissions,2015/16,Scottish Borders,1343
+admissions,2015/16,Shetland Islands,257
+admissions,2015/16,South Ayrshire,1468
+admissions,2015/16,South Lanarkshire,3187
+admissions,2015/16,Stirling,861
+admissions,2015/16,West Dunbartonshire,1076
+admissions,2015/16,West Lothian,1978
+admissions,2016/17,Aberdeen City,2170
+admissions,2016/17,Aberdeenshire,2210
+admissions,2016/17,Angus,1260
+admissions,2016/17,Argyll and Bute,1220
+admissions,2016/17,City of Edinburgh,4058
+admissions,2016/17,Clackmannanshire,461
+admissions,2016/17,Dumfries and Galloway,1449
+admissions,2016/17,Dundee City,1736
+admissions,2016/17,East Ayrshire,1476
+admissions,2016/17,East Dunbartonshire,1226
+admissions,2016/17,East Lothian,868
+admissions,2016/17,East Renfrewshire,947
+admissions,2016/17,Falkirk,1537
+admissions,2016/17,Fife,3980
+admissions,2016/17,Glasgow City,7768
+admissions,2016/17,Highland,2375
+admissions,2016/17,Inverclyde,1007
+admissions,2016/17,Midlothian,831
+admissions,2016/17,Moray,904
+admissions,2016/17,Na h-Eileanan Siar,367
+admissions,2016/17,North Ayrshire,1649
+admissions,2016/17,North Lanarkshire,3607
+admissions,2016/17,Orkney Islands,210
+admissions,2016/17,Perth and Kinross,1616
+admissions,2016/17,Renfrewshire,1798
+admissions,2016/17,Scottish Borders,1385
+admissions,2016/17,Shetland Islands,236
+admissions,2016/17,South Ayrshire,1456
+admissions,2016/17,South Lanarkshire,3553
+admissions,2016/17,Stirling,796
+admissions,2016/17,West Dunbartonshire,1053
+admissions,2016/17,West Lothian,1836
+admissions,2017/18,Aberdeen City,2179
+admissions,2017/18,Aberdeenshire,2096
+admissions,2017/18,Angus,1381
+admissions,2017/18,Argyll and Bute,1218
+admissions,2017/18,City of Edinburgh,4171
+admissions,2017/18,Clackmannanshire,554
+admissions,2017/18,Dumfries and Galloway,1613
+admissions,2017/18,Dundee City,1908
+admissions,2017/18,East Ayrshire,1493
+admissions,2017/18,East Dunbartonshire,1247
+admissions,2017/18,East Lothian,949
+admissions,2017/18,East Renfrewshire,952
+admissions,2017/18,Falkirk,1674
+admissions,2017/18,Fife,4204
+admissions,2017/18,Glasgow City,7785
+admissions,2017/18,Highland,2452
+admissions,2017/18,Inverclyde,1008
+admissions,2017/18,Midlothian,830
+admissions,2017/18,Moray,918
+admissions,2017/18,Na h-Eileanan Siar,382
+admissions,2017/18,North Ayrshire,1739
+admissions,2017/18,North Lanarkshire,3714
+admissions,2017/18,Orkney Islands,187
+admissions,2017/18,Perth and Kinross,1794
+admissions,2017/18,Renfrewshire,1827
+admissions,2017/18,Scottish Borders,1373
+admissions,2017/18,Shetland Islands,249
+admissions,2017/18,South Ayrshire,1505
+admissions,2017/18,South Lanarkshire,3627
+admissions,2017/18,Stirling,896
+admissions,2017/18,West Dunbartonshire,1096
+admissions,2017/18,West Lothian,1761
+admissions,2018/19,Aberdeen City,2404
+admissions,2018/19,Aberdeenshire,2238
+admissions,2018/19,Angus,1576
+admissions,2018/19,Argyll and Bute,1266
+admissions,2018/19,City of Edinburgh,4173
+admissions,2018/19,Clackmannanshire,541
+admissions,2018/19,Dumfries and Galloway,1630
+admissions,2018/19,Dundee City,2050
+admissions,2018/19,East Ayrshire,1420
+admissions,2018/19,East Dunbartonshire,1288
+admissions,2018/19,East Lothian,981
+admissions,2018/19,East Renfrewshire,956
+admissions,2018/19,Falkirk,1806
+admissions,2018/19,Fife,4396
+admissions,2018/19,Glasgow City,8282
+admissions,2018/19,Highland,2276
+admissions,2018/19,Inverclyde,1017
+admissions,2018/19,Midlothian,843
+admissions,2018/19,Moray,850
+admissions,2018/19,Na h-Eileanan Siar,472
+admissions,2018/19,North Ayrshire,1655
+admissions,2018/19,North Lanarkshire,3883
+admissions,2018/19,Orkney Islands,222
+admissions,2018/19,Perth and Kinross,1786
+admissions,2018/19,Renfrewshire,2011
+admissions,2018/19,Scottish Borders,1286
+admissions,2018/19,Shetland Islands,232
+admissions,2018/19,South Ayrshire,1528
+admissions,2018/19,South Lanarkshire,3521
+admissions,2018/19,Stirling,971
+admissions,2018/19,West Dunbartonshire,1170
+admissions,2018/19,West Lothian,1846
+admissions,2019/20,Aberdeen City,2281
+admissions,2019/20,Aberdeenshire,2372
+admissions,2019/20,Angus,1623
+admissions,2019/20,Argyll and Bute,1245
+admissions,2019/20,City of Edinburgh,5158
+admissions,2019/20,Clackmannanshire,635
+admissions,2019/20,Dumfries and Galloway,1744
+admissions,2019/20,Dundee City,2089
+admissions,2019/20,East Ayrshire,1417
+admissions,2019/20,East Dunbartonshire,1292
+admissions,2019/20,East Lothian,1154
+admissions,2019/20,East Renfrewshire,930
+admissions,2019/20,Falkirk,1830
+admissions,2019/20,Fife,4493
+admissions,2019/20,Glasgow City,7794
+admissions,2019/20,Highland,1909
+admissions,2019/20,Inverclyde,881
+admissions,2019/20,Midlothian,1026
+admissions,2019/20,Moray,866
+admissions,2019/20,Na h-Eileanan Siar,432
+admissions,2019/20,North Ayrshire,1626
+admissions,2019/20,North Lanarkshire,3961
+admissions,2019/20,Orkney Islands,221
+admissions,2019/20,Perth and Kinross,1893
+admissions,2019/20,Renfrewshire,1940
+admissions,2019/20,Scottish Borders,1365
+admissions,2019/20,Shetland Islands,205
+admissions,2019/20,South Ayrshire,1411
+admissions,2019/20,South Lanarkshire,3686
+admissions,2019/20,Stirling,971
+admissions,2019/20,West Dunbartonshire,1101
+admissions,2019/20,West Lothian,1971
+admissions,2020/21,Aberdeen City,2282
+admissions,2020/21,Aberdeenshire,2236
+admissions,2020/21,Angus,1346
+admissions,2020/21,Argyll and Bute,1108
+admissions,2020/21,City of Edinburgh,4689
+admissions,2020/21,Clackmannanshire,510
+admissions,2020/21,Dumfries and Galloway,1623
+admissions,2020/21,Dundee City,1977
+admissions,2020/21,East Ayrshire,1255
+admissions,2020/21,East Dunbartonshire,1194
+admissions,2020/21,East Lothian,1039
+admissions,2020/21,East Renfrewshire,933
+admissions,2020/21,Falkirk,1591
+admissions,2020/21,Fife,4189
+admissions,2020/21,Glasgow City,6948
+admissions,2020/21,Highland,2135
+admissions,2020/21,Inverclyde,828
+admissions,2020/21,Midlothian,990
+admissions,2020/21,Moray,913
+admissions,2020/21,Na h-Eileanan Siar,396
+admissions,2020/21,North Ayrshire,1400
+admissions,2020/21,North Lanarkshire,3407
+admissions,2020/21,Orkney Islands,185
+admissions,2020/21,Perth and Kinross,1887
+admissions,2020/21,Renfrewshire,1651
+admissions,2020/21,Scottish Borders,1055
+admissions,2020/21,Shetland Islands,232
+admissions,2020/21,South Ayrshire,1299
+admissions,2020/21,South Lanarkshire,3134
+admissions,2020/21,Stirling,919
+admissions,2020/21,West Dunbartonshire,941
+admissions,2020/21,West Lothian,1571
+admissions,2021/22,Aberdeen City,2060
+admissions,2021/22,Aberdeenshire,2237
+admissions,2021/22,Angus,1571
+admissions,2021/22,Argyll and Bute,1298
+admissions,2021/22,City of Edinburgh,4518
+admissions,2021/22,Clackmannanshire,630
+admissions,2021/22,Dumfries and Galloway,1697
+admissions,2021/22,Dundee City,2028
+admissions,2021/22,East Ayrshire,1302
+admissions,2021/22,East Dunbartonshire,1218
+admissions,2021/22,East Lothian,1036
+admissions,2021/22,East Renfrewshire,946
+admissions,2021/22,Falkirk,1836
+admissions,2021/22,Fife,4412
+admissions,2021/22,Glasgow City,7149
+admissions,2021/22,Highland,1782
+admissions,2021/22,Inverclyde,907
+admissions,2021/22,Midlothian,905
+admissions,2021/22,Moray,996
+admissions,2021/22,Na h-Eileanan Siar,410
+admissions,2021/22,North Ayrshire,1516
+admissions,2021/22,North Lanarkshire,3522
+admissions,2021/22,Orkney Islands,181
+admissions,2021/22,Perth and Kinross,1814
+admissions,2021/22,Renfrewshire,1810
+admissions,2021/22,Scottish Borders,1120
+admissions,2021/22,Shetland Islands,241
+admissions,2021/22,South Ayrshire,1345
+admissions,2021/22,South Lanarkshire,3390
+admissions,2021/22,Stirling,1036
+admissions,2021/22,West Dunbartonshire,1012
+admissions,2021/22,West Lothian,1635
+admissions,2022/23,Aberdeen City,2133
+admissions,2022/23,Aberdeenshire,2326
+admissions,2022/23,Angus,1716
+admissions,2022/23,Argyll and Bute,1196
+admissions,2022/23,City of Edinburgh,3654
+admissions,2022/23,Clackmannanshire,608
+admissions,2022/23,Dumfries and Galloway,1609
+admissions,2022/23,Dundee City,2174
+admissions,2022/23,East Ayrshire,1186
+admissions,2022/23,East Dunbartonshire,1194
+admissions,2022/23,East Lothian,915
+admissions,2022/23,East Renfrewshire,948
+admissions,2022/23,Falkirk,1747
+admissions,2022/23,Fife,4446
+admissions,2022/23,Glasgow City,6877
+admissions,2022/23,Highland,1686
+admissions,2022/23,Inverclyde,870
+admissions,2022/23,Midlothian,737
+admissions,2022/23,Moray,947
+admissions,2022/23,Na h-Eileanan Siar,369
+admissions,2022/23,North Ayrshire,1385
+admissions,2022/23,North Lanarkshire,3246
+admissions,2022/23,Orkney Islands,225
+admissions,2022/23,Perth and Kinross,2043
+admissions,2022/23,Renfrewshire,1909
+admissions,2022/23,Scottish Borders,1018
+admissions,2022/23,Shetland Islands,232
+admissions,2022/23,South Ayrshire,1191
+admissions,2022/23,South Lanarkshire,3168
+admissions,2022/23,Stirling,956
+admissions,2022/23,West Dunbartonshire,1012
+admissions,2022/23,West Lothian,1465
+admissions,2023/24,Aberdeen City,2082
+admissions,2023/24,Aberdeenshire,2280
+admissions,2023/24,Angus,1678
+admissions,2023/24,Argyll and Bute,1206
+admissions,2023/24,City of Edinburgh,4209
+admissions,2023/24,Clackmannanshire,590
+admissions,2023/24,Dumfries and Galloway,1741
+admissions,2023/24,Dundee City,2199
+admissions,2023/24,East Ayrshire,1236
+admissions,2023/24,East Dunbartonshire,1234
+admissions,2023/24,East Lothian,1016
+admissions,2023/24,East Renfrewshire,992
+admissions,2023/24,Falkirk,1670
+admissions,2023/24,Fife,4809
+admissions,2023/24,Glasgow City,6963
+admissions,2023/24,Highland,1789
+admissions,2023/24,Inverclyde,951
+admissions,2023/24,Midlothian,898
+admissions,2023/24,Moray,849
+admissions,2023/24,Na h-Eileanan Siar,351
+admissions,2023/24,North Ayrshire,1599
+admissions,2023/24,North Lanarkshire,3403
+admissions,2023/24,Orkney Islands,185
+admissions,2023/24,Perth and Kinross,2108
+admissions,2023/24,Renfrewshire,1979
+admissions,2023/24,Scottish Borders,1115
+admissions,2023/24,Shetland Islands,250
+admissions,2023/24,South Ayrshire,1183
+admissions,2023/24,South Lanarkshire,2994
+admissions,2023/24,Stirling,905
+admissions,2023/24,West Dunbartonshire,1027
+admissions,2023/24,West Lothian,1591
+admissions,2024/25,Aberdeen City,1587
+admissions,2024/25,Aberdeenshire,1851
+admissions,2024/25,Angus,1667
+admissions,2024/25,Argyll and Bute,1173
+admissions,2024/25,City of Edinburgh,3839
+admissions,2024/25,Clackmannanshire,502
+admissions,2024/25,Dumfries and Galloway,1749
+admissions,2024/25,Dundee City,2259
+admissions,2024/25,East Ayrshire,1335
+admissions,2024/25,East Dunbartonshire,1362
+admissions,2024/25,East Lothian,991
+admissions,2024/25,East Renfrewshire,964
+admissions,2024/25,Falkirk,1609
+admissions,2024/25,Fife,4672
+admissions,2024/25,Glasgow City,6928
+admissions,2024/25,Highland,1766
+admissions,2024/25,Inverclyde,939
+admissions,2024/25,Midlothian,888
+admissions,2024/25,Moray,547
+admissions,2024/25,Na h-Eileanan Siar,330
+admissions,2024/25,North Ayrshire,1571
+admissions,2024/25,North Lanarkshire,3217
+admissions,2024/25,Orkney Islands,162
+admissions,2024/25,Perth and Kinross,2078
+admissions,2024/25,Renfrewshire,1830
+admissions,2024/25,Scottish Borders,1008
+admissions,2024/25,Shetland Islands,155
+admissions,2024/25,South Ayrshire,1257
+admissions,2024/25,South Lanarkshire,3108
+admissions,2024/25,Stirling,923
+admissions,2024/25,West Dunbartonshire,1095
+admissions,2024/25,West Lothian,1560
+deaths,2015,Aberdeen City,76
+deaths,2015,Aberdeenshire,74
+deaths,2015,Angus,42
+deaths,2015,Argyll and Bute,35
+deaths,2015,City of Edinburgh,141
+deaths,2015,Clackmannanshire,19
+deaths,2015,Dumfries and Galloway,63
+deaths,2015,Dundee City,64
+deaths,2015,East Ayrshire,47
+deaths,2015,East Dunbartonshire,34
+deaths,2015,East Lothian,29
+deaths,2015,East Renfrewshire,18
+deaths,2015,Falkirk,42
+deaths,2015,Fife,131
+deaths,2015,Glasgow City,289
+deaths,2015,Highland,82
+deaths,2015,Inverclyde,43
+deaths,2015,Midlothian,26
+deaths,2015,Moray,28
+deaths,2015,Na h-Eileanan Siar,10
+deaths,2015,North Ayrshire,53
+deaths,2015,North Lanarkshire,136
+deaths,2015,Orkney Islands,7
+deaths,2015,Perth and Kinross,41
+deaths,2015,Renfrewshire,45
+deaths,2015,Scottish Borders,40
+deaths,2015,Shetland Islands,15
+deaths,2015,South Ayrshire,49
+deaths,2015,South Lanarkshire,108
+deaths,2015,Stirling,34
+deaths,2015,West Dunbartonshire,25
+deaths,2015,West Lothian,46
+deaths,2016,Aberdeen City,89
+deaths,2016,Aberdeenshire,81
+deaths,2016,Angus,57
+deaths,2016,Argyll and Bute,43
+deaths,2016,City of Edinburgh,164
+deaths,2016,Clackmannanshire,22
+deaths,2016,Dumfries and Galloway,60
+deaths,2016,Dundee City,71
+deaths,2016,East Ayrshire,67
+deaths,2016,East Dunbartonshire,42
+deaths,2016,East Lothian,39
+deaths,2016,East Renfrewshire,31
+deaths,2016,Falkirk,73
+deaths,2016,Fife,130
+deaths,2016,Glasgow City,313
+deaths,2016,Highland,98
+deaths,2016,Inverclyde,38
+deaths,2016,Midlothian,25
+deaths,2016,Moray,30
+deaths,2016,Na h-Eileanan Siar,7
+deaths,2016,North Ayrshire,65
+deaths,2016,North Lanarkshire,139
+deaths,2016,Orkney Islands,9
+deaths,2016,Perth and Kinross,49
+deaths,2016,Renfrewshire,83
+deaths,2016,Scottish Borders,52
+deaths,2016,Shetland Islands,6
+deaths,2016,South Ayrshire,52
+deaths,2016,South Lanarkshire,152
+deaths,2016,Stirling,41
+deaths,2016,West Dunbartonshire,48
+deaths,2016,West Lothian,40
+deaths,2017,Aberdeen City,99
+deaths,2017,Aberdeenshire,71
+deaths,2017,Angus,45
+deaths,2017,Argyll and Bute,32
+deaths,2017,City of Edinburgh,188
+deaths,2017,Clackmannanshire,22
+deaths,2017,Dumfries and Galloway,80
+deaths,2017,Dundee City,87
+deaths,2017,East Ayrshire,57
+deaths,2017,East Dunbartonshire,39
+deaths,2017,East Lothian,32
+deaths,2017,East Renfrewshire,32
+deaths,2017,Falkirk,59
+deaths,2017,Fife,161
+deaths,2017,Glasgow City,318
+deaths,2017,Highland,100
+deaths,2017,Inverclyde,48
+deaths,2017,Midlothian,32
+deaths,2017,Moray,34
+deaths,2017,Na h-Eileanan Siar,18
+deaths,2017,North Ayrshire,60
+deaths,2017,North Lanarkshire,149
+deaths,2017,Orkney Islands,10
+deaths,2017,Perth and Kinross,64
+deaths,2017,Renfrewshire,90
+deaths,2017,Scottish Borders,59
+deaths,2017,Shetland Islands,9
+deaths,2017,South Ayrshire,56
+deaths,2017,South Lanarkshire,154
+deaths,2017,Stirling,36
+deaths,2017,West Dunbartonshire,51
+deaths,2017,West Lothian,56
+deaths,2018,Aberdeen City,93
+deaths,2018,Aberdeenshire,95
+deaths,2018,Angus,41
+deaths,2018,Argyll and Bute,44
+deaths,2018,City of Edinburgh,184
+deaths,2018,Clackmannanshire,21
+deaths,2018,Dumfries and Galloway,79
+deaths,2018,Dundee City,94
+deaths,2018,East Ayrshire,67
+deaths,2018,East Dunbartonshire,22
+deaths,2018,East Lothian,33
+deaths,2018,East Renfrewshire,29
+deaths,2018,Falkirk,71
+deaths,2018,Fife,157
+deaths,2018,Glasgow City,435
+deaths,2018,Highland,138
+deaths,2018,Inverclyde,47
+deaths,2018,Midlothian,22
+deaths,2018,Moray,36
+deaths,2018,Na h-Eileanan Siar,7
+deaths,2018,North Ayrshire,68
+deaths,2018,North Lanarkshire,146
+deaths,2018,Orkney Islands,6
+deaths,2018,Perth and Kinross,82
+deaths,2018,Renfrewshire,93
+deaths,2018,Scottish Borders,58
+deaths,2018,Shetland Islands,11
+deaths,2018,South Ayrshire,53
+deaths,2018,South Lanarkshire,145
+deaths,2018,Stirling,41
+deaths,2018,West Dunbartonshire,43
+deaths,2018,West Lothian,51
+deaths,2019,Aberdeen City,93
+deaths,2019,Aberdeenshire,85
+deaths,2019,Angus,60
+deaths,2019,Argyll and Bute,43
+deaths,2019,City of Edinburgh,198
+deaths,2019,Clackmannanshire,37
+deaths,2019,Dumfries and Galloway,68
+deaths,2019,Dundee City,87
+deaths,2019,East Ayrshire,81
+deaths,2019,East Dunbartonshire,37
+deaths,2019,East Lothian,39
+deaths,2019,East Renfrewshire,33
+deaths,2019,Falkirk,92
+deaths,2019,Fife,185
+deaths,2019,Glasgow City,443
+deaths,2019,Highland,107
+deaths,2019,Inverclyde,66
+deaths,2019,Midlothian,33
+deaths,2019,Moray,46
+deaths,2019,Na h-Eileanan Siar,16
+deaths,2019,North Ayrshire,86
+deaths,2019,North Lanarkshire,198
+deaths,2019,Orkney Islands,10
+deaths,2019,Perth and Kinross,63
+deaths,2019,Renfrewshire,85
+deaths,2019,Scottish Borders,54
+deaths,2019,Shetland Islands,9
+deaths,2019,South Ayrshire,56
+deaths,2019,South Lanarkshire,149
+deaths,2019,Stirling,49
+deaths,2019,West Dunbartonshire,53
+deaths,2019,West Lothian,65
+deaths,2020,Aberdeen City,106
+deaths,2020,Aberdeenshire,92
+deaths,2020,Angus,48
+deaths,2020,Argyll and Bute,41
+deaths,2020,City of Edinburgh,197
+deaths,2020,Clackmannanshire,31
+deaths,2020,Dumfries and Galloway,77
+deaths,2020,Dundee City,92
+deaths,2020,East Ayrshire,77
+deaths,2020,East Dunbartonshire,48
+deaths,2020,East Lothian,32
+deaths,2020,East Renfrewshire,25
+deaths,2020,Falkirk,79
+deaths,2020,Fife,158
+deaths,2020,Glasgow City,445
+deaths,2020,Highland,124
+deaths,2020,Inverclyde,61
+deaths,2020,Midlothian,43
+deaths,2020,Moray,37
+deaths,2020,Na h-Eileanan Siar,14
+deaths,2020,North Ayrshire,77
+deaths,2020,North Lanarkshire,173
+deaths,2020,Orkney Islands,17
+deaths,2020,Perth and Kinross,80
+deaths,2020,Renfrewshire,96
+deaths,2020,Scottish Borders,57
+deaths,2020,Shetland Islands,7
+deaths,2020,South Ayrshire,65
+deaths,2020,South Lanarkshire,168
+deaths,2020,Stirling,59
+deaths,2020,West Dunbartonshire,60
+deaths,2020,West Lothian,73
+deaths,2021,Aberdeen City,110
+deaths,2021,Aberdeenshire,95
+deaths,2021,Angus,59
+deaths,2021,Argyll and Bute,40
+deaths,2021,City of Edinburgh,216
+deaths,2021,Clackmannanshire,25
+deaths,2021,Dumfries and Galloway,86
+deaths,2021,Dundee City,103
+deaths,2021,East Ayrshire,72
+deaths,2021,East Dunbartonshire,36
+deaths,2021,East Lothian,40
+deaths,2021,East Renfrewshire,23
+deaths,2021,Falkirk,78
+deaths,2021,Fife,159
+deaths,2021,Glasgow City,447
+deaths,2021,Highland,113
+deaths,2021,Inverclyde,41
+deaths,2021,Midlothian,34
+deaths,2021,Moray,41
+deaths,2021,Na h-Eileanan Siar,7
+deaths,2021,North Ayrshire,75
+deaths,2021,North Lanarkshire,179
+deaths,2021,Orkney Islands,7
+deaths,2021,Perth and Kinross,57
+deaths,2021,Renfrewshire,105
+deaths,2021,Scottish Borders,63
+deaths,2021,Shetland Islands,14
+deaths,2021,South Ayrshire,58
+deaths,2021,South Lanarkshire,200
+deaths,2021,Stirling,44
+deaths,2021,West Dunbartonshire,58
+deaths,2021,West Lothian,66
+deaths,2022,Aberdeen City,101
+deaths,2022,Aberdeenshire,101
+deaths,2022,Angus,46
+deaths,2022,Argyll and Bute,50
+deaths,2022,City of Edinburgh,231
+deaths,2022,Clackmannanshire,24
+deaths,2022,Dumfries and Galloway,102
+deaths,2022,Dundee City,80
+deaths,2022,East Ayrshire,81
+deaths,2022,East Dunbartonshire,54
+deaths,2022,East Lothian,57
+deaths,2022,East Renfrewshire,33
+deaths,2022,Falkirk,70
+deaths,2022,Fife,161
+deaths,2022,Glasgow City,348
+deaths,2022,Highland,159
+deaths,2022,Inverclyde,56
+deaths,2022,Midlothian,26
+deaths,2022,Moray,28
+deaths,2022,Na h-Eileanan Siar,15
+deaths,2022,North Ayrshire,81
+deaths,2022,North Lanarkshire,153
+deaths,2022,Orkney Islands,13
+deaths,2022,Perth and Kinross,76
+deaths,2022,Renfrewshire,90
+deaths,2022,Scottish Borders,53
+deaths,2022,Shetland Islands,9
+deaths,2022,South Ayrshire,62
+deaths,2022,South Lanarkshire,147
+deaths,2022,Stirling,39
+deaths,2022,West Dunbartonshire,52
+deaths,2022,West Lothian,79
+deaths,2023,Aberdeen City,119
+deaths,2023,Aberdeenshire,99
+deaths,2023,Angus,70
+deaths,2023,Argyll and Bute,46
+deaths,2023,City of Edinburgh,237
+deaths,2023,Clackmannanshire,29
+deaths,2023,Dumfries and Galloway,95
+deaths,2023,Dundee City,88
+deaths,2023,East Ayrshire,73
+deaths,2023,East Dunbartonshire,44
+deaths,2023,East Lothian,56
+deaths,2023,East Renfrewshire,37
+deaths,2023,Falkirk,75
+deaths,2023,Fife,180
+deaths,2023,Glasgow City,387
+deaths,2023,Highland,109
+deaths,2023,Inverclyde,68
+deaths,2023,Midlothian,36
+deaths,2023,Moray,48
+deaths,2023,Na h-Eileanan Siar,13
+deaths,2023,North Ayrshire,80
+deaths,2023,North Lanarkshire,184
+deaths,2023,Orkney Islands,11
+deaths,2023,Perth and Kinross,71
+deaths,2023,Renfrewshire,109
+deaths,2023,Scottish Borders,43
+deaths,2023,Shetland Islands,8
+deaths,2023,South Ayrshire,60
+deaths,2023,South Lanarkshire,173
+deaths,2023,Stirling,39
+deaths,2023,West Dunbartonshire,53
+deaths,2023,West Lothian,82
+deaths,2024,Aberdeen City,123
+deaths,2024,Aberdeenshire,104
+deaths,2024,Angus,42
+deaths,2024,Argyll and Bute,55
+deaths,2024,City of Edinburgh,212
+deaths,2024,Clackmannanshire,31
+deaths,2024,Dumfries and Galloway,84
+deaths,2024,Dundee City,77
+deaths,2024,East Ayrshire,73
+deaths,2024,East Dunbartonshire,65
+deaths,2024,East Lothian,59
+deaths,2024,East Renfrewshire,52
+deaths,2024,Falkirk,72
+deaths,2024,Fife,193
+deaths,2024,Glasgow City,352
+deaths,2024,Highland,134
+deaths,2024,Inverclyde,60
+deaths,2024,Midlothian,38
+deaths,2024,Moray,60
+deaths,2024,Na h-Eileanan Siar,5
+deaths,2024,North Ayrshire,69
+deaths,2024,North Lanarkshire,194
+deaths,2024,Orkney Islands,11
+deaths,2024,Perth and Kinross,73
+deaths,2024,Renfrewshire,109
+deaths,2024,Scottish Borders,54
+deaths,2024,Shetland Islands,16
+deaths,2024,South Ayrshire,80
+deaths,2024,South Lanarkshire,185
+deaths,2024,Stirling,55
+deaths,2024,West Dunbartonshire,58
+deaths,2024,West Lothian,55

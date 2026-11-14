@@ -22,6 +22,7 @@ from pathlib import Path
 import duckdb
 
 AE = "data/raw/data-viz-2026/data/A&E/Level_2_Demographics.csv"
+ACTIVITY = "data/raw/data-viz-2026/data/A&E/Level_1_Activity.csv"
 POP = Path("data/derived/population_ae.csv")
 YEARS = range(2018, 2026)  # whole calendar years in the file
 STANDARD_YEAR = 2024
@@ -126,6 +127,18 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(sens[0]))
         w.writeheader()
         w.writerows(sens)
+    # attendances in the latest whole year by health board of the hospital (where people went,
+    # not where they live), counted as in the activity file's "All" category
+    boards = con.execute(
+        f"""SELECT HBName, sum(NumberOfAttendancesAll)
+            FROM read_csv('{ACTIVITY}', header=true, sample_size=-1)
+            WHERE AttendanceCategory = 'All' AND Month // 100 = {YEARS[-1]}
+            GROUP BY 1 ORDER BY 1"""
+    ).fetchall()
+    with (out / "attendances_by_board.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["year", "health_board", "attendances"])
+        w.writerows([(YEARS[-1], hb, int(n)) for hb, n in boards])
     chart(results, out / "rates")
     for g in sens:
         print(g)

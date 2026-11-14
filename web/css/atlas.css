@@ -341,6 +341,7 @@ thead th { color: var(--ink-3); font-weight: 500; }
 
 @media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
   .area-panel { top: 0.8rem; bottom: auto; right: 0.8rem; max-height: 42vh; }
+  .area-panel:not(.compact) { top: 0.8rem; }
 }
 
 .ap-title { display: block; width: calc(100% - 1.6rem); text-align: left; background: none; border: 0; padding: 0 0 0.5rem; font: 500 0.72rem var(--mono); color: var(--ink-3); cursor: pointer; }
@@ -358,3 +359,41 @@ thead th { color: var(--ink-3); font-weight: 500; }
 /* figures that changed to the pinned area's values */
 .is-local { color: #fff; background: rgb(139 92 246 / 0.28); border-radius: 4px; padding: 0 0.2em; -webkit-text-fill-color: #fff; }
 .day b.is-local, .takeaways b .is-local { background: none; }
+
+/* the panel: up near the top right, its sections one at a time */
+.area-panel:not(.compact) { top: 4.6rem; bottom: auto; max-height: none; overflow: visible; }
+.ap-tabs { display: flex; gap: 0.3rem; margin: 0 0 0.6rem; padding: 0.2rem; background: rgb(255 255 255 / 0.04); border-radius: 999px; }
+.ap-tabs[hidden] { display: none; }
+.ap-tabs button {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: 500 0.68rem var(--body);
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.45rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ap-tabs button.on { color: var(--ink); background: rgb(139 92 246 / 0.35); }
+#area-panel-body {
+  height: min(15.5rem, 46vh);
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+#area-panel-body::-webkit-scrollbar { display: none; }
+#area-panel-body section {
+  min-height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  border-bottom: 0;
+  margin: 0;
+  padding: 0.1rem 0 0.4rem;
+}
+.area-panel.compact .ap-tabs { display: none; }
+.area-panel.compact.open .ap-tabs { display: flex; }

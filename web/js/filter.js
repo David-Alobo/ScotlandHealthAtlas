@@ -4,6 +4,7 @@
 // here says which level its number describes. No DOM.
 
 import { escapeXml as esc, formatInt, formatNum, pct } from "./format.js";
+import { readableRate } from "./facts.js";
 import { deathUnits, ordinal } from "./stage.js";
 
 export const MIN_DEATHS = 20; // fewer deaths of a type in the pooled years: too few to show
@@ -117,7 +118,7 @@ export function areaPanel(story, geo, filter, detail = null) {
     const [, , q, rank, people] = geo.zones[i];
     const last = story.ae.years.length - 1;
     html +=
-      `<section><h4>This neighbourhood</h4><p class="ap-name">${esc(geo.zone_names[i])}</p>` +
+      `<section data-tab="Neighbourhood"><h4>This neighbourhood</h4><p class="ap-name">${esc(geo.zone_names[i])}</p>` +
       `<p>Ranked <b>${formatInt(rank)}</b> of ${formatInt(geo.zones.length)} (1 = most deprived) · ${formatInt(people)} people</p>`;
     if (detail) {
       const worst = detail.domains
@@ -128,20 +129,21 @@ export function areaPanel(story, geo, filter, detail = null) {
       html += `<p>Most deprived on ${worst.join(" and ")}.</p>`;
     }
     html +=
-      `</section><section><h4>Its deprivation fifth, all of Scotland</h4>` +
+      `</section><section data-tab="Its fifth"><h4>Its deprivation fifth, all of Scotland</h4>` +
       `<p>The ${FIFTHS[q - 1]}: <b>${formatNum(story.ae.quintiles[q - 1].rate[last])}</b> A&amp;E visits per 1,000 people in ${story.ae.years[last]}, ` +
       `against ${formatNum(story.ae.quintiles[4].rate[last])} in the least deprived fifth (same age and sex).</p></section>`;
   }
 
   html +=
-    `<section><h4>${esc(name)}</h4>` +
+    `<section data-tab="${esc(name)}"><h4>${esc(name)}</h4>` +
     `<dl class="ap-grid">` +
     `<dt>Poisoning deaths</dt><dd><b>${formatNum(c.rate, 1)}</b> per 100,000 a year · ${ordinal(rankOf(story, name, "rate"))} of 32 · Scotland ${formatNum(cs.scotland, 1)}</dd>` +
     `<dt>Admissions after a fall</dt><dd><b>${formatNum(c.falls_rate)}</b> per 100,000 a year · ${ordinal(c.falls_rank)} of 32 · Scotland ${formatNum(cs.scotland_falls)}</dd>` +
     `<dt>Most deprived fifth</dt><dd><b>${pct(c.share_q1, 0)}</b> of people · ${formatInt(dz.q1)} of ${formatInt(dz.zones)} neighbourhoods</dd>` +
     `<dt>Prescriptions</dt><dd><b>${formatNum(c.items_per_person, 1)}</b> items per person a year (where dispensed)</dd>` +
-    `</dl></section>` +
-    `<p class="ap-note">Health figures are not published for single neighbourhoods: each number says whether it describes the neighbourhood, its deprivation fifth or its council. Rates are standardised for age and sex (${cs.period}; falls ${cs.falls_period}).</p>`;
+    `</dl>` +
+    `<p class="ap-note">Health figures are not published for single neighbourhoods: each number says whether it describes the neighbourhood, its deprivation fifth or its council. Rates are standardised for age and sex (${cs.period}; falls ${cs.falls_period}).</p>` +
+    `</section>`;
   return html;
 }
 
@@ -161,7 +163,25 @@ export function areaFacts(story, filter) {
     if (total < MIN_DEATHS) return "too few to show";
     return pct(sum(counts.filter((_, i) => wanted.includes(bands[i]))) / total, 0);
   };
+  // the opening's figures: the council's own (A&E: its health board's hospitals), each as a
+  // readable average with its unit in the label
+  const h = story.hero;
+  const local = story.hero_by_council[name];
+  const tile = (key, period) => readableRate({ value: local[key], period });
+  const ae = tile("ae_attendances", h.ae_attendances.period);
+  const adm = tile("injury_admissions", h.injury_admissions.period);
+  const dth = tile("injury_deaths", h.injury_deaths.period);
+  const rx = tile("prescription_items", h.prescription_items.period);
   return {
+    dayHeading: `On average in ${name}`,
+    dayAe: formatInt(ae.value),
+    dayAeLabel: `visits to A&E ${ae.unit} at ${local.health_board} hospitals`,
+    dayAdmissions: formatInt(adm.value),
+    dayAdmissionsLabel: `emergency admissions after an accident, ${adm.unit}`,
+    dayDeaths: formatInt(dth.value),
+    dayDeathsLabel: `deaths from an accident, ${dth.unit}`,
+    dayItems: formatInt(rx.value),
+    dayItemsLabel: `prescription items dispensed ${rx.unit}`,
     zonesQ1: formatInt(dz.q1),
     inArea: ` in ${name}`,
     deathsUnit: `in ${name} over ${story.councils.pooled_years} years`,

@@ -36,6 +36,7 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
 | `age_profile.csv` | Falls and poisoning, admissions and deaths, latest five years: by age band and sex, events, average a year, age-sex-specific rate |
 | `age_profile.*` | Admissions and deaths a year by age band: falls against poisoning |
 | `council_age.csv` | Falls and poisoning, admissions and deaths, latest five years together: by council and age band (sexes together), events |
+| `council_year.csv` | Each council's admissions and deaths from all unintentional injuries, each year |
 
 ## Findings (descriptive)
 

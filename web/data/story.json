@@ -17,6 +17,232 @@
    "period": "June 2025 to May 2026"
   }
  },
+ "hero_by_council": {
+  "Aberdeen City": {
+   "health_board": "NHS Grampian",
+   "ae_attendances": 130465,
+   "injury_admissions": 1587,
+   "injury_deaths": 123,
+   "prescription_items": 3761163
+  },
+  "Aberdeenshire": {
+   "health_board": "NHS Grampian",
+   "ae_attendances": 130465,
+   "injury_admissions": 1851,
+   "injury_deaths": 104,
+   "prescription_items": 4732203
+  },
+  "Angus": {
+   "health_board": "NHS Tayside",
+   "ae_attendances": 98655,
+   "injury_admissions": 1667,
+   "injury_deaths": 42,
+   "prescription_items": 2386718
+  },
+  "Argyll and Bute": {
+   "health_board": "NHS Highland",
+   "ae_attendances": 108994,
+   "injury_admissions": 1173,
+   "injury_deaths": 55,
+   "prescription_items": 2009775
+  },
+  "City of Edinburgh": {
+   "health_board": "NHS Lothian",
+   "ae_attendances": 298101,
+   "injury_admissions": 3839,
+   "injury_deaths": 212,
+   "prescription_items": 7365109
+  },
+  "Clackmannanshire": {
+   "health_board": "NHS Forth Valley",
+   "ae_attendances": 83945,
+   "injury_admissions": 502,
+   "injury_deaths": 31,
+   "prescription_items": 1155240
+  },
+  "Dumfries and Galloway": {
+   "health_board": "NHS Dumfries and Galloway",
+   "ae_attendances": 54403,
+   "injury_admissions": 1749,
+   "injury_deaths": 84,
+   "prescription_items": 3886284
+  },
+  "Dundee City": {
+   "health_board": "NHS Tayside",
+   "ae_attendances": 98655,
+   "injury_admissions": 2259,
+   "injury_deaths": 77,
+   "prescription_items": 2994530
+  },
+  "East Ayrshire": {
+   "health_board": "NHS Ayrshire and Arran",
+   "ae_attendances": 103617,
+   "injury_admissions": 1335,
+   "injury_deaths": 73,
+   "prescription_items": 2978898
+  },
+  "East Dunbartonshire": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 1362,
+   "injury_deaths": 65,
+   "prescription_items": 2094789
+  },
+  "East Lothian": {
+   "health_board": "NHS Lothian",
+   "ae_attendances": 298101,
+   "injury_admissions": 991,
+   "injury_deaths": 59,
+   "prescription_items": 1890236
+  },
+  "East Renfrewshire": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 964,
+   "injury_deaths": 52,
+   "prescription_items": 1866841
+  },
+  "Falkirk": {
+   "health_board": "NHS Forth Valley",
+   "ae_attendances": 83945,
+   "injury_admissions": 1609,
+   "injury_deaths": 72,
+   "prescription_items": 3269410
+  },
+  "Fife": {
+   "health_board": "NHS Fife",
+   "ae_attendances": 97184,
+   "injury_admissions": 4672,
+   "injury_deaths": 193,
+   "prescription_items": 7665473
+  },
+  "Glasgow City": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 6928,
+   "injury_deaths": 352,
+   "prescription_items": 13515419
+  },
+  "Highland": {
+   "health_board": "NHS Highland",
+   "ae_attendances": 108994,
+   "injury_admissions": 1766,
+   "injury_deaths": 134,
+   "prescription_items": 4667248
+  },
+  "Inverclyde": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 939,
+   "injury_deaths": 60,
+   "prescription_items": 2136325
+  },
+  "Midlothian": {
+   "health_board": "NHS Lothian",
+   "ae_attendances": 298101,
+   "injury_admissions": 888,
+   "injury_deaths": 38,
+   "prescription_items": 1650140
+  },
+  "Moray": {
+   "health_board": "NHS Grampian",
+   "ae_attendances": 130465,
+   "injury_admissions": 547,
+   "injury_deaths": 60,
+   "prescription_items": 1791199
+  },
+  "Na h-Eileanan Siar": {
+   "health_board": "NHS Western Isles",
+   "ae_attendances": 9107,
+   "injury_admissions": 330,
+   "injury_deaths": 5,
+   "prescription_items": 698760
+  },
+  "North Ayrshire": {
+   "health_board": "NHS Ayrshire and Arran",
+   "ae_attendances": 103617,
+   "injury_admissions": 1571,
+   "injury_deaths": 69,
+   "prescription_items": 3241952
+  },
+  "North Lanarkshire": {
+   "health_board": "NHS Lanarkshire",
+   "ae_attendances": 198059,
+   "injury_admissions": 3217,
+   "injury_deaths": 194,
+   "prescription_items": 8000259
+  },
+  "Orkney Islands": {
+   "health_board": "NHS Orkney",
+   "ae_attendances": 8543,
+   "injury_admissions": 162,
+   "injury_deaths": 11,
+   "prescription_items": 407459
+  },
+  "Perth and Kinross": {
+   "health_board": "NHS Tayside",
+   "ae_attendances": 98655,
+   "injury_admissions": 2078,
+   "injury_deaths": 73,
+   "prescription_items": 2869653
+  },
+  "Renfrewshire": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 1830,
+   "injury_deaths": 109,
+   "prescription_items": 3902989
+  },
+  "Scottish Borders": {
+   "health_board": "NHS Borders",
+   "ae_attendances": 34954,
+   "injury_admissions": 1008,
+   "injury_deaths": 54,
+   "prescription_items": 2543362
+  },
+  "Shetland Islands": {
+   "health_board": "NHS Shetland",
+   "ae_attendances": 8626,
+   "injury_admissions": 155,
+   "injury_deaths": 16,
+   "prescription_items": 497824
+  },
+  "South Ayrshire": {
+   "health_board": "NHS Ayrshire and Arran",
+   "ae_attendances": 103617,
+   "injury_admissions": 1257,
+   "injury_deaths": 80,
+   "prescription_items": 2876447
+  },
+  "South Lanarkshire": {
+   "health_board": "NHS Lanarkshire",
+   "ae_attendances": 198059,
+   "injury_admissions": 3108,
+   "injury_deaths": 185,
+   "prescription_items": 7392359
+  },
+  "Stirling": {
+   "health_board": "NHS Forth Valley",
+   "ae_attendances": 83945,
+   "injury_admissions": 923,
+   "injury_deaths": 55,
+   "prescription_items": 2034109
+  },
+  "West Dunbartonshire": {
+   "health_board": "NHS Greater Glasgow and Clyde",
+   "ae_attendances": 417775,
+   "injury_admissions": 1095,
+   "injury_deaths": 58,
+   "prescription_items": 1939118
+  },
+  "West Lothian": {
+   "health_board": "NHS Lothian",
+   "ae_attendances": 298101,
+   "injury_admissions": 1560,
+   "injury_deaths": 55,
+   "prescription_items": 3445392
+  }
+ },
  "ae": {
   "years": [
    2018,

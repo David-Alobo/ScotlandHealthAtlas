@@ -51,6 +51,7 @@ describe("panel", () => {
     expect(html).toContain("Its deprivation fifth, all of Scotland");
     expect(html).toContain("<h4>Renfrewshire</h4>");
     expect(html).toMatch(/Most deprived on (income|health) \(4\) and (income|health) \(4\)/);
+    expect((html.match(/<section data-tab=/g) || []).length).toBe(3); // three sections, one per tab
   });
 
   it("shows the council alone when no neighbourhood is pinned", () => {
@@ -76,5 +77,24 @@ describe("area facts", async () => {
 
   it("withhold shares built on too few deaths", () => {
     expect(areaFacts(story, { council: "Orkney Islands", zone: null }).poisoning2564Share).toBe("too few to show");
+  });
+});
+
+describe("opening figures for an area", async () => {
+  const { areaFacts } = await import("../js/filter.js");
+  const { readableRate } = await import("../js/facts.js");
+
+  it("pick a readable unit", () => {
+    expect(readableRate({ value: 3650, period: "2025" })).toEqual({ value: 10, unit: "a day" });
+    expect(readableRate({ value: 104, period: "2025" })).toEqual({ value: 2, unit: "a week" });
+    expect(readableRate({ value: 11, period: "2024" })).toEqual({ value: 11, unit: "a year" });
+  });
+
+  it("use the council's figures and name the health board for A&E", () => {
+    const f = areaFacts(story, { council: "Renfrewshire", zone: null });
+    expect(f.dayHeading).toBe("On average in Renfrewshire");
+    expect(f.dayAeLabel).toBe("visits to A&E a day at NHS Greater Glasgow and Clyde hospitals");
+    const orkney = areaFacts(story, { council: "Orkney Islands", zone: null });
+    expect(orkney.dayDeathsLabel).toBe("deaths from an accident, a year");
   });
 });

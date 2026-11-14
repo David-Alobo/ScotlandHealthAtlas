@@ -364,7 +364,9 @@ function wireFilter(getStage, story, geo, current) {
     for (const node of document.querySelectorAll("[data-fact]")) {
       const key = node.dataset.fact;
       node.textContent = local[key] ?? base[key] ?? "";
-      node.classList.toggle("is-local", key in local && key !== "inArea" && key !== "deathsUnit");
+      // highlight changed figures, not the words around them
+      const words = key === "inArea" || key === "deathsUnit" || key === "dayHeading" || key.endsWith("Label");
+      node.classList.toggle("is-local", key in local && !words);
     }
     for (const node of document.querySelectorAll("[data-national]")) node.hidden = Boolean(filter.council);
     const notes = localNotes(story, geo, filter);
@@ -380,9 +382,60 @@ function wireFilter(getStage, story, geo, current) {
       ? councilSentence(filter.council, story.councils.councils, story.councils.scotland)
       : "";
     body.innerHTML = areaPanel(story, geo, filter, detail);
+    sections();
     document.getElementById("area-panel-title").textContent =
       filter.zone !== null ? `Pinned: ${geo.zone_names[filter.zone]} · ${filter.council}` : filter.council ?? "";
     panel.hidden = !filter.council;
+  };
+
+  // the panel's sections: one fills the card at a time; scrolling snaps between them and the
+  // tabs show (and choose) which one is in view
+  const tabs = document.getElementById("area-panel-tabs");
+  let watcher = null;
+  let parts = [];
+  const go = (k) => {
+    const part = parts[Math.max(0, Math.min(parts.length - 1, k))];
+    if (part) body.scrollTo({ top: part.offsetTop - body.offsetTop, behavior: "smooth" });
+  };
+  // one wheel movement inside the card = one section (a wheel step is shorter than a section)
+  let wheelLock = 0;
+  body.addEventListener(
+    "wheel",
+    (e) => {
+      if (parts.length < 2) return;
+      e.preventDefault();
+      const now = performance.now();
+      if (now < wheelLock || Math.abs(e.deltaY) < 4) return;
+      wheelLock = now + 550;
+      const at = parts.findIndex((part) => part.offsetTop - body.offsetTop >= body.scrollTop - 4);
+      go((at < 0 ? parts.length - 1 : at) + (e.deltaY > 0 ? 1 : -1));
+    },
+    { passive: false },
+  );
+  const sections = () => {
+    parts = [...body.querySelectorAll("section[data-tab]")];
+    tabs.innerHTML = "";
+    watcher?.disconnect();
+    const buttons = parts.map((part, k) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = part.dataset.tab;
+      b.classList.toggle("on", k === 0);
+      b.onclick = () => go(k);
+      tabs.appendChild(b);
+      return b;
+    });
+    tabs.hidden = parts.length < 2;
+    body.scrollTop = 0;
+    watcher = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) buttons.forEach((b, k) => b.classList.toggle("on", parts[k] === e.target));
+        }
+      },
+      { root: body, threshold: 0.6 },
+    );
+    for (const part of parts) watcher.observe(part);
   };
 
   const setFilter = (council, zone = null) => {

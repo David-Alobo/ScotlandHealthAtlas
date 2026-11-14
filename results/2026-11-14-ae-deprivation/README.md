@@ -59,6 +59,12 @@ produce, so **no claim of a narrowing gap**. What holds in every scenario: the m
 attends more often, at least 1.5 times as often even if every unknown attendance in 2025 came from
 the least deprived fifth; with the unknowns spread as the known ones are, about twice.
 
+## Attendances by health board (`attendances_by_board.csv`)
+
+A&E attendances in 2025 by the health board of the hospital (where people went, not where
+they live), all sites, the activity file's "All" category (as the Scotland total in
+`../2026-11-14-distributions`). Used by the web story for a pinned area's board.
+
 ## Limits
 
 - Area-level deprivation describes where people live, not each person's circumstances.

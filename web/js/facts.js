@@ -26,6 +26,17 @@ export function perDay(item) {
   return item.value / daysIn(item.period);
 }
 
+/**
+ * A yearly count as a readable average: a day if at least one a day, else a week, else a year.
+ * Returns { value, unit } with value rounded to a whole number.
+ */
+export function readableRate(item) {
+  const day = perDay(item);
+  if (day >= 1) return { value: Math.round(day), unit: "a day" };
+  if (day * 7 >= 1) return { value: Math.round(day * 7), unit: "a week" };
+  return { value: Math.round(item.value), unit: "a year" };
+}
+
 /** Every fact the text needs, as display strings keyed by name. */
 export function facts(story) {
   const { hero, ae, injury_ages: ages, councils, medicines } = story;
@@ -52,6 +63,11 @@ export function facts(story) {
     dayAdmissions: formatInt(perDay(hero.injury_admissions)),
     dayDeaths: formatInt(perDay(hero.injury_deaths)),
     dayItems: formatInt(perDay(hero.prescription_items)),
+    dayHeading: "Every day in Scotland",
+    dayAeLabel: "visits to A&E",
+    dayAdmissionsLabel: "emergency admissions after an accident",
+    dayDeathsLabel: "deaths from an accident",
+    dayItemsLabel: "prescription items dispensed",
 
     aeLatestYear: String(ae.years[last]),
     aeFirstYear: String(ae.years[0]),
