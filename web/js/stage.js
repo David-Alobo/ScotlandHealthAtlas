@@ -226,3 +226,14 @@ export function zoneCard(zone, name, councils, detail, i, total = 6976) {
     `</div>`
   );
 }
+
+/**
+ * Breaks that split values into n bands holding about equal numbers (quantiles), so a map's
+ * colours are not set by hand. Returns n - 1 ascending thresholds, rounded to one decimal.
+ */
+export function equalCountBreaks(values, n = 5) {
+  const v = [...values].sort((a, b) => a - b);
+  const out = [];
+  for (let k = 1; k < n; k++) out.push(Math.round(v[Math.floor((v.length * k) / n)] * 10) / 10);
+  return out;
+}

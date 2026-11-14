@@ -4,18 +4,20 @@
 //   #stage (SVG): charts, the council scatter and labels.
 // Each scroll step sets a state; layouts come from stage.js, text from facts.js (all tested).
 
-import { dumbbell, lineChart } from "./charts.js";
+import { lineChart } from "./charts.js";
+import { formatNum } from "./format.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
-import { areaFacts, areaHead, areaPanel, councilUnits, localNotes } from "./filter.js";
+import { MIN_DEATHS, areaFacts, areaHead, areaPanel, councilUnits, localNotes } from "./filter.js";
 import { niceTicks } from "./scale.js";
-import { aeChart, medicineChart, ratioChart, tables } from "./scenes.js";
+import { aeChart, ratioChart, tables } from "./scenes.js";
 import {
   ageLayout,
   binColour,
   councilSentence,
   crowdLayout,
   deathUnits,
+  equalCountBreaks,
   gridIndex,
   nearest,
   scatterLayout,
@@ -37,7 +39,7 @@ const C = {
   crowd: "#b8bccb",
   grey: "#3a3f52",
 };
-const RATE_STEPS = [12, 18, 24, 30]; // poisoning deaths per 100,000 a year, map bins
+let RATE_STEPS = []; // poisoning deaths per 100,000 a year: equal-count bands, set from the data
 const RATE_COLOURS = ["#2b2550", "#4a3a9a", "#6a4fd0", "#9b7cf4", "#d8ccff"];
 const MAP_STATES = new Set(["intro", "deprived", "glasgow", "end"]);
 // the area filter: a chosen council, and a pinned neighbourhood (index into geo.zones)
@@ -85,6 +87,19 @@ function build(story, geo) {
   for (const c of geo.councils) {
     councilPaths.set(c.council, el("path", { d: c.path, class: "council" }, map));
   }
+  // councils with too few poisoning deaths for a reliable rate are hatched on the poisoning map
+  const defs = el("defs", {}, under);
+  defs.innerHTML =
+    '<pattern id="hatch" patternUnits="userSpaceOnUse" width="3" height="3" patternTransform="rotate(45)">' +
+    '<rect width="3" height="3" fill="#10131d"/><line x1="0" y1="0" x2="0" y2="3" stroke="#8d94a6" stroke-width="1.1"/></pattern>';
+  const few = new Set(
+    story.councils.councils
+      .filter((c) => c.deaths_poisoning.reduce((a, b) => a + b, 0) < MIN_DEATHS)
+      .map((c) => c.council),
+  );
+  for (const c of geo.councils) {
+    if (few.has(c.council)) el("path", { d: c.path, class: "uncertain" }, map);
+  }
   const setMap = (t) => map.setAttribute("transform", `translate(${t.tx} ${t.ty}) scale(${t.s})`);
   setMap(base);
 
@@ -106,10 +121,21 @@ function build(story, geo) {
   const fill = Math.round((640 * A.h) / A.w);
   nest(lineChart({ ...ae, height: fill }), "ae");
   nest(lineChart({ ...ratioChart(story, { recorded: C.violet, alternative: C.cyan }), height: fill }), "ratio");
-  const med = medicineChart(story);
-  med.aColour = C.violet;
-  med.bColour = C.cyan;
-  nest(dumbbell({ ...med, height: fill, values: true }), "medicines");
+  const t = story.death_trend;
+  nest(
+    lineChart({
+      years: t.years,
+      series: [
+        { label: "Poisoning", values: t.poisoning.rate, colour: C.poisoning },
+        { label: "Falls", values: t.falls.rate, colour: C.falls },
+      ],
+      yLabel: "Deaths per 100,000 a year (age-sex standardised)",
+      fmt: (v) => formatNum(v, 0),
+      label: "Deaths from poisoning and after a fall per 100,000 people a year, Scotland",
+      height: fill,
+    }),
+    "trend",
+  );
 
   // death dots: the three layouts, for whichever dots are shown (Scotland, or one council)
   const a = story.injury_ages;
@@ -151,20 +177,25 @@ function build(story, geo) {
 
   // councils as dots: from their place on the map to the scatter
   const cs = story.councils.councils;
+  RATE_STEPS = equalCountBreaks(cs.map((c) => c.rate), 5);
   const box = { x: A.x + 56, y: A.y + 20, w: A.w - 80, h: A.h - 90 };
   const scat = scatterLayout(cs, box, 0.5, 45);
+  const fallsTop = 1000; // admissions after a fall per 100,000 a year
+  const scatFalls = scatterLayout(cs.map((c) => ({ ...c, rate: c.falls_rate })), box, 0.5, fallsTop);
   const onMap = (name) => {
     const g = geo.councils.find((c) => c.council === name);
     return [base.tx + g.cx * k, base.ty + g.cy * k];
   };
   const scatter = el("g", { class: "layer scatter" }, svg);
-  el("g", { class: "axes" }, scatter).innerHTML = scatterAxes(box);
+  el("g", { class: "axes poison" }, scatter).innerHTML = scatterAxes(box, 45, [0, 10, 20, 30, 40], "Poisoning deaths per 100,000");
+  el("g", { class: "axes falls" }, scatter).innerHTML = scatterAxes(box, fallsTop, [0, 250, 500, 750, 1000], "Admissions after a fall per 100,000");
   const councilDots = cs.map((c, i) => {
     const d = el("circle", { r: 6, class: "cdot" }, scatter);
     d.style.fill = binColour(c.rate, RATE_STEPS, RATE_COLOURS);
     d.dataset.tip = councilSentence(c.council, cs, story.councils.scotland);
     d.dataset.council = c.council;
     d.dataset.scatter = JSON.stringify(scat[i]);
+    d.dataset.scatterFalls = JSON.stringify(scatFalls[i]);
     d.dataset.map = JSON.stringify(onMap(c.council));
     place(d, onMap(c.council));
     return d;
@@ -179,20 +210,20 @@ function build(story, geo) {
   };
 }
 
-/** Axis lines and labels for the council scatter (share in quintile 1 by rate). */
-function scatterAxes(box) {
+/** Axis lines and labels for the council scatter: share in quintile 1 against a rate. */
+function scatterAxes(box, yMax, yTicks, yTitle) {
   let s = `<line x1="${box.x}" x2="${box.x + box.w}" y1="${box.y + box.h}" y2="${box.y + box.h}" class="axis"/>`;
   s += `<line x1="${box.x}" x2="${box.x}" y1="${box.y}" y2="${box.y + box.h}" class="axis"/>`;
   for (const t of [0, 0.1, 0.2, 0.3, 0.4, 0.5]) {
     const x = box.x + (t / 0.5) * box.w;
     s += `<text x="${x}" y="${box.y + box.h + 18}" class="tick-label" text-anchor="middle">${t * 100}%</text>`;
   }
-  for (const t of [0, 10, 20, 30, 40]) {
-    const y = box.y + box.h - (t / 45) * box.h;
+  for (const t of yTicks) {
+    const y = box.y + box.h - (t / yMax) * box.h;
     s += `<text x="${box.x - 8}" y="${y}" class="tick-label" text-anchor="end" dominant-baseline="middle">${t}</text>`;
   }
   s += `<text x="${box.x + box.w / 2}" y="${box.y + box.h + 42}" class="axis-title" text-anchor="middle">People in the most deprived fifth</text>`;
-  s += `<text x="${box.x - 40}" y="${box.y + box.h / 2}" class="axis-title" text-anchor="middle" transform="rotate(-90 ${box.x - 40} ${box.y + box.h / 2})">Poisoning deaths per 100,000</text>`;
+  s += `<text x="${box.x - 40}" y="${box.y + box.h / 2}" class="axis-title" text-anchor="middle" transform="rotate(-90 ${box.x - 40} ${box.y + box.h / 2})">${yTitle}</text>`;
   return s;
 }
 
@@ -254,8 +285,9 @@ function setState(st, name, story) {
   }
 
   // council dots: on the map until the scatter
-  const onScatter = name === "scatter" || name === "find";
-  for (const d of st.councilDots) place(d, JSON.parse(onScatter ? d.dataset.scatter : d.dataset.map));
+  const onScatter = name === "scatter" || name === "find" || name === "scatter-falls";
+  const where = name === "scatter-falls" ? "scatterFalls" : onScatter ? "scatter" : "map";
+  for (const d of st.councilDots) place(d, JSON.parse(d.dataset[where]));
 
   // labels and legends
   if (MAP_STATES.has(name)) legend.innerHTML = rampLegend(spotlight);
@@ -304,10 +336,13 @@ function setState(st, name, story) {
     }
   }
   if (onScatter) {
-    const named = ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands", "East Renfrewshire"];
+    const named =
+      name === "scatter-falls"
+        ? ["Dundee City", "Glasgow City", "Inverclyde", "Highland", "Orkney Islands"]
+        : ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands", "East Renfrewshire"];
     if (filter.council && !named.includes(filter.council)) named.push(filter.council);
     for (const n of named) {
-      const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.scatter);
+      const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset[where]);
       label(st, x + 10, y + 4, n.replace(" City", "").replace(" Islands", ""), "small");
     }
   }
@@ -329,7 +364,8 @@ function rateLegend() {
   const names = [`under ${t[0]}`, `${t[0]}-${t[1]}`, `${t[1]}-${t[2]}`, `${t[2]}-${t[3]}`, `${t[3]}+`];
   return (
     `<span class="legend-title">Poisoning deaths per 100,000 a year · hover a council</span>` +
-    RATE_COLOURS.map((c, i) => `<span><i style="background:${c}"></i>${names[i]}</span>`).join("")
+    RATE_COLOURS.map((c, i) => `<span><i style="background:${c}"></i>${names[i]}</span>`).join("") +
+    `<span><i class="hatch"></i>under ${MIN_DEATHS} deaths: unreliable</span>`
   );
 }
 

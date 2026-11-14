@@ -94,6 +94,10 @@ export function localNotes(story, geo, filter) {
   notes.scatter = `${poison} ${pct(c.share_q1, 0)} of its people live in the most deprived fifth.`;
   notes.find = notes.scatter;
 
+  notes.trend = "The trend is for all of Scotland: one council's deaths each year are too few for a reliable line.";
+  notes["scatter-falls"] =
+    `${name}: ${formatNum(c.falls_rate)} emergency admissions after a fall per 100,000 a year, ` +
+    `${ordinal(c.falls_rank)} highest of 32; Scotland ${formatNum(cs.scotland_falls)}.`;
   notes.medicines =
     `${name}: ${formatNum(c.items_per_person, 1)} items dispensed per person a year, ` +
     `${ordinal(rankOf(story, name, "items_per_person"))} highest of 32 (counted where dispensed, not age-adjusted).`;

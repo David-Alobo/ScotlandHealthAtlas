@@ -123,6 +123,24 @@ def ae_gap() -> dict:
     }
 
 
+def death_trend() -> dict:
+    """Deaths from falls and from poisoning in each year: counts and standardised rates.
+
+    Returns:
+        Years, and for each type the deaths and the rate per 100,000 (age-sex standardised).
+    """
+    rows = [r for r in read(INJ / "national.csv") if r["dataset"] == "deaths"]
+    years = sorted({r["year"] for r in rows})
+    out: dict = {"years": [int(y) for y in years]}
+    for t in ("Falls", "Poisoning"):
+        by = {r["year"]: r for r in rows if r["injury_type"] == t}
+        out[t.lower()] = {
+            "deaths": [int(by[y]["events"]) for y in years],
+            "rate": [float(by[y]["rate"]) for y in years],
+        }
+    return out
+
+
 def injury_ages() -> dict:
     """Falls and poisoning a year by age band, deaths and admissions (sexes together).
 
@@ -270,6 +288,7 @@ def story() -> dict:
         "hero_by_council": hero_by_council(),
         "ae": ae_gap(),
         "injury_ages": injury_ages(),
+        "death_trend": death_trend(),
         "councils": councils(),
         "medicines": medicines(),
         "deprived_zones": deprived_zones(),

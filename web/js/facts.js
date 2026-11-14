@@ -37,6 +37,36 @@ export function readableRate(item) {
   return { value: Math.round(item.value), unit: "a year" };
 }
 
+/** Councils clearly above and below Scotland (poisoning deaths), and their deprivation. */
+export function aboveBelow(councils) {
+  const group = (vs) => councils.filter((c) => c.vs === vs);
+  const mean = (xs) => xs.reduce((a, c) => a + c.share_q1, 0) / Math.max(xs.length, 1);
+  const above = group("above");
+  const below = group("below");
+  return {
+    aboveCount: String(above.length),
+    belowCount: String(below.length),
+    aboveQ1: pct(mean(above), 0),
+    belowQ1: pct(mean(below), 0),
+  };
+}
+
+/** The first, peak and last years of poisoning deaths, and falls deaths first and last. */
+export function trendFacts(t) {
+  const last = t.years.length - 1;
+  const peak = t.poisoning.deaths.indexOf(Math.max(...t.poisoning.deaths));
+  return {
+    trendFirst: String(t.years[0]),
+    trendLast: String(t.years[last]),
+    poisonFirst: formatInt(t.poisoning.deaths[0]),
+    poisonPeak: formatInt(t.poisoning.deaths[peak]),
+    poisonPeakYear: String(t.years[peak]),
+    poisonLast: formatInt(t.poisoning.deaths[last]),
+    fallsFirst: formatInt(t.falls.deaths[0]),
+    fallsLast: formatInt(t.falls.deaths[last]),
+  };
+}
+
 /** Every fact the text needs, as display strings keyed by name. */
 export function facts(story) {
   const { hero, ae, injury_ages: ages, councils, medicines } = story;
@@ -99,6 +129,10 @@ export function facts(story) {
     rhoPoisoning: formatNum(councils.rho_poisoning_deaths, 2),
     rhoFalls: formatNum(councils.rho_falls_admissions, 2),
 
+    // councils clearly above / below Scotland's poisoning death rate (interval excludes it)
+    ...aboveBelow(councils.councils),
+    // the death trend, for all of Scotland
+    ...trendFacts(story.death_trend),
     zonesTotal: formatInt(story.deprived_zones.total),
     zonesQ1: formatInt(story.deprived_zones.total_q1),
     glasgowQ1: formatInt(story.deprived_zones.by_council["Glasgow City"].q1),

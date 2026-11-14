@@ -111,15 +111,29 @@
             substance; drug deaths are the likely main part, but that is a reading, not a finding.</p>
         </div>
       </section>
+      <section class="step" data-state="trend">
+        <div class="card">
+          <h2>The rise and fall</h2>
+          <p>Poisoning deaths doubled, from <span data-fact="poisonFirst"></span> in
+            <span data-fact="trendFirst"></span> to <span data-fact="poisonPeak"></span> in
+            <span data-fact="poisonPeakYear"></span>, then fell back to
+            <span data-fact="poisonLast"></span> in <span data-fact="trendLast"></span>. Deaths after a <strong class="f">fall</strong> rose from
+            <span data-fact="fallsFirst"></span> to <span data-fact="fallsLast"></span>, and so did the
+            rate after allowing for age: an ageing population does not explain it all.</p>
+          <p class="small">Rates standardised for age and sex, all of Scotland.</p>
+        </div>
+      </section>
 
       <section class="step" data-state="poison-map">
         <div class="card">
           <h2>Where poisoning kills</h2>
           <p>Poisoning death rates by council area, <span data-fact="councilPeriod"></span>,
-            standardised for age and sex: from <span data-fact="councilLowRate"></span> per 100,000
-            people a year in <span data-fact="councilLowName"></span> to
-            <span data-fact="councilHighRate"></span> in <span data-fact="councilHighName"></span>
-            (Scotland <span data-fact="scotlandPoisoning"></span>).</p>
+            standardised for age and sex (Scotland <span data-fact="scotlandPoisoning"></span> per
+            100,000 a year). <b><span data-fact="aboveCount"></span> councils</b> are clearly above
+            Scotland's rate and <b><span data-fact="belowCount"></span></b> clearly below: their
+            95% intervals do not include it.</p>
+          <p class="small">Each colour holds about a fifth of the councils. Hatched islands had
+            fewer than 20 deaths in five years, too few for a reliable rate.</p>
         </div>
       </section>
 
@@ -128,9 +142,20 @@
           <h2>Following deprivation</h2>
           <p>Now each council is a dot: further right, more of its people live in the most deprived
             fifth; higher up, more poisoning deaths. The councils line up (rank correlation
-            <span data-fact="rhoPoisoning"></span>). Falls admissions follow deprivation far less
-            (<span data-fact="rhoFalls"></span>).</p>
+            <span data-fact="rhoPoisoning"></span>). In the <span data-fact="aboveCount"></span>
+            clearly above Scotland, <b><span data-fact="aboveQ1"></span></b> of people live in the most
+            deprived fifth; in the <span data-fact="belowCount"></span> clearly below,
+            <b><span data-fact="belowQ1"></span></b>.</p>
           <p class="small">Areas are compared, not people.</p>
+        </div>
+      </section>
+      <section class="step" data-state="scatter-falls">
+        <div class="card">
+          <h2>Falls tell a different story</h2>
+          <p>Move the same councils to their rates of emergency admission after a
+            <strong class="f">fall</strong>, also standardised for age and sex. The line mostly dissolves (rank correlation <span data-fact="rhoFalls"></span>). Even after
+            allowing for age, falls admissions differ between councils, but only weakly with
+            deprivation: what drives the differences is not in this data.</p>
         </div>
       </section>
 
@@ -144,16 +169,6 @@
         </div>
       </section>
 
-      <section class="step" data-state="medicines">
-        <div class="card">
-          <h2>What is dispensed</h2>
-          <p>Medicines tell a similar story. Of the items dispensed by pharmacies in the
-            <strong class="v">most deprived fifth</strong>, <span data-fact="cnsQ1"></span> act on the
-            nervous system (antidepressants, painkillers, epilepsy and other medicines); in the
-            <strong class="c">least deprived fifth</strong>, <span data-fact="cnsQ5"></span>
-            (<span data-fact="medicinesPeriod"></span>; counted where dispensed, not age-adjusted).</p>
-        </div>
-      </section>
 
       <section class="step finale" data-state="end">
         <div class="card">
@@ -164,9 +179,10 @@
               <h3>Where you live</h3>
               <p><b><span data-fact="aeRatioLatest"></span>×</b> as many A&amp;E visits in the most
                 deprived fifth of neighbourhoods as in the least deprived, at the same age and sex.</p>
-              <p><b><span data-fact="councilLowRate"></span>–<span data-fact="councilHighRate"></span></b>
-                poisoning deaths per 100,000 a year, from <span data-fact="councilLowName"></span> to
-                <span data-fact="councilHighName"></span>, rising with deprivation.</p>
+              <p><b><span data-fact="aboveCount"></span> of 32</b> councils have poisoning death rates
+              clearly above Scotland's; <span data-fact="aboveQ1"></span> of their people live in the
+              most deprived fifth, against <span data-fact="belowQ1"></span> in the councils clearly
+              below.</p>
             </div>
             <div>
               <h3>How old you are</h3>
@@ -176,8 +192,10 @@
                 are aged 25 to 64<span data-fact="inArea"></span>.</p>
             </div>
           </div>
-          <p class="closing">Two problems, two groups of people, one health service. Each needs its
-            own answer: where people live for one, the stage of life for the other.</p>
+          <p class="closing"><b class="plain">What this suggests.</b> Poisoning deaths are concentrated
+            where deprivation is, so work in those places reaches much of the risk. Falls are spread
+            across older people wherever they live, so they call for help that reaches older people
+            everywhere. Two problems, two answers.</p>
           <div class="actions">
             <button type="button" data-go="find">Find your council</button>
             <button type="button" data-go="top">Back to the start</button>

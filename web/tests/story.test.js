@@ -141,3 +141,33 @@ describe("ratio chart", () => {
     expect(svg).not.toContain("NaN");
   });
 });
+
+describe("headline facts", async () => {
+  const { aboveBelow, trendFacts } = await import("../js/facts.js");
+  const { equalCountBreaks, binColour } = await import("../js/stage.js");
+
+  it("count councils clearly above and below Scotland, with their deprivation", () => {
+    const f = aboveBelow(story.councils.councils);
+    expect(f.aboveCount).toBe("8");
+    expect(f.belowCount).toBe("14");
+    expect(Number.parseInt(f.aboveQ1)).toBeGreaterThan(Number.parseInt(f.belowQ1));
+  });
+
+  it("describe the rise and fall of poisoning deaths", () => {
+    const f = trendFacts(story.death_trend);
+    expect(f.poisonFirst).toBe("663");
+    expect(f.poisonPeak).toBe("1,373");
+    expect(f.poisonPeakYear).toBe("2020");
+    expect(f.fallsLast).toBe("1,290");
+  });
+
+  it("split the councils into bands of about equal size", () => {
+    const rates = story.councils.councils.map((c) => c.rate);
+    const breaks = equalCountBreaks(rates, 5);
+    expect(breaks).toHaveLength(4);
+    const colours = ["a", "b", "c", "d", "e"];
+    const counts = {};
+    for (const r of rates) counts[binColour(r, breaks, colours)] = (counts[binColour(r, breaks, colours)] ?? 0) + 1;
+    for (const c of colours) expect(counts[c]).toBeGreaterThanOrEqual(5);
+  });
+});

@@ -160,12 +160,13 @@ strong.p { color: #b69af9; }
 
 .charts .chart-layer, .scatter, .scatter .axes { opacity: 0; pointer-events: none; }
 [data-state="ae"] .chart-layer.ae, [data-state="ae-ratio"] .chart-layer.ratio,
-[data-state="medicines"] .chart-layer.medicines { opacity: 1; pointer-events: auto; }
-[data-state="ae"] .map, [data-state="ae-ratio"] .map, [data-state="medicines"] .map,
+[data-state="trend"] .chart-layer.trend { opacity: 1; pointer-events: auto; }
+[data-state="ae"] .map, [data-state="ae-ratio"] .map, [data-state="trend"] .map,
 [data-state="crowd"] .map, [data-state="split"] .map, [data-state="age"] .map { opacity: 0; }
-[data-state="scatter"] .map, [data-state="find"] .map { opacity: 0.18; }
-[data-state="scatter"] .scatter, [data-state="find"] .scatter { opacity: 1; pointer-events: auto; }
-[data-state="scatter"] .scatter .axes, [data-state="find"] .scatter .axes { opacity: 1; transition-delay: 0.9s; }
+[data-state="scatter"] .map, [data-state="find"] .map, [data-state="scatter-falls"] .map { opacity: 0.18; }
+[data-state="scatter"] .scatter, [data-state="find"] .scatter, [data-state="scatter-falls"] .scatter { opacity: 1; pointer-events: auto; }
+[data-state="scatter"] .scatter .axes.poison, [data-state="find"] .scatter .axes.poison,
+[data-state="scatter-falls"] .scatter .axes.falls { opacity: 1; transition-delay: 0.9s; }
 
 .hover-ring { fill: none; stroke: #fff; stroke-width: 1.5; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
 .hover-ring.on { opacity: 1; }
@@ -440,3 +441,8 @@ thead th { color: var(--ink-3); font-weight: 500; }
   .area-panel:not(.compact) { top: 0.8rem; transform: none; }
 }
 .area-panel.away { display: none; }
+
+.uncertain { fill: url(#hatch); opacity: 0; pointer-events: none; transition: opacity 0.6s; }
+[data-state="poison-map"] .uncertain { opacity: 1; }
+.legend i.hatch { border-radius: 2px; background: repeating-linear-gradient(45deg, #8d94a6 0 1.5px, #10131d 1.5px 4px); }
+.closing b.plain { color: var(--ink); font-weight: 600; }
