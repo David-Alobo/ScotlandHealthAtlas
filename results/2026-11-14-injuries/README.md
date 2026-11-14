@@ -9,7 +9,7 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
 - Rates per 100,000 people, **standardised for age and sex to the 2013 European Standard
   Population** (ESP2013, as PHS uses), with its 5-year bands summed to the files' eight age bands.
   Because the bands are coarser than PHS's own, the rates will differ slightly from published PHS
-  figures; a check against them is still to do.
+  figures; checked against published PHS figures in `../2026-11-14-validation`.
 - 95% confidence intervals by the Dobson method (Byar's approximation for the count).
 - Populations: NRS small area population estimates (`data/derived/population_injury.csv`); a
   financial year takes the mid-year population of the year it starts in; 2024/25 and 2024 use
@@ -73,5 +73,5 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
 
 ## To do
 
-- Check the national standardised rates against PHS's published unintentional injury figures.
+- Done: checked against PHS published figures (`../2026-11-14-validation`): deaths exact, admissions within 2%.
 - Pool deaths by age band and council for a small-multiples view.

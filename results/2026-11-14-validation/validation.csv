@@ -1,0 +1,10 @@
+id,what,value,source,ours,difference,difference_pct
+admissions_2023_24,"Emergency admissions, 2023/24",56294,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",57082,788,1.4
+deaths_2023,"Deaths, 2023",2822,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",2822,0,0.0
+under15_admissions,"Admissions under 15, 2023/24",5746,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",5757,11,0.19
+under15_falls_share,"Falls share, under 15, 2023/24 (%)",42,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",42.2,0.2,0.46
+over65_admissions,"Admissions 65 and over, 2023/24",28389,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",28886,497,1.75
+over65_falls_share,"Falls share, 65 and over, 2023/24 (%)",86,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",86.3,0.3,0.37
+rti_u15_2023_24,"Road traffic EASR under 15, 2023/24",26,"PHS unintentional injuries summary, 29 October 2024: https://publichealthscotland.scot/media/29688/2024-10-29-ui-2024-summary-final.pdf",25.6,-0.4,-1.65
+over65_admissions_2024_25,"Admissions 65 and over, 2024/25",28455,"PHS 2025 release as quoted by RoSPA Scotland (cross-party group, 3 June 2025): https://rspa01mstr2ql5zprod.rospa.com/siteassets/documents/about-us/rospa-scotland/cpg/x_party_group_3rdjune2025-2-sab-002.pdf",28536,81,0.28
+over65_falls_share_2024_25,"Falls share, 65 and over, 2024/25 (%)",87,"PHS 2025 release as quoted by RoSPA Scotland (cross-party group, 3 June 2025): https://rspa01mstr2ql5zprod.rospa.com/siteassets/documents/about-us/rospa-scotland/cpg/x_party_group_3rdjune2025-2-sab-002.pdf",86.7,-0.3,-0.35

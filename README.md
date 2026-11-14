@@ -43,6 +43,7 @@ uv run python -m atlas.ae_deprivation
 uv run python -m atlas.distributions results/2026-11-14-distributions
 uv run python -m atlas.injuries results/2026-11-14-injuries
 uv run python -m atlas.prescribing results/2026-11-14-prescribing
+uv run python -m atlas.validate results/2026-11-14-validation
 ```
 
 ## Status
@@ -54,9 +55,10 @@ Started 14 November 2026. Done:
 - [distributions of every dataset](results/2026-11-14-distributions/README.md);
 - [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
 - [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md);
+- [injury figures checked against PHS publications](results/2026-11-14-validation/README.md);
 - [story shortlist](docs/STORIES.md) for the competition entry.
 
-Next: check injury rates against PHS published figures, then screen versions of the chosen charts.
+Next: the competition entry page (`web/`).
 
 ## Data
 

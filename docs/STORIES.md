@@ -83,7 +83,7 @@ A single scrolling page (vanilla JavaScript, `web/`), five scenes:
 
 ## Before building
 
-- Check national injury rates against PHS's published figures (to do in the injuries README).
+- Done: injury figures reproduce PHS publications (`results/2026-11-14-validation`).
 - Decide the submission format once the competition's entry form opens (25 November); the
   webinar on 18 November may say what judges expect.
 - Screen versions of the figures: larger type, one message each, direct labels.
