@@ -53,8 +53,7 @@ Started 14 November 2026. Done:
 - [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md);
 - [distributions of every dataset](results/2026-11-14-distributions/README.md);
 - [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
-- [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md).
-
+- [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md);
 - [story shortlist](docs/STORIES.md) for the competition entry.
 
 Next: check injury rates against PHS published figures, then screen versions of the chosen charts.
