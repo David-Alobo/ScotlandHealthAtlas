@@ -2,7 +2,8 @@
 
 **[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)** ·
 **[Read the paper](paper/main.pdf)** ·
-**[Poster](docs/poster/poster.pdf)**
+**[Poster](docs/poster/poster.pdf)** ·
+**[Video tour](docs/video/atlas-tour.mp4)** (3 minutes)
 
 An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
 prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
@@ -73,7 +74,7 @@ Rates based on fewer than 20 deaths are hatched rather than coloured.
 | `results/` | Tables, figures and a README for each analysis, dated |
 | `web/` | The atlas (vanilla JavaScript, no build step), its tests (Vitest) and tools for screenshots, the poster and the animation |
 | `paper/` | The manuscript (LaTeX): `main.tex`, `references.bib`, generated numbers and tables, and the TikZ diagrams in `figures/` |
-| `docs/` | Story notes, the user-test guide, the poster, the diagrams as PNG and the animation |
+| `docs/` | Story notes, the user-test guide, the poster, the video tour, the diagrams as PNG and the animation |
 
 ## Running it
 
@@ -107,6 +108,14 @@ The atlas:
 ```bash
 cd web && npm ci && npm test   # Vitest
 python tools/serve.py           # then open http://localhost:8000 (no caching)
+```
+
+The video tour is recorded from the running page (with `tools/serve.py` running), then encoded
+with ffmpeg:
+
+```bash
+node tools/video.mjs <frames dir>                 # every scene and interaction, 1920 x 1080
+bash tools/video.sh <frames dir> ../docs/video/atlas-tour.mp4
 ```
 
 The paper (TeX Live with latexmk; on Windows, inside WSL):
