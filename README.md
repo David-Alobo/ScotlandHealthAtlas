@@ -52,7 +52,7 @@ The story page (`web/`, vanilla JavaScript, no build step):
 
 ```bash
 cd web && npm ci && npm test   # Vitest
-python -m http.server 8000     # then open http://localhost:8000
+python tools/serve.py           # then open http://localhost:8000 (no caching)
 ```
 
 ## Status

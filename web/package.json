@@ -5,7 +5,7 @@
   "description": "The Scotland Health Atlas story page (vanilla JavaScript, no build step)",
   "scripts": {
     "test": "vitest run",
-    "serve": "python -m http.server 8000"
+    "serve": "python tools/serve.py 8000"
   },
   "devDependencies": {
     "mapshaper": "^0.6.102",
