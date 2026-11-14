@@ -20,28 +20,28 @@ export const SHARE_LEGEND = [
   ["under 10%", COLOURS.quintile[4]],
 ];
 
-export function aeChart(story) {
+export function aeChart(story, palette = COLOURS.quintile) {
   const { years, quintiles } = story.ae;
   return {
     years,
     series: quintiles.map((q, i) => ({
       label: QUINTILE_NAMES[i],
       values: q.rate,
-      colour: COLOURS.quintile[i],
+      colour: palette[i],
     })),
     yLabel: "A&E attendances per 1,000 people",
     label: "A&E attendances per 1,000 people by deprivation quintile, standardised for age and sex",
   };
 }
 
-export function ageChart(story, dataset = "deaths") {
+export function ageChart(story, dataset = "deaths", colours = COLOURS) {
   const a = story.injury_ages;
   const d = a[dataset];
   return {
     bands: a.bands,
     groups: [
-      { key: "falls", label: "Falls", values: d.falls, colour: COLOURS.falls },
-      { key: "poisoning", label: "Poisoning", values: d.poisoning, colour: COLOURS.poisoning },
+      { key: "falls", label: "Falls", values: d.falls, colour: colours.falls },
+      { key: "poisoning", label: "Poisoning", values: d.poisoning, colour: colours.poisoning },
     ],
     yLabel: dataset === "deaths" ? "Deaths a year" : "Admissions a year",
     xLabel: "Age (years)",

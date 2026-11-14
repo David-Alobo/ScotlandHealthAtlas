@@ -11,6 +11,21 @@ export function shareOf(bands, values, wanted) {
   return total ? sum(values.filter((_, i) => wanted.includes(bands[i]))) / total : 0;
 }
 
+/** Days in a period label: a calendar year ("2024"), a financial year ("2024/25"), else 365. */
+export function daysIn(period) {
+  const leap = (y) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+  const cal = /^(\d{4})$/.exec(period);
+  if (cal) return leap(Number(cal[1])) ? 366 : 365;
+  const fin = /^(\d{4})\/\d{2}$/.exec(period); // April to March: 29 February falls in year + 1
+  if (fin) return leap(Number(fin[1]) + 1) ? 366 : 365;
+  return 365;
+}
+
+/** A yearly count as an average a day. */
+export function perDay(item) {
+  return item.value / daysIn(item.period);
+}
+
 /** Every fact the text needs, as display strings keyed by name. */
 export function facts(story) {
   const { hero, ae, injury_ages: ages, councils, medicines } = story;
@@ -33,6 +48,10 @@ export function facts(story) {
     heroDeathsPeriod: hero.injury_deaths.period,
     heroItems: formatLarge(hero.prescription_items.value),
     heroItemsPeriod: hero.prescription_items.period,
+    dayAe: formatInt(perDay(hero.ae_attendances)),
+    dayAdmissions: formatInt(perDay(hero.injury_admissions)),
+    dayDeaths: formatInt(perDay(hero.injury_deaths)),
+    dayItems: formatInt(perDay(hero.prescription_items)),
 
     aeLatestYear: String(ae.years[last]),
     aeFirstYear: String(ae.years[0]),

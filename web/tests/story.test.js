@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { dotInterval, dumbbell, groupedBars, lineChart } from "../js/charts.js";
-import { facts, shareOf } from "../js/facts.js";
+import { daysIn, facts, perDay, shareOf } from "../js/facts.js";
 import {
   aeChart,
   ageChart,
@@ -37,6 +37,15 @@ describe("facts", () => {
     expect(f.fallsDeaths).toBe(d.falls_total.toLocaleString("en-GB"));
     const bandSum = d.falls.reduce((a, b) => a + b, 0);
     expect(Math.abs(bandSum - d.falls_total)).toBeLessThanOrEqual(d.falls.length / 2);
+  });
+
+  it("counts days in calendar and financial years", () => {
+    expect(daysIn("2024")).toBe(366);
+    expect(daysIn("2025")).toBe(365);
+    expect(daysIn("2023/24")).toBe(366); // includes 29 February 2024
+    expect(daysIn("2024/25")).toBe(365);
+    expect(daysIn("June 2025 to May 2026")).toBe(365);
+    expect(perDay({ value: 732, period: "2024" })).toBe(2);
   });
 
   it("computes shares by age band", () => {
@@ -95,5 +104,18 @@ describe("scenes", () => {
     const t = tables(story);
     for (const key of ["ae", "ages", "councils", "medicines"]) expect(t[key]).toContain("<table>");
     expect((t.councils.match(/<tr>/g) || []).length).toBe(33);
+  });
+});
+
+describe("annotations", () => {
+  it("draws a labelled bracket when a note is given", () => {
+    const opts = aeChart(story);
+    const last = story.ae.years.length - 1;
+    const svg = lineChart({
+      ...opts,
+      note: { at: last, from: opts.series[0].values[last], to: opts.series[4].values[last], text: "twice" },
+    });
+    expect(svg).toContain('class="annotation"');
+    expect(svg).toContain(">twice<");
   });
 });

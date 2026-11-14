@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design directions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Three directions in Monstrous Data's brand (Night #07080C, Panel #121521, Light #EEF0F5,
+       Violet #8B5CF6, Cyan #22D3EE; Space Grotesk, IBM Plex Sans, IBM Plex Mono). Data colours
+       validated for colour-blind separation and contrast on each surface. */
+    body { background: #1b1d24; margin: 0; }
+    .intro { color: #c9cdd8; font: 400 15px/1.5 "IBM Plex Sans", sans-serif; max-width: 70rem; margin: 0 auto; padding: 2rem 1rem 1rem; }
+    .intro h1 { font: 600 1.6rem "Space Grotesk", sans-serif; color: #eef0f5; margin: 0 0 .4rem; }
+    .dirs { display: grid; gap: 1.5rem; max-width: 92rem; margin: 0 auto; padding: 1rem; }
+    @media (min-width: 80rem) { .dirs { grid-template-columns: repeat(3, 1fr); } }
+    .dir { border-radius: 14px; overflow: hidden; padding: 2rem 1.6rem 1.6rem; font-family: "IBM Plex Sans", sans-serif; }
+    .tag { font: 500 11px "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: .5rem; }
+    .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 10px var(--dot); }
+    .dir h2 { font: 700 2rem/1.08 "Space Grotesk", sans-serif; letter-spacing: -.02em; margin: 0 0 .9rem; }
+    .dir h3 { font: 600 1.25rem/1.2 "Space Grotesk", sans-serif; letter-spacing: -.01em; margin: 2rem 0 .3rem; }
+    .dir p { font-size: .95rem; line-height: 1.55; margin: 0 0 .8rem; }
+    .day { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 1.2rem; margin: 1.2rem 0 .4rem; }
+    .day b { display: block; font: 700 2.3rem/1 "Space Grotesk", sans-serif; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+    .day span { font-size: .8rem; line-height: 1.35; display: block; margin-top: .3rem; }
+    .src { font: 400 10.5px/1.5 "IBM Plex Mono", monospace; margin-top: 1.2rem; }
+    .chart .axis-label, .chart .axis-title { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    .chart .end-label, .chart .legend-label, .chart .annotation-label { font-family: "IBM Plex Sans", sans-serif; }
+
+    /* A: Night */
+    .night { --surface: #07080c; --ink: #eef0f5; --ink-2: #c9cdd8; --ink-3: #8d94a6; --dot: #22d3ee;
+      background: radial-gradient(600px 380px at 85% 0%, rgb(139 92 246 / .22), transparent 60%),
+                  radial-gradient(500px 300px at 0% 100%, rgb(34 211 238 / .08), transparent 60%), #07080c;
+      color: #c9cdd8; }
+    .night h2, .night h3 { color: #eef0f5; }
+    .night .tag { color: #a78bfa; }
+    .night .day b { background: linear-gradient(100deg, #fff 0%, #a78bfa 55%, #22d3ee 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .night .day span, .night .src { color: #8d94a6; }
+    .night .chart .tick, .night .chart .baseline { stroke: rgb(255 255 255 / .22); }
+
+    /* B: Paper */
+    .paper { --surface: #fbfbfd; --ink: #0b0d14; --ink-2: #3a3f4d; --ink-3: #8d94a6; --dot: #7344e0;
+      background: #fbfbfd; color: #1b1e27; }
+    .paper h2, .paper h3 { color: #0b0d14; }
+    .paper .tag { color: #5521b0; }
+    .paper .day b { color: #3a107c; }
+    .paper .day span, .paper .src { color: #6b7180; }
+    .paper h2 em { font-style: normal; background: linear-gradient(transparent 62%, #e4dcff 62%); }
+
+    /* C: Spotlight */
+    .spot { --surface: #0d0f16; --ink: #eef0f5; --ink-2: #c9cdd8; --ink-3: #8d94a6; --dot: #9b6cf7;
+      background: #0d0f16; color: #c9cdd8; }
+    .spot h2, .spot h3 { color: #eef0f5; }
+    .spot .tag { color: #8d94a6; }
+    .spot .day b { color: #eef0f5; }
+    .spot .day div:first-child b { color: #b9a3fc; }
+    .spot .day span, .spot .src { color: #8d94a6; }
+    .spot .chart .tick, .spot .chart .baseline { stroke: rgb(255 255 255 / .18); }
+    .spot .hl-v { color: #b9a3fc; font-weight: 600; } .spot .hl-c { color: #22d3ee; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="intro">
+    <h1>Design directions in the Monstrous Data brand</h1>
+    <p>Same data, same story, three looks. Each shows the opening, the A&amp;E gap and the injury
+      deaths. Hover over any point. Pick one (or a mix) and the whole page follows.</p>
+  </div>
+  <div class="dirs">
+    <section class="dir night" data-dir="night">
+      <div class="tag">A · Night</div>
+      <h2>Same country, different risks</h2>
+      <p>Every day in Scotland:</p>
+      <div class="day">
+        <div><b data-fact="dayAe"></b><span>visits to A&amp;E</span></div>
+        <div><b data-fact="dayAdmissions"></b><span>emergency admissions after an accident</span></div>
+        <div><b data-fact="dayDeaths"></b><span>deaths from an accident</span></div>
+        <div><b data-fact="dayItems"></b><span>prescription items dispensed</span></div>
+      </div>
+      <h3>Twice as often</h3>
+      <p>People in the most deprived fifth of neighbourhoods go to A&amp;E about twice as often as
+        those in the least deprived, at the same age and sex.</p>
+      <div class="chart-box" data-chart="ae"></div>
+      <h3>Two kinds of injury death</h3>
+      <div class="chart-box" data-chart="ages"></div>
+      <div class="src">Public Health Scotland; NRS; SIMD 2020v2 · Monstrous Data</div>
+    </section>
+
+    <section class="dir paper" data-dir="paper">
+      <div class="tag">B · Paper</div>
+      <h2>Same country, <em>different risks</em></h2>
+      <p>Every day in Scotland:</p>
+      <div class="day">
+        <div><b data-fact="dayAe"></b><span>visits to A&amp;E</span></div>
+        <div><b data-fact="dayAdmissions"></b><span>emergency admissions after an accident</span></div>
+        <div><b data-fact="dayDeaths"></b><span>deaths from an accident</span></div>
+        <div><b data-fact="dayItems"></b><span>prescription items dispensed</span></div>
+      </div>
+      <h3>Twice as often</h3>
+      <p>People in the most deprived fifth of neighbourhoods go to A&amp;E about twice as often as
+        those in the least deprived, at the same age and sex.</p>
+      <div class="chart-box" data-chart="ae"></div>
+      <h3>Two kinds of injury death</h3>
+      <div class="chart-box" data-chart="ages"></div>
+      <div class="src">Public Health Scotland; NRS; SIMD 2020v2 · Monstrous Data</div>
+    </section>
+
+    <section class="dir spot" data-dir="spot">
+      <div class="tag">C · Spotlight</div>
+      <h2>Same country, different risks</h2>
+      <p>Every day in Scotland:</p>
+      <div class="day">
+        <div><b data-fact="dayAe"></b><span>visits to A&amp;E</span></div>
+        <div><b data-fact="dayAdmissions"></b><span>emergency admissions after an accident</span></div>
+        <div><b data-fact="dayDeaths"></b><span>deaths from an accident</span></div>
+        <div><b data-fact="dayItems"></b><span>prescription items dispensed</span></div>
+      </div>
+      <h3>Twice as often</h3>
+      <p>People in the <span class="hl-v">most deprived fifth</span> go to A&amp;E about twice as
+        often as those in the <span class="hl-c">least deprived fifth</span>, at the same age and sex.</p>
+      <div class="chart-box" data-chart="ae"></div>
+      <h3>Two kinds of injury death</h3>
+      <div class="chart-box" data-chart="ages"></div>
+      <div class="src">Public Health Scotland; NRS; SIMD 2020v2 · Monstrous Data</div>
+    </section>
+  </div>
+  <div id="tooltip" role="tooltip" hidden></div>
+
+  <script type="module">
+    import { groupedBars, lineChart } from "../js/charts.js";
+    import { facts } from "../js/facts.js";
+    import { aeChart, ageChart } from "../js/scenes.js";
+
+    // validated palettes (dataviz validator, 14 November 2026)
+    const THEMES = {
+      night: { ramp: ["#e4dcff", "#b9a3fc", "#8f6ff0", "#6a4fd0", "#4a3a9a"],
+               pair: { falls: "#0ea5c6", poisoning: "#9b6cf7" } },
+      paper: { ramp: ["#3a107c", "#5521b0", "#7344e0", "#9374ee", "#b49ef6"],
+               pair: { falls: "#0e8fae", poisoning: "#7344e0" } },
+      spot:  { ramp: ["#b9a3fc", "#3a3f52", "#3a3f52", "#3a3f52", "#22d3ee"],
+               pair: { falls: "#22d3ee", poisoning: "#9b6cf7" } },
+    };
+
+    const story = await (await fetch("../data/story.json")).json();
+    const f = facts(story);
+    for (const el of document.querySelectorAll("[data-fact]")) el.textContent = f[el.dataset.fact];
+
+    const last = story.ae.years.length - 1;
+    for (const dir of document.querySelectorAll("[data-dir]")) {
+      const t = THEMES[dir.dataset.dir];
+      const opts = aeChart(story, t.ramp);
+      if (dir.dataset.dir === "spot") {
+        for (const i of [1, 2, 3]) opts.series[i].label = ""; // context lines stay unlabelled
+      }
+      const q1 = opts.series[0].values[last];
+      const q5 = opts.series[4].values[last];
+      opts.note = { at: last, from: q1, to: q5, text: `${(q1 / q5).toFixed(1)}×` };
+      dir.querySelector('[data-chart="ae"]').innerHTML = lineChart(opts);
+      dir.querySelector('[data-chart="ages"]').innerHTML = groupedBars(ageChart(story, "deaths", t.pair));
+    }
+
+    const tip = document.getElementById("tooltip");
+    document.addEventListener("pointermove", (e) => {
+      const el = e.target.closest?.("[data-tip]");
+      if (!el) { tip.hidden = true; return; }
+      tip.textContent = el.dataset.tip;
+      tip.hidden = false;
+      tip.style.left = `${Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 12)}px`;
+      tip.style.top = `${e.clientY + 12}px`;
+    });
+  </script>
+</body>
+</html>

@@ -184,3 +184,9 @@ thead th { color: var(--ink-2); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* marks get a ring in the page's surface colour, so overlapping points stay distinct */
+.chart .ring { stroke: var(--surface, #fff); }
+.chart .annotation { stroke: var(--ink-2); stroke-width: 1.2; fill: none; }
+.chart .annotation-label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+.chart .annotation-label { paint-order: stroke; stroke: var(--surface, #fff); stroke-width: 5px; stroke-linejoin: round; }

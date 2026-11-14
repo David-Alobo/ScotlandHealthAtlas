@@ -32,12 +32,26 @@ function yAxis(ticks, y, left, fmt) {
 }
 
 /**
- * Lines over years, labelled at their ends.
- * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label }
+ * A bracket between two heights at one x position, with a label beside it, so the chart states
+ * its point in place. Coordinates are screen units.
  */
-export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), label }) {
+export function bracket(x, yTop, yBottom, label) {
+  const w = 6;
+  const mid = (yTop + yBottom) / 2;
+  return (
+    `<path d="M${x - w},${yTop} H${x} V${yBottom} H${x - w}" class="annotation"/>` +
+    text(x + 8, mid, label, 'class="annotation-label" dominant-baseline="middle"')
+  );
+}
+
+/**
+ * Lines over years, labelled at their ends.
+ * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label,
+ *         note: optional { at, from, to, text }, a bracket between two values at year index at }
+ */
+export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), label, note }) {
   const H = 340;
-  const m = { t: 18, r: 150, b: 40, l: 58 };
+  const m = { t: 18, r: note ? 200 : 150, b: 40, l: 58 }; // a note sits beyond the end labels
   const top = niceMax(Math.max(...series.flatMap((s) => s.values)));
   const x = linear([0, years.length - 1], [m.l + 10, W - m.r]);
   const y = linear([0, top], [H - m.b, m.t]);
@@ -55,11 +69,12 @@ export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), la
     out += s.values
       .map(
         (v, i) =>
-          `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${s.colour}" stroke="#fff" stroke-width="2" ` +
+          `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${s.colour}" class="ring" stroke-width="2" ` +
           `data-tip="${esc(`${s.label}, ${years[i]}: ${fmt(v)}`)}" tabindex="0"/>`,
       )
       .join("");
   }
+  if (note) out += bracket(x(note.at) + 128, y(note.from), y(note.to), note.text);
   const ends = spreadLabels(series.map((s) => y(s.values[s.values.length - 1])), 15);
   out += series
     .map((s, i) =>
@@ -133,7 +148,7 @@ export function dotInterval({ rows, reference, xLabel, label }) {
     const cy = yOf(i);
     out += text(m.l - 10, cy, r.label, 'class="row-label" text-anchor="end" dominant-baseline="middle"');
     out += `<line x1="${x(r.lower)}" x2="${x(r.upper)}" y1="${cy}" y2="${cy}" stroke="${r.colour}" stroke-width="2" stroke-linecap="round"/>`;
-    out += `<circle cx="${x(r.value)}" cy="${cy}" r="4.5" fill="${r.colour}" stroke="#fff" stroke-width="1.5" data-tip="${esc(r.tip)}" tabindex="0"/>`;
+    out += `<circle cx="${x(r.value)}" cy="${cy}" r="4.5" fill="${r.colour}" class="ring" stroke-width="1.5" data-tip="${esc(r.tip)}" tabindex="0"/>`;
   });
   out += text(m.l + (W - m.l - m.r) / 2, H - 8, xLabel, 'class="axis-title" text-anchor="middle"');
   return `${out}</svg>`;
@@ -159,8 +174,8 @@ export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label
     const cy = m.t + (i + 0.5) * rowH;
     out += text(m.l - 10, cy, r.label, 'class="row-label" text-anchor="end" dominant-baseline="middle"');
     out += `<line x1="${x(r.a)}" x2="${x(r.b)}" y1="${cy}" y2="${cy}" stroke="${COLOURS.rule}" stroke-width="3"/>`;
-    out += `<circle cx="${x(r.a)}" cy="${cy}" r="6" fill="${aColour}" stroke="#fff" stroke-width="2" data-tip="${esc(`${r.label}, ${aLabel}: ${pc(r.a)}`)}" tabindex="0"/>`;
-    out += `<circle cx="${x(r.b)}" cy="${cy}" r="6" fill="${bColour}" stroke="#fff" stroke-width="2" data-tip="${esc(`${r.label}, ${bLabel}: ${pc(r.b)}`)}" tabindex="0"/>`;
+    out += `<circle cx="${x(r.a)}" cy="${cy}" r="6" fill="${aColour}" class="ring" stroke-width="2" data-tip="${esc(`${r.label}, ${aLabel}: ${pc(r.a)}`)}" tabindex="0"/>`;
+    out += `<circle cx="${x(r.b)}" cy="${cy}" r="6" fill="${bColour}" class="ring" stroke-width="2" data-tip="${esc(`${r.label}, ${bLabel}: ${pc(r.b)}`)}" tabindex="0"/>`;
   });
   out +=
     `<g transform="translate(${m.l},12)"><circle cx="6" cy="6" r="6" fill="${aColour}"/>` +
