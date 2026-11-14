@@ -66,6 +66,8 @@ Started 14 November 2026. Done:
 - [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md);
 - [injury figures checked against PHS publications](results/2026-11-14-validation/README.md);
 - [story shortlist](docs/STORIES.md) for the competition entry;
+- one-page poster of the story ([PDF](docs/poster/poster.pdf), [PNG](docs/poster/poster.png)), built from the page by `web/tools/poster.mjs`;
+- [quick user-test guide](docs/USER_TEST.md) for before submitting;
 
 - the entry page ([web/](web/index.html)): one scrolling atlas, Monstrous Night design;
 

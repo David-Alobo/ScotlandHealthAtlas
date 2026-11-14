@@ -421,6 +421,20 @@ function wireFilter(getStage, story, geo, current) {
     sentence.textContent = filter.council
       ? councilSentence(filter.council, story.councils.councils, story.councils.scotland)
       : "";
+    for (const msg of document.querySelectorAll("form.search .search-msg")) {
+      msg.classList.remove("error");
+      msg.innerHTML = "";
+      if (filter.zone === null) continue;
+      const pinned = document.createElement("span");
+      pinned.innerHTML = `Pinned: <b></b> · `;
+      pinned.querySelector("b").textContent = `${geo.zone_names[filter.zone]}, ${filter.council}`;
+      const unpin = document.createElement("button");
+      unpin.type = "button";
+      unpin.className = "unpin";
+      unpin.textContent = "Unpin";
+      unpin.onclick = () => setFilter(null);
+      msg.append(pinned, unpin);
+    }
     document.getElementById("area-panel-head").innerHTML = areaHead(story, geo, filter);
     body.innerHTML = areaPanel(story, geo, filter, detail);
     sections();
@@ -608,8 +622,11 @@ function wireSearch(geo, pin) {
     const choose = (i) => {
       pin(geo.councils[geo.zones[i][5]].council, i);
       list.innerHTML = "";
-      input.value = "";
-      msg.textContent = `Pinned: ${geo.zone_names[i]}, ${geo.councils[geo.zones[i][5]].council}. Scroll on: the story follows it.`;
+      input.value = ""; // the pin itself is shown by render(), whatever pinned it
+    };
+    const fail = (text) => {
+      msg.classList.add("error");
+      msg.textContent = text;
     };
     const show = (found) => {
       list.innerHTML = "";
@@ -624,7 +641,7 @@ function wireSearch(geo, pin) {
       }
     };
     input.addEventListener("input", () => {
-      msg.textContent = "";
+      if (msg.classList.contains("error")) msg.textContent = "";
       const q = parseQuery(input.value);
       show(q.type === "name" ? searchNames(geo.zone_names, q.text) : []);
     });
@@ -634,12 +651,12 @@ function wireSearch(geo, pin) {
       if (q.type === "postcode") {
         const i = lookupPostcode(await loadArea(q.area), q.key);
         if (i >= 0) choose(i);
-        else msg.textContent = "That postcode is not in the Scottish postcode list.";
+        else fail("That postcode is not in the Scottish postcode list.");
         return;
       }
       const found = searchNames(geo.zone_names, q.text);
       if (found.length) choose(found[0]);
-      else msg.textContent = "No neighbourhood by that name. Try a postcode.";
+      else fail("No neighbourhood by that name. Try a postcode.");
     });
   }
 }

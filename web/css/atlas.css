@@ -466,7 +466,11 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .search-results:empty { display: none; }
 .search-results button { display: block; width: 100%; text-align: left; font: 400 0.85rem var(--body); color: var(--ink-2); background: none; border: 0; padding: 0.45rem 0.85rem; cursor: pointer; }
 .search-results button:hover, .search-results button:focus { background: rgb(139 92 246 / 0.25); color: var(--ink); outline: none; }
-.search-msg { font-size: 0.82rem; color: var(--ink-2); min-height: 1.2em; margin: 0.35rem 0 0; }
+.search-msg { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--ink-2); margin: 0.45rem 0 0; padding: 0.35rem 0.4rem 0.35rem 0.75rem; background: rgb(139 92 246 / 0.14); border: 1px solid rgb(167 139 250 / 0.35); border-radius: 999px; width: fit-content; max-width: 100%; }
+.search-msg b { color: var(--ink); font-weight: 600; }
+.search-msg.error { background: rgb(239 35 60 / 0.1); border-color: rgb(239 35 60 / 0.35); border-radius: 8px; padding: 0.35rem 0.75rem; }
+.search-msg .unpin { font: 500 0.75rem var(--body); color: var(--ink); background: rgb(255 255 255 / 0.08); border: 0; border-radius: 999px; padding: 0.2rem 0.65rem; cursor: pointer; }
+.search-msg .unpin:hover, .search-msg .unpin:focus { background: rgb(139 92 246 / 0.45); outline: none; }
 .search-msg:empty { display: none; }
 
 /* short screens (a laptop at 150% scaling): the opening fits without overflowing */
