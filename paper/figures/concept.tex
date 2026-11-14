@@ -1,0 +1,46 @@
+% The paper's argument: place (deprivation) and age act on different outcomes.
+% Numbers come from the generated macros, like the text.
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{arrows.meta}
+\input{../generated/numbers.tex}
+\definecolor{violet}{HTML}{6D28D9}
+\definecolor{cyan}{HTML}{0E8FAE}
+\definecolor{ink}{HTML}{1B1E27}
+\definecolor{grey}{HTML}{6B7180}
+\tikzset{
+  cause/.style={draw=#1, fill=#1!12, rounded corners=4pt, line width=0.9pt, align=center,
+    text width=3.6cm, minimum height=1.4cm, font=\small\bfseries, text=ink},
+  outcome/.style={draw=#1, fill=white, rounded corners=4pt, line width=0.8pt, align=left,
+    text width=6.2cm, inner sep=6pt, font=\footnotesize, text=ink},
+  strong/.style={-{Stealth[length=3mm]}, line width=1.6pt, draw=#1},
+  weak/.style={-{Stealth[length=2.4mm]}, line width=0.8pt, dashed, draw=#1},
+  lab/.style={font=\scriptsize, text=grey, fill=white, inner sep=1.5pt},
+}
+\begin{document}
+\begin{tikzpicture}
+  \node[cause=violet] (place) at (0, 1.2) {Where you live\\[-1pt]{\footnotesize\mdseries neighbourhood deprivation}};
+  \node[cause=cyan] (age) at (0, -2.4) {How old you are\\[-1pt]{\footnotesize\mdseries stage of life}};
+
+  \node[outcome=violet] (ae) at (7.6, 2.3)
+    {\textbf{A\&E attendance}\\ \aeQone{} against \aeQfive{} per 1{,}000 in the most and least
+     deprived fifths (\aeLastYear, same age and sex)};
+  \node[outcome=violet] (pois) at (7.6, 0.0)
+    {\textbf{Deaths from poisoning}\\ \aboveCount{} councils above Scotland's rate, \belowCount{}
+     below; rank correlation with the deprived share \rhoPoison; \poisonMidShare\% at ages 25 to 64};
+  \node[outcome=cyan] (falls) at (7.6, -2.4)
+    {\textbf{Falls}\\ \fallsOldShare\% of deaths after a fall at 75 or over; \fallsWomenShare\% women};
+
+  \draw[strong=violet] (place.east) -- (ae.west);
+  \draw[strong=violet] (place.east) -- (pois.west);
+  \draw[strong=cyan] (age.east) -- (falls.west);
+  \draw[weak=violet] (place.south east) -- node[lab, anchor=east, pos=0.45, xshift=-4pt]
+    {weaker, $\rho=\rhoFalls$} (falls.north west);
+
+  \node[font=\scriptsize, text=grey, anchor=north west, text width=11.8cm, align=left] at (-1.9, -3.4)
+    {Solid: the main pattern in each outcome. Dashed: a weaker link. Rank correlations are across
+     the 32 council areas and describe areas, not individuals.};
+\end{tikzpicture}
+\end{document}

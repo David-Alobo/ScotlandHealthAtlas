@@ -1,6 +1,8 @@
 # Scotland Health Atlas
 
-**[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)**
+**[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)** ·
+**[Read the paper](paper/main.pdf)** ·
+**[Poster](docs/poster/poster.pdf)**
 
 An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
 prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
@@ -14,17 +16,64 @@ The Data Lab Community's 2026 [data visualisation competition](https://thedatala
 (theme: *Telling Scotland's health story*) and is being built further as an open, reproducible
 atlas.
 
+## What it shows
+
+Where you live and how old you are shape different health risks.
+
+<img src="docs/figures/concept.png" width="720" alt="Conceptual model: neighbourhood deprivation strongly linked to A&E attendance and poisoning deaths; age the main pattern in falls">
+
+- **A&E use follows deprivation.** In 2025, people in Scotland's most deprived fifth of
+  neighbourhoods attended A&E 380 times per 1,000 people, against 200 in the least deprived fifth
+  (same age and sex): a ratio of 1.90, and between 1.90 and 2.09 in every year from 2018. The
+  ratio drifted down, but by no more than the growing share of attendances with unknown
+  deprivation can explain, so we make no claim that the gap is narrowing.
+- **Poisoning deaths follow place.** They rose from 12.7 to 25.9 per 100,000 between 2015 and 2020
+  and fell back to 19.1 in 2024. Across the 32 council areas, 8 are clearly above Scotland's rate
+  and 14 below, and the rate tracks the share of people in the most deprived fifth (Spearman's
+  rho 0.91).
+- **Falls follow age.** 87% of deaths after a fall are of people aged 75 or over; 90% of poisoning
+  deaths are at ages 25 to 64. Falls admissions track deprivation much less (rho 0.53).
+- **Prescribing** looks steeply graded by deprivation, but mostly because pharmacies cluster in
+  more deprived data zones; the medicine mix differs too (central nervous system medicines 21.2%
+  of items in the most deprived fifth against 16.8% in the least).
+- **Checked:** our injury counts match Public Health Scotland's published figures within 1.8%.
+
+Comparisons between council areas describe areas, not individuals. Full methods, figures and
+limitations are in the [paper](paper/main.pdf).
+
+## The atlas
+
+One scrolling page, fifteen scenes. Each of Scotland's 6,976 data zones (neighbourhoods of about
+800 people) is a dot, brighter where it is more deprived. Search by postcode or neighbourhood name,
+or click a dot, to pin a neighbourhood: the cards then show its deprivation, its council's rates
+beside Scotland's, and deaths in its council by age. Click anywhere on the map to clear the pin.
+Rates based on fewer than 20 deaths are hatched rather than coloured.
+
+## How it is made
+
+<img src="docs/figures/design.png" width="860" alt="Study design: data, preparation, analyses and checks, outputs">
+
+1. **Data.** The competition package (A&E, unintentional injuries, prescribing), plus NRS small
+   area population estimates, SIMD 2020v2 look-ups and 2011 data zone boundaries.
+2. **Preparation.** Every file profiled; populations by year, deprivation fifth, council, age and
+   sex; postcodes and data zones placed in fifths and councils.
+3. **Analyses and checks.** Rates directly standardised for age and sex (ESP2013 for injuries), 95%
+   intervals by the Dobson method, council-level comparison with deprivation, a sensitivity
+   analysis for unknown deprivation, and validation against PHS publications.
+4. **Outputs.** Dated results tables; the paper's numbers and tables are generated from them
+   (`atlas.paper_numbers`), and so is the atlas's data (`atlas.export_web`).
+
 ## What is here
 
 | Folder | What it holds |
 |---|---|
-| `data/` | Where the data comes from (`data/README.md`); the files themselves are not in git |
-| `src/atlas/` | The data pipeline (Python package `atlas`): one module per analysis, plus `stats.py` (rates, intervals, correlation) and `style.py` (figure style) |
+| `data/` | Where the data comes from (`data/README.md`); raw files are not in git, derived population tables are |
+| `src/atlas/` | The pipeline (Python package `atlas`): one module per analysis, plus `stats.py` (rates, intervals, correlation) and `style.py` (figure style) |
 | `tests/` | Unit tests (pytest); they need no data, so they run in CI |
-| `results/` | Tables and notes from each analysis, dated, with the scripts that made them |
-| `web/` | The visual story (vanilla JavaScript) |
-| `paper/` | A paper, if the analysis supports one |
-| `docs/` | Plans and notes |
+| `results/` | Tables, figures and a README for each analysis, dated |
+| `web/` | The atlas (vanilla JavaScript, no build step), its tests (Vitest) and tools for screenshots, the poster and the animation |
+| `paper/` | The manuscript (LaTeX): `main.tex`, `references.bib`, generated numbers and tables, and the TikZ diagrams in `figures/` |
+| `docs/` | Story notes, the user-test guide, the poster, the diagrams as PNG and the animation |
 
 ## Running it
 
@@ -50,35 +99,32 @@ uv run python -m atlas.prescribing results/2026-11-14-prescribing
 uv run python -m atlas.validate results/2026-11-14-validation
 uv run python -m atlas.geo                    # writes web/data/geo.json (needs npm ci in web/ first)
 uv run python -m atlas.export_web             # writes web/data/story.json
+uv run python -m atlas.paper_numbers          # writes paper/generated/
 ```
 
-The story page (`web/`, vanilla JavaScript, no build step):
+The atlas:
 
 ```bash
 cd web && npm ci && npm test   # Vitest
 python tools/serve.py           # then open http://localhost:8000 (no caching)
 ```
 
+The paper (TeX Live with latexmk; on Windows, inside WSL):
+
+```bash
+bash paper/build.sh             # diagrams, then paper/main.pdf
+```
+
 ## Status
 
-Started 14 November 2026. Done:
-- data downloaded and audited ([data audit](results/2026-11-14-data-audit/README.md));
-- population denominators (NRS small area estimates, SIMD 2020v2);
-- [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md);
-- [distributions of every dataset](results/2026-11-14-distributions/README.md);
-- [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
-- [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md);
-- [injury figures checked against PHS publications](results/2026-11-14-validation/README.md);
-- [story shortlist](docs/STORIES.md) for the competition entry;
-- one-page poster of the story ([PDF](docs/poster/poster.pdf), [PNG](docs/poster/poster.png)), built from the page by `web/tools/poster.mjs`;
-- [quick user-test guide](docs/USER_TEST.md) for before submitting;
-
-- the entry page ([web/](web/index.html)): one scrolling atlas, Monstrous Night design;
-
-Next: review the page, then polish for screen and phone.
+- Analyses, validation, atlas, poster and paper done (November 2026).
+- Before the competition closes (15 January 2027): the user test in
+  [docs/USER_TEST.md](docs/USER_TEST.md), and a preprint of the paper.
 
 ## Data
 
 Public Health Scotland, via the Scottish Health and Social Care Open Data platform, as packaged for
 the competition ("Telling Scotland's Health Story", K. Nicholson, Public Health Scotland, 2026).
-Other open data added later is listed, with its source and licence, in `data/README.md`.
+Population estimates from National Records of Scotland; SIMD 2020v2 and data zone boundaries from
+the Scottish Government; all under the Open Government Licence v3.0. Sources, versions and download
+dates are listed in `data/README.md`.

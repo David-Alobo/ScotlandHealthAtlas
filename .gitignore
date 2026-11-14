@@ -18,3 +18,12 @@ web/dist/
 Thumbs.db
 # intermediate map files from atlas.geo (rebuilt from data/external/dz2011)
 data/derived/geo_*.json
+# LaTeX build files (the PDFs are kept)
+paper/**/*.aux
+paper/**/*.log
+paper/**/*.fls
+paper/**/*.fdb_latexmk
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.out
+paper/**/*.synctex.gz
