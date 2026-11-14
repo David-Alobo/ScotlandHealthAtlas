@@ -7,7 +7,7 @@
 import { dumbbell, lineChart } from "./charts.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
-import { areaFacts, areaPanel, councilUnits, localNotes } from "./filter.js";
+import { areaFacts, areaHead, areaPanel, councilUnits, localNotes } from "./filter.js";
 import { niceTicks } from "./scale.js";
 import { aeChart, medicineChart, ratioChart, tables } from "./scenes.js";
 import {
@@ -381,6 +381,7 @@ function wireFilter(getStage, story, geo, current) {
     sentence.textContent = filter.council
       ? councilSentence(filter.council, story.councils.councils, story.councils.scotland)
       : "";
+    document.getElementById("area-panel-head").innerHTML = areaHead(story, geo, filter);
     body.innerHTML = areaPanel(story, geo, filter, detail);
     sections();
     document.getElementById("area-panel-title").textContent =

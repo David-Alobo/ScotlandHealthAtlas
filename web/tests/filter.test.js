@@ -44,21 +44,36 @@ describe("notes", () => {
   });
 });
 
-describe("panel", () => {
-  it("shows the neighbourhood, its fifth and its council", () => {
+describe("panel", async () => {
+  const { areaHead } = await import("../js/filter.js");
+
+  it("has a header with the neighbourhood and its council", () => {
+    const head = areaHead(story, geo, { council: "Renfrewshire", zone: ferguslie });
+    expect(head).toContain("Paisley Ferguslie - 06");
+    expect(head).toContain("Renfrewshire");
+    expect(head).toContain('class="zc-map"');
+  });
+
+  it("has three sections: the neighbourhood, its fifth, its council", () => {
     const html = areaPanel(story, geo, { council: "Renfrewshire", zone: ferguslie }, detail);
-    expect(html).toContain("Paisley Ferguslie - 06");
-    expect(html).toContain("Its deprivation fifth, all of Scotland");
-    expect(html).toContain("<h4>Renfrewshire</h4>");
-    expect(html).toMatch(/Most deprived on (income|health) \(4\) and (income|health) \(4\)/);
-    expect((html.match(/<section data-tab=/g) || []).length).toBe(3); // three sections, one per tab
+    expect((html.match(/<section data-tab=/g) || []).length).toBe(3);
+    expect(html).toContain("4th <span>most deprived of 6,976");
+    expect((html.match(/class="zc-row"/g) || []).length).toBe(7);
+    expect((html.match(/class="ap-fifth( on)?"/g) || []).length).toBe(5);
+    expect(html).toContain('class="ap-fifth on"><span>Most deprived'); // its fifth highlighted
+    expect((html.match(/class="ap-stat"/g) || []).length).toBe(3);
   });
 
   it("shows the council alone when no neighbourhood is pinned", () => {
     const html = areaPanel(story, geo, { council: "Highland", zone: null });
-    expect(html).not.toContain("This neighbourhood");
-    expect(html).toContain("<h4>Highland</h4>");
+    expect((html.match(/<section data-tab=/g) || []).length).toBe(1);
+    expect(areaHead(story, geo, { council: "Highland", zone: null })).toContain("Council area");
     expect(areaPanel(story, geo, { council: null, zone: null })).toBe("");
+  });
+
+  it("puts Scotland's tick inside every bar", () => {
+    const html = areaPanel(story, geo, { council: "Orkney Islands", zone: null });
+    for (const m of html.matchAll(/left:([\d.]+)%/g)) expect(Number(m[1])).toBeLessThanOrEqual(100);
   });
 });
 

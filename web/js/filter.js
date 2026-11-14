@@ -5,7 +5,7 @@
 
 import { escapeXml as esc, formatInt, formatNum, pct } from "./format.js";
 import { readableRate } from "./facts.js";
-import { deathUnits, ordinal } from "./stage.js";
+import { deathUnits, locatorSvg, ordinal } from "./stage.js";
 
 export const MIN_DEATHS = 20; // fewer deaths of a type in the pooled years: too few to show
 const FIFTHS = ["most deprived fifth", "second most deprived fifth", "middle fifth", "second least deprived fifth", "least deprived fifth"];
@@ -104,45 +104,96 @@ export function localNotes(story, geo, filter) {
   return notes;
 }
 
-/** The "your area" panel: the neighbourhood (if pinned), its fifth, its council. HTML. */
+/** The panel's header: locator map, the neighbourhood's (or council's) name, and its council. */
+export function areaHead(story, geo, filter) {
+  if (!filter.council) return "";
+  const ci = geo.councils.findIndex((c) => c.council === filter.council);
+  const council = geo.councils[ci];
+  const pinned = filter.zone !== null && filter.zone !== undefined;
+  const [x, y] = pinned ? geo.zones[filter.zone] : [council.cx, council.cy];
+  return (
+    `<div class="ap-head">${locatorSvg(council, x, y)}<div>` +
+    `<p class="ap-name">${esc(pinned ? geo.zone_names[filter.zone] : filter.council)}</p>` +
+    `<p class="ap-sub">${pinned ? esc(filter.council) : "Council area"}</p></div></div>`
+  );
+}
+
+/** A labelled comparison: the area's value as a bar, Scotland as a tick, on a 0..max scale. */
+function compare(label, value, text, scotland, max, rank) {
+  const at = (v) => Math.min(100, (100 * v) / max).toFixed(1);
+  return (
+    `<div class="ap-stat"><div class="ap-stat-top"><span>${label}</span><span class="ap-rank">${rank}</span></div>` +
+    `<p class="ap-big">${text}</p>` +
+    `<div class="ap-bar"><i style="width:${at(value)}%"></i><b style="left:${at(scotland)}%" title="Scotland"></b></div>` +
+    `</div>`
+  );
+}
+
+/**
+ * The panel's sections, one per tab: the neighbourhood (if pinned), its deprivation fifth across
+ * Scotland, and its council against Scotland. HTML.
+ */
 export function areaPanel(story, geo, filter, detail = null) {
   if (!filter.council) return "";
   const name = filter.council;
   const c = councilOf(story, name);
   const cs = story.councils;
   const dz = story.deprived_zones.by_council[name];
+  const all = cs.councils;
+  const max = (key) => Math.max(...all.map((x) => x[key]));
   let html = "";
 
   if (filter.zone !== null && filter.zone !== undefined) {
     const i = filter.zone;
+    const total = geo.zones.length;
     const [, , q, rank, people] = geo.zones[i];
+    const at = (r) => ((100 * (r - 1)) / (total - 1)).toFixed(1);
+    const bars = detail
+      ? detail.domains
+          .map(
+            (d, k) =>
+              `<div class="zc-row"><span class="zc-lbl">${esc(d)}</span>` +
+              `<span class="zc-track"><i style="left:${at(detail.ranks[i][k])}%"></i></span>` +
+              `<span class="zc-val">${formatInt(detail.ranks[i][k])}</span></div>`,
+          )
+          .join("")
+      : `<p class="zc-wait">Loading the seven areas of deprivation…</p>`;
+    html +=
+      `<section data-tab="Neighbourhood">` +
+      `<p class="ap-big">${ordinal(rank)} <span>most deprived of ${formatInt(total)} · ${formatInt(people)} people</span></p>` +
+      `<div class="zc-bars">${bars}</div>` +
+      `<p class="ap-foot">Rank in Scotland on each part of the index: left = more deprived.</p>` +
+      `</section>`;
+
     const last = story.ae.years.length - 1;
+    const rates = story.ae.quintiles.map((x) => x.rate[last]);
+    const top = Math.max(...rates);
+    const names = ["Most deprived", "2nd", "Middle", "4th", "Least deprived"];
     html +=
-      `<section data-tab="Neighbourhood"><h4>This neighbourhood</h4><p class="ap-name">${esc(geo.zone_names[i])}</p>` +
-      `<p>Ranked <b>${formatInt(rank)}</b> of ${formatInt(geo.zones.length)} (1 = most deprived) · ${formatInt(people)} people</p>`;
-    if (detail) {
-      const worst = detail.domains
-        .map((d, k) => [d, detail.ranks[i][k]])
-        .sort((a, b) => a[1] - b[1])
-        .slice(0, 2)
-        .map(([d, r]) => `${d.toLowerCase()} (${formatInt(r)})`);
-      html += `<p>Most deprived on ${worst.join(" and ")}.</p>`;
-    }
-    html +=
-      `</section><section data-tab="Its fifth"><h4>Its deprivation fifth, all of Scotland</h4>` +
-      `<p>The ${FIFTHS[q - 1]}: <b>${formatNum(story.ae.quintiles[q - 1].rate[last])}</b> A&amp;E visits per 1,000 people in ${story.ae.years[last]}, ` +
-      `against ${formatNum(story.ae.quintiles[4].rate[last])} in the least deprived fifth (same age and sex).</p></section>`;
+      `<section data-tab="Its fifth">` +
+      `<p class="ap-lead">${esc(geo.zone_names[i])} is in the <b>${FIFTHS[q - 1]}</b>. Across Scotland, A&amp;E visits per 1,000 people in ${story.ae.years[last]}:</p>` +
+      `<div class="ap-fifths">` +
+      rates
+        .map(
+          (r, k) =>
+            `<div class="ap-fifth${k === q - 1 ? " on" : ""}"><span>${names[k]}</span>` +
+            `<span class="ap-fbar"><i style="width:${((100 * r) / top).toFixed(1)}%"></i></span>` +
+            `<span class="ap-fval">${formatNum(r)}</span></div>`,
+        )
+        .join("") +
+      `</div><p class="ap-foot">Same age and sex. A&amp;E data are by fifth for all of Scotland, not by council.</p>` +
+      `</section>`;
   }
 
   html +=
-    `<section data-tab="${esc(name)}"><h4>${esc(name)}</h4>` +
-    `<dl class="ap-grid">` +
-    `<dt>Poisoning deaths</dt><dd><b>${formatNum(c.rate, 1)}</b> per 100,000 a year · ${ordinal(rankOf(story, name, "rate"))} of 32 · Scotland ${formatNum(cs.scotland, 1)}</dd>` +
-    `<dt>Admissions after a fall</dt><dd><b>${formatNum(c.falls_rate)}</b> per 100,000 a year · ${ordinal(c.falls_rank)} of 32 · Scotland ${formatNum(cs.scotland_falls)}</dd>` +
-    `<dt>Most deprived fifth</dt><dd><b>${pct(c.share_q1, 0)}</b> of people · ${formatInt(dz.q1)} of ${formatInt(dz.zones)} neighbourhoods</dd>` +
-    `<dt>Prescriptions</dt><dd><b>${formatNum(c.items_per_person, 1)}</b> items per person a year (where dispensed)</dd>` +
-    `</dl>` +
-    `<p class="ap-note">Health figures are not published for single neighbourhoods: each number says whether it describes the neighbourhood, its deprivation fifth or its council. Rates are standardised for age and sex (${cs.period}; falls ${cs.falls_period}).</p>` +
+    `<section data-tab="${esc(name)}">` +
+    compare("Poisoning deaths", c.rate, `${formatNum(c.rate, 1)} <span>per 100,000 a year</span>`, cs.scotland, max("rate"),
+      `${ordinal(rankOf(story, name, "rate"))} of 32`) +
+    compare("Admissions after a fall", c.falls_rate, `${formatNum(c.falls_rate)} <span>per 100,000 a year</span>`,
+      cs.scotland_falls, max("falls_rate"), `${ordinal(c.falls_rank)} of 32`) +
+    compare("People in the most deprived fifth", c.share_q1, `${pct(c.share_q1, 0)} <span>${formatInt(dz.q1)} of ${formatInt(dz.zones)} neighbourhoods</span>`,
+      0.2, max("share_q1"), `${ordinal(rankOf(story, name, "share_q1"))} of 32`) +
+    `<p class="ap-foot">Bar: ${esc(name)} · tick: Scotland. Rates standardised for age and sex, ${cs.period} (falls ${cs.falls_period}).</p>` +
     `</section>`;
   return html;
 }

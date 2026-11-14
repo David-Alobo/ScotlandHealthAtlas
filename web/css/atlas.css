@@ -341,7 +341,7 @@ thead th { color: var(--ink-3); font-weight: 500; }
 
 @media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
   .area-panel { top: 0.8rem; bottom: auto; right: 0.8rem; max-height: 42vh; }
-  .area-panel:not(.compact) { top: 0.8rem; }
+  .area-panel:not(.compact) { top: 0.8rem; transform: none; }
 }
 
 .ap-title { display: block; width: calc(100% - 1.6rem); text-align: left; background: none; border: 0; padding: 0 0 0.5rem; font: 500 0.72rem var(--mono); color: var(--ink-3); cursor: pointer; }
@@ -397,3 +397,45 @@ thead th { color: var(--ink-3); font-weight: 500; }
 }
 .area-panel.compact .ap-tabs { display: none; }
 .area-panel.compact.open .ap-tabs { display: flex; }
+
+/* ---------- the your-area card, redesigned ---------- */
+.area-panel:not(.compact) {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%); /* centred on the right: equal space above and below */
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1rem 1.1rem 0.8rem;
+}
+.area-panel:not(.compact) .ap-title { display: none; }
+.area-panel.compact #area-panel-head { display: none; }
+.area-panel.compact.open #area-panel-head { display: block; }
+.ap-head { display: flex; gap: 0.8rem; align-items: center; margin: 0 1.6rem 0.75rem 0; }
+.ap-head .zc-map { width: 3.4rem; height: 3.4rem; }
+.ap-head .ap-name { margin: 0; font: 600 1.1rem/1.2 var(--display) !important; color: var(--ink) !important; }
+.ap-sub { margin: 0.1rem 0 0 !important; font-size: 0.78rem; color: var(--ink-3) !important; }
+#area-panel-body { height: min(17rem, 52vh); }
+.ap-big { margin: 0 0 0.55rem !important; font: 700 1.7rem/1.1 var(--display); color: var(--ink) !important; letter-spacing: -0.02em; }
+.ap-big span { font: 400 0.78rem var(--body); color: var(--ink-3); letter-spacing: 0; }
+.ap-lead { font-size: 0.82rem; margin: 0 0 0.7rem !important; }
+.ap-foot { margin: 0.6rem 0 0 !important; font-size: 0.68rem !important; color: var(--ink-3) !important; line-height: 1.4; }
+#area-panel-body .zc-row { margin: 0.28rem 0; }
+
+.ap-fifths { display: grid; gap: 0.42rem; }
+.ap-fifth { display: grid; grid-template-columns: 6.3rem 1fr 2.4rem; align-items: center; gap: 0.5rem; font-size: 0.76rem; color: var(--ink-3); }
+.ap-fbar { height: 10px; border-radius: 5px; background: rgb(255 255 255 / 0.05); overflow: hidden; }
+.ap-fbar i { display: block; height: 100%; border-radius: 5px; background: #3a3f52; }
+.ap-fval { text-align: right; font: 500 0.74rem var(--mono); color: var(--ink-3); }
+.ap-fifth.on { color: var(--ink); font-weight: 600; }
+.ap-fifth.on .ap-fbar i { background: linear-gradient(90deg, #8b5cf6, #c4b5fd); }
+.ap-fifth.on .ap-fval { color: var(--ink); }
+
+.ap-stat { margin: 0 0 0.75rem; }
+.ap-stat-top { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--ink-3); }
+.ap-rank { font: 500 0.68rem var(--mono); color: var(--violet); }
+.ap-stat .ap-big { font-size: 1.3rem; margin: 0.05rem 0 0.3rem !important; }
+.ap-bar { position: relative; height: 8px; border-radius: 4px; background: rgb(255 255 255 / 0.06); }
+.ap-bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: linear-gradient(90deg, #6d28d9, #a78bfa); }
+.ap-bar b { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: #fff; border-radius: 1px; }
+@media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
+  .area-panel:not(.compact) { top: 0.8rem; transform: none; }
+}

@@ -175,7 +175,10 @@ def councils() -> dict:
     falls_rank = {
         c: k + 1 for k, c in enumerate(sorted(falls, key=lambda c: -float(falls[c]["rate"])))
     }
-    items = {r["council"]: float(r["items_per_person"]) for r in read(RX / "council.csv")}
+    rx = read(RX / "council.csv")
+    items = {r["council"]: float(r["items_per_person"]) for r in rx}
+    # Scotland: items placed in a council over everyone living in one (unplaced items left out)
+    scot_items = sum(int(r["items"]) for r in rx) / sum(int(r["population"]) for r in rx)
     ages: dict[tuple, list[int]] = {}
     bands: list[str] = []
     for r in read(INJ / "council_age.csv"):
@@ -194,6 +197,7 @@ def councils() -> dict:
         "falls_period": any_falls["period"],
         "scotland": float(rows[0]["scotland_rate"]),
         "scotland_falls": float(any_falls["scotland_rate"]),
+        "scotland_items_per_person": round(scot_items, 2),
         "pooled_years": int(rows[0]["period"][-4:]) - int(rows[0]["period"][:4]) + 1,
         "councils": [
             {
