@@ -43,6 +43,7 @@ const C = {
 let RATE_STEPS = []; // poisoning deaths per 100,000 a year: equal-count bands, set from the data
 const RATE_COLOURS = ["#2b2550", "#4a3a9a", "#6a4fd0", "#9b7cf4", "#d8ccff"];
 const MAP_STATES = new Set(["intro", "deprived", "glasgow", "end"]);
+const TOUCH = window.matchMedia?.("(hover: none)").matches ?? false; // phones and tablets: tap, not hover
 // the area filter: a chosen council, and a pinned neighbourhood (index into geo.zones)
 const filter = { council: null, zone: null };
 let detail = null; // the seven domain ranks per zone, loaded after first paint
@@ -62,7 +63,7 @@ function frame() {
   const wide = window.innerWidth / window.innerHeight > 1.05 && window.innerWidth > 760;
   return wide
     ? { wide, W: 1000, H: 640, area: { x: 400, y: 72, w: 570, h: 540 } } // band above for the legend
-    : { wide, W: 600, H: 900, area: { x: 24, y: 24, w: 552, h: 560 } };
+    : { wide, W: 600, H: 900, area: { x: 64, y: 24, w: 516, h: 560 } }; // room on the left for axes
 }
 
 function build(story, geo) {
@@ -237,7 +238,8 @@ function label(st, x, y, text, cls = "") {
 function setState(st, name, story) {
   st.state = name;
   const panel = document.getElementById("area-panel");
-  panel.classList.toggle("compact", !MAP_STATES.has(name)); // a pill over charts, full over maps
+  // a pill over charts (and always on phones, where the full card would hide the map); full over maps
+  panel.classList.toggle("compact", !MAP_STATES.has(name) || !st.f.wide);
   panel.classList.toggle("away", name === "end"); // the closing summary has the area's figures
   panel.classList.remove("open");
   st.under.dataset.state = name;
@@ -310,7 +312,7 @@ function setState(st, name, story) {
     const yOf = (n) => base - (n / cols) * gap;
     const left = A.x - 4;
     const ticks = niceTicks(0, tallest, 4); // none above the tallest column
-    const top = yOf(ticks[ticks.length - 1]);
+    const top = yOf(Math.max(tallest, ticks[ticks.length - 1])); // the axis reaches the tallest column
     el("line", { x1: left, x2: A.x + A.w, y1: base + gap, y2: base + gap, class: "axis" }, st.labels);
     el("line", { x1: left, x2: left, y1: top, y2: base + gap, class: "axis" }, st.labels);
     for (const n of ticks) {
@@ -353,7 +355,7 @@ function setState(st, name, story) {
 function rampLegend(q1Only) {
   const names = ["Most deprived fifth", "", "", "", "Least deprived"];
   return (
-    `<span class="legend-title">Neighbourhoods · hover a dot · click to pin it, click elsewhere to clear</span>` +
+    `<span class="legend-title">${TOUCH ? "Neighbourhoods · tap a dot to pin it" : "Neighbourhoods · hover a dot · click to pin it, click elsewhere to clear"}</span>` +
     C.ramp
       .map((c, i) => (q1Only && i > 0 ? "" : `<span><i style="background:${c}"></i>${names[i]}</span>`))
       .join("")
@@ -364,7 +366,7 @@ function rateLegend() {
   const t = RATE_STEPS;
   const names = [`under ${t[0]}`, `${t[0]}-${t[1]}`, `${t[1]}-${t[2]}`, `${t[2]}-${t[3]}`, `${t[3]}+`];
   return (
-    `<span class="legend-title">Poisoning deaths per 100,000 a year · hover a council</span>` +
+    `<span class="legend-title">Poisoning deaths per 100,000 a year${TOUCH ? "" : " · hover a council"}</span>` +
     RATE_COLOURS.map((c, i) => `<span><i style="background:${c}"></i>${names[i]}</span>`).join("") +
     `<span><i class="hatch"></i>under ${MIN_DEATHS} deaths: unreliable</span>`
   );
