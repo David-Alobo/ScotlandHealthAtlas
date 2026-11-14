@@ -316,7 +316,7 @@ function setState(st, name, story) {
 function rampLegend(q1Only) {
   const names = ["Most deprived fifth", "", "", "", "Least deprived"];
   return (
-    `<span class="legend-title">Neighbourhoods · hover a dot · click to pin it and follow it</span>` +
+    `<span class="legend-title">Neighbourhoods · hover a dot · click to pin it, click elsewhere to clear</span>` +
     C.ramp
       .map((c, i) => (q1Only && i > 0 ? "" : `<span><i style="background:${c}"></i>${names[i]}</span>`))
       .join("")
@@ -527,7 +527,8 @@ function wireTooltips(getStage, geo, pin) {
     if (!handle(e)) hide();
   });
   document.addEventListener("click", (e) => {
-    if (e.target.closest?.(".step, select, button, a, .area-panel")) return;
+    // controls and the card keep their own clicks
+    if (e.target.closest?.("select, button, a, label, input, .area-panel, details")) return;
     const st = getStage();
     if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
       const i = zoneAt(st, e.clientX, e.clientY);
@@ -538,7 +539,12 @@ function wireTooltips(getStage, geo, pin) {
         return;
       }
     }
-    if (!handle(e)) hide();
+    if (filter.council) {
+      pin(null); // a click anywhere else clears the pin
+      hide();
+      return;
+    }
+    if (!e.target.closest?.(".step") && !handle(e)) hide();
   });
 }
 
