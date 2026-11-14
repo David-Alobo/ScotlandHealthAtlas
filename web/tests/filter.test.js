@@ -34,7 +34,8 @@ describe("notes", () => {
     expect(n.ae).toMatch(/^Paisley Ferguslie - 06 is in the most deprived fifth: across Scotland/);
     expect(n.ae).toContain("not by council");
     expect(n["poison-map"]).toMatch(/^Renfrewshire: \d+\.\d poisoning deaths per 100,000/);
-    expect(n.age).toContain("1 dot = 1 death");
+    expect(n.crowd).toContain("1 dot = 1 death");
+    expect(n.age).toBeUndefined(); // the card itself shows the figures
   });
 
   it("flag small numbers", () => {
@@ -57,5 +58,23 @@ describe("panel", () => {
     expect(html).not.toContain("This neighbourhood");
     expect(html).toContain("<h4>Highland</h4>");
     expect(areaPanel(story, geo, { council: null, zone: null })).toBe("");
+  });
+});
+
+describe("area facts", async () => {
+  const { areaFacts } = await import("../js/filter.js");
+
+  it("change only council-level figures, and only when an area is pinned", () => {
+    expect(areaFacts(story, { council: null, zone: null })).toEqual({});
+    const f = areaFacts(story, { council: "Glasgow City", zone: null });
+    expect(f.zonesQ1).toBe("339");
+    expect(f.poisoningDeaths).toBe("1,214");
+    expect(f.poisoning2564Share).toMatch(/^\d+%$/);
+    expect(f).not.toHaveProperty("fallsWomenShare"); // no sex split by council
+    expect(f).not.toHaveProperty("aeQ1Latest"); // A&E is by fifth for Scotland
+  });
+
+  it("withhold shares built on too few deaths", () => {
+    expect(areaFacts(story, { council: "Orkney Islands", zone: null }).poisoning2564Share).toBe("too few to show");
   });
 });

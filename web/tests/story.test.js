@@ -22,7 +22,10 @@ describe("facts", () => {
     const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
     const asked = [...html.matchAll(/data-fact="([^"]+)"/g)].map((m) => m[1]);
     expect(asked.length).toBeGreaterThan(20);
-    for (const name of asked) expect(f[name], name).toBeTruthy();
+    for (const name of asked) {
+      expect(f[name], name).toBeDefined();
+      if (name !== "inArea") expect(f[name], name).toBeTruthy(); // inArea is empty for Scotland
+    }
   });
 
   it("quotes the A&E gap from the data", () => {

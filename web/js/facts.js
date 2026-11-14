@@ -65,6 +65,8 @@ export function facts(story) {
     aeRatioFloor: formatNum(latestSens.all_to_q5, 1),
 
     deathsPeriod: d.period,
+    deathsUnit: "a year",
+    inArea: "", // " in <council>" while an area is pinned (filter.js areaFacts)
     fallsDeaths: formatInt(d.falls_total),
     poisoningDeaths: formatInt(d.poisoning_total),
     falls75Share: pct(shareOf(ages.bands, d.falls, ["75+"]), 0),

@@ -352,3 +352,9 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .area-panel.compact.open { width: min(21rem, calc(100vw - 2rem)); padding: 1rem 1.1rem 0.9rem; }
 .area-panel.compact.open #area-panel-body { display: block; }
 .area-panel.compact.open .ap-title { padding-bottom: 0.5rem; color: var(--ink-3); }
+
+.area-panel { transition: opacity 0.2s ease; }
+.area-panel.hovering { opacity: 0; pointer-events: none; }
+/* figures that changed to the pinned area's values */
+.is-local { color: #fff; background: rgb(139 92 246 / 0.28); border-radius: 4px; padding: 0 0.2em; -webkit-text-fill-color: #fff; }
+.day b.is-local, .takeaways b .is-local { background: none; }

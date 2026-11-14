@@ -7,7 +7,7 @@
 import { dumbbell, lineChart } from "./charts.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
-import { areaPanel, councilUnits, localNotes } from "./filter.js";
+import { areaFacts, areaPanel, councilUnits, localNotes } from "./filter.js";
 import { niceTicks } from "./scale.js";
 import { aeChart, medicineChart, ratioChart, tables } from "./scenes.js";
 import {
@@ -357,7 +357,16 @@ function wireFilter(getStage, story, geo, current) {
     card.appendChild(note);
   }
 
+  const base = facts(story);
   const render = () => {
+    // card figures: the pinned area's where the data has them, highlighted; Scotland's otherwise
+    const local = areaFacts(story, filter);
+    for (const node of document.querySelectorAll("[data-fact]")) {
+      const key = node.dataset.fact;
+      node.textContent = local[key] ?? base[key] ?? "";
+      node.classList.toggle("is-local", key in local && key !== "inArea" && key !== "deathsUnit");
+    }
+    for (const node of document.querySelectorAll("[data-national]")) node.hidden = Boolean(filter.council);
     const notes = localNotes(story, geo, filter);
     for (const step of document.querySelectorAll(".step")) {
       const note = step.querySelector(".local");
@@ -410,7 +419,9 @@ function wireTooltips(getStage, geo, pin) {
     tip.hidden = false;
     position(x, y);
   };
+  const panel = document.getElementById("area-panel");
   const showCard = (i, x, y) => {
+    panel.classList.add("hovering"); // the pinned panel steps aside while you hover
     tip.className = "zcard";
     tip.innerHTML = zoneCard(geo.zones[i], geo.zone_names[i], geo.councils, detail, i, geo.zones.length);
     tip.setAttribute("aria-label", zoneTip(geo.zones[i], geo.zone_names[i], geo.councils, geo.zones.length));
@@ -418,6 +429,7 @@ function wireTooltips(getStage, geo, pin) {
     position(x, y);
   };
   const hide = () => {
+    panel.classList.remove("hovering");
     getStage().ring.classList.remove("on");
     tip.hidden = true;
   };
@@ -506,14 +518,13 @@ async function main() {
       }),
     ),
   );
-  const f = facts(story);
-  for (const node of document.querySelectorAll("[data-fact]")) node.textContent = f[node.dataset.fact] ?? "";
   for (const [key, html] of Object.entries(tables(story))) document.getElementById(`table-${key}`).innerHTML = html;
 
   let st = build(story, geo);
   const getStage = () => st;
   let current = () => "intro";
   const { setFilter, render } = wireFilter(getStage, story, geo, () => current());
+  render(); // fills every figure in the cards
   wireTooltips(getStage, geo, setFilter);
   fetch("data/domains.json")
     .then((r) => (r.ok ? r.json() : null))

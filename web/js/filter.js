@@ -79,8 +79,11 @@ export function localNotes(story, geo, filter) {
     ? ` Too few ${u.hidden.join(" and ")} deaths to show reliably (under ${MIN_DEATHS}).`
     : "";
   notes.crowd = death + few;
-  notes.split = death + few;
-  notes.age = death + few;
+  // the split and age cards show the area's own figures, so their notes only warn
+  if (few) {
+    notes.split = few.trim();
+    notes.age = few.trim();
+  }
 
   const poison =
     `${name}: ${formatNum(c.rate, 1)} poisoning deaths per 100,000 a year ` +
@@ -140,4 +143,31 @@ export function areaPanel(story, geo, filter, detail = null) {
     `</dl></section>` +
     `<p class="ap-note">Health figures are not published for single neighbourhoods: each number says whether it describes the neighbourhood, its deprivation fifth or its council. Rates are standardised for age and sex (${cs.period}; falls ${cs.falls_period}).</p>`;
   return html;
+}
+
+/**
+ * The card figures that change with the pinned area: { factName: text }. Only figures the data
+ * has for a council are given; sentences true only of Scotland are marked data-national in the
+ * page and hidden while an area is pinned. Types with too few deaths say so instead of a share.
+ */
+export function areaFacts(story, filter) {
+  if (!filter.council) return {};
+  const name = filter.council;
+  const c = councilOf(story, name);
+  const bands = story.injury_ages.bands;
+  const dz = story.deprived_zones.by_council[name];
+  const share = (counts, wanted) => {
+    const total = sum(counts);
+    if (total < MIN_DEATHS) return "too few to show";
+    return pct(sum(counts.filter((_, i) => wanted.includes(bands[i]))) / total, 0);
+  };
+  return {
+    zonesQ1: formatInt(dz.q1),
+    inArea: ` in ${name}`,
+    deathsUnit: `in ${name} over ${story.councils.pooled_years} years`,
+    fallsDeaths: formatInt(sum(c.deaths_falls)),
+    poisoningDeaths: formatInt(sum(c.deaths_poisoning)),
+    falls75Share: share(c.deaths_falls, ["75+"]),
+    poisoning2564Share: share(c.deaths_poisoning, ["25-44", "45-64"]),
+  };
 }
