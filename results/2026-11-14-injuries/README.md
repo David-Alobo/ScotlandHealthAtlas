@@ -33,6 +33,8 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
 | `national.*` | (a) admissions and (b) deaths by type over time; (c) falls admissions by age |
 | `councils.*` | Council rates with intervals: falls admissions, poisoning deaths |
 | `ecological.*` | Council rates against the share of people in the most deprived fifth |
+| `age_profile.csv` | Falls and poisoning, admissions and deaths, latest five years: by age band and sex, events, average a year, age-sex-specific rate |
+| `age_profile.*` | Admissions and deaths a year by age band: falls against poisoning |
 
 ## Findings (descriptive)
 
@@ -57,6 +59,10 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
   and several rural councils (Argyll and Bute, Na h-Eileanan Siar, Angus, Perth and Kinross) are
   above Scotland with few people in the most deprived fifth: falls admissions vary with something
   besides deprivation (for example local admission practice), which this data cannot separate.
+- **Falls and poisoning kill different people** (deaths 2020-2024, average a year): falls 1,111,
+  of whom 87% were aged 75 and over and 57% were women; poisoning 1,197, of whom 90% were aged
+  25-64 and 70% were men. Half of falls admissions (50%) are people aged 75 and over; poisoning
+  admissions peak at 25-44 (37%), and 8% are children under 5 (252 a year).
 
 ## Story candidates
 
@@ -68,5 +74,4 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
 ## To do
 
 - Check the national standardised rates against PHS's published unintentional injury figures.
-- Age profile of poisoning deaths (the files give age), to support story 1.
 - Pool deaths by age band and council for a small-multiples view.

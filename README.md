@@ -55,7 +55,9 @@ Started 14 November 2026. Done:
 - [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
 - [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md).
 
-Next: a story shortlist with first charts for the competition entry.
+- [story shortlist](docs/STORIES.md) for the competition entry.
+
+Next: check injury rates against PHS published figures, then screen versions of the chosen charts.
 
 ## Data
 

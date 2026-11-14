@@ -61,7 +61,6 @@ def main() -> None:
     for (y, _q, sex, age), n in pop.items():
         if y == STANDARD_YEAR:
             standard[(sex, age)] += n
-    std_total = sum(standard.values())
 
     results, unknown = [], defaultdict(float)
     for scope, types in (("all", ("Type 1", "Type 3")), ("type1", ("Type 1",))):
@@ -78,15 +77,7 @@ def main() -> None:
             for q in range(1, 6):
                 att = sum(v for (y, d, _s, _a), v in counts.items() if y == year and d == q)
                 p = sum(v for (y, d, _s, _a), v in pop.items() if y == py and d == q)
-                std = (
-                    sum(
-                        counts.get((year, q, sex, age), 0.0)
-                        / pop[(py, q, sex, age)]
-                        * standard[(sex, age)]
-                        for (sex, age) in standard
-                    )
-                    / std_total
-                )
+                std = standardised(counts, pop, standard, year, q)
                 results.append(
                     {
                         "scope": scope,
@@ -130,9 +121,102 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(gap[0]))
         w.writeheader()
         w.writerows(gap)
+    sens = sensitivity(rows, pop, standard)
+    with (out / "gap_sensitivity.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(sens[0]))
+        w.writeheader()
+        w.writerows(sens)
     chart(results, out / "rates")
-    for g in gap:
+    for g in sens:
         print(g)
+
+
+def standardised(
+    counts: dict[tuple, float],
+    pop: dict[tuple, float],
+    standard: dict[tuple, float],
+    year: int,
+    q: int,
+) -> float:
+    """A quintile's attendance rate per person, standardised directly by age and sex.
+
+    Args:
+        counts: Attendances by (year, quintile, sex, age band).
+        pop: Population by (year, quintile, sex, age band).
+        standard: The standard population by (sex, age band).
+        year: The year (later years use the latest population).
+        q: The SIMD quintile.
+
+    Returns:
+        The standardised rate per person.
+    """
+    py = min(year, LATEST_POPULATION)
+    total = sum(standard.values())
+    return (
+        sum(
+            counts.get((year, q, sex, age), 0.0) / pop[(py, q, sex, age)] * standard[(sex, age)]
+            for (sex, age) in standard
+        )
+        / total
+    )
+
+
+def sensitivity(rows: list[tuple], pop: dict, standard: dict) -> list[dict]:
+    """How far attendances with unknown deprivation could move the Q1:Q5 ratio (all A&E sites).
+
+    Attendances with unknown deprivation but known age and sex are given, within each age-sex
+    group, to quintile 1 or to quintile 5: all of them (the widest bounds), or only the excess
+    over the 2018-2019 unknown share (the part of the unknowns that grew).
+
+    Args:
+        rows: (year, department type, deprivation, sex, age, attendances).
+        pop: Population by (year, quintile, sex, age band).
+        standard: The standard population by (sex, age band).
+
+    Returns:
+        One row a year: unknown share, the ratio as published, and the ratio in each scenario.
+    """
+    known: dict[tuple, float] = defaultdict(float)
+    unplaced: dict[tuple, float] = defaultdict(float)  # deprivation unknown, age and sex known
+    total: dict[int, float] = defaultdict(float)
+    for year, dtype, dep, sex, age, n in rows:
+        if dtype not in ("Type 1", "Type 3"):
+            continue
+        total[year] += n
+        if sex is None or age is None:
+            continue
+        if dep is None:
+            unplaced[(year, sex, age)] += n
+        else:
+            known[(year, int(dep), sex, age)] += n
+    share = {y: sum(v for (yy, *_), v in unplaced.items() if yy == y) / total[y] for y in YEARS}
+    base = (share[2018] + share[2019]) / 2
+
+    def ratio(year: int, to: int | None, fraction: float) -> float:
+        counts = dict(known)
+        if to is not None:
+            for (y, sex, age), n in unplaced.items():
+                if y == year:
+                    key = (y, to, sex, age)
+                    counts[key] = counts.get(key, 0.0) + fraction * n
+        return standardised(counts, pop, standard, year, 1) / standardised(
+            counts, pop, standard, year, 5
+        )
+
+    out = []
+    for y in YEARS:
+        excess = max(0.0, share[y] - base) / share[y]
+        out.append(
+            {
+                "year": y,
+                "unknown_deprivation_share": round(share[y], 4),
+                "ratio_as_published": round(ratio(y, None, 0.0), 3),
+                "ratio_all_unknown_to_q1": round(ratio(y, 1, 1.0), 3),
+                "ratio_all_unknown_to_q5": round(ratio(y, 5, 1.0), 3),
+                "ratio_excess_unknown_to_q1": round(ratio(y, 1, excess), 3),
+            }
+        )
+    return out
 
 
 def chart(results: list[dict], stem: Path) -> None:

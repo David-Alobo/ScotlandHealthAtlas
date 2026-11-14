@@ -120,7 +120,7 @@ def main() -> None:
         ]
         return dsr(cells)
 
-    national, age_falls, council, eco = [], [], [], []
+    national, age_falls, council, eco, ages = [], [], [], [], []
     for d in ("admissions", "deaths"):
         years = sorted({y for (d_, y) in labels if d_ == d})
         for y in years:
@@ -183,12 +183,33 @@ def main() -> None:
                     "spearman_rho": round(rho, 3),
                 }
             )
+        # who: falls and poisoning by age band and sex, the latest five years together
+        for t in ("Falls", "Poisoning"):
+            for a in ESP:
+                for s in ("Female", "Male"):
+                    n = sum(counts.get((d, y, c, s, a, t), 0.0) for y in pooled for c in councils)
+                    p = sum(
+                        pop[(min(y, LATEST_POPULATION), c, s, a)] for y in pooled for c in councils
+                    )
+                    ages.append(
+                        {
+                            "dataset": d,
+                            "period": period,
+                            "injury_type": t,
+                            "age_band": a,
+                            "sex": s,
+                            "events": int(n),
+                            "per_year": round(n / len(pooled), 1),
+                            "rate_per_100000": round(1e5 * n / p, 2),
+                        }
+                    )
 
     for name, table in (
         ("national", national),
         ("age_falls", age_falls),
         ("council", council),
         ("ecological", eco),
+        ("age_profile", ages),
     ):
         with (out / f"{name}.csv").open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(table[0]))
@@ -197,8 +218,57 @@ def main() -> None:
     chart_national(national, age_falls, out / "national")
     chart_councils(council, out / "councils")
     chart_ecological(council, eco, out / "ecological")
+    chart_age_profile(ages, out / "age_profile")
     for e in eco:
         print(e)
+
+
+def chart_age_profile(ages: list[dict], stem: Path) -> None:
+    """Deaths and admissions a year by age band: falls against poisoning (sexes together).
+
+    Args:
+        ages: The age-profile rows.
+        stem: Where to save, without extension.
+    """
+    import matplotlib.pyplot as plt
+
+    from . import style
+
+    style.use()
+    fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE, 72 * style.MM))
+    fig.subplots_adjust(wspace=0.3)
+    bands = list(ESP)
+    names = [b.replace(" years", "").replace("75plus", "75+") for b in bands]
+    width = 0.4
+    for i, (ax, d) in enumerate(zip(axes, ("admissions", "deaths"), strict=True)):
+        rows = [r for r in ages if r["dataset"] == d]
+        for j, t in enumerate(("Falls", "Poisoning")):
+            per_year = [
+                sum(r["per_year"] for r in rows if r["injury_type"] == t and r["age_band"] == b)
+                for b in bands
+            ]
+            ax.bar(
+                [k + (j - 0.5) * width for k in range(len(bands))],
+                per_year,
+                width=width * 0.92,
+                color=style.CATEGORICAL[j],
+                label=t,
+            )
+        ax.set_xticks(range(len(bands)), names)
+        ax.tick_params(axis="x", length=0, labelsize=6.5)
+        ax.set_xlabel("Age (years)")
+        ax.yaxis.set_major_formatter(style.thousands())
+        ax.set_ylabel(f"{d.capitalize()} a year (average)")
+        what = "Emergency admissions" if d == "admissions" else "Deaths"
+        ax.set_title(f"{what}\n{rows[0]['period']}", fontsize=8)
+        style.panel(ax, "ab"[i])
+    axes[1].legend(loc="upper left", handlelength=1, handleheight=1)
+    style.source(
+        fig,
+        style.SOURCE_PHS + ". Unintentional injuries; average a year over the latest five "
+        "years; sexes together (by sex in age_profile.csv).",
+    )
+    style.save(fig, stem)
 
 
 def chart_national(national: list[dict], age_falls: list[dict], stem: Path) -> None:

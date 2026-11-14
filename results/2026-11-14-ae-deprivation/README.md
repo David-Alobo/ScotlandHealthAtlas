@@ -37,10 +37,27 @@ Attendances per 1,000 people, all sites, standardised for age and sex.
 - The gradient is steady across all five quintiles: each step towards more deprivation brings
   more attendances.
 - All quintiles fell in 2020 (the pandemic) and recovered; none is back to its 2019 rate.
-- The ratio drifts down from 2.03 (2019) to 1.90 (2025). **This may not be a real narrowing**:
-  the share of attendances with unknown deprivation rose from 3.0% to 5.3% over the same years,
-  and if those attendances come disproportionately from deprived areas, the fall is partly or
-  wholly an artefact. To be checked before any claim about a trend.
+- The ratio drifts down from 2.03 (2019) to 1.90 (2025), but **the data cannot show a real
+  narrowing** (sensitivity analysis below).
+
+## Sensitivity: unknown deprivation (`gap_sensitivity.csv`)
+
+Most attendances with unknown deprivation still have age and sex (in 2025, 3.3% of attendances
+lack deprivation only; 2.0% lack age or sex too). Those 3.3% were given, within each age-sex
+group, to quintile 1 or quintile 5, and the rates re-standardised:
+
+| Year | Unknown deprivation (age, sex known) | Ratio as published | All to Q1 | All to Q5 | Growth since 2018-19 to Q1 |
+|---|---|---|---|---|---|
+| 2018 | 0.55% | 2.02 | 2.06 | 1.94 | 2.02 |
+| 2019 | 0.49% | 2.03 | 2.06 | 1.96 | 2.03 |
+| 2022 | 1.67% | 2.00 | 2.13 | 1.78 | 2.09 |
+| 2025 | 3.30% | 1.90 | 2.14 | 1.53 | 2.10 |
+
+If only the growth in unknowns since 2018-2019 came from the most deprived fifth, the 2025 ratio
+would be 2.10: flat or slightly up, not down. The drift is within what the rising unknown share can
+produce, so **no claim of a narrowing gap**. What holds in every scenario: the most deprived fifth
+attends more often, at least 1.5 times as often even if every unknown attendance in 2025 came from
+the least deprived fifth; with the unknowns spread as the known ones are, about twice.
 
 ## Limits
 
