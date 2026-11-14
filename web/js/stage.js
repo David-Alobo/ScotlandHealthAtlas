@@ -120,7 +120,7 @@ export function councilSentence(name, councils, scotland) {
     c.vs === "above" ? "above the Scotland rate" : c.vs === "below" ? "below the Scotland rate" : "close to the Scotland rate";
   return (
     `${c.council}: ${formatNum(c.rate, 1)} poisoning deaths per 100,000 people a year, ` +
-    `${ordinal(k + 1)} highest of 32 and ${where} of ${formatNum(scotland, 1)}. ` +
+    `${k === 0 ? "the" : ordinal(k + 1)} highest of 32 and ${where} of ${formatNum(scotland, 1)}. ` +
     `${pct(c.share_q1, 0)} of its people live in Scotland's most deprived fifth of neighbourhoods.`
   );
 }

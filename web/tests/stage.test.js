@@ -100,7 +100,8 @@ describe("councils", () => {
 
   it("writes a sentence for any council", () => {
     const s = councilSentence("Glasgow City", cs, story.councils.scotland);
-    expect(s).toMatch(/^Glasgow City: 38\.8 .* 1st highest of 32 and above/);
+    expect(s).toMatch(/^Glasgow City: 38\.8 .* the highest of 32 and above/);
+    expect(councilSentence("Inverclyde", cs, story.councils.scotland)).toContain("2nd highest of 32");
     expect(councilSentence("Nowhere", cs, 22)).toBe("");
   });
 

@@ -176,18 +176,18 @@
 
       <section class="step" data-state="find">
         <div class="card">
-          <h2>Find your council</h2>
-          <label class="select"><span class="sr">Council area</span>
-            <select id="council-select"><option value="">Choose a council area</option></select>
-          </label>
-          <p id="council-sentence" class="sentence" aria-live="polite"></p>
+          <h2>Find your area</h2>
           <form class="search" role="search" autocomplete="off">
-            <label><span>Find your neighbourhood</span>
+            <label><span>Postcode or neighbourhood</span>
               <input type="search" name="q" placeholder="Postcode or neighbourhood name"
                 ></label>
             <ul class="search-results" role="listbox" aria-label="Matching neighbourhoods"></ul>
             <p class="search-msg" aria-live="polite"></p>
           </form>
+          <label class="select"><span>Or choose a council</span>
+            <select id="council-select"><option value="">All of Scotland</option></select>
+          </label>
+          <p id="council-sentence" class="sentence" aria-live="polite"></p>
         </div>
       </section>
 
@@ -219,7 +219,7 @@
             across older people wherever they live, so they call for help that reaches older people
             everywhere. Two problems, two answers.</p>
           <div class="actions">
-            <button type="button" data-go="find">Find your council</button>
+            <button type="button" data-go="find">Find your area</button>
             <button type="button" data-go="top">Back to the start</button>
             <a href="https://github.com/David-Alobo/ScotlandHealthAtlas">Methods and code</a>
           </div>

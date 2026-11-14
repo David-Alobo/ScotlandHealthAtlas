@@ -92,7 +92,7 @@ export function localNotes(story, geo, filter) {
     `${ordinal(rankOf(story, name, "rate"))} highest of 32; Scotland ${formatNum(cs.scotland, 1)}.`;
   notes["poison-map"] = poison;
   notes.scatter = `${poison} ${pct(c.share_q1, 0)} of its people live in the most deprived fifth.`;
-  notes.find = notes.scatter;
+  // the find card shows its own sentence for the council, so no note there
 
   notes.trend = "The trend is for all of Scotland: one council's deaths each year are too few for a reliable line.";
   notes["scatter-falls"] =
