@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Same country, different risks</title>
+  <meta name="description" content="How where you live and how old you are shape A&amp;E use, injury deaths and the medicines dispensed in Scotland. Built from Public Health Scotland open data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="kicker">Scotland Health Atlas</p>
+    <h1>Same country, different&nbsp;risks</h1>
+    <p class="lede">Where you live shapes how often you end up in A&amp;E and your risk of dying
+      of poisoning. How old you are shapes your risk from a fall. Two different problems, two
+      different groups of people, one health service.</p>
+    <dl class="tiles">
+      <div><dt>A&amp;E attendances</dt><dd data-fact="heroAe">&nbsp;</dd><span data-fact="heroAePeriod"></span></div>
+      <div><dt>Emergency admissions after an unintentional injury</dt><dd data-fact="heroAdmissions">&nbsp;</dd><span data-fact="heroAdmissionsPeriod"></span></div>
+      <div><dt>Deaths from unintentional injury</dt><dd data-fact="heroDeaths">&nbsp;</dd><span data-fact="heroDeathsPeriod"></span></div>
+      <div><dt>Prescription items dispensed</dt><dd data-fact="heroItems">&nbsp;</dd><span data-fact="heroItemsPeriod"></span></div>
+    </dl>
+    <p id="load-error" class="error" hidden>The data could not be loaded. If you opened this file
+      directly, serve the folder instead (for example <code>python -m http.server</code> in
+      <code>web/</code>).</p>
+  </header>
+
+  <main>
+    <section class="scene" id="ae">
+      <h2>Twice as often</h2>
+      <p>Scotland's neighbourhoods are ranked by deprivation (the Scottish Index of Multiple
+        Deprivation) and split into five equal fifths. In <span data-fact="aeLatestYear"></span>,
+        people living in the most deprived fifth went to A&amp;E
+        <strong><span data-fact="aeQ1Latest"></span> times per 1,000 people</strong>; in the
+        least deprived fifth, <span data-fact="aeQ5Latest"></span>. That compares people of the
+        same age and sex.</p>
+      <p>The gap has held every year since <span data-fact="aeFirstYear"></span>, between
+        <span data-fact="aeRatioMin"></span> and <span data-fact="aeRatioMax"></span> times, and
+        each step down the deprivation ladder brings more visits.</p>
+      <figure>
+        <div id="chart-ae" class="chart-box"></div>
+        <figcaption>A&amp;E attendances per 1,000 people by deprivation fifth, all A&amp;E sites,
+          standardised to Scotland's 2024 population by age and sex.</figcaption>
+        <button type="button" class="numbers" data-table="table-ae" aria-expanded="false">Show the numbers</button>
+        <div id="table-ae" class="table-box" hidden></div>
+      </figure>
+      <aside class="caveat">
+        <h3>Is the gap closing?</h3>
+        <p>The ratio dips to <span data-fact="aeRatioPublished"></span> in the latest year, but
+          more attendances now have no postcode deprivation recorded. If the extra unknowns came
+          from the most deprived areas, the ratio would be <span data-fact="aeRatioExcess"></span>.
+          The data cannot tell a real narrowing from a recording change, so we do not claim one.
+          Even if every unknown visit came from the least deprived fifth, the most deprived would
+          still attend <span data-fact="aeRatioFloor"></span> times as often.</p>
+      </aside>
+    </section>
+
+    <section class="scene scrolly" id="injuries">
+      <h2>Two kinds of injury death</h2>
+      <div class="scrolly-grid">
+        <div class="sticky">
+          <figure>
+            <div id="chart-ages" class="chart-box" data-highlight="both"></div>
+            <figcaption>Deaths from unintentional injury a year by age, falls and poisoning,
+              average over <span data-fact="deathsPeriod"></span>.</figcaption>
+            <button type="button" class="numbers" data-table="table-ages" aria-expanded="false">Show the numbers</button>
+            <div id="table-ages" class="table-box" hidden></div>
+          </figure>
+        </div>
+        <div class="steps">
+          <div class="step" data-step="both">
+            <p>Unintentional injuries kill about as many people through poisoning
+              (<span data-fact="poisoningDeaths"></span> a year) as through falls
+              (<span data-fact="fallsDeaths"></span>). They are not the same people.</p>
+          </div>
+          <div class="step" data-step="falls">
+            <p><strong class="falls">Falls</strong> are deaths of old age:
+              <span data-fact="falls75Share"></span> of those who die after a fall are 75 or
+              older, and <span data-fact="fallsWomenShare"></span> are women.</p>
+          </div>
+          <div class="step" data-step="poisoning">
+            <p><strong class="poisoning">Poisoning</strong> kills people in mid-life:
+              <span data-fact="poisoning2564Share"></span> are aged 25 to 64, and
+              <span data-fact="poisoningMenShare"></span> are men. The data does not say which
+              substance; drug-related deaths are the likely main part, but this is a reading,
+              not a finding.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="councils">
+      <h2>Where poisoning deaths happen</h2>
+      <p>Across Scotland's 32 council areas, poisoning death rates run from
+        <span data-fact="councilLowRate"></span> per 100,000 people a year in
+        <span data-fact="councilLowName"></span> to <span data-fact="councilHighRate"></span> in
+        <span data-fact="councilHighName"></span> (Scotland: <span data-fact="scotlandPoisoning"></span>;
+        <span data-fact="councilPeriod"></span>, standardised for age and sex). The more of a
+        council's people live in the most deprived fifth of neighbourhoods, the higher its rate
+        (rank correlation <span data-fact="rhoPoisoning"></span>). Falls admissions follow
+        deprivation much less (<span data-fact="rhoFalls"></span>).</p>
+      <figure>
+        <div id="legend-councils" class="legend-row"></div>
+        <div id="chart-councils" class="chart-box"></div>
+        <figcaption>Poisoning deaths per 100,000 people a year with 95% intervals, council areas,
+          coloured by the share of each council's people living in Scotland's most deprived fifth
+          of neighbourhoods. Areas are compared here, not individuals.</figcaption>
+        <button type="button" class="numbers" data-table="table-councils" aria-expanded="false">Show the numbers</button>
+        <div id="table-councils" class="table-box" hidden></div>
+      </figure>
+    </section>
+
+    <section class="scene" id="medicines">
+      <h2>What is dispensed</h2>
+      <p>Medicines tell a similar story. Of the items dispensed by pharmacies in the most
+        deprived fifth of neighbourhoods, <span data-fact="cnsQ1"></span> act on the nervous
+        system (antidepressants, painkillers, epilepsy and other medicines), against
+        <span data-fact="cnsQ5"></span> in the least deprived fifth
+        (<span data-fact="medicinesPeriod"></span>).</p>
+      <figure>
+        <div id="chart-medicines" class="chart-box"></div>
+        <figcaption>Share of items dispensed by medicine group (British National Formulary
+          chapter), pharmacies in the most and least deprived fifth of neighbourhoods. Counted
+          where medicines are dispensed, not where patients live; not adjusted for age.</figcaption>
+        <button type="button" class="numbers" data-table="table-medicines" aria-expanded="false">Show the numbers</button>
+        <div id="table-medicines" class="table-box" hidden></div>
+      </figure>
+    </section>
+
+    <section class="scene close" id="about">
+      <h2>What this can and cannot say</h2>
+      <ul>
+        <li>Deprivation here describes neighbourhoods, not each person's circumstances.</li>
+        <li>A&amp;E figures count visits, not people.</li>
+        <li>Council comparisons compare areas; they do not show that deprived people are the
+          ones who die.</li>
+        <li>Prescriptions are counted where they are dispensed, which is not always where
+          people live.</li>
+        <li>The injury figures reproduce Public Health Scotland's published totals (deaths
+          exactly, admissions within 2%).</li>
+      </ul>
+      <p>Data: Public Health Scotland (Data Lab competition package, 2026); National Records of
+        Scotland small area population estimates; Scottish Index of Multiple Deprivation 2020v2.
+        Methods, code and every table behind this page:
+        <a href="https://github.com/David-Alobo/ScotlandHealthAtlas">github.com/David-Alobo/ScotlandHealthAtlas</a>.</p>
+      <p class="byline">By David Obeh Alobo, <a href="https://monstrous.com.ng">Monstrous Data</a>.</p>
+    </section>
+  </main>
+
+  <div id="tooltip" role="tooltip" hidden></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

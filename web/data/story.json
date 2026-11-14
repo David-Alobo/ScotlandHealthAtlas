@@ -1,0 +1,516 @@
+{
+ "hero": {
+  "ae_attendances": {
+   "value": 1652428,
+   "period": "2025"
+  },
+  "injury_admissions": {
+   "value": 54922,
+   "period": "2024/25"
+  },
+  "injury_deaths": {
+   "value": 2850,
+   "period": "2024"
+  },
+  "prescription_items": {
+   "value": 113247207,
+   "period": "June 2025 to May 2026"
+  }
+ },
+ "ae": {
+  "years": [
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "quintiles": [
+   {
+    "quintile": 1,
+    "rate": [
+     411.31,
+     429.0,
+     324.63,
+     365.8,
+     378.28,
+     373.8,
+     385.83,
+     380.16
+    ]
+   },
+   {
+    "quintile": 2,
+    "rate": [
+     329.87,
+     344.36,
+     263.39,
+     295.81,
+     313.07,
+     309.42,
+     321.17,
+     320.84
+    ]
+   },
+   {
+    "quintile": 3,
+    "rate": [
+     261.73,
+     272.78,
+     204.66,
+     232.96,
+     251.66,
+     252.37,
+     264.25,
+     264.9
+    ]
+   },
+   {
+    "quintile": 4,
+    "rate": [
+     225.42,
+     235.17,
+     175.84,
+     197.83,
+     211.62,
+     210.47,
+     218.77,
+     221.48
+    ]
+   },
+   {
+    "quintile": 5,
+    "rate": [
+     203.67,
+     211.79,
+     155.66,
+     176.25,
+     188.87,
+     187.13,
+     196.67,
+     199.91
+    ]
+   }
+  ],
+  "ratio": [
+   {
+    "year": 2018,
+    "published": 2.02,
+    "excess_to_q1": 2.022,
+    "all_to_q5": 1.944
+   },
+   {
+    "year": 2019,
+    "published": 2.026,
+    "excess_to_q1": 2.026,
+    "all_to_q5": 1.958
+   },
+   {
+    "year": 2020,
+    "published": 2.086,
+    "excess_to_q1": 2.086,
+    "all_to_q5": 2.039
+   },
+   {
+    "year": 2021,
+    "published": 2.075,
+    "excess_to_q1": 2.111,
+    "all_to_q5": 1.933
+   },
+   {
+    "year": 2022,
+    "published": 2.003,
+    "excess_to_q1": 2.087,
+    "all_to_q5": 1.784
+   },
+   {
+    "year": 2023,
+    "published": 1.998,
+    "excess_to_q1": 2.116,
+    "all_to_q5": 1.723
+   },
+   {
+    "year": 2024,
+    "published": 1.962,
+    "excess_to_q1": 2.119,
+    "all_to_q5": 1.635
+   },
+   {
+    "year": 2025,
+    "published": 1.902,
+    "excess_to_q1": 2.103,
+    "all_to_q5": 1.528
+   }
+  ]
+ },
+ "injury_ages": {
+  "bands": [
+   "0-4",
+   "5-9",
+   "10-14",
+   "15-24",
+   "25-44",
+   "45-64",
+   "65-74",
+   "75+"
+  ],
+  "deaths": {
+   "period": "2020 to 2024",
+   "falls": [
+    0,
+    0,
+    0,
+    3,
+    11,
+    51,
+    81,
+    964
+   ],
+   "poisoning": [
+    0,
+    0,
+    0,
+    57,
+    549,
+    529,
+    33,
+    29
+   ],
+   "falls_male_share": 0.432,
+   "falls_total": 1111,
+   "poisoning_male_share": 0.7,
+   "poisoning_total": 1197
+  },
+  "admissions": {
+   "period": "2020/21 to 2024/25",
+   "falls": [
+    884,
+    913,
+    715,
+    881,
+    2583,
+    6541,
+    5829,
+    18401
+   ],
+   "poisoning": [
+    252,
+    46,
+    57,
+    356,
+    1156,
+    815,
+    195,
+    288
+   ],
+   "falls_male_share": 0.396,
+   "falls_total": 36749,
+   "poisoning_male_share": 0.541,
+   "poisoning_total": 3166
+  }
+ },
+ "councils": {
+  "period": "2020 to 2024",
+  "scotland": 22.22,
+  "councils": [
+   {
+    "council": "Aberdeen City",
+    "rate": 24.95,
+    "lower": 22.12,
+    "upper": 28.05,
+    "share_q1": 0.0898,
+    "vs": "similar"
+   },
+   {
+    "council": "Aberdeenshire",
+    "rate": 12.39,
+    "lower": 10.51,
+    "upper": 14.5,
+    "share_q1": 0.0286,
+    "vs": "below"
+   },
+   {
+    "council": "Angus",
+    "rate": 14.64,
+    "lower": 11.51,
+    "upper": 18.34,
+    "share_q1": 0.0678,
+    "vs": "below"
+   },
+   {
+    "council": "Argyll and Bute",
+    "rate": 14.31,
+    "lower": 10.84,
+    "upper": 18.54,
+    "share_q1": 0.0864,
+    "vs": "below"
+   },
+   {
+    "council": "City of Edinburgh",
+    "rate": 20.41,
+    "lower": 18.68,
+    "upper": 22.26,
+    "share_q1": 0.1187,
+    "vs": "similar"
+   },
+   {
+    "council": "Clackmannanshire",
+    "rate": 24.36,
+    "lower": 18.51,
+    "upper": 31.45,
+    "share_q1": 0.251,
+    "vs": "similar"
+   },
+   {
+    "council": "Dumfries and Galloway",
+    "rate": 22.12,
+    "lower": 18.55,
+    "upper": 26.16,
+    "share_q1": 0.0867,
+    "vs": "similar"
+   },
+   {
+    "council": "Dundee City",
+    "rate": 31.91,
+    "lower": 27.87,
+    "upper": 36.36,
+    "share_q1": 0.3752,
+    "vs": "above"
+   },
+   {
+    "council": "East Ayrshire",
+    "rate": 27.84,
+    "lower": 23.68,
+    "upper": 32.51,
+    "share_q1": 0.3006,
+    "vs": "above"
+   },
+   {
+    "council": "East Dunbartonshire",
+    "rate": 12.26,
+    "lower": 9.37,
+    "upper": 15.76,
+    "share_q1": 0.0411,
+    "vs": "below"
+   },
+   {
+    "council": "East Lothian",
+    "rate": 16.72,
+    "lower": 13.4,
+    "upper": 20.6,
+    "share_q1": 0.0478,
+    "vs": "below"
+   },
+   {
+    "council": "East Renfrewshire",
+    "rate": 7.88,
+    "lower": 5.5,
+    "upper": 10.94,
+    "share_q1": 0.0495,
+    "vs": "below"
+   },
+   {
+    "council": "Falkirk",
+    "rate": 19.01,
+    "lower": 16.07,
+    "upper": 22.34,
+    "share_q1": 0.1521,
+    "vs": "similar"
+   },
+   {
+    "council": "Fife",
+    "rate": 19.33,
+    "lower": 17.32,
+    "upper": 21.51,
+    "share_q1": 0.1956,
+    "vs": "below"
+   },
+   {
+    "council": "Glasgow City",
+    "rate": 38.83,
+    "lower": 36.64,
+    "upper": 41.11,
+    "share_q1": 0.4471,
+    "vs": "above"
+   },
+   {
+    "council": "Highland",
+    "rate": 14.95,
+    "lower": 12.72,
+    "upper": 17.44,
+    "share_q1": 0.0905,
+    "vs": "below"
+   },
+   {
+    "council": "Inverclyde",
+    "rate": 34.88,
+    "lower": 29.15,
+    "upper": 41.4,
+    "share_q1": 0.4447,
+    "vs": "above"
+   },
+   {
+    "council": "Midlothian",
+    "rate": 19.4,
+    "lower": 15.63,
+    "upper": 23.8,
+    "share_q1": 0.073,
+    "vs": "similar"
+   },
+   {
+    "council": "Moray",
+    "rate": 11.83,
+    "lower": 8.82,
+    "upper": 15.54,
+    "share_q1": 0.0245,
+    "vs": "below"
+   },
+   {
+    "council": "Na h-Eileanan Siar",
+    "rate": 11.5,
+    "lower": 5.98,
+    "upper": 19.87,
+    "share_q1": 0.0,
+    "vs": "below"
+   },
+   {
+    "council": "North Ayrshire",
+    "rate": 30.01,
+    "lower": 25.74,
+    "upper": 34.79,
+    "share_q1": 0.3999,
+    "vs": "above"
+   },
+   {
+    "council": "North Lanarkshire",
+    "rate": 25.35,
+    "lower": 23.01,
+    "upper": 27.87,
+    "share_q1": 0.3099,
+    "vs": "above"
+   },
+   {
+    "council": "Orkney Islands",
+    "rate": 5.03,
+    "lower": 1.58,
+    "upper": 11.83,
+    "share_q1": 0.0,
+    "vs": "below"
+   },
+   {
+    "council": "Perth and Kinross",
+    "rate": 16.61,
+    "lower": 13.71,
+    "upper": 19.94,
+    "share_q1": 0.0622,
+    "vs": "below"
+   },
+   {
+    "council": "Renfrewshire",
+    "rate": 26.93,
+    "lower": 23.69,
+    "upper": 30.49,
+    "share_q1": 0.2458,
+    "vs": "above"
+   },
+   {
+    "council": "Scottish Borders",
+    "rate": 12.4,
+    "lower": 9.41,
+    "upper": 16.03,
+    "share_q1": 0.0575,
+    "vs": "below"
+   },
+   {
+    "council": "Shetland Islands",
+    "rate": 16.36,
+    "lower": 9.67,
+    "upper": 25.89,
+    "share_q1": 0.0,
+    "vs": "similar"
+   },
+   {
+    "council": "South Ayrshire",
+    "rate": 21.41,
+    "lower": 17.52,
+    "upper": 25.9,
+    "share_q1": 0.1635,
+    "vs": "similar"
+   },
+   {
+    "council": "South Lanarkshire",
+    "rate": 24.31,
+    "lower": 21.95,
+    "upper": 26.85,
+    "share_q1": 0.189,
+    "vs": "similar"
+   },
+   {
+    "council": "Stirling",
+    "rate": 23.32,
+    "lower": 18.97,
+    "upper": 28.35,
+    "share_q1": 0.129,
+    "vs": "similar"
+   },
+   {
+    "council": "West Dunbartonshire",
+    "rate": 30.53,
+    "lower": 25.55,
+    "upper": 36.2,
+    "share_q1": 0.4047,
+    "vs": "above"
+   },
+   {
+    "council": "West Lothian",
+    "rate": 17.36,
+    "lower": 14.75,
+    "upper": 20.29,
+    "share_q1": 0.1395,
+    "vs": "below"
+   }
+  ],
+  "rho_poisoning_deaths": 0.908,
+  "rho_falls_admissions": 0.53
+ },
+ "medicines": {
+  "period": "June 2025 to May 2026",
+  "unplaced_share": 0.014,
+  "chapters": [
+   {
+    "chapter": "Cardiovascular system",
+    "q1": 0.227,
+    "q5": 0.2434
+   },
+   {
+    "chapter": "Central nervous system",
+    "q1": 0.2124,
+    "q5": 0.168
+   },
+   {
+    "chapter": "Gastro-intestinal system",
+    "q1": 0.1052,
+    "q5": 0.0976
+   },
+   {
+    "chapter": "Endocrine system",
+    "q1": 0.0884,
+    "q5": 0.101
+   },
+   {
+    "chapter": "Respiratory system",
+    "q1": 0.0777,
+    "q5": 0.0655
+   },
+   {
+    "chapter": "Nutrition and blood",
+    "q1": 0.0547,
+    "q5": 0.0527
+   }
+  ]
+ },
+ "source": "Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2. Analysis: Monstrous Data."
+}

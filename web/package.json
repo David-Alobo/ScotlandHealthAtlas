@@ -1,0 +1,13 @@
+{
+  "name": "scotland-health-atlas-web",
+  "private": true,
+  "type": "module",
+  "description": "The Scotland Health Atlas story page (vanilla JavaScript, no build step)",
+  "scripts": {
+    "test": "vitest run",
+    "serve": "python -m http.server 8000"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}

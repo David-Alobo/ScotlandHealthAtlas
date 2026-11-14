@@ -44,6 +44,14 @@ uv run python -m atlas.distributions results/2026-11-14-distributions
 uv run python -m atlas.injuries results/2026-11-14-injuries
 uv run python -m atlas.prescribing results/2026-11-14-prescribing
 uv run python -m atlas.validate results/2026-11-14-validation
+uv run python -m atlas.export_web             # writes web/data/story.json
+```
+
+The story page (`web/`, vanilla JavaScript, no build step):
+
+```bash
+cd web && npm ci && npm test   # Vitest
+python -m http.server 8000     # then open http://localhost:8000
 ```
 
 ## Status
@@ -56,9 +64,11 @@ Started 14 November 2026. Done:
 - [injury rates by council and deprivation](results/2026-11-14-injuries/README.md);
 - [prescribing by deprivation of where it is dispensed](results/2026-11-14-prescribing/README.md);
 - [injury figures checked against PHS publications](results/2026-11-14-validation/README.md);
-- [story shortlist](docs/STORIES.md) for the competition entry.
+- [story shortlist](docs/STORIES.md) for the competition entry;
 
-Next: the competition entry page (`web/`).
+- first draft of the entry page ([web/](web/index.html)).
+
+Next: review the page, then polish for screen and phone.
 
 ## Data
 
