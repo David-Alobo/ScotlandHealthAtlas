@@ -60,42 +60,23 @@ strong.p { color: #b69af9; }
   padding: 0 1rem;
 }
 .step > * { pointer-events: auto; }
-.step:not(.title) > *:first-child { margin-top: 0; }
-.step:not(.title) {
-  /* the card */
-}
-.step > h2, .step > p, .step > label, .step > .day { max-width: 25rem; }
 .step > h1 { max-width: 34rem; }
-.step:not(.title) > h2 { padding-top: 0; }
-.step:not(.title) {
-  align-items: flex-start;
-}
-.step:not(.title) > * { position: relative; }
-.step:not(.title)::before { content: none; }
-.card, .step:not(.title) > h2:first-child { }
-.step:not(.title) {
-  --card: rgb(13 15 22 / 0.86);
-}
-.step:not(.title) > h2:first-child { margin-top: 0; }
-.step .small { font-size: 0.85rem; color: var(--ink-3); }
+.step > p, .step > .day { max-width: 25rem; }
+.step:not(.title) { align-items: flex-start; }
 
-/* wrap each non-title step's content in a card look */
-.step:not(.title) {
-  background: none;
-}
-.step:not(.title) > :is(h2, p, label) {
-  background: var(--card);
-  margin: 0;
-  padding: 0.3rem 1.3rem;
+/* each scene's text sits in one card (one background, so no seams at any zoom) */
+.card {
+  width: min(25rem, 100%);
+  padding: 1.25rem 1.35rem 1.1rem;
+  background: rgb(13 15 22 / 0.86);
+  border: 1px solid var(--line);
+  border-radius: 14px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border-left: 1px solid var(--line);
-  border-right: 1px solid var(--line);
-  width: min(25rem, 100%);
 }
-.step:not(.title) > h2:first-child { padding-top: 1.2rem; border-top: 1px solid var(--line); border-radius: 14px 14px 0 0; }
-.step:not(.title) > :last-child { padding-bottom: 1.2rem; border-bottom: 1px solid var(--line); border-radius: 0 0 14px 14px; }
-.step:not(.title) > p + p { padding-top: 0.6rem; }
+.card > :last-child { margin-bottom: 0; }
+.card > h2 { margin-bottom: 0.6rem; }
+.card .small { font-size: 0.85rem; color: var(--ink-3); }
 
 .step { opacity: 0.35; transition: opacity 0.5s ease; }
 .step.active { opacity: 1; }
@@ -250,7 +231,7 @@ thead th { color: var(--ink-3); font-weight: 500; }
 }
 
 /* ---------- the neighbourhood card (hover a dot) ---------- */
-#tooltip.card { width: 19rem; max-width: calc(100vw - 24px); padding: 0.85rem 0.95rem 0.7rem; }
+#tooltip.zcard { width: 19rem; max-width: calc(100vw - 24px); padding: 0.85rem 0.95rem 0.7rem; }
 .zc-head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
 .zc-head b { display: block; font: 600 1rem/1.2 var(--display); color: var(--ink); }
 .zc-head span { font-size: 0.78rem; color: var(--ink-3); }
@@ -283,20 +264,9 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .zc-wait { font-size: 0.75rem; color: var(--ink-3); }
 
 /* ---------- the closing scene ---------- */
-.step.finale > :is(.eyebrow, h2, .takeaways, .closing, .actions) {
-  background: var(--card);
-  margin: 0;
-  padding: 0.3rem 1.5rem;
-  width: min(38rem, 100%);
-  max-width: none;
-  border-left: 1px solid rgb(167 139 250 / 0.35);
-  border-right: 1px solid rgb(167 139 250 / 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.step.finale > .eyebrow { padding-top: 1.4rem; border-top: 1px solid rgb(167 139 250 / 0.35); border-radius: 16px 16px 0 0; }
-.step.finale > h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); padding-top: 0.5rem; padding-bottom: 0.4rem; border-top: none; border-radius: 0; }
-.takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; padding-top: 0.6rem !important; padding-bottom: 0.4rem !important; }
+.step.finale .card { width: min(38rem, 100%); padding: 1.4rem 1.5rem 1.4rem; border-color: rgb(167 139 250 / 0.35); border-radius: 16px; backdrop-filter: blur(8px); }
+.step.finale .card > h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 0.3rem 0 0.8rem; }
+.takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
 .takeaways h3 { margin: 0 0 0.5rem; font: 500 0.72rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); }
 .takeaways p { font-size: 0.86rem; line-height: 1.45; margin: 0 0 0.9rem; color: var(--ink-2); }
 .takeaways b {
@@ -309,8 +279,8 @@ thead th { color: var(--ink-3); font-weight: 500; }
   background-clip: text;
   color: transparent;
 }
-.closing { color: var(--ink) !important; font-size: 0.98rem; padding-top: 0.2rem !important; border-top: 1px solid var(--line); }
-.actions { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 0.6rem !important; padding-bottom: 1.4rem !important; border-bottom: 1px solid rgb(167 139 250 / 0.35); border-radius: 0 0 16px 16px; }
+.closing { color: var(--ink); font-size: 0.98rem; padding-top: 0.9rem; margin: 0.2rem 0 0.9rem; border-top: 1px solid var(--line); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .actions button, .actions a {
   font: 500 0.85rem var(--body);
   color: var(--ink);

@@ -1,5 +1,6 @@
 // Screenshot every scene of the story the way a reader sees it: scroll each step to the middle of
 // the screen, wait for the transitions, capture. Usage: node tools/shots.mjs <url> <out dir> [w h]
+// (CSS pixels; set DSF=1.5 for a screen at 150% scaling)
 import { mkdirSync } from "node:fs";
 import puppeteer from "puppeteer-core";
 
@@ -8,7 +9,7 @@ const CHROME = process.env.CHROME ?? "C:/Program Files/Google/Chrome/Application
 mkdirSync(out, { recursive: true });
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true });
 const page = await browser.newPage();
-await page.setViewport({ width: Number(w), height: Number(h), deviceScaleFactor: 1 });
+await page.setViewport({ width: Number(w), height: Number(h), deviceScaleFactor: Number(process.env.DSF ?? 1) });
 const errors = [];
 page.on("pageerror", (e) => errors.push(e.message));
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));

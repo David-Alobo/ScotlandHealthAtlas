@@ -53,7 +53,7 @@ const place = (node, [x, y]) => {
 function frame() {
   const wide = window.innerWidth / window.innerHeight > 1.05 && window.innerWidth > 760;
   return wide
-    ? { wide, W: 1000, H: 640, area: { x: 400, y: 40, w: 570, h: 560 } }
+    ? { wide, W: 1000, H: 640, area: { x: 400, y: 72, w: 570, h: 540 } } // band above for the legend
     : { wide, W: 600, H: 900, area: { x: 24, y: 24, w: 552, h: 560 } };
 }
 
@@ -251,9 +251,11 @@ function setState(st, name, story) {
   }
   if (choropleth) {
     legend.innerHTML = rateLegend();
+    const west = new Set(["Inverclyde"]); // labelled on its left, so it clears Glasgow
     for (const n of ["Glasgow City", "Inverclyde", "Dundee City", "Orkney Islands"]) {
       const [x, y] = JSON.parse(st.councilDots.find((d) => d.dataset.council === n).dataset.map);
-      label(st, x + 9, y + 4, n.replace(" City", "").replace(" Islands", ""), "small halo");
+      const left = west.has(n);
+      label(st, left ? x - 9 : x + 9, y + 4, n.replace(" City", "").replace(" Islands", ""), `small halo${left ? " end" : ""}`);
     }
   }
   if (onScatter) {
@@ -331,7 +333,7 @@ function wireTooltips(getStage, geo) {
     position(x, y);
   };
   const showCard = (i, x, y) => {
-    tip.className = "card";
+    tip.className = "zcard";
     tip.innerHTML = zoneCard(geo.zones[i], geo.zone_names[i], geo.councils, detail, i, geo.zones.length);
     tip.setAttribute("aria-label", zoneTip(geo.zones[i], geo.zone_names[i], geo.councils, geo.zones.length));
     tip.hidden = false;
