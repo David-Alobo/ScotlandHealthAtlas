@@ -426,12 +426,15 @@ function wireFilter(getStage, story, geo, current) {
       msg.innerHTML = "";
       if (filter.zone === null) continue;
       const pinned = document.createElement("span");
-      pinned.innerHTML = `Pinned: <b></b> · `;
-      pinned.querySelector("b").textContent = `${geo.zone_names[filter.zone]}, ${filter.council}`;
+      pinned.className = "pinned";
+      pinned.innerHTML = `<small>Pinned</small><b></b><span></span>`;
+      pinned.querySelector("b").textContent = geo.zone_names[filter.zone];
+      pinned.querySelector("span").textContent = filter.council;
       const unpin = document.createElement("button");
       unpin.type = "button";
       unpin.className = "unpin";
       unpin.textContent = "Unpin";
+      unpin.setAttribute("aria-label", `Unpin ${geo.zone_names[filter.zone]}`);
       unpin.onclick = () => setFilter(null);
       msg.append(pinned, unpin);
     }
