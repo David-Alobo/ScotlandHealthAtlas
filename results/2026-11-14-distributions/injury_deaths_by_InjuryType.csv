@@ -1,0 +1,8 @@
+InjuryType,total,share
+Poisoning,10828,0.4237
+Falls,10172,0.3981
+Other,2798,0.1095
+Land transport accidents,1691,0.0662
+"Struck by, against",27,0.0011
+Scalds,19,0.0007
+Crushing,18,0.0007

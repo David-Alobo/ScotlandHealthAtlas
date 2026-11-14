@@ -1,0 +1,2 @@
+column,p1,p5,p25,p50,p75,p95,p99,mean,share_zero,share_missing,rows
+Number,0.0,0.0,0.0,0.0,0.0,2.0,11.0,0.5575,0.8168,0.0,45836.0

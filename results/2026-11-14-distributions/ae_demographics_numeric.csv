@@ -1,0 +1,2 @@
+column,p1,p5,p25,p50,p75,p95,p99,mean,share_zero,share_missing,rows
+NumberOfAttendances,1.0,2.0,12.0,44.0,109.0,358.0,681.0,92.6705,0.0,0.0,139269.0

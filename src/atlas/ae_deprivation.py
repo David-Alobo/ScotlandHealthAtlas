@@ -8,7 +8,7 @@ standardised by age and sex to Scotland's mid-2024 population (direct standardis
 A&E file's six age bands); 2025 uses the mid-2024 population, the latest. Rates are national: attendances are counted wherever people went, so
 quintile totals are not affected by people attending a hospital in another board. Attendances
 with unknown deprivation, age or sex are counted in the totals and reported, not spread across
-quintiles. Writes rates.csv, gap.csv and rates.png to the output folder.
+quintiles. Writes rates.csv, gap.csv and the figure rates.pdf/.svg/.png to the output folder.
 """
 
 from __future__ import annotations
@@ -122,49 +122,41 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(gap[0]))
         w.writeheader()
         w.writerows(gap)
-    chart(results, out / "rates.png")
+    chart(results, out / "rates")
     for g in gap:
         print(g)
 
 
-def chart(results: list[dict], path: Path) -> None:
-    """Standardised rates by quintile over time, one line each, labelled at the end.
+def chart(results: list[dict], stem: Path) -> None:
+    """Standardised rates by quintile over time, one line each, labelled at its end.
 
     Args:
         results: The rate rows.
-        path: Where to save the PNG.
+        stem: Where to save, without extension (PDF, SVG and PNG are written).
     """
-    import matplotlib
-
-    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    # one hue, dark for the most deprived (an ordered scale, not categories)
-    shades = {1: "#08306b", 2: "#2171b5", 3: "#6baed6", 4: "#a8cbe6", 5: "#cfdff0"}
-    names = {1: "1 most deprived", 2: "2", 3: "3", 4: "4", 5: "5 least deprived"}
-    fig, ax = plt.subplots(figsize=(8, 4.6), dpi=150)
+    from . import style
+
+    style.use()
+    fig, ax = plt.subplots(figsize=(style.SINGLE * 1.45, 82 * style.MM))
     for q in range(1, 6):
         pts = [r for r in results if r["scope"] == "all" and r["simd_quintile"] == q]
         xs = [r["year"] for r in pts]
         ys = [r["standardised_per_1000"] for r in pts]
-        ax.plot(xs, ys, color=shades[q], linewidth=2, marker="o", markersize=4)
-        ax.annotate(names[q], (xs[-1], ys[-1]), xytext=(6, 0), textcoords="offset points",
-                    va="center", fontsize=8, color="#333333")
-    fig.text(0.01, 0.965, "A&E attendances per 1,000 people, by deprivation of where they live",
-             fontsize=11, color="#222222", va="top")
-    fig.text(0.01, 0.915, "Scotland, all A&E sites; standardised for age and sex to the 2024 "
-             "population", fontsize=8, color="#555555", va="top")
-    ax.set_xlim(2017.7, 2026.3)
+        ax.plot(xs, ys, color=style.QUINTILE[q], marker="o")
+        ax.annotate(style.QUINTILE_NAME[q], (xs[-1], ys[-1]), xytext=(5, 0),
+                    textcoords="offset points", va="center", fontsize=7, color=style.INK_2,
+                    annotation_clip=False)
+    ax.set_xlim(2017.6, 2025.4)
     ax.set_xticks(list(YEARS))
-    ax.set_ylim(bottom=0)
-    ax.grid(axis="y", color="#e5e5e5", linewidth=0.8)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.tick_params(colors="#555555", labelsize=8)
-    fig.text(0.01, 0.01, "Data: Public Health Scotland; NRS population estimates; SIMD 2020v2. "
-             "2022 population interpolated; 2025 uses mid-2024.", fontsize=6.5, color="#777777")
-    fig.tight_layout(rect=(0, 0.03, 1, 0.89))
-    fig.savefig(path)
+    ax.set_ylim(0, 470)
+    ax.set_ylabel("A&E attendances per 1,000 people\n(standardised for age and sex)")
+    style.titles(fig, ax, "A&E attendances by deprivation of where people live, Scotland",
+                 "SIMD 2020v2 quintile; all A&E sites; standardised to the 2024 population")
+    style.source(fig, style.SOURCE_PHS + "; NRS small area population estimates; SIMD 2020v2. "
+                 "2022 population interpolated; 2025 uses mid-2024.")
+    style.save(fig, stem)
 
 
 if __name__ == "__main__":
