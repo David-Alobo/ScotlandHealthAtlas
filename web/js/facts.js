@@ -61,6 +61,7 @@ export function facts(story) {
     aeRatioMax: formatNum(Math.max(...ratios), 1),
     aeRatioExcess: formatNum(latestSens.excess_to_q1, 2),
     aeRatioPublished: formatNum(latestSens.published, 2),
+    aeRatioLatest: formatNum(latestSens.published, 1),
     aeRatioFloor: formatNum(latestSens.all_to_q5, 1),
 
     deathsPeriod: d.period,

@@ -7,7 +7,7 @@
 import { dumbbell, lineChart } from "./charts.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
-import { aeChart, medicineChart, tables } from "./scenes.js";
+import { aeChart, medicineChart, ratioChart, tables } from "./scenes.js";
 import {
   ageLayout,
   binColour,
@@ -18,6 +18,7 @@ import {
   nearest,
   scatterLayout,
   splitLayout,
+  zoneCard,
   zoneTip,
 } from "./stage.js";
 
@@ -96,11 +97,14 @@ function build(story, geo) {
   const q1 = ae.series[0].values[last];
   const q5 = ae.series[4].values[last];
   ae.note = { at: last, from: q1, to: q5, text: `${(q1 / q5).toFixed(1)}×` };
-  nest(lineChart(ae), "ae");
+  // charts fill the visual area: their own width is 640 units, so height = 640 * area h / w
+  const fill = Math.round((640 * A.h) / A.w);
+  nest(lineChart({ ...ae, height: fill }), "ae");
+  nest(lineChart({ ...ratioChart(story, { recorded: C.violet, alternative: C.cyan }), height: fill }), "ratio");
   const med = medicineChart(story);
   med.aColour = C.violet;
   med.bColour = C.cyan;
-  nest(dumbbell(med), "medicines");
+  nest(dumbbell({ ...med, height: fill, values: true }), "medicines");
 
   // death dots: the three layouts
   const a = story.injury_ages;
@@ -186,7 +190,7 @@ function setState(st, name, story) {
   const A = st.f.area;
 
   // the canvas: neighbourhoods and death dots
-  const spotlight = name === "deprived" || name === "glasgow";
+  const spotlight = name === "deprived" || name === "glasgow" || name === "end";
   const target = {
     map: name === "glasgow" ? st.zoom : st.base,
     zoneAlpha: MAP_STATES.has(name) ? 1 : 0,
@@ -217,7 +221,7 @@ function setState(st, name, story) {
   for (const d of st.councilDots) place(d, JSON.parse(onScatter ? d.dataset.scatter : d.dataset.map));
 
   // labels and legends
-  if (MAP_STATES.has(name) && name !== "end") legend.innerHTML = rampLegend(spotlight);
+  if (MAP_STATES.has(name)) legend.innerHTML = rampLegend(spotlight);
   if (name === "glasgow") label(st, A.x + A.w / 2, A.y + 28, "Glasgow and the Clyde", "big centre");
   if (name === "crowd") label(st, A.x + A.w / 2, A.y + A.h - 4, "1 dot = 1 death a year", "centre muted");
   if (name === "split") {
@@ -284,43 +288,85 @@ function wireFind(getStage, story) {
   };
 }
 
-/** Tooltips: neighbourhood dots on the canvas (nearest dot), and any SVG mark with data-tip. */
+/**
+ * Tooltips. Neighbourhood dots (on the canvas, found by nearest point) get a card with a locator
+ * map and the seven domains; any SVG mark with data-tip gets its text. Pointers hover; a tap on a
+ * touch screen does the same, and a tap elsewhere closes the card.
+ */
 function wireTooltips(getStage, geo) {
   const tip = document.getElementById("tooltip");
-  const show = (text, x, y) => {
+  let detail = null; // the seven domain ranks per zone, loaded after first paint
+  fetch("data/domains.json")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      detail = d;
+    })
+    .catch(() => {});
+
+  const position = (x, y) => {
+    const pad = 12;
+    const left = x + 16 + tip.offsetWidth > window.innerWidth - pad ? x - 16 - tip.offsetWidth : x + 16;
+    tip.style.left = `${Math.max(pad, left)}px`;
+    tip.style.top = `${Math.max(pad, Math.min(y + 16, window.innerHeight - tip.offsetHeight - pad))}px`;
+  };
+  const showText = (text, x, y) => {
+    tip.className = "";
     tip.textContent = text;
     tip.hidden = false;
-    tip.style.left = `${Math.min(x + 14, window.innerWidth - tip.offsetWidth - 12)}px`;
-    tip.style.top = `${Math.min(y + 14, window.innerHeight - tip.offsetHeight - 12)}px`;
+    position(x, y);
   };
-  document.addEventListener("pointermove", (e) => {
+  const showCard = (i, x, y) => {
+    tip.className = "card";
+    tip.innerHTML = zoneCard(geo.zones[i], geo.zone_names[i], geo.councils, detail, i, geo.zones.length);
+    tip.setAttribute("aria-label", zoneTip(geo.zones[i], geo.zone_names[i], geo.councils, geo.zones.length));
+    tip.hidden = false;
+    position(x, y);
+  };
+  const hide = () => {
+    getStage().ring.classList.remove("on");
+    tip.hidden = true;
+  };
+
+  /** The neighbourhood under a screen point, or -1, and mark it with the ring. */
+  const zoneAt = (st, cx, cy) => {
+    const pt = st.svg.createSVGPoint();
+    pt.x = cx;
+    pt.y = cy;
+    const p = pt.matrixTransform(st.svg.getScreenCTM().inverse()); // stage units
+    const m = st.dots.current(performance.now()).map;
+    const i = nearest(st.index, (p.x - m.tx) / m.s, (p.y - m.ty) / m.s, 7 / m.s + 1.5);
+    if (i >= 0) {
+      st.ring.setAttribute("cx", m.tx + geo.zones[i][0] * m.s);
+      st.ring.setAttribute("cy", m.ty + geo.zones[i][1] * m.s);
+      st.ring.classList.add("on");
+    }
+    return i;
+  };
+
+  const handle = (e) => {
     const st = getStage();
     const marked = e.target.closest?.("[data-tip]");
     if (marked) {
       st.ring.classList.remove("on");
-      show(marked.dataset.tip, e.clientX, e.clientY);
-      return;
+      showText(marked.dataset.tip, e.clientX, e.clientY);
+      return true;
     }
     if (MAP_STATES.has(st.state) && e.target.closest?.(".stage")) {
-      const pt = st.svg.createSVGPoint();
-      pt.x = e.clientX;
-      pt.y = e.clientY;
-      const p = pt.matrixTransform(st.svg.getScreenCTM().inverse()); // stage units
-      const m = st.dots.current(performance.now()).map;
-      const mx = (p.x - m.tx) / m.s; // map units
-      const my = (p.y - m.ty) / m.s;
-      const i = nearest(st.index, mx, my, 7 / m.s + 1.5);
+      const i = zoneAt(st, e.clientX, e.clientY);
       if (i >= 0) {
-        const zone = geo.zones[i];
-        st.ring.setAttribute("cx", m.tx + zone[0] * m.s);
-        st.ring.setAttribute("cy", m.ty + zone[1] * m.s);
-        st.ring.classList.add("on");
-        show(zoneTip(zone, geo.zone_names[i], geo.councils, geo.zones.length), e.clientX, e.clientY);
-        return;
+        showCard(i, e.clientX, e.clientY);
+        return true;
       }
     }
-    st.ring.classList.remove("on");
-    tip.hidden = true;
+    return false;
+  };
+  document.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return; // touch uses taps (below)
+    if (!handle(e)) hide();
+  });
+  document.addEventListener("click", (e) => {
+    if (e.target.closest?.(".step, select, button, a")) return;
+    if (!handle(e)) hide();
   });
 }
 
@@ -362,6 +408,12 @@ async function main() {
   const getStage = () => st;
   wireFind(getStage, story);
   wireTooltips(getStage, geo);
+  for (const b of document.querySelectorAll("[data-go]")) {
+    b.addEventListener("click", () => {
+      if (b.dataset.go === "top") window.scrollTo({ top: 0, behavior: "smooth" });
+      else document.querySelector(`.step[data-state="${b.dataset.go}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
   const current = wireSteps(getStage, story);
   // ?state=<name> opens a scene directly (for sharing a scene)
   const wanted = new URLSearchParams(location.search).get("state");

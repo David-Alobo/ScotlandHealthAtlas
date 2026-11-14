@@ -1,7 +1,7 @@
 // Layouts for the scrolling stage: where every dot goes in each state (no DOM).
 // Positions are in stage units (the stage's viewBox); the page moves marks between them.
 
-import { formatNum, pct } from "./format.js";
+import { escapeXml, formatNum, pct } from "./format.js";
 import { linear } from "./scale.js";
 
 const GOLDEN = Math.PI * (3 - Math.sqrt(5)); // the sunflower angle, about 137.5 degrees
@@ -174,5 +174,55 @@ export function zoneTip(zone, name, councils, total = 6976) {
     `${name}, ${councils[c].council}. Ranked ${rank.toLocaleString("en-GB")} of ` +
     `${total.toLocaleString("en-GB")} (1 = most deprived): ${FIFTHS[q - 1]}. ` +
     `${people.toLocaleString("en-GB")} people.`
+  );
+}
+
+
+/** A small locator map: the council's outline with the neighbourhood marked. */
+export function locatorSvg(council, x, y) {
+  const [x0, y0, x1, y1] = council.bbox;
+  const pad = Math.max(x1 - x0, y1 - y0) * 0.08;
+  const w = x1 - x0 + 2 * pad;
+  const h = y1 - y0 + 2 * pad;
+  const r = Math.max(w, h) * 0.05;
+  return (
+    `<svg class="zc-map" viewBox="${x0 - pad} ${y0 - pad} ${w} ${h}" aria-hidden="true">` +
+    `<path d="${council.path}" class="zc-council"/>` +
+    `<circle cx="${x}" cy="${y}" r="${r * 2.2}" class="zc-halo"/>` +
+    `<circle cx="${x}" cy="${y}" r="${r}" class="zc-here"/></svg>`
+  );
+}
+
+/**
+ * The hover card for a neighbourhood: locator map, name and council, overall rank, and the seven
+ * domain ranks as markers on a scale from most deprived (left) to least deprived (right).
+ * zone: [x, y, quintile, rank, people, council index]; detail: { domains, ranks } or null while
+ * the domain file is still loading.
+ */
+export function zoneCard(zone, name, councils, detail, i, total = 6976) {
+  const [x, y, q, rank, people, c] = zone;
+  const council = councils[c];
+  const at = (r) => ((100 * (r - 1)) / (total - 1)).toFixed(1);
+  const bars = detail
+    ? detail.domains
+        .map((d, k) => {
+          const r = detail.ranks[i][k];
+          return (
+            `<div class="zc-row"><span class="zc-lbl">${escapeXml(d)}</span>` +
+            `<span class="zc-track"><i style="left:${at(r)}%"></i></span>` +
+            `<span class="zc-val">${r.toLocaleString("en-GB")}</span></div>`
+          );
+        })
+        .join("")
+    : `<p class="zc-wait">Loading the seven areas of deprivation…</p>`;
+  return (
+    `<div class="zc">` +
+    `<div class="zc-head">${locatorSvg(council, x, y)}` +
+    `<div><b>${escapeXml(name)}</b><span>${escapeXml(council.council)}</span></div></div>` +
+    `<p class="zc-rank">Ranked <b>${rank.toLocaleString("en-GB")}</b> of ${total.toLocaleString("en-GB")}: ` +
+    `${FIFTHS[q - 1]} · ${people.toLocaleString("en-GB")} people</p>` +
+    `<div class="zc-bars">${bars}</div>` +
+    `<p class="zc-scale">rank in Scotland: left = more deprived, right = less</p>` +
+    `</div>`
   );
 }

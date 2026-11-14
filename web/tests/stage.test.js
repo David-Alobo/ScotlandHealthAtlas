@@ -151,3 +151,30 @@ describe("hover", () => {
     );
   });
 });
+
+describe("neighbourhood card", () => {
+  const detail = JSON.parse(readFileSync(new URL("../data/domains.json", import.meta.url), "utf8"));
+
+  it("shows the seven domains, most deprived at the left", async () => {
+    const { zoneCard } = await import("../js/stage.js");
+    const i = geo.zone_names.indexOf("Paisley Ferguslie - 06");
+    const html = zoneCard(geo.zones[i], geo.zone_names[i], geo.councils, detail, i);
+    expect(html).toContain("Paisley Ferguslie - 06");
+    expect(html).toContain("Renfrewshire");
+    expect((html.match(/class="zc-row"/g) || []).length).toBe(7);
+    expect(html).toContain('style="left:0.0%"'); // income rank 4 of 6,976: far left
+    expect(html).toMatch(/Access to services<\/span><span class="zc-track"><i style="left:80\.6%/);
+  });
+
+  it("works before the domain file has loaded, and escapes names", async () => {
+    const { zoneCard } = await import("../js/stage.js");
+    const html = zoneCard(geo.zones[0], "A & <B>", geo.councils, null, 0);
+    expect(html).toContain("A &amp; &lt;B&gt;");
+    expect(html).toContain("Loading");
+  });
+
+  it("has domain ranks for every zone", () => {
+    expect(detail.ranks).toHaveLength(geo.zones.length);
+    expect(detail.ranks.every((r) => r.length === 7 && r.every((v) => v >= 1 && v <= 6976))).toBe(true);
+  });
+});

@@ -128,3 +128,18 @@ export function tables(story) {
     ),
   };
 }
+
+/** "Is it closing?": the A&E ratio as recorded, and if the extra unknowns came from the most deprived. */
+export function ratioChart(story, colours = { recorded: COLOURS.quintile[2], alternative: COLOURS.falls }) {
+  const r = story.ae.ratio;
+  return {
+    years: r.map((x) => x.year),
+    series: [
+      { label: "As recorded", values: r.map((x) => x.published), colour: colours.recorded },
+      { label: "Upper estimate", values: r.map((x) => x.excess_to_q1), colour: colours.alternative },
+    ],
+    yLabel: "Ratio, most to least deprived fifth",
+    fmt: (v) => formatNum(v, 1),
+    label: "Ratio of A&E attendance rates, most to least deprived fifth, as recorded and if the growth in unknown deprivation came from the most deprived",
+  };
+}

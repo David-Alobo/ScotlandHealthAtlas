@@ -46,11 +46,11 @@ export function bracket(x, yTop, yBottom, label) {
 
 /**
  * Lines over years, labelled at their ends.
- * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label,
+ * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label, height (default 340),
  *         note: optional { at, from, to, text }, a bracket between two values at year index at }
  */
-export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), label, note }) {
-  const H = 340;
+export function lineChart({ years, series, yLabel, fmt = (v) => formatNum(v), label, note, height = 340 }) {
+  const H = height;
   const m = { t: 18, r: note ? 200 : 150, b: 40, l: 58 }; // a note sits beyond the end labels
   const top = niceMax(Math.max(...series.flatMap((s) => s.values)));
   const x = linear([0, years.length - 1], [m.l + 10, W - m.r]);
@@ -156,12 +156,13 @@ export function dotInterval({ rows, reference, xLabel, label }) {
 
 /**
  * Two values per row joined by a line (most against least deprived).
- * opts: { rows: [{ label, a, b }], aLabel, bLabel, aColour, bColour, xLabel, label }
+ * opts: { rows: [{ label, a, b }], aLabel, bLabel, aColour, bColour, xLabel, label,
+ *         height: optional total height (rows share it), values: label each dot with its value }
  */
-export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label }) {
-  const rowH = 34;
-  const m = { t: 40, r: 24, b: 46, l: 190 };
-  const H = m.t + rows.length * rowH + m.b;
+export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label, height, values }) {
+  const m = { t: 40, r: values ? 64 : 24, b: 54, l: 190 }; // room for value labels
+  const rowH = height ? (height - m.t - m.b) / rows.length : 34;
+  const H = height ?? m.t + rows.length * rowH + m.b;
   const top = niceMax(Math.max(...rows.flatMap((r) => [r.a, r.b])) * 100) / 100;
   const x = linear([0, top], [m.l, W - m.r]);
   const pc = (v) => `${(100 * v).toFixed(1)}%`;
@@ -176,6 +177,12 @@ export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label
     out += `<line x1="${x(r.a)}" x2="${x(r.b)}" y1="${cy}" y2="${cy}" stroke="${COLOURS.rule}" stroke-width="3"/>`;
     out += `<circle cx="${x(r.a)}" cy="${cy}" r="6" fill="${aColour}" class="ring" stroke-width="2" data-tip="${esc(`${r.label}, ${aLabel}: ${pc(r.a)}`)}" tabindex="0"/>`;
     out += `<circle cx="${x(r.b)}" cy="${cy}" r="6" fill="${bColour}" class="ring" stroke-width="2" data-tip="${esc(`${r.label}, ${bLabel}: ${pc(r.b)}`)}" tabindex="0"/>`;
+    if (values) {
+      // values outside the pair: the smaller to the left, the larger to the right
+      const [lo, hi] = r.a <= r.b ? [r.a, r.b] : [r.b, r.a];
+      out += text(x(lo) - 11, cy, pc(lo), 'class="value-label" text-anchor="end" dominant-baseline="middle"');
+      out += text(x(hi) + 11, cy, pc(hi), 'class="value-label" dominant-baseline="middle"');
+    }
   });
   out +=
     `<g transform="translate(${m.l},12)"><circle cx="6" cy="6" r="6" fill="${aColour}"/>` +

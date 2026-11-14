@@ -63,12 +63,13 @@
           <span data-fact="aeRatioMin"></span> and <span data-fact="aeRatioMax"></span> times.</p>
       </section>
 
-      <section class="step" data-state="ae">
+      <section class="step" data-state="ae-ratio">
         <h2>Is it closing?</h2>
-        <p>The ratio dips to <span data-fact="aeRatioPublished"></span> in the latest year, but more
-          visits now have no neighbourhood recorded. If those extra unknowns came from the most
-          deprived areas, the ratio would be <span data-fact="aeRatioExcess"></span>. The data
-          cannot tell a real narrowing from a recording change, so we do not claim one.</p>
+        <p>The <strong class="v">recorded</strong> ratio dips to <span data-fact="aeRatioPublished"></span>
+          in the latest year. But more visits now have no neighbourhood recorded. If those extra
+          unknowns came from the most deprived areas, the ratio would stay near
+          <span data-fact="aeRatioExcess"></span>: the <strong class="c">upper estimate</strong>.</p>
+        <p>The data cannot tell a real narrowing from a recording change, so we do not claim one.</p>
       </section>
 
       <section class="step" data-state="crowd">
@@ -130,11 +131,33 @@
           (<span data-fact="medicinesPeriod"></span>; counted where dispensed, not age-adjusted).</p>
       </section>
 
-      <section class="step" data-state="end">
+      <section class="step finale" data-state="end">
+        <p class="eyebrow">In short</p>
         <h2>Same country, different risks</h2>
-        <p>Where you live shapes how often you end up in A&amp;E and your risk of dying of
-          poisoning. How old you are shapes your risk from a fall. Two problems, two groups of
-          people, one health service, and different answers for each.</p>
+        <div class="takeaways">
+          <div>
+            <h3>Where you live</h3>
+            <p><b><span data-fact="aeRatioLatest"></span>×</b> as many A&amp;E visits in the most
+              deprived fifth of neighbourhoods as in the least deprived, at the same age and sex.</p>
+            <p><b><span data-fact="councilLowRate"></span>–<span data-fact="councilHighRate"></span></b>
+              poisoning deaths per 100,000 a year, from <span data-fact="councilLowName"></span> to
+              <span data-fact="councilHighName"></span>, rising with deprivation.</p>
+          </div>
+          <div>
+            <h3>How old you are</h3>
+            <p><b><span data-fact="falls75Share"></span></b> of people who die after a fall are 75
+              or older.</p>
+            <p><b><span data-fact="poisoning2564Share"></span></b> of people who die of poisoning
+              are aged 25 to 64.</p>
+          </div>
+        </div>
+        <p class="closing">Two problems, two groups of people, one health service. Each needs its
+          own answer: where people live for one, the stage of life for the other.</p>
+        <div class="actions">
+          <button type="button" data-go="find">Find your council</button>
+          <button type="button" data-go="top">Back to the start</button>
+          <a href="https://github.com/David-Alobo/ScotlandHealthAtlas">Methods and code</a>
+        </div>
       </section>
     </div>
   </div>

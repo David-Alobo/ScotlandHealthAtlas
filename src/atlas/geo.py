@@ -41,12 +41,22 @@ FIELDS = {  # look-up column -> our name
     "Population": "population",
     "LAname": "council",
 }
+DOMAINS = {  # SIMD 2020v2 domain rank columns (1 = most deprived) -> display name
+    "SIMD2020v2_Income_Domain_Rank": "Income",
+    "SIMD2020_Employment_Domain_Rank": "Employment",
+    "SIMD2020_Health_Domain_Rank": "Health",
+    "SIMD2020_Education_Domain_Rank": "Education",
+    "SIMD2020_Access_Domain_Rank": "Access to services",
+    "SIMD2020_Crime_Domain_Rank": "Crime",
+    "SIMD2020_Housing_Domain_Rank": "Housing",
+}
 
 
 def write_lookup(path: Path) -> None:
     """The SIMD 2020v2 data zone look-up as CSV for mapshaper and the web export.
 
-    Columns: zone code, name, SIMD rank (1 = most deprived), quintile, population, council.
+    Columns: zone code, name, SIMD rank (1 = most deprived), quintile, population, council, then
+    the seven domain ranks as dom1 to dom7 (in DOMAINS order).
 
     Args:
         path: Where to write.
@@ -54,10 +64,10 @@ def write_lookup(path: Path) -> None:
     ws = openpyxl.load_workbook(LOOKUP, read_only=True)["SIMD 2020v2 DZ lookup data"]
     rows = ws.iter_rows(values_only=True)
     head = list(next(rows))
-    idx = [head.index(c) for c in FIELDS]
+    idx = [head.index(c) for c in [*FIELDS, *DOMAINS]]
     with path.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(FIELDS.values())
+        w.writerow([*FIELDS.values(), *(f"dom{i + 1}" for i in range(len(DOMAINS)))])
         for r in rows:
             if r[0]:
                 w.writerow([r[i] for i in idx])
@@ -115,6 +125,7 @@ def zone_points(out: Path, table: Path) -> list[dict]:
             "quintile": int(f["properties"]["quintile"]),
             "population": int(f["properties"]["population"]),
             "council": f["properties"]["council"],
+            "domains": [int(f["properties"][f"dom{i + 1}"]) for i in range(len(DOMAINS))],
         }
         for f in feats
         if f["geometry"]
@@ -242,9 +253,11 @@ def main() -> None:
     for f in sorted(councils, key=lambda f: f["properties"]["council"]):
         largest = max(rings(f["geometry"]), key=lambda r: abs(area(r)))
         cx, cy = frame.point(*centroid(largest))
+        x0, y0, x1, y1 = bbox([f])
+        (left, top), (right, bottom) = frame.point(x0, y1), frame.point(x1, y0)
         council_rows.append(
             {"council": f["properties"]["council"], "path": frame.path(f["geometry"]),
-             "cx": cx, "cy": cy}
+             "cx": cx, "cy": cy, "bbox": [left, top, right, bottom]}
         )  # fmt: skip
     index = {c["council"]: i for i, c in enumerate(council_rows)}
     geo = {
@@ -269,7 +282,15 @@ def main() -> None:
     }
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(geo, separators=(",", ":")) + "\n", encoding="utf-8")
-    print(f"wrote {out}: {out.stat().st_size / 1e3:.0f} kB, {len(council_rows)} councils")
+    # the seven domain ranks per zone, in zone order: loaded by the page after first paint
+    detail = out.with_name("domains.json")
+    detail.write_text(
+        json.dumps({"domains": list(DOMAINS.values()), "ranks": [p["domains"] for p in points]},
+                   separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )  # fmt: skip
+    print(f"wrote {out}: {out.stat().st_size / 1e3:.0f} kB, {len(council_rows)} councils; "
+          f"{detail}: {detail.stat().st_size / 1e3:.0f} kB")  # fmt: skip
 
 
 if __name__ == "__main__":

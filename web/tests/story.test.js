@@ -119,3 +119,12 @@ describe("annotations", () => {
     expect(svg).toContain(">twice<");
   });
 });
+
+describe("chart sizes", () => {
+  it("fills a requested height", () => {
+    const svg = dumbbell({ ...medicineChart(story), height: 600, values: true });
+    expect(svg).toContain('viewBox="0 0 640 600"');
+    expect(svg).toContain('class="value-label"');
+    expect(lineChart({ ...aeChart(story), height: 560 })).toContain('viewBox="0 0 640 560"');
+  });
+});
