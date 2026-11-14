@@ -1,0 +1,18 @@
+# Data: the competition package and downloaded open data are not redistributed here; see
+# data/README.md for where each file comes from and how to fetch it
+data/raw/
+data/external/
+*.zip
+# Python
+__pycache__/
+.venv/
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+# Web
+node_modules/
+web/dist/
+# Editors and OS
+.vscode/
+.DS_Store
+Thumbs.db
