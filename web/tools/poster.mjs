@@ -79,7 +79,7 @@ const html = `<!doctype html><html lang="en-GB"><head><meta charset="utf-8">
 </div>
 <footer>
   <div class="suggests"><b>What this suggests.</b> Poisoning deaths are concentrated where deprivation is, so work in those places reaches much of the risk. Falls are spread across older people wherever they live, so they call for help that reaches older people everywhere.</div>
-  <div>Data: Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2; data zone boundaries 2011, Scottish Government (OGL). Rates standardised for age and sex. Built with the help of an AI assistant (Claude); every number is read from the saved analysis tables.
+  <div>Data: Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2; data zone boundaries 2011, Scottish Government (OGL). Rates standardised for age and sex. Every number is read from the saved analysis tables.
   Explore it and find your neighbourhood: <a href="https://david-alobo.github.io/ScotlandHealthAtlas/">david-alobo.github.io/ScotlandHealthAtlas</a> · David Obeh Alobo, Monstrous Data</div>
 </footer>
 </body></html>`;
