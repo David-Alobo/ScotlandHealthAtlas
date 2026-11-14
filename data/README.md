@@ -21,4 +21,21 @@ The package's own README (`data/raw/data-viz-2026/README.md`) describes every co
 
 ## data/external/ (other open data, added as needed)
 
-None yet. Each addition gets a line here: name, publisher, link, licence, date downloaded.
+| File | Publisher | Source | Licence | Downloaded |
+|---|---|---|---|---|
+| `simd2020v2_datazone_lookup_2025.xlsx` | Scottish Government | [SIMD 2020v2 data zone look-up](https://www.gov.scot/publications/scottish-index-of-multiple-deprivation-2020v2-data-zone-look-up/) | Open Government Licence v3.0 | 14 Nov 2026 |
+| `simd2020v2_postcode_lookup_2025.xlsx` | Scottish Government | [SIMD 2020v2 postcode look-up](https://www.gov.scot/publications/scottish-index-of-multiple-deprivation-2020v2-postcode-look-up/) | Open Government Licence v3.0 | 14 Nov 2026 |
+| `nrs_sape_2011dz/` rebased mid-2011 to mid-2021 (corrected) | National Records of Scotland | [Rebased small area population estimates 2011-2021 (2011 data zones)](https://www.nrscotland.gov.uk/publications/rebased-small-area-population-estimates-for-2011-to-2021-2011-data-zones) | Open Government Licence v3.0 | 14 Nov 2026 |
+| `nrs_sape_2011dz/` mid-2023 and mid-2024 | National Records of Scotland | [Small area population estimates mid-2023 and mid-2024 (2011 data zones)](https://www.nrscotland.gov.uk/publications/small-area-population-estimates-mid-2023-and-mid-2024-2011-data-zones) | Open Government Licence v3.0 | 14 Nov 2026 |
+
+The NHS open data portal (opendata.nhs.scot) was unreachable on 14 November 2026, so the official
+publishers' own files were used. SIMD 2020v2 is on 2011 data zones, so the 2011-data-zone
+population estimates are used to match it (mid-2022 is not published on them; see
+`src/atlas/population.py`).
+
+## data/derived/ (made by the pipeline, committed)
+
+| File | Made by | Contents |
+|---|---|---|
+| `population_ae.csv` | `python -m src.atlas.population` | Population by year (2011-2024), health board, council, SIMD quintile, urban-rural class, sex and A&E age band |
+| `population_injury.csv` | same | The same with the injury files' age bands |

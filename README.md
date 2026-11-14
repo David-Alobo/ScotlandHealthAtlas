@@ -21,7 +21,7 @@ built further as an open, reproducible atlas.
 
 ## Status
 
-Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); next: population data for rates, and a shortlist of stories.
+Started 14 November 2026. Data downloaded and audited ([results/2026-11-14-data-audit](results/2026-11-14-data-audit/README.md)); population denominators added; first analysis: [A&E rates by deprivation](results/2026-11-14-ae-deprivation/README.md). Next: injuries and prescribing first looks, then a story shortlist.
 
 ## Data
 
