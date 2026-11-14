@@ -1,0 +1,129 @@
+dataset,period,injury_type,council,events,population,rate,lower,upper,scotland_rate,vs_scotland,share_simd_q1
+admissions,2020/21 to 2024/25,Falls,Aberdeen City,6236,1129475,597.69,582.8,612.86,651.52,below,0.0898
+admissions,2020/21 to 2024/25,Falls,Aberdeenshire,6651,1318215,474.39,462.99,486.0,651.52,below,0.0286
+admissions,2020/21 to 2024/25,Falls,Angus,5172,574650,759.9,738.91,781.32,651.52,above,0.0678
+admissions,2020/21 to 2024/25,Falls,Argyll and Bute,4303,438730,789.35,765.28,813.97,651.52,above,0.0864
+admissions,2020/21 to 2024/25,Falls,City of Edinburgh,14321,2585065,627.52,617.15,638.01,651.52,below,0.1187
+admissions,2020/21 to 2024/25,Falls,Clackmannanshire,1912,258940,707.49,675.91,740.15,651.52,above,0.251
+admissions,2020/21 to 2024/25,Falls,Dumfries and Galloway,5729,730160,636.01,619.11,653.25,651.52,similar,0.0867
+admissions,2020/21 to 2024/25,Falls,Dundee City,6924,743180,968.25,945.37,991.54,651.52,above,0.3752
+admissions,2020/21 to 2024/25,Falls,East Ayrshire,4106,603875,638.68,619.16,658.66,651.52,similar,0.3006
+admissions,2020/21 to 2024/25,Falls,East Dunbartonshire,4099,546345,625.19,605.81,645.01,651.52,below,0.0411
+admissions,2020/21 to 2024/25,Falls,East Lothian,3450,562415,562.97,544.19,582.22,651.52,below,0.0478
+admissions,2020/21 to 2024/25,Falls,East Renfrewshire,3395,488105,616.01,595.16,637.4,651.52,below,0.0495
+admissions,2020/21 to 2024/25,Falls,Falkirk,5723,795680,705.28,687.0,723.92,651.52,above,0.1521
+admissions,2020/21 to 2024/25,Falls,Fife,15449,1862195,761.22,749.17,773.42,651.52,above,0.1956
+admissions,2020/21 to 2024/25,Falls,Glasgow City,20971,3137440,828.07,816.58,839.68,651.52,above,0.4471
+admissions,2020/21 to 2024/25,Falls,Highland,5722,1179755,419.58,408.64,430.73,651.52,below,0.0905
+admissions,2020/21 to 2024/25,Falls,Inverclyde,3046,393215,696.54,671.65,722.11,651.52,above,0.4447
+admissions,2020/21 to 2024/25,Falls,Midlothian,3000,485120,623.21,600.96,646.08,651.52,below,0.073
+admissions,2020/21 to 2024/25,Falls,Moray,2704,472470,510.47,491.22,530.28,651.52,below,0.0245
+admissions,2020/21 to 2024/25,Falls,Na h-Eileanan Siar,1204,130400,731.9,689.92,775.71,651.52,above,0.0
+admissions,2020/21 to 2024/25,Falls,North Ayrshire,5104,669420,675.26,656.57,694.34,651.52,above,0.3999
+admissions,2020/21 to 2024/25,Falls,North Lanarkshire,10493,1712030,638.64,626.34,651.11,651.52,below,0.3099
+admissions,2020/21 to 2024/25,Falls,Orkney Islands,642,110065,482.88,445.62,522.38,651.52,below,0.0
+admissions,2020/21 to 2024/25,Falls,Perth and Kinross,6558,759245,724.56,706.83,742.62,651.52,above,0.0622
+admissions,2020/21 to 2024/25,Falls,Renfrewshire,6035,925000,640.08,623.9,656.57,651.52,similar,0.2458
+admissions,2020/21 to 2024/25,Falls,Scottish Borders,3802,584300,535.34,517.98,553.13,651.52,below,0.0575
+admissions,2020/21 to 2024/25,Falls,Shetland Islands,778,115170,622.78,579.54,668.38,651.52,similar,0.0
+admissions,2020/21 to 2024/25,Falls,South Ayrshire,4406,558980,642.16,622.77,662.0,651.52,similar,0.1635
+admissions,2020/21 to 2024/25,Falls,South Lanarkshire,10609,1642370,623.26,611.36,635.33,651.52,below,0.189
+admissions,2020/21 to 2024/25,Falls,Stirling,3108,463815,634.43,612.09,657.37,651.52,similar,0.129
+admissions,2020/21 to 2024/25,Falls,West Dunbartonshire,3248,444285,715.29,690.68,740.55,651.52,above,0.4047
+admissions,2020/21 to 2024/25,Falls,West Lothian,4844,914040,568.64,552.58,585.04,651.52,below,0.1395
+admissions,2020/21 to 2024/25,All types,Aberdeen City,10144,1129475,942.98,924.53,961.69,1009.12,below,0.0898
+admissions,2020/21 to 2024/25,All types,Aberdeenshire,10930,1318215,805.02,789.89,820.37,1009.12,below,0.0286
+admissions,2020/21 to 2024/25,All types,Angus,7978,574650,1264.97,1236.72,1293.68,1009.12,above,0.0678
+admissions,2020/21 to 2024/25,All types,Argyll and Bute,5981,438730,1180.59,1149.84,1211.94,1009.12,above,0.0864
+admissions,2020/21 to 2024/25,All types,City of Edinburgh,20909,2585065,889.88,877.68,902.21,1009.12,below,0.1187
+admissions,2020/21 to 2024/25,All types,Clackmannanshire,2840,258940,1073.85,1034.44,1114.38,1009.12,above,0.251
+admissions,2020/21 to 2024/25,All types,Dumfries and Galloway,8419,730160,1020.38,997.87,1043.27,1009.12,similar,0.0867
+admissions,2020/21 to 2024/25,All types,Dundee City,10637,743180,1470.01,1441.95,1498.47,1009.12,above,0.3752
+admissions,2020/21 to 2024/25,All types,East Ayrshire,6314,603875,1012.2,987.2,1037.68,1009.12,similar,0.3006
+admissions,2020/21 to 2024/25,All types,East Dunbartonshire,6202,546345,1014.09,988.43,1040.23,1009.12,similar,0.0411
+admissions,2020/21 to 2024/25,All types,East Lothian,4997,562415,840.31,816.96,864.14,1009.12,below,0.0478
+admissions,2020/21 to 2024/25,All types,East Renfrewshire,4783,488105,898.37,872.68,924.61,1009.12,below,0.0495
+admissions,2020/21 to 2024/25,All types,Falkirk,8453,795680,1053.92,1031.44,1076.77,1009.12,above,0.1521
+admissions,2020/21 to 2024/25,All types,Fife,22528,1862195,1149.9,1134.8,1165.15,1009.12,above,0.1956
+admissions,2020/21 to 2024/25,All types,Glasgow City,34865,3137440,1279.45,1265.62,1293.39,1009.12,above,0.4471
+admissions,2020/21 to 2024/25,All types,Highland,9158,1179755,714.25,699.47,729.27,1009.12,below,0.0905
+admissions,2020/21 to 2024/25,All types,Inverclyde,4495,393215,1070.6,1039.04,1102.86,1009.12,above,0.4447
+admissions,2020/21 to 2024/25,All types,Midlothian,4418,485120,918.14,891.11,945.79,1009.12,below,0.073
+admissions,2020/21 to 2024/25,All types,Moray,4252,472470,842.49,817.07,868.48,1009.12,below,0.0245
+admissions,2020/21 to 2024/25,All types,Na h-Eileanan Siar,1856,130400,1270.7,1211.12,1332.37,1009.12,above,0.0
+admissions,2020/21 to 2024/25,All types,North Ayrshire,7471,669420,1039.63,1015.77,1063.9,1009.12,above,0.3999
+admissions,2020/21 to 2024/25,All types,North Lanarkshire,16795,1712030,1010.5,995.14,1026.04,1009.12,similar,0.3099
+admissions,2020/21 to 2024/25,All types,Orkney Islands,938,110065,758.41,709.56,809.67,1009.12,below,0.0
+admissions,2020/21 to 2024/25,All types,Perth and Kinross,9930,759245,1180.2,1156.63,1204.13,1009.12,above,0.0622
+admissions,2020/21 to 2024/25,All types,Renfrewshire,9179,925000,982.19,962.07,1002.62,1009.12,below,0.2458
+admissions,2020/21 to 2024/25,All types,Scottish Borders,5316,584300,804.61,782.42,827.27,1009.12,below,0.0575
+admissions,2020/21 to 2024/25,All types,Shetland Islands,1110,115170,911.93,858.73,967.56,1009.12,below,0.0
+admissions,2020/21 to 2024/25,All types,South Ayrshire,6275,558980,989.02,963.86,1014.65,1009.12,similar,0.1635
+admissions,2020/21 to 2024/25,All types,South Lanarkshire,15794,1642370,942.39,927.65,957.31,1009.12,below,0.189
+admissions,2020/21 to 2024/25,All types,Stirling,4739,463815,993.27,964.88,1022.29,1009.12,similar,0.129
+admissions,2020/21 to 2024/25,All types,West Dunbartonshire,5087,444285,1136.08,1104.84,1167.98,1009.12,above,0.4047
+admissions,2020/21 to 2024/25,All types,West Lothian,7822,914040,898.98,879.0,919.3,1009.12,below,0.1395
+deaths,2020 to 2024,Poisoning,Aberdeen City,284,1129475,24.95,22.12,28.05,22.22,similar,0.0898
+deaths,2020 to 2024,Poisoning,Aberdeenshire,157,1318215,12.39,10.51,14.5,22.22,below,0.0286
+deaths,2020 to 2024,Poisoning,Angus,77,574650,14.64,11.51,18.34,22.22,below,0.0678
+deaths,2020 to 2024,Poisoning,Argyll and Bute,59,438730,14.31,10.84,18.54,22.22,below,0.0864
+deaths,2020 to 2024,Poisoning,City of Edinburgh,525,2585065,20.41,18.68,22.26,22.22,similar,0.1187
+deaths,2020 to 2024,Poisoning,Clackmannanshire,59,258940,24.36,18.51,31.45,22.22,similar,0.251
+deaths,2020 to 2024,Poisoning,Dumfries and Galloway,142,730160,22.12,18.55,26.16,22.22,similar,0.0867
+deaths,2020 to 2024,Poisoning,Dundee City,227,743180,31.91,27.87,36.36,22.22,above,0.3752
+deaths,2020 to 2024,Poisoning,East Ayrshire,161,603875,27.84,23.68,32.51,22.22,above,0.3006
+deaths,2020 to 2024,Poisoning,East Dunbartonshire,62,546345,12.26,9.37,15.76,22.22,below,0.0411
+deaths,2020 to 2024,Poisoning,East Lothian,89,562415,16.72,13.4,20.6,22.22,below,0.0478
+deaths,2020 to 2024,Poisoning,East Renfrewshire,36,488105,7.88,5.5,10.94,22.22,below,0.0495
+deaths,2020 to 2024,Poisoning,Falkirk,149,795680,19.01,16.07,22.34,22.22,similar,0.1521
+deaths,2020 to 2024,Poisoning,Fife,339,1862195,19.33,17.32,21.51,22.22,below,0.1956
+deaths,2020 to 2024,Poisoning,Glasgow City,1214,3137440,38.83,36.64,41.11,22.22,above,0.4471
+deaths,2020 to 2024,Poisoning,Highland,164,1179755,14.95,12.72,17.44,22.22,below,0.0905
+deaths,2020 to 2024,Poisoning,Inverclyde,133,393215,34.88,29.15,41.4,22.22,above,0.4447
+deaths,2020 to 2024,Poisoning,Midlothian,92,485120,19.4,15.63,23.8,22.22,similar,0.073
+deaths,2020 to 2024,Poisoning,Moray,52,472470,11.83,8.82,15.54,22.22,below,0.0245
+deaths,2020 to 2024,Poisoning,Na h-Eileanan Siar,13,130400,11.5,5.98,19.87,22.22,below,0.0
+deaths,2020 to 2024,Poisoning,North Ayrshire,180,669420,30.01,25.74,34.79,22.22,above,0.3999
+deaths,2020 to 2024,Poisoning,North Lanarkshire,430,1712030,25.35,23.01,27.87,22.22,above,0.3099
+deaths,2020 to 2024,Poisoning,Orkney Islands,5,110065,5.03,1.58,11.83,22.22,below,0.0
+deaths,2020 to 2024,Poisoning,Perth and Kinross,117,759245,16.61,13.71,19.94,22.22,below,0.0622
+deaths,2020 to 2024,Poisoning,Renfrewshire,250,925000,26.93,23.69,30.49,22.22,above,0.2458
+deaths,2020 to 2024,Poisoning,Scottish Borders,60,584300,12.4,9.41,16.03,22.22,below,0.0575
+deaths,2020 to 2024,Poisoning,Shetland Islands,18,115170,16.36,9.67,25.89,22.22,similar,0.0
+deaths,2020 to 2024,Poisoning,South Ayrshire,109,558980,21.41,17.52,25.9,22.22,similar,0.1635
+deaths,2020 to 2024,Poisoning,South Lanarkshire,390,1642370,24.31,21.95,26.85,22.22,similar,0.189
+deaths,2020 to 2024,Poisoning,Stirling,102,463815,23.32,18.97,28.35,22.22,similar,0.129
+deaths,2020 to 2024,Poisoning,West Dunbartonshire,133,444285,30.53,25.55,36.2,22.22,above,0.4047
+deaths,2020 to 2024,Poisoning,West Lothian,158,914040,17.36,14.75,20.29,22.22,below,0.1395
+deaths,2020 to 2024,All types,Aberdeen City,559,1129475,52.62,48.3,57.23,50.71,similar,0.0898
+deaths,2020 to 2024,All types,Aberdeenshire,491,1318215,36.86,33.65,40.3,50.71,below,0.0286
+deaths,2020 to 2024,All types,Angus,265,574650,41.34,36.4,46.76,50.71,below,0.0678
+deaths,2020 to 2024,All types,Argyll and Bute,232,438730,46.5,40.55,53.06,50.71,similar,0.0864
+deaths,2020 to 2024,All types,City of Edinburgh,1093,2585065,46.14,43.4,49.0,50.71,below,0.1187
+deaths,2020 to 2024,All types,Clackmannanshire,140,258940,54.91,46.13,64.87,50.71,similar,0.251
+deaths,2020 to 2024,All types,Dumfries and Galloway,444,730160,54.3,49.15,59.82,50.71,similar,0.0867
+deaths,2020 to 2024,All types,Dundee City,440,743180,62.4,56.66,68.57,50.71,above,0.3752
+deaths,2020 to 2024,All types,East Ayrshire,376,603875,61.73,55.59,68.34,50.71,above,0.3006
+deaths,2020 to 2024,All types,East Dunbartonshire,247,546345,39.29,34.42,44.65,50.71,below,0.0411
+deaths,2020 to 2024,All types,East Lothian,244,562415,42.47,37.25,48.2,50.71,below,0.0478
+deaths,2020 to 2024,All types,East Renfrewshire,170,488105,31.88,27.18,37.14,50.71,below,0.0495
+deaths,2020 to 2024,All types,Falkirk,374,795680,47.39,42.68,52.48,50.71,similar,0.1521
+deaths,2020 to 2024,All types,Fife,851,1862195,44.84,41.85,47.99,50.71,below,0.1956
+deaths,2020 to 2024,All types,Glasgow City,1979,3137440,72.24,68.97,75.61,50.71,above,0.4471
+deaths,2020 to 2024,All types,Highland,639,1179755,51.57,47.59,55.79,50.71,similar,0.0905
+deaths,2020 to 2024,All types,Inverclyde,286,393215,70.7,62.63,79.51,50.71,above,0.4447
+deaths,2020 to 2024,All types,Midlothian,177,485120,38.04,32.62,44.11,50.71,below,0.073
+deaths,2020 to 2024,All types,Moray,214,472470,43.0,37.37,49.23,50.71,below,0.0245
+deaths,2020 to 2024,All types,Na h-Eileanan Siar,54,130400,36.01,26.65,47.48,50.71,below,0.0
+deaths,2020 to 2024,All types,North Ayrshire,382,669420,56.37,50.74,62.44,50.71,above,0.3999
+deaths,2020 to 2024,All types,North Lanarkshire,883,1712030,55.05,51.44,58.84,50.71,above,0.3099
+deaths,2020 to 2024,All types,Orkney Islands,59,110065,45.39,34.32,58.82,50.71,similar,0.0
+deaths,2020 to 2024,All types,Perth and Kinross,357,759245,42.42,38.04,47.15,50.71,below,0.0622
+deaths,2020 to 2024,All types,Renfrewshire,509,925000,54.93,50.23,59.94,50.71,similar,0.2458
+deaths,2020 to 2024,All types,Scottish Borders,270,584300,40.94,36.02,46.34,50.71,below,0.0575
+deaths,2020 to 2024,All types,Shetland Islands,54,115170,44.58,33.42,58.25,50.71,similar,0.0
+deaths,2020 to 2024,All types,South Ayrshire,325,558980,51.6,45.96,57.74,50.71,similar,0.1635
+deaths,2020 to 2024,All types,South Lanarkshire,873,1642370,53.24,49.74,56.92,50.71,similar,0.189
+deaths,2020 to 2024,All types,Stirling,236,463815,50.55,44.24,57.51,50.71,similar,0.129
+deaths,2020 to 2024,All types,West Dunbartonshire,281,444285,65.53,58.02,73.72,50.71,above,0.4047
+deaths,2020 to 2024,All types,West Lothian,355,914040,41.74,37.47,46.36,50.71,below,0.1395

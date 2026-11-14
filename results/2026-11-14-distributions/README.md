@@ -35,8 +35,10 @@ For each dataset (`ae_activity`, `ae_demographics`, `injury_admissions`, `injury
   `../2026-11-14-ae-deprivation` for rates. Ages 40-64 make up 27%, under-18s 22%, 75 and over 14%.
 - **Injury admissions**: falls are 64% of emergency admissions for unintentional injury, steady at
   about 35,000-38,000 a year; people aged 75 and over account for 34% of admissions.
-- **Injury deaths**: poisoning (42%) has overtaken falls (40%) as the largest cause of death from
-  unintentional injury over 2015-2024: **a different pattern from admissions**, worth its own look.
+- **Injury deaths**: over 2015-2024 together, poisoning (42%) and falls (40%) are the two largest
+  causes of death from unintentional injury: **a different pattern from admissions**. By year,
+  poisoning deaths exceeded falls from 2018 to 2021 (peak 1,373 in 2020) and falls have been the
+  larger cause since 2022 (see `../2026-11-14-injuries`).
 - **The injury files are mostly zeros**: 69% of admission rows and 82% of death rows are 0 (a full
   grid of council x age x sex x type x place). Small counts in single rows mean any council-level
   breakdown needs pooling over years or categories, and care with disclosure-style small numbers.
