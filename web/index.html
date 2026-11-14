@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Same country, different risks</title>
   <meta name="description" content="A scrolling atlas of Scotland's health: where you live shapes how often you go to A&amp;E and your risk of dying of poisoning; how old you are shapes your risk from a fall. Built from Public Health Scotland open data.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#07080c">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Same country, different risks">
+  <meta property="og:description" content="A scrolling atlas of Scotland's health: where you live shapes A&amp;E use and poisoning deaths; how old you are shapes your risk from a fall. Find your neighbourhood.">
+  <meta property="og:image" content="https://david-alobo.github.io/ScotlandHealthAtlas/og.png">
+  <meta property="og:url" content="https://david-alobo.github.io/ScotlandHealthAtlas/">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -230,6 +238,21 @@
       <li>Prescriptions are counted where they are dispensed, not always where people live.</li>
       <li>The injury figures reproduce Public Health Scotland's published totals (deaths exactly,
         admissions within 2%).</li>
+    </ul>
+    <h2>How this was made</h2>
+    <ul>
+      <li><b>Rates</b> are standardised for age and sex: to Scotland's 2024 population for A&amp;E,
+        to the 2013 European Standard Population for injuries (as Public Health Scotland does),
+        with 95% confidence intervals. Councils are "clearly above" or "below" Scotland when their
+        interval excludes Scotland's rate.</li>
+      <li><b>Deprivation</b> is the Scottish Index of Multiple Deprivation 2020v2. Populations are
+        National Records of Scotland small area estimates.</li>
+      <li><b>Checks</b>: the injury figures reproduce PHS's published totals; a narrowing A&amp;E gap
+        was tested and not claimed; fewer than 20 deaths are not shown as a rate.</li>
+      <li><b>Use of AI.</b> The analysis code, charts and this page were built with the help of an
+        AI assistant (Claude, by Anthropic), directed and reviewed by the author. Every number on the
+        page is read from the saved analysis tables in the repository, and the code, tests and
+        tables are public.</li>
     </ul>
     <details>
       <summary>All the numbers</summary>
