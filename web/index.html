@@ -33,9 +33,8 @@
         <h1>Same country, different&nbsp;risks</h1>
         <p class="lede">Every dot is a neighbourhood of about 800 people. The brighter the dot, the
           more deprived the neighbourhood.</p>
-        <p class="hint-row"><span class="hint">Scroll</span>
-          <button type="button" class="link" id="intro-find" aria-controls="intro-search"
-            aria-expanded="false">or find your neighbourhood</button></p>
+        <p class="find-row"><button type="button" class="link" id="intro-find"
+            aria-controls="intro-search" aria-expanded="false">Find your neighbourhood</button></p>
         <form class="search" id="intro-search" hidden role="search" autocomplete="off">
           <label><span>Find your neighbourhood</span>
             <input type="search" name="q" placeholder="Postcode or neighbourhood name"
@@ -43,6 +42,7 @@
           <ul class="search-results" role="listbox" aria-label="Matching neighbourhoods"></ul>
           <p class="search-msg" aria-live="polite"></p>
         </form>
+        <p class="hint scroll-cue">Scroll</p>
       </section>
 
       <section class="step" data-state="today">

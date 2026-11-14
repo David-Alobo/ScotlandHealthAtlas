@@ -491,18 +491,27 @@ thead th { color: var(--ink-3); font-weight: 500; }
 
 /* ---------- a calmer opening ---------- */
 .title .lede { max-width: 28rem; }
-.hint-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.4rem; }
-.hint-row .hint { margin: 0; }
+.find-row { margin: 1.2rem 0 0; }
 .link {
-  font: 500 0.82rem var(--body);
+  appearance: none;
+  -webkit-appearance: none;
+  font: 500 0.88rem var(--body);
   color: var(--violet);
-  background: none;
+  background: transparent;
   border: 0;
-  border-bottom: 1px solid rgb(167 139 250 / 0.4);
+  border-bottom: 1px solid rgb(167 139 250 / 0.45);
+  border-radius: 0;
   padding: 0 0 0.1rem;
   cursor: pointer;
 }
-.link:hover, .link:focus { color: #fff; border-color: #fff; outline: none; }
+.link:hover, .link:focus-visible { color: #fff; border-color: #fff; outline: none; background: transparent; }
+/* the scroll cue sits at the bottom of the first screen */
+.step.title { position: relative; }
+.scroll-cue { position: absolute; bottom: max(1.4rem, 5vh); left: max(2rem, 5vw); margin: 0; }
+@media not ((min-aspect-ratio: 21/20) and (min-width: 760px)) {
+  .scroll-cue { left: 1rem; bottom: 1.2rem; }
+  .step.title { padding-bottom: 4rem; }
+}
 .title .search { margin-top: 0.9rem; }
 .card.today .day { margin: 0; }
 .card.today .small { margin: 0.9rem 0 0; }
