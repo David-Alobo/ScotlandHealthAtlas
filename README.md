@@ -1,13 +1,13 @@
 # Scotland Health Atlas
 
-<a href="https://david-alobo.github.io/ScotlandHealthAtlas/"><img src="docs/atlas.webp" width="560" alt="The atlas moving through its scenes"></a>
-
 **[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)**
 
 An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
 prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
 from Public Health Scotland and National Records of Scotland open data, with every figure
 traceable to saved tables and the scripts that made them.
+
+<a href="https://david-alobo.github.io/ScotlandHealthAtlas/"><img src="docs/atlas.webp" width="560" alt="The atlas moving through its scenes"></a>
 
 A [Monstrous Data](https://monstrous.com.ng) project by David Obeh Alobo. It began as an entry to
 The Data Lab Community's 2026 [data visualisation competition](https://thedatalab.com/data-visualisation-competition/)
