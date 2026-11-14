@@ -481,7 +481,6 @@ thead th { color: var(--ink-3); font-weight: 500; }
   .title .day { margin: 0.7rem 0 0.2rem; gap: 0.5rem 1.4rem; }
   .title .day b { font-size: 1.9rem; }
   .title .day span { margin-top: 0.15rem; }
-  .title .hint { display: none; }
   .title .search input { padding: 0.45rem 0.8rem; }
 }
 
@@ -489,3 +488,22 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .card .search { margin: 0.2rem 0 0.9rem; }
 .select > span { display: block; font: 500 0.7rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.35rem; }
 .select select { margin: 0; }
+
+/* ---------- a calmer opening ---------- */
+.title .lede { max-width: 28rem; }
+.hint-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.4rem; }
+.hint-row .hint { margin: 0; }
+.link {
+  font: 500 0.82rem var(--body);
+  color: var(--violet);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgb(167 139 250 / 0.4);
+  padding: 0 0 0.1rem;
+  cursor: pointer;
+}
+.link:hover, .link:focus { color: #fff; border-color: #fff; outline: none; }
+.title .search { margin-top: 0.9rem; }
+.card.today .day { margin: 0; }
+.card.today .small { margin: 0.9rem 0 0; }
+.legend-title em { font-style: normal; color: var(--ink-3); margin-left: 0.5rem; }

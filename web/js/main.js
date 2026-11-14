@@ -42,7 +42,7 @@ const C = {
 };
 let RATE_STEPS = []; // poisoning deaths per 100,000 a year: equal-count bands, set from the data
 const RATE_COLOURS = ["#2b2550", "#4a3a9a", "#6a4fd0", "#9b7cf4", "#d8ccff"];
-const MAP_STATES = new Set(["intro", "deprived", "glasgow", "end"]);
+const MAP_STATES = new Set(["intro", "today", "deprived", "glasgow", "end"]);
 const TOUCH = window.matchMedia?.("(hover: none)").matches ?? false; // phones and tablets: tap, not hover
 // the area filter: a chosen council, and a pinned neighbourhood (index into geo.zones)
 const filter = { council: null, zone: null };
@@ -355,7 +355,7 @@ function setState(st, name, story) {
 function rampLegend(q1Only) {
   const names = ["Most deprived fifth", "", "", "", "Least deprived"];
   return (
-    `<span class="legend-title">${TOUCH ? "Neighbourhoods · tap a dot to pin it" : "Neighbourhoods · hover a dot · click to pin it, click elsewhere to clear"}</span>` +
+    `<span class="legend-title">Neighbourhoods <em>${TOUCH ? "tap a dot" : "hover or click a dot"}</em></span>` +
     C.ramp
       .map((c, i) => (q1Only && i > 0 ? "" : `<span><i style="background:${c}"></i>${names[i]}</span>`))
       .join("")
@@ -700,6 +700,14 @@ async function main() {
   render(); // fills every figure in the cards
   wireTooltips(getStage, geo, setFilter);
   wireSearch(geo, setFilter);
+  // the opening keeps one quiet link; the search opens only when asked for
+  const find = document.getElementById("intro-find");
+  find.onclick = () => {
+    const form = document.getElementById("intro-search");
+    form.hidden = !form.hidden;
+    find.setAttribute("aria-expanded", String(!form.hidden));
+    if (!form.hidden) form.querySelector("input").focus();
+  };
   fetch("data/domains.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
