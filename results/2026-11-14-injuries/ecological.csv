@@ -1,5 +1,5 @@
 dataset,period,injury_type,councils,spearman_rho
-admissions,2020/21 to 2024/25,Falls,32,0.538
-admissions,2020/21 to 2024/25,All types,32,0.468
+admissions,2020/21 to 2024/25,Falls,32,0.53
+admissions,2020/21 to 2024/25,All types,32,0.458
 deaths,2020 to 2024,Poisoning,32,0.908
-deaths,2020 to 2024,All types,32,0.843
+deaths,2020 to 2024,All types,32,0.848

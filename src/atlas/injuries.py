@@ -1,6 +1,6 @@
 """Unintentional injury admissions and deaths: rates over time, by council area, and by deprivation.
 
-Usage (from the repository root): python -m src.atlas.injuries [output folder]
+Usage (from the repository root): uv run python -m atlas.injuries [output folder]
 
 Rates are per 100,000 people, standardised for age and sex to the 2013 European Standard
 Population (ESP2013, the standard PHS uses for these statistics), with its 5-year bands summed to
@@ -22,7 +22,6 @@ national, councils and ecological (PDF, SVG, PNG) to the output folder.
 from __future__ import annotations
 
 import csv
-import math
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -30,11 +29,12 @@ from pathlib import Path
 import duckdb
 import numpy as np
 
+from .stats import dsr, spearman
+
 DATA = "data/raw/data-viz-2026/data/Unintentional_Injuries"
 POP = Path("data/derived/population_injury.csv")
 LATEST_POPULATION = 2024
 POOLED = 5  # latest years pooled for council rates
-Z = 1.959964
 
 # ESP2013 5-year bands summed to the injury files' age bands (total 100,000)
 ESP = {
@@ -47,8 +47,11 @@ ESP = {
     "65-74 years": 10500,
     "75plus years": 9000,
 }
-TYPE_NAMES = {"RTI": "Road traffic", "Land transport accidents": "Road traffic",
-              "Struck by, against": "Struck by or against"}
+TYPE_NAMES = {
+    "RTI": "Road traffic",
+    "Land transport accidents": "Road traffic",
+    "Struck by, against": "Struck by or against",
+}
 FOCUS = {"admissions": "Falls", "deaths": "Poisoning"}  # the largest cause of each
 
 
@@ -90,44 +93,6 @@ def events() -> list[tuple]:
     return [(d, y, int(y[:4]), c, s, a, TYPE_NAMES.get(t, t), n) for d, y, c, s, a, t, n in rows]
 
 
-def dsr(cells: list[tuple[float, float, float]]) -> dict:
-    """A directly standardised rate per 100,000 with its 95% confidence interval.
-
-    Args:
-        cells: (events, population, standard weight) for each age-sex cell; weights sum to 1.
-
-    Returns:
-        events, population, rate, lower and upper limit.
-    """
-    o = sum(d for d, _n, _w in cells)
-    p = sum(n for _d, n, _w in cells)
-    rate = sum(w * d / n for d, n, w in cells)
-    var = sum(w * w * d / (n * n) for d, n, w in cells)
-    lo_o = 0.0 if o == 0 else o * (1 - 1 / (9 * o) - Z / (3 * math.sqrt(o))) ** 3
-    hi_o = (o + 1) * (1 - 1 / (9 * (o + 1)) + Z / (3 * math.sqrt(o + 1))) ** 3
-    if o > 0:
-        k = math.sqrt(var / o)
-        lo, hi = rate + k * (lo_o - o), rate + k * (hi_o - o)
-    else:  # no events: the upper limit from the count alone, at the mean weight per person
-        lo, hi = 0.0, hi_o * sum(w / n for _d, n, w in cells) / len(cells)
-    return {"events": int(o), "population": round(p), "rate": round(1e5 * rate, 2),
-            "lower": round(1e5 * max(lo, 0.0), 2), "upper": round(1e5 * hi, 2)}
-
-
-def spearman(x: list[float], y: list[float]) -> float:
-    """Spearman's rank correlation (no ties expected in rates and shares).
-
-    Args:
-        x: First variable.
-        y: Second variable.
-
-    Returns:
-        rho.
-    """
-    rx, ry = np.argsort(np.argsort(x)), np.argsort(np.argsort(y))
-    return float(np.corrcoef(rx, ry)[0, 1])
-
-
 def main() -> None:
     """Compute the rates, write the tables and draw the figures."""
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("results/2026-11-14-injuries")
@@ -146,8 +111,11 @@ def main() -> None:
 
     def rate(d: str, years: list[int], places: list[str], t: str) -> dict:
         cells = [
-            (sum(counts.get((d, y, c, s, a, t), 0.0) for y in years for c in places),
-             sum(pop[(min(y, LATEST_POPULATION), c, s, a)] for y in years for c in places), w)
+            (
+                sum(counts.get((d, y, c, s, a, t), 0.0) for y in years for c in places),
+                sum(pop[(min(y, LATEST_POPULATION), c, s, a)] for y in years for c in places),
+                w,
+            )
             for (s, a), w in weight.items()
         ]
         return dsr(cells)
@@ -157,16 +125,31 @@ def main() -> None:
         years = sorted({y for (d_, y) in labels if d_ == d})
         for y in years:
             for t in types:
-                national.append({"dataset": d, "year": labels[(d, y)], "injury_type": t}
-                                | rate(d, [y], councils, t))
+                national.append(
+                    {"dataset": d, "year": labels[(d, y)], "injury_type": t}
+                    | rate(d, [y], councils, t)
+                )
             for a in ESP:  # age-specific falls rates, sexes together
-                n = sum(counts.get((d, y, c, s, a, "Falls"), 0.0) for c in councils
-                        for s in ("Female", "Male"))
-                p = sum(pop[(min(y, LATEST_POPULATION), c, s, a)] for c in councils
-                        for s in ("Female", "Male"))
-                age_falls.append({"dataset": d, "year": labels[(d, y)], "age_band": a,
-                                  "falls": int(n), "population": round(p),
-                                  "rate_per_100000": round(1e5 * n / p, 2)})
+                n = sum(
+                    counts.get((d, y, c, s, a, "Falls"), 0.0)
+                    for c in councils
+                    for s in ("Female", "Male")
+                )
+                p = sum(
+                    pop[(min(y, LATEST_POPULATION), c, s, a)]
+                    for c in councils
+                    for s in ("Female", "Male")
+                )
+                age_falls.append(
+                    {
+                        "dataset": d,
+                        "year": labels[(d, y)],
+                        "age_band": a,
+                        "falls": int(n),
+                        "population": round(p),
+                        "rate_per_100000": round(1e5 * n / p, 2),
+                    }
+                )
         pooled = years[-POOLED:]
         period = f"{labels[(d, pooled[0])]} to {labels[(d, pooled[-1])]}"
         for t in (FOCUS[d], "All types"):
@@ -174,17 +157,39 @@ def main() -> None:
             by = {c: rate(d, pooled, [c], t) for c in councils}
             for c in councils:
                 r = by[c]
-                vs = ("above" if r["lower"] > scot["rate"] else
-                      "below" if r["upper"] < scot["rate"] else "similar")
-                council.append({"dataset": d, "period": period, "injury_type": t, "council": c}
-                               | r | {"scotland_rate": scot["rate"], "vs_scotland": vs,
-                                      "share_simd_q1": round(q1_share[c], 4)})
+                vs = (
+                    "above"
+                    if r["lower"] > scot["rate"]
+                    else "below"
+                    if r["upper"] < scot["rate"]
+                    else "similar"
+                )
+                council.append(
+                    {"dataset": d, "period": period, "injury_type": t, "council": c}
+                    | r
+                    | {
+                        "scotland_rate": scot["rate"],
+                        "vs_scotland": vs,
+                        "share_simd_q1": round(q1_share[c], 4),
+                    }
+                )
             rho = spearman([by[c]["rate"] for c in councils], [q1_share[c] for c in councils])
-            eco.append({"dataset": d, "period": period, "injury_type": t,
-                        "councils": len(councils), "spearman_rho": round(rho, 3)})
+            eco.append(
+                {
+                    "dataset": d,
+                    "period": period,
+                    "injury_type": t,
+                    "councils": len(councils),
+                    "spearman_rho": round(rho, 3),
+                }
+            )
 
-    for name, table in (("national", national), ("age_falls", age_falls),
-                        ("council", council), ("ecological", eco)):
+    for name, table in (
+        ("national", national),
+        ("age_falls", age_falls),
+        ("council", council),
+        ("ecological", eco),
+    ):
         with (out / f"{name}.csv").open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(table[0]))
             w.writeheader()
@@ -211,8 +216,7 @@ def chart_national(national: list[dict], age_falls: list[dict], stem: Path) -> N
     style.use()
     fig = plt.figure(figsize=(style.DOUBLE, 118 * style.MM))
     gs = fig.add_gridspec(2, 2, height_ratios=[1, 1], hspace=0.7, wspace=0.6)
-    for i, (d, title) in enumerate((("admissions", "Emergency admissions"),
-                                    ("deaths", "Deaths"))):
+    for i, (d, title) in enumerate((("admissions", "Emergency admissions"), ("deaths", "Deaths"))):
         ax = fig.add_subplot(gs[0, i])
         rows = [r for r in national if r["dataset"] == d and r["injury_type"] != "All types"]
         years = sorted({r["year"] for r in rows})
@@ -242,8 +246,11 @@ def chart_national(national: list[dict], age_falls: list[dict], stem: Path) -> N
     ax = fig.add_subplot(gs[1, :])
     rows = [r for r in age_falls if r["dataset"] == "admissions"]
     years = sorted({r["year"] for r in rows})
-    groups = [("75 and over", ["75plus years"]), ("65-74", ["65-74 years"]),
-              ("Under 65", [a for a in ESP if a not in ("65-74 years", "75plus years")])]
+    groups = [
+        ("75 and over", ["75plus years"]),
+        ("65-74", ["65-74 years"]),
+        ("Under 65", [a for a in ESP if a not in ("65-74 years", "75plus years")]),
+    ]
     ends = []
     for j, (name, bands) in enumerate(groups):
         ys = []
@@ -260,10 +267,13 @@ def chart_national(national: list[dict], age_falls: list[dict], stem: Path) -> N
     style.label_ends(ax, ends)
     ax.set_title("Emergency admissions after a fall, by age")
     style.panel(ax, "c")
-    style.source(fig, style.SOURCE_PHS + "; NRS small area population estimates. Rates "
-                 "standardised to the 2013 European Standard Population; panel c is age-specific "
-                 "(not standardised); '4 others': the remaining injury types together. Financial "
-                 "years start in April.")
+    style.source(
+        fig,
+        style.SOURCE_PHS + "; NRS small area population estimates. Rates "
+        "standardised to the 2013 European Standard Population; panel c is age-specific "
+        "(not standardised); '4 others': the remaining injury types together. Financial "
+        "years start in April.",
+    )
     style.save(fig, stem)
 
 
@@ -279,23 +289,36 @@ def chart_councils(council: list[dict], stem: Path) -> None:
     from . import style
 
     style.use()
-    colour = {"above": style.CATEGORICAL[1], "below": style.CATEGORICAL[0],
-              "similar": "#a8a7a2"}
+    colour = {"above": style.CATEGORICAL[1], "below": style.CATEGORICAL[0], "similar": "#a8a7a2"}
     fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE, 150 * style.MM))
     fig.subplots_adjust(wspace=0.95)
     for i, (ax, d) in enumerate(zip(axes, ("admissions", "deaths"), strict=True)):
         t = FOCUS[d]
-        rows = sorted((r for r in council if r["dataset"] == d and r["injury_type"] == t),
-                      key=lambda r: r["rate"])
+        rows = sorted(
+            (r for r in council if r["dataset"] == d and r["injury_type"] == t),
+            key=lambda r: r["rate"],
+        )
         y = np.arange(len(rows))
         for yy, r in zip(y, rows, strict=True):
-            ax.plot([r["lower"], r["upper"]], [yy, yy], color=colour[r["vs_scotland"]], lw=1.0,
-                    solid_capstyle="butt")
+            ax.plot(
+                [r["lower"], r["upper"]],
+                [yy, yy],
+                color=colour[r["vs_scotland"]],
+                lw=1.0,
+                solid_capstyle="butt",
+            )
             ax.plot(r["rate"], yy, "o", color=colour[r["vs_scotland"]], ms=3.2)
         scot = rows[0]["scotland_rate"]
         ax.axvline(scot, color=style.INK_3, lw=0.6, ls=(0, (2, 2)), zorder=0)
-        ax.text(scot, len(rows) - 0.2, f"Scotland {scot:.0f}", fontsize=6.5, color=style.INK_2,
-                ha="center", va="bottom")
+        ax.text(
+            scot,
+            len(rows) - 0.2,
+            f"Scotland {scot:.0f}",
+            fontsize=6.5,
+            color=style.INK_2,
+            ha="center",
+            va="bottom",
+        )
         ax.set_yticks(y, [r["council"] for r in rows])
         ax.tick_params(axis="y", labelsize=6.5, length=0)
         ax.set_ylim(-0.7, len(rows) + 0.6)
@@ -304,9 +327,12 @@ def chart_councils(council: list[dict], stem: Path) -> None:
         what = "Emergency admissions after a fall" if d == "admissions" else "Deaths from poisoning"
         ax.set_title(f"{what}\n{rows[0]['period']}", fontsize=8)
         style.panel(ax, "ab"[i])
-    style.source(fig, style.SOURCE_PHS + "; NRS small area population estimates. Orange: interval "
-                 "above the Scotland rate; blue: below; grey: overlaps it. Standardised to the "
-                 "2013 European Standard Population; five years pooled.")
+    style.source(
+        fig,
+        style.SOURCE_PHS + "; NRS small area population estimates. Orange: interval "
+        "above the Scotland rate; blue: below; grey: overlaps it. Standardised to the "
+        "2013 European Standard Population; five years pooled.",
+    )
     style.save(fig, stem)
 
 
@@ -330,24 +356,38 @@ def chart_ecological(council: list[dict], eco: list[dict], stem: Path) -> None:
         rows = [r for r in council if r["dataset"] == d and r["injury_type"] == t]
         xs = [100 * r["share_simd_q1"] for r in rows]
         ys = [r["rate"] for r in rows]
-        ax.scatter(xs, ys, s=14, color=style.CATEGORICAL[0], edgecolor="white", linewidth=0.5,
-                   zorder=3)
+        ax.scatter(
+            xs, ys, s=14, color=style.CATEGORICAL[0], edgecolor="white", linewidth=0.5, zorder=3
+        )
         rho = next(e["spearman_rho"] for e in eco if e["dataset"] == d and e["injury_type"] == t)
-        ax.text(0.03, 0.97, f"Spearman ρ = {rho:.2f} (32 council areas)",
-                transform=ax.transAxes, fontsize=6.5, color=style.INK_2, va="top")
-        top = sorted(rows, key=lambda r: -r["rate"])[:3]
-        for r in top + sorted(rows, key=lambda r: -r["share_simd_q1"])[:2]:
-            ax.annotate(r["council"], (100 * r["share_simd_q1"], r["rate"]), xytext=(4, 0),
-                        textcoords="offset points", fontsize=6, color=style.INK_2, va="center")
+        ax.text(
+            0.03,
+            0.97,
+            f"Spearman ρ = {rho:.2f} (32 council areas)",
+            transform=ax.transAxes,
+            fontsize=6.5,
+            color=style.INK_2,
+            va="top",
+        )
         ax.set_xlim(-1.5, 50)
         ax.set_ylim(0, max(ys) * 1.08)
+        named = sorted(rows, key=lambda r: -r["rate"])[:3]  # highest rates, most deprived
+        named += [r for r in sorted(rows, key=lambda r: -r["share_simd_q1"])[:2] if r not in named]
+        style.label_points(
+            ax,
+            [(r["council"], 100 * r["share_simd_q1"], r["rate"]) for r in named],
+            avoid=list(zip(xs, ys, strict=True)),
+        )
         ax.set_xlabel("People living in the most deprived fifth\nof Scotland's data zones (%)")
         ax.set_ylabel("Per 100,000 people a year\n(age-sex standardised)")
         what = "Falls admissions" if d == "admissions" else "Poisoning deaths"
         ax.set_title(f"{what}, {rows[0]['period']}", fontsize=8)
         style.panel(ax, "ab"[i])
-    style.source(fig, style.SOURCE_PHS + "; NRS small area population estimates; SIMD 2020v2 "
-                 "(mid-2024 population). Areas compared, not people: an ecological comparison.")
+    style.source(
+        fig,
+        style.SOURCE_PHS + "; NRS small area population estimates; SIMD 2020v2 "
+        "(mid-2024 population). Areas compared, not people: an ecological comparison.",
+    )
     style.save(fig, stem)
 
 

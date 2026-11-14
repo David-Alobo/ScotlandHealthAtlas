@@ -1,6 +1,6 @@
 # Unintentional injuries: rates over time, by council area and by deprivation (14 November 2026)
 
-Made with `python -m src.atlas.injuries results/2026-11-14-injuries` (method in the module's
+Made with `uv run python -m atlas.injuries results/2026-11-14-injuries` (method in the module's
 docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 2015 to 2024
 (calendar years).
 
@@ -52,7 +52,7 @@ docstring). Emergency admissions 2015/16 to 2024/25 (financial years), deaths 20
   deaths, 2020-2024: from 5.0 (Orkney) to 38.8 (Glasgow City), Scotland 22.2; 8 above, 14 below.
 - **Poisoning deaths track area deprivation closely; falls admissions much less.** Spearman's rho
   between council rate and share of people in the most deprived fifth: 0.91 for poisoning deaths
-  (0.84 for all injury deaths), 0.54 for falls admissions (0.47 for all admissions). Dundee City
+  (0.85 for all injury deaths), 0.53 for falls admissions (0.46 for all admissions); tied shares (councils with none in the most deprived fifth) take their average rank. Dundee City
   has the highest falls admission rate with a smaller deprived share than Glasgow or Inverclyde,
   and several rural councils (Argyll and Bute, Na h-Eileanan Siar, Angus, Perth and Kinross) are
   above Scotland with few people in the most deprived fifth: falls admissions vary with something

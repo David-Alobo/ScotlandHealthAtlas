@@ -1,6 +1,6 @@
 # Distributions of every dataset (14 November 2026)
 
-Made with `python -m src.atlas.distributions results/2026-11-14-distributions`. Figures use the
+Made with `uv run python -m atlas.distributions results/2026-11-14-distributions`. Figures use the
 shared publication style (`src/atlas/style.py`): double-column width, validated colour-blind-safe
 colours, labelled axes with units, data source on the figure; each saved as PDF, SVG and 300-dpi
 PNG.

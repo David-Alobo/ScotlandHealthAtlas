@@ -1,12 +1,13 @@
 """A&E attendance rates by deprivation of where people live, Scotland, 2018 to 2025.
 
-Usage (from the repository root): python -m src.atlas.ae_deprivation [output folder]
+Usage (from the repository root): uv run python -m atlas.ae_deprivation [output folder]
 
 For each calendar year and SIMD 2020v2 quintile: attendances (Type 1 and 3 together, and Type 1
 emergency departments alone), the population, the crude rate per 1,000 people, and the rate
 standardised by age and sex to Scotland's mid-2024 population (direct standardisation, in the
-A&E file's six age bands); 2025 uses the mid-2024 population, the latest. Rates are national: attendances are counted wherever people went, so
-quintile totals are not affected by people attending a hospital in another board. Attendances
+A&E file's six age bands); 2025 uses the mid-2024 population, the latest. Rates are
+national: attendances are counted wherever people went, so quintile totals are not
+affected by people attending a hospital in another board. Attendances
 with unknown deprivation, age or sex are counted in the totals and reported, not spread across
 quintiles. Writes rates.csv, gap.csv and the figure rates.pdf/.svg/.png to the output folder.
 """
@@ -77,12 +78,15 @@ def main() -> None:
             for q in range(1, 6):
                 att = sum(v for (y, d, _s, _a), v in counts.items() if y == year and d == q)
                 p = sum(v for (y, d, _s, _a), v in pop.items() if y == py and d == q)
-                std = sum(
-                    counts.get((year, q, sex, age), 0.0)
-                    / pop[(py, q, sex, age)]
-                    * standard[(sex, age)]
-                    for (sex, age) in standard
-                ) / std_total
+                std = (
+                    sum(
+                        counts.get((year, q, sex, age), 0.0)
+                        / pop[(py, q, sex, age)]
+                        * standard[(sex, age)]
+                        for (sex, age) in standard
+                    )
+                    / std_total
+                )
                 results.append(
                     {
                         "scope": scope,
@@ -103,7 +107,9 @@ def main() -> None:
     gap = []
     for scope in ("all", "type1"):
         for year in YEARS:
-            by_q = {r["simd_quintile"]: r for r in results if r["scope"] == scope and r["year"] == year}
+            by_q = {
+                r["simd_quintile"]: r for r in results if r["scope"] == scope and r["year"] == year
+            }
             total = sum(r["attendances"] for r in by_q.values()) + unknown[(scope, year)]
             gap.append(
                 {
@@ -111,10 +117,12 @@ def main() -> None:
                     "year": year,
                     "q1_standardised": by_q[1]["standardised_per_1000"],
                     "q5_standardised": by_q[5]["standardised_per_1000"],
-                    "ratio_q1_q5": round(by_q[1]["standardised_per_1000"]
-                                         / by_q[5]["standardised_per_1000"], 3),
-                    "difference_per_1000": round(by_q[1]["standardised_per_1000"]
-                                                 - by_q[5]["standardised_per_1000"], 2),
+                    "ratio_q1_q5": round(
+                        by_q[1]["standardised_per_1000"] / by_q[5]["standardised_per_1000"], 3
+                    ),
+                    "difference_per_1000": round(
+                        by_q[1]["standardised_per_1000"] - by_q[5]["standardised_per_1000"], 2
+                    ),
                     "unknown_share": round(unknown[(scope, year)] / total, 4),
                 }
             )
@@ -145,17 +153,31 @@ def chart(results: list[dict], stem: Path) -> None:
         xs = [r["year"] for r in pts]
         ys = [r["standardised_per_1000"] for r in pts]
         ax.plot(xs, ys, color=style.QUINTILE[q], marker="o")
-        ax.annotate(style.QUINTILE_NAME[q], (xs[-1], ys[-1]), xytext=(5, 0),
-                    textcoords="offset points", va="center", fontsize=7, color=style.INK_2,
-                    annotation_clip=False)
+        ax.annotate(
+            style.QUINTILE_NAME[q],
+            (xs[-1], ys[-1]),
+            xytext=(5, 0),
+            textcoords="offset points",
+            va="center",
+            fontsize=7,
+            color=style.INK_2,
+            annotation_clip=False,
+        )
     ax.set_xlim(2017.6, 2025.4)
     ax.set_xticks(list(YEARS))
     ax.set_ylim(0, 470)
     ax.set_ylabel("A&E attendances per 1,000 people\n(standardised for age and sex)")
-    style.titles(fig, ax, "A&E attendances by deprivation of where people live, Scotland",
-                 "SIMD 2020v2 quintile; all A&E sites; standardised to the 2024 population")
-    style.source(fig, style.SOURCE_PHS + "; NRS small area population estimates; SIMD 2020v2. "
-                 "2022 population interpolated; 2025 uses mid-2024.")
+    style.titles(
+        fig,
+        ax,
+        "A&E attendances by deprivation of where people live, Scotland",
+        "SIMD 2020v2 quintile; all A&E sites; standardised to the 2024 population",
+    )
+    style.source(
+        fig,
+        style.SOURCE_PHS + "; NRS small area population estimates; SIMD 2020v2. "
+        "2022 population interpolated; 2025 uses mid-2024.",
+    )
     style.save(fig, stem)
 
 

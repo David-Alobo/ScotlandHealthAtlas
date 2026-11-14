@@ -1,6 +1,6 @@
 # Data audit of the competition package (14 November 2026)
 
-Made with `python -m src.atlas.audit results/2026-11-14-data-audit` (DuckDB 2.0.0). Every column
+Made with `uv run python -m atlas.audit results/2026-11-14-data-audit` (DuckDB 2.0.0). Every column
 of every file is profiled in `profile.md` (readable) and `profile.json` (all numbers): type,
 distinct values, missing values, range, and every value of columns with few of them.
 

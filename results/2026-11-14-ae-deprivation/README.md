@@ -1,6 +1,6 @@
 # A&E attendance rates by deprivation, Scotland, 2018 to 2025 (first look, 14 November 2026)
 
-Made with `python -m src.atlas.population` (denominators) and `python -m src.atlas.ae_deprivation`.
+Made with `uv run python -m atlas.population` (denominators) and `uv run python -m atlas.ae_deprivation`.
 Exploratory: the first analysis of the project, to judge whether the inequality story holds.
 
 ## Method

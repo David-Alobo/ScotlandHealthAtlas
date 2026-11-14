@@ -1,6 +1,6 @@
 """Distributions of every dataset: spread of the numbers, totals over time, totals by category.
 
-Usage (from the repository root): python -m src.atlas.distributions [output folder]
+Usage (from the repository root): uv run python -m atlas.distributions [output folder]
 
 Unlike the audit (which counts rows), totals here are weighted by what each row counts:
 attendances, admissions, deaths or prescription items. For each dataset it writes, to the output
@@ -10,15 +10,15 @@ folder (default results/<today>-distributions/):
   mean, the share of zeros and of missing values;
 - `<dataset>_time.csv`: the total by month (or year) and, where the file has them, by type;
 - `<dataset>_by_<column>.csv`: the total for each value of each category column;
-- `<dataset>.pdf/.svg/.png`: publication figures (see style.py): the total over time, the totals by its main categories, and a histogram of the
-  per-row counts (log scale).
+- `<dataset>.pdf/.svg/.png`: publication figures (see style.py): the total over time,
+  the totals by its main categories, and the cumulative distribution of per-row counts
+  (log scale).
 """
 
 from __future__ import annotations
 
 import csv
 import datetime as dt
-import textwrap
 import sys
 from pathlib import Path
 
@@ -38,8 +38,12 @@ DATASETS = {
         "time": "Month",
         "split": "DepartmentType",
         "categories": ["HBName", "DepartmentType"],
-        "numeric": ["NumberOfAttendancesAll", "PercentageWithin4HoursAll",
-                    "PercentageOver8HoursEpisode", "PercentageOver12HoursEpisode"],
+        "numeric": [
+            "NumberOfAttendancesAll",
+            "PercentageWithin4HoursAll",
+            "PercentageOver8HoursEpisode",
+            "PercentageOver12HoursEpisode",
+        ],
     },
     "ae_demographics": {
         "files": [f"{RAW}/A&E/Level_2_Demographics.csv"],
@@ -69,13 +73,16 @@ DATASETS = {
         "numeric": ["Number"],
     },
     "prescribing": {
-        "files": [f"{RAW}/Prescribing/File_A_2019-21.csv", f"{RAW}/Prescribing/File_B_2022-24.csv",
-                  f"{RAW}/Prescribing/File_C_2025-26.csv"],
+        "files": [
+            f"{RAW}/Prescribing/File_A_2019-21.csv",
+            f"{RAW}/Prescribing/File_B_2022-24.csv",
+            f"{RAW}/Prescribing/File_C_2025-26.csv",
+        ],
         "where": "TRUE",
         "measure": "NumberOfPaidItems",
         "time": "PaidDateMonth",
         "split": None,
-        "categories": ["\"Chapter Description\"", "HBName"],
+        "categories": ['"Chapter Description"', "HBName"],
         "numeric": ["NumberOfPaidItems", "PaidQuantity", "GrossIngredientCost"],
     },
 }
@@ -122,9 +129,18 @@ def profile(con: duckdb.DuckDBPyConnection, name: str, spec: dict, out: Path) ->
             f"count(*) FROM t"
         ).fetchone()
         numeric.append([col, *[None if v is None else round(float(v), 4) for v in r]])
-    write(out / f"{name}_numeric.csv",
-          ["column", *[f"p{int(p * 100)}" for p in PERCENTILES], "mean", "share_zero",
-           "share_missing", "rows"], numeric)
+    write(
+        out / f"{name}_numeric.csv",
+        [
+            "column",
+            *[f"p{int(p * 100)}" for p in PERCENTILES],
+            "mean",
+            "share_zero",
+            "share_missing",
+            "rows",
+        ],
+        numeric,
+    )
 
     split = spec["split"]
     if split:
@@ -147,8 +163,11 @@ def profile(con: duckdb.DuckDBPyConnection, name: str, spec: dict, out: Path) ->
         ).fetchall()
         total = sum(v for _, v in rows)
         label = col.strip('"').replace(" ", "_")
-        write(out / f"{name}_by_{label}.csv", [label, "total", "share"],
-              [[k, v, round(v / total, 4)] for k, v in rows])
+        write(
+            out / f"{name}_by_{label}.csv",
+            [label, "total", "share"],
+            [[k, v, round(v / total, 4)] for k, v in rows],
+        )
         cats[label] = rows
     counts = [r[0] for r in con.execute(f"SELECT {m} FROM t WHERE {m} > 0").fetchall()]
     return {"time": time, "split": split, "cats": cats, "counts": counts, "measure": m}
@@ -271,12 +290,20 @@ def chart(name: str, data: dict, spec: dict, stem: Path) -> None:
     main = MAIN_CATEGORY[name]
     rows = data["cats"][main]
     if main == "Deprivation":
-        names = {"1.0": "1 most deprived", "2.0": "2", "3.0": "3", "4.0": "4",
-                 "5.0": "5 least deprived", "(missing)": "unknown"}
+        names = {
+            "1.0": "1 most deprived",
+            "2.0": "2",
+            "3.0": "3",
+            "4.0": "4",
+            "5.0": "5 least deprived",
+            "(missing)": "unknown",
+        }
         rows = sorted(rows, key=lambda r: names.get(r[0], r[0]))
         labels = [names.get(k, k) for k, _ in rows]
-        colors = [style.QUINTILE.get(int(float(k)), style.INK_3) if k != "(missing)"
-                  else "#c9c8c3" for k, _ in rows]
+        colors = [
+            style.QUINTILE.get(int(float(k)), style.INK_3) if k != "(missing)" else "#c9c8c3"
+            for k, _ in rows
+        ]
     else:
         rows = rows[:12]
         labels = [label_of(str(k)) for k, _ in rows]
@@ -289,8 +316,10 @@ def chart(name: str, data: dict, spec: dict, stem: Path) -> None:
     ax.tick_params(axis="y", labelsize=6.5, length=0)
     ax.set_xlim(0, max(v for _, v in rows) * 1.12)  # room for the share labels
     ax.xaxis.set_major_formatter(style.thousands(scale if scale > 1 else 1))
-    ax.set_xlabel(f"{unit}, whole period" + (" (thousands)" if scale == 1000 else
-                                               " (millions)" if scale == 1e6 else ""))
+    ax.set_xlabel(
+        f"{unit}, whole period"
+        + (" (thousands)" if scale == 1000 else " (millions)" if scale == 1e6 else "")
+    )
     for yy, (_k, v) in zip(y, rows, strict=True):
         ax.text(v, yy, f" {100 * v / total:.0f}%", va="center", fontsize=6, color=style.INK_2)
     ax.set_title(f"By {CATEGORY_NAMES.get(main, main.lower())}")
@@ -311,12 +340,20 @@ def chart(name: str, data: dict, spec: dict, stem: Path) -> None:
     for q, txt in ((0.5, "median"), (0.9, "90th percentile")):
         v = float(np.quantile(counts, q))
         ax.plot([v], [100 * q], "o", color=style.INK, markersize=3)
-        ax.annotate(f"{txt}: {v:,.0f}", (v, 100 * q), xytext=(6, -2), textcoords="offset points",
-                    fontsize=6.5, color=style.INK_2, va="top")
+        ax.annotate(
+            f"{txt}: {v:,.0f}",
+            (v, 100 * q),
+            xytext=(6, -2),
+            textcoords="offset points",
+            fontsize=6.5,
+            color=style.INK_2,
+            va="top",
+        )
     ax.set_title("Size of single rows (rows above 0)")
     style.panel(ax, "c")
 
-    style.source(fig, style.SOURCE_PHS + f". File(s): {', '.join(Path(f).name for f in spec['files'])}.")
+    files = ", ".join(Path(f).name for f in spec["files"])
+    style.source(fig, style.SOURCE_PHS + f". File(s): {files}.")
     style.save(fig, stem)
 
 
@@ -338,8 +375,10 @@ def _period(p: str):
 
 def main() -> None:
     """Profile and chart every dataset."""
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(
-        f"results/{dt.date.today().isoformat()}-distributions"
+    out = (
+        Path(sys.argv[1])
+        if len(sys.argv) > 1
+        else Path(f"results/{dt.date.today().isoformat()}-distributions")
     )
     out.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect()

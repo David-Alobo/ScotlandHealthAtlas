@@ -19,7 +19,9 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 from matplotlib.ticker import FuncFormatter  # noqa: E402
+from matplotlib.transforms import Bbox  # noqa: E402
 
 MM = 1 / 25.4  # inches per millimetre
 SINGLE = 85 * MM
@@ -31,8 +33,16 @@ INK_3 = "#7a7974"
 GRID = "#e6e5e1"
 SURFACE = "#ffffff"
 
-CATEGORICAL = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6",
-               "#e34948"]
+CATEGORICAL = [
+    "#2a78d6",
+    "#eb6834",
+    "#1baf7a",
+    "#eda100",
+    "#e87ba4",
+    "#008300",
+    "#6250d6",
+    "#e34948",
+]
 QUINTILE = {1: "#0d366b", 2: "#184f95", 3: "#256abf", 4: "#3987e5", 5: "#86b6ef"}
 QUINTILE_NAME = {1: "1 most deprived", 2: "2", 3: "3", 4: "4", 5: "5 least deprived"}
 
@@ -121,8 +131,17 @@ def titles(fig, ax, title: str, subtitle: str | None = None) -> None:
         subtitle: A smaller line under it, or None.
     """
     ax.set_title(subtitle or "", fontsize=6.5, fontweight="normal", color=INK_2, pad=4)
-    ax.text(0, 1.0, title, transform=ax.transAxes, fontsize=9, fontweight="bold", color=INK,
-            va="bottom", ha="left").set_y(1.07 if subtitle else 1.02)
+    ax.text(
+        0,
+        1.0,
+        title,
+        transform=ax.transAxes,
+        fontsize=9,
+        fontweight="bold",
+        color=INK,
+        va="bottom",
+        ha="left",
+    ).set_y(1.07 if subtitle else 1.02)
 
 
 def label_ends(ax, ends: list[tuple[str, float, float]], gap_pt: float = 9.0) -> None:
@@ -146,22 +165,126 @@ def label_ends(ax, ends: list[tuple[str, float, float]], gap_pt: float = 9.0) ->
         heights[i] = max(heights[i], heights[i - 1] + gap_px)
     shift = offset_copy(ax.transData, fig=fig, x=5, y=0, units="points")  # gap after the line
     for (_y, text, x), h in zip(placed, heights, strict=True):
-        ax.text(x, from_px((0, h))[1], text, transform=shift, va="center", ha="left",
-                fontsize=7, color=INK_2, clip_on=False)
+        ax.text(
+            x,
+            from_px((0, h))[1],
+            text,
+            transform=shift,
+            va="center",
+            ha="left",
+            fontsize=7,
+            color=INK_2,
+            clip_on=False,
+        )
 
 
-def source(fig, text: str) -> None:
+def label_points(
+    ax,
+    labels: list[tuple[str, float, float]],
+    avoid: list[tuple[float, float]] = (),
+    fontsize: float = 6,
+    marker_pt: float = 3.0,
+) -> list:
+    """Label scatter points, each in the first nearby spot that overlaps no other label or point.
+
+    Spots are tried in order: right of the point, above, below (centred, then starting at the
+    point), left. A spot is free when the
+    label overlaps no point, no label placed before it and no text already on the axes (add notes
+    first), and stays right of the y axis and below the top of the plot. A label that fits nowhere
+    keeps the first spot.
+
+    Args:
+        ax: The axes (draw the points and set the limits first).
+        labels: (label, x, y) for each point to label.
+        avoid: Every plotted point (x, y), labelled or not, that labels must not cover.
+        fontsize: Label size in points.
+        marker_pt: Half the marker's size, in points, kept clear around each point.
+
+    Returns:
+        The text artists, in the order given.
+    """
+    fig = ax.figure
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    px = fig.dpi / 72
+    to_px = ax.transData.transform
+    r = marker_pt * px
+    dots = [Bbox.from_extents(*(to_px(p) - r), *(to_px(p) + r)) for p in avoid]
+    spots = [
+        ((4, 0), "left", "center"),
+        ((0, 5), "center", "bottom"),
+        ((0, -5), "center", "top"),
+        ((-3, 5), "left", "bottom"),  # starting at the point: for points against the y axis
+        ((-3, -5), "left", "top"),
+        ((-4, 0), "right", "center"),
+    ]
+
+    def put(text, x, y, spot):
+        offset, ha, va = spot
+        t = ax.annotate(
+            text,
+            (x, y),
+            xytext=offset,
+            textcoords="offset points",
+            ha=ha,
+            va=va,
+            fontsize=fontsize,
+            color=INK_2,
+            annotation_clip=False,
+        )
+        return t, t.get_window_extent(renderer)
+
+    frame = ax.get_window_extent(renderer)
+    # text already on the axes (a note, a correlation) is an obstacle too
+    placed: list[Bbox] = [t.get_window_extent(renderer) for t in ax.texts]
+    texts = []
+    for text, x, y in labels:
+        own = Bbox.from_extents(*(to_px((x, y)) - r), *(to_px((x, y)) + r))
+        others = [d for d in dots if not np.allclose(d.extents, own.extents)]
+        for spot in spots:
+            t, box = put(text, x, y, spot)
+            # stay right of the y axis and below the top of the plot (the title lives there)
+            inside = box.x0 >= frame.x0 and box.y1 <= frame.y1
+            if inside and not any(box.overlaps(b) for b in placed + others):
+                break
+            t.remove()
+        else:  # nowhere free: fall back to the first spot
+            t, box = put(text, x, y, spots[0])
+        texts.append(t)
+        placed.append(box)
+    return texts
+
+
+def source(fig, text: str, gap_pt: float = 6.0) -> None:
     """The data source, small and muted, under the figure, wrapped to the figure's width.
+
+    Placed just below the lowest thing drawn on any axes (tick labels, axis titles), so it never
+    collides with them and leaves no empty band, whatever the layout. Call it after the axes are
+    finished.
 
     Args:
         fig: The figure.
         text: The source line(s).
+        gap_pt: Space between the lowest axes element and the source, in points.
     """
     import textwrap
 
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    lowest_px = min(ax.get_tightbbox(renderer).y0 for ax in fig.axes)
+    y = (lowest_px - gap_pt * fig.dpi / 72) / fig.bbox.height
     width = int(fig.get_figwidth() / MM * 0.62)  # about how many 6-pt characters fit
-    fig.text(0.0, -0.01, textwrap.fill(text, width), fontsize=6, color=INK_3, va="top",
-             ha="left", transform=fig.transFigure, linespacing=1.3)
+    fig.text(
+        0.0,
+        y,
+        textwrap.fill(text, width),
+        fontsize=6,
+        color=INK_3,
+        va="top",
+        ha="left",
+        transform=fig.transFigure,
+        linespacing=1.3,
+    )
 
 
 def panel(ax, letter: str) -> None:
@@ -171,8 +294,17 @@ def panel(ax, letter: str) -> None:
         ax: The panel.
         letter: Its letter.
     """
-    ax.text(-0.02, 1.06, letter, transform=ax.transAxes, fontsize=9, fontweight="bold",
-            color=INK, ha="right", va="bottom")
+    ax.text(
+        -0.02,
+        1.06,
+        letter,
+        transform=ax.transAxes,
+        fontsize=9,
+        fontweight="bold",
+        color=INK,
+        ha="right",
+        va="bottom",
+    )
 
 
 def save(fig, stem: Path) -> list[Path]:

@@ -1,6 +1,6 @@
 """Profile every file of the competition data package: columns, types, rows, gaps, ranges.
 
-Usage (from the repository root): python -m src.atlas.audit [output folder]
+Usage (from the repository root): uv run python -m atlas.audit [output folder]
 
 Writes `profile.md` (readable) and `profile.json` (every number) to the output folder, by default
 results/<today>-data-audit/. Reads the CSV files with DuckDB, so nothing is loaded into memory
@@ -102,8 +102,10 @@ def to_markdown(profiles: list[dict]) -> str:
 
 def main() -> None:
     """Profile all files and write the report."""
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(
-        f"results/{dt.date.today().isoformat()}-data-audit"
+    out = (
+        Path(sys.argv[1])
+        if len(sys.argv) > 1
+        else Path(f"results/{dt.date.today().isoformat()}-data-audit")
     )
     out.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect()

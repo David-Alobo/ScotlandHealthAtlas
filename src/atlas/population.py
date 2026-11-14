@@ -1,6 +1,6 @@
 """Population denominators: data zone estimates, grouped to match the health data's age bands.
 
-Usage (from the repository root): python -m src.atlas.population
+Usage (from the repository root): uv run python -m atlas.population
 
 Reads National Records of Scotland small area population estimates on 2011 data zones (mid-2011
 to mid-2021 rebased and corrected in 2026; mid-2023 and mid-2024) and the SIMD 2020v2 data zone
@@ -25,17 +25,31 @@ import openpyxl
 EXT = Path("data/external")
 SAPE = EXT / "nrs_sape_2011dz"
 REBASED = (
-    SAPE / "NRS - SAPE - 2011-22 rebase (11DZ) - REVISED syoa data for website"
+    SAPE
+    / "NRS - SAPE - 2011-22 rebase (11DZ) - REVISED syoa data for website"
     / "rebased-sape-2011-21-corrected"
 )
 LOOKUP = EXT / "simd2020v2_datazone_lookup_2025.xlsx"
 OUT = Path("data/derived")
 
-AE_BANDS = [(0, 17, "Under 18"), (18, 24, "18-24"), (25, 39, "25-39"), (40, 64, "40-64"),
-            (65, 74, "65-74"), (75, 200, "75 plus")]
-INJURY_BANDS = [(0, 4, "0-4 years"), (5, 9, "5-9 years"), (10, 14, "10-14 years"),
-                (15, 24, "15-24 years"), (25, 44, "25-44 years"), (45, 64, "45-64 years"),
-                (65, 74, "65-74 years"), (75, 200, "75plus years")]
+AE_BANDS = [
+    (0, 17, "Under 18"),
+    (18, 24, "18-24"),
+    (25, 39, "25-39"),
+    (40, 64, "40-64"),
+    (65, 74, "65-74"),
+    (75, 200, "75 plus"),
+]
+INJURY_BANDS = [
+    (0, 4, "0-4 years"),
+    (5, 9, "5-9 years"),
+    (10, 14, "10-14 years"),
+    (15, 24, "15-24 years"),
+    (25, 44, "25-44 years"),
+    (45, 64, "45-64 years"),
+    (65, 74, "65-74 years"),
+    (75, 200, "75plus years"),
+]
 
 
 def band(age: int, bands: list[tuple[int, int, str]]) -> str:
@@ -99,8 +113,9 @@ def read_rebased(year: int) -> dict[tuple[str, str], list[int]]:
     Returns:
         By (data zone, "Male" or "Female"): the population at each age 0 to 90.
     """
-    ws = openpyxl.load_workbook(REBASED / f"Rebased SAPE {year} (11DZ) - corrected.xlsx",
-                                read_only=True)[str(year)]
+    ws = openpyxl.load_workbook(
+        REBASED / f"Rebased SAPE {year} (11DZ) - corrected.xlsx", read_only=True
+    )[str(year)]
     out = {}
     head = None
     for r in ws.iter_rows(values_only=True):
@@ -125,8 +140,9 @@ def read_recent(year: int) -> dict[tuple[str, str], list[int]]:
     Returns:
         By (data zone, "Male" or "Female"): the population at each age 0 to 90.
     """
-    wb = openpyxl.load_workbook(SAPE / f"small-area-population-estimates-mid-{year}-11-dz.xlsx",
-                                read_only=True)
+    wb = openpyxl.load_workbook(
+        SAPE / f"small-area-population-estimates-mid-{year}-11-dz.xlsx", read_only=True
+    )
     out = {}
     for sheet, sex in (("Males", "Male"), ("Females", "Female")):
         head = None
@@ -161,13 +177,31 @@ def main() -> None:
             for (dz, sex), counts in data.items():
                 z = zones[dz]
                 for age, n in enumerate(counts):
-                    key = (year, z["hb"], z["council"], z["quintile"], z["urban_rural"], sex,
-                           band(age, bands))
+                    key = (
+                        year,
+                        z["hb"],
+                        z["council"],
+                        z["quintile"],
+                        z["urban_rural"],
+                        sex,
+                        band(age, bands),
+                    )
                     totals[key] += n
         with (OUT / name).open("w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
-            w.writerow(["year", "hb", "council", "simd_quintile", "urban_rural", "sex", "age_band",
-                        "population", "estimated"])
+            w.writerow(
+                [
+                    "year",
+                    "hb",
+                    "council",
+                    "simd_quintile",
+                    "urban_rural",
+                    "sex",
+                    "age_band",
+                    "population",
+                    "estimated",
+                ]
+            )
             for key in sorted(totals):
                 w.writerow([*key, round(totals[key], 1), int(key[0] == 2022)])
         print(f"wrote {OUT / name}: {len(totals):,} rows")

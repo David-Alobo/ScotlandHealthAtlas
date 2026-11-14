@@ -37,5 +37,5 @@ population estimates are used to match it (mid-2022 is not published on them; se
 
 | File | Made by | Contents |
 |---|---|---|
-| `population_ae.csv` | `python -m src.atlas.population` | Population by year (2011-2024), health board, council, SIMD quintile, urban-rural class, sex and A&E age band |
+| `population_ae.csv` | `uv run python -m atlas.population` | Population by year (2011-2024), health board, council, SIMD quintile, urban-rural class, sex and A&E age band |
 | `population_injury.csv` | same | The same with the injury files' age bands |
