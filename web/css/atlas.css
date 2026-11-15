@@ -582,3 +582,6 @@ thead th { color: var(--ink-3); font-weight: 500; }
 .whatif .result b { color: var(--ink); }
 /* on phones the card keeps only the control and the result, so the chart above stays in view */
 @media (max-width: 760px) { .whatif > p:not(.result), .whatif h2 { display: none; } .whatif .presets { margin-bottom: 0.4rem; } }
+/* the three cases on one row */
+.whatif .presets { flex-wrap: nowrap; gap: 0.3rem; }
+.whatif .presets button { flex: 1 1 auto; white-space: nowrap; padding: 0.3rem 0.5rem; font-size: 0.74rem; }
