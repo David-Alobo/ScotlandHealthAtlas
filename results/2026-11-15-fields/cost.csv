@@ -1,0 +1,133 @@
+simd_quintile,chapter,items,gross_ingredient_cost,cost_per_item
+1,All,32428994,356558397.66,11.0
+1,Anaesthesia,67067,4074219.15,60.75
+1,Appliances,1404195,23801557.39,16.95
+1,Cardiovascular system,7362859,34999658.43,4.75
+1,Central nervous system,6888589,55981441.76,8.13
+1,Chapter missing,31473,2976517.03,94.57
+1,Dressings,189562,4982951.8,26.29
+1,"Ear, nose and oropharynx",508058,3589011.97,7.06
+1,Endocrine system,2866476,55876477.81,19.49
+1,Eye,383674,3403233.21,8.87
+1,Gastro-intestinal system,3412868,26216363.59,7.68
+1,"Immunological products, vaccines",4234,79796.97,18.85
+1,Incontinence appliances,73771,1699701.22,23.04
+1,Infections,1315836,18962591.93,14.41
+1,"Malignant disease, immunosuppression",134316,13705967.45,102.04
+1,Musculoskeletal and joint,1232029,9776070.04,7.93
+1,Nutrition and blood,1775216,18284063.01,10.3
+1,"Obstetrics, gynaecology, urinary",844901,8163332.28,9.66
+1,Other drugs and preparations,11267,125161.69,11.11
+1,Respiratory system,2518691,41324896.38,16.41
+1,Skin,1187504,11833706.06,9.97
+1,Stoma appliances,216408,16701678.49,77.18
+2,All,31336436,338189267.16,10.79
+2,Anaesthesia,65717,3984359.96,60.63
+2,Appliances,1395416,23345318.42,16.73
+2,Cardiovascular system,7481369,35667098.75,4.77
+2,Central nervous system,6256286,54421527.66,8.7
+2,Chapter missing,29548,2203308.81,74.57
+2,Dressings,155953,4410451.29,28.28
+2,"Ear, nose and oropharynx",498604,3526094.61,7.07
+2,Endocrine system,3023083,58945308.1,19.5
+2,Eye,412703,3778944.07,9.16
+2,Gastro-intestinal system,3276891,26578839.44,8.11
+2,"Immunological products, vaccines",5094,91276.11,17.92
+2,Incontinence appliances,49408,1069212.44,21.64
+2,Infections,1277151,14458660.99,11.32
+2,"Malignant disease, immunosuppression",146280,13746715.09,93.98
+2,Musculoskeletal and joint,1151903,9540233.55,8.28
+2,Nutrition and blood,1643262,18356272.65,11.17
+2,"Obstetrics, gynaecology, urinary",890494,9165251.71,10.29
+2,Other drugs and preparations,12428,146149.21,11.76
+2,Respiratory system,2285071,38064388.84,16.66
+2,Skin,1168479,11606653.41,9.93
+2,Stoma appliances,111296,5083202.05,45.67
+3,All,20404333,215592369.57,10.57
+3,Anaesthesia,39554,2290823.47,57.92
+3,Appliances,917462,15071361.47,16.43
+3,Cardiovascular system,5071322,24175670.98,4.77
+3,Central nervous system,3857608,33619120.85,8.72
+3,Chapter missing,19804,1408045.49,71.1
+3,Dressings,97244,2674859.32,27.51
+3,"Ear, nose and oropharynx",325267,2339973.21,7.19
+3,Endocrine system,2036565,38024584.27,18.67
+3,Eye,288670,2748425.12,9.52
+3,Gastro-intestinal system,2131718,17541907.42,8.23
+3,"Immunological products, vaccines",2904,48643.64,16.75
+3,Incontinence appliances,35206,788305.98,22.39
+3,Infections,810429,8343506.09,10.3
+3,"Malignant disease, immunosuppression",103147,9550247.16,92.59
+3,Musculoskeletal and joint,736576,6242697.85,8.48
+3,Nutrition and blood,1067000,11547690.35,10.82
+3,"Obstetrics, gynaecology, urinary",621897,6543951.45,10.52
+3,Other drugs and preparations,8030,75928.74,9.46
+3,Respiratory system,1420532,23261664.73,16.38
+3,Skin,758546,7610799.27,10.03
+3,Stoma appliances,54852,1684162.71,30.7
+4,All,15436503,168762396.32,10.93
+4,Anaesthesia,29406,1713476.32,58.27
+4,Appliances,718916,11809855.54,16.43
+4,Cardiovascular system,3846374,19727906.39,5.13
+4,Central nervous system,2801055,24970347.16,8.91
+4,Chapter missing,16995,977518.44,57.52
+4,Dressings,78537,2173827.8,27.68
+4,"Ear, nose and oropharynx",256779,1885296.54,7.34
+4,Endocrine system,1587348,30112621.91,18.97
+4,Eye,224369,2169250.99,9.67
+4,Gastro-intestinal system,1591647,13751422.53,8.64
+4,"Immunological products, vaccines",3125,48810.14,15.62
+4,Incontinence appliances,24934,555474.8,22.28
+4,Infections,637695,6889561.89,10.8
+4,"Malignant disease, immunosuppression",83905,7346227.85,87.55
+4,Musculoskeletal and joint,553695,4625845.45,8.35
+4,Nutrition and blood,785500,8912057.69,11.35
+4,"Obstetrics, gynaecology, urinary",491333,5312660.91,10.81
+4,Other drugs and preparations,6260,63126.13,10.08
+4,Respiratory system,1045138,17934598.24,17.16
+4,Skin,608481,6294600.73,10.34
+4,Stoma appliances,45011,1487908.87,33.06
+5,All,12060417,147201475.01,12.21
+5,Anaesthesia,25211,1510863.15,59.93
+5,Appliances,612595,10020793.6,16.36
+5,Cardiovascular system,2935750,15346431.52,5.23
+5,Central nervous system,2025596,19338231.31,9.55
+5,Chapter missing,12751,1077926.87,84.54
+5,Dressings,62262,1593158.25,25.59
+5,"Ear, nose and oropharynx",227103,1656950.83,7.3
+5,Endocrine system,1218085,24617884.81,20.21
+5,Eye,204578,1999804.26,9.78
+5,Gastro-intestinal system,1176895,11042457.19,9.38
+5,"Immunological products, vaccines",1205,21676.65,17.99
+5,Incontinence appliances,20578,464457.14,22.57
+5,Infections,527686,5779339.4,10.95
+5,"Malignant disease, immunosuppression",71169,6885531.68,96.75
+5,Musculoskeletal and joint,413460,3570459.92,8.64
+5,Nutrition and blood,635112,7601655.43,11.97
+5,"Obstetrics, gynaecology, urinary",405556,4560859.54,11.25
+5,Other drugs and preparations,5171,61287.53,11.85
+5,Respiratory system,789611,13347673.55,16.9
+5,Skin,555700,5642644.0,10.15
+5,Stoma appliances,134343,11061388.38,82.34
+unplaced,All,1580524,17374957.57,10.99
+unplaced,Anaesthesia,3999,250451.47,62.63
+unplaced,Appliances,68654,1140430.84,16.61
+unplaced,Cardiovascular system,377577,1925822.46,5.1
+unplaced,Central nervous system,304330,2621485.36,8.61
+unplaced,Chapter missing,2106,201168.75,95.52
+unplaced,Dressings,15658,462193.91,29.52
+unplaced,"Ear, nose and oropharynx",24859,190172.63,7.65
+unplaced,Endocrine system,149705,2994850.75,20.01
+unplaced,Eye,20869,208156.08,9.97
+unplaced,Gastro-intestinal system,160663,1393934.85,8.68
+unplaced,"Immunological products, vaccines",36,1070.07,29.72
+unplaced,Incontinence appliances,1888,41560.68,22.01
+unplaced,Infections,67848,588427.03,8.67
+unplaced,"Malignant disease, immunosuppression",8123,701690.24,86.38
+unplaced,Musculoskeletal and joint,58463,505624.76,8.65
+unplaced,Nutrition and blood,86481,954399.29,11.04
+unplaced,"Obstetrics, gynaecology, urinary",47849,512372.59,10.71
+unplaced,Other drugs and preparations,580,5912.96,10.19
+unplaced,Respiratory system,114264,1905045.92,16.67
+unplaced,Skin,62650,654540.63,10.45
+unplaced,Stoma appliances,3922,115646.3,29.49

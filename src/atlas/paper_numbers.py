@@ -10,18 +10,25 @@ paper/generated/table_*.tex.
 
 from __future__ import annotations
 
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
-from .export_web import AE, INJ, RX, read, story
+from .export_web import ACCESS, AE, INJ, RX, read, story
 from .stats import spearman
 
 OUT = Path("paper/generated")
 VALIDATION = Path("results/2026-11-14-validation/validation.csv")
+FIELDS = Path("results/2026-11-15-fields")
 
 
 def pct(x: float, digits: int = 0) -> str:
     """A fraction as a percentage string without the sign: 0.371 -> "37"."""
     return f"{100 * x:.{digits}f}"
+
+
+def half_up(x: float, digits: int = 1) -> str:
+    """A number rounded with halves up, as the atlas shows it: 6.35 -> "6.4"."""
+    return str(Decimal(str(x)).quantize(Decimal(1).scaleb(-digits), rounding=ROUND_HALF_UP))
 
 
 def num(x: float, digits: int = 0) -> str:
@@ -211,6 +218,55 @@ def macros() -> dict[str, str]:
         "valWorst": f"{worst:.1f}",
         "oldFallsShare": f"{float(v['over65_falls_share']['ours']):.0f}",
         "valCount": str(len(v)),
+    }
+
+    # access to care: emergency department waits, and GP time per patient
+    w = s["access"]["waits"]
+    y19 = w["years"].index(2019)
+    met = [y for y, v in zip(w["years"], w["within_4h"], strict=True) if v >= w["target"]]
+    q = {r["quintile"]: r for r in s["access"]["gp"]["quintiles"]}
+    boards = read(ACCESS / "gp_board.csv")
+    close = [r for r in boards if r["health_board"] != "Scotland"]
+    m |= {
+        "waitsFirstYear": str(w["years"][0]),
+        "waitsLastYear": str(w["years"][-1]),
+        "waitsFirst": pct(w["within_4h"][0], 1),
+        "waitsNineteen": pct(w["within_4h"][y19], 1),
+        "waitsLast": pct(w["within_4h"][-1], 1),
+        "waitsLastMet": str(max(met)),
+        "overEightLast": pct(w["over_8h"][-1], 1),
+        "overTwelveFirst": pct(w["over_12h"][0], 2),
+        "overTwelveLast": pct(w["over_12h"][-1], 1),
+        "overTwelveVisits": num(round(w["over_12h"][-1] * w["attendances"][-1], -3)),
+        # halves round up, as the atlas rounds them (6.35 -> 6.4)
+        "gpHeadQone": half_up(q[1]["headcount_per_10000"]),
+        "gpHeadQfive": half_up(q[5]["headcount_per_10000"]),
+        "gpWteQone": half_up(q[1]["wte_per_10000"]),
+        "gpWteQfive": half_up(q[5]["wte_per_10000"]),
+        "gpWteGap": pct(1 - q[1]["wte_per_10000"] / q[5]["wte_per_10000"]),
+        "gpPatients": num(sum(r["patients"] for r in q.values())),
+        "gpBoardsClose": str(
+            sum(
+                abs(float(r["wte_per_10000"]) - float(r["nes_wte_per_10000"])) <= 0.05
+                for r in close
+            )
+        ),
+        "gpBoardWorst": f"{s['access']['gp']['board_check_max_difference']:.2f}",
+    }
+
+    # two more fields: where injuries happen, and what medicines cost
+    loc = read(FIELDS / "location.csv")
+    share = {(r["dataset"], r["injury_type"], r["location"]): r for r in loc}
+    cost = {(r["simd_quintile"], r["chapter"]): r for r in read(FIELDS / "cost.csv")}
+    m |= {
+        "fallsDeathsUnplaced": pct(
+            float(share[("deaths", "Falls", "Unspecified place")]["share_of_all"])
+        ),
+        "poisonDeathsHome": pct(float(share[("deaths", "Poisoning", "Home")]["share_of_all"])),
+        "fallsAdmHomePlaced": pct(float(share[("admissions", "Falls", "Home")]["share_of_placed"])),
+        "costQone": f"{float(cost[('1', 'All')]['cost_per_item']):.2f}",
+        "costQfive": f"{float(cost[('5', 'All')]['cost_per_item']):.2f}",
+        "costMidLow": f"{min(float(cost[(str(k), 'All')]['cost_per_item']) for k in range(1, 5)):.2f}",  # noqa: E501
     }
     return m
 

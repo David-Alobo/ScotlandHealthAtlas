@@ -26,6 +26,7 @@ import html
 import re
 import sys
 from collections import defaultdict
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import duckdb
@@ -234,8 +235,9 @@ def chart_waits(rows: list[dict], stem: Path) -> None:
     fig, (a, b) = plt.subplots(1, 2, figsize=(style.DOUBLE, 70 * style.MM))
     a.plot(xs, [100 * r["within_4h"] for r in ed], color=style.QUINTILE[2], marker="o")
     a.axhline(100 * TARGET, color=style.INK, lw=0.8, ls="--")
-    a.annotate("95% standard", (xs[0], 100 * TARGET), xytext=(0, 4), textcoords="offset points",
-               fontsize=7)  # fmt: skip
+    # the label sits above the line at the right, clear of the data, which is far below it there
+    a.annotate("95% standard", (xs[-1], 100 * TARGET), xytext=(0, 4), textcoords="offset points",
+               ha="right", fontsize=7)  # fmt: skip
     a.set_ylim(50, 100)
     a.set_ylabel("Seen within 4 hours (%)")
     b.plot(xs, [100 * r["over_12h"] for r in ed], color=style.QUINTILE[1], marker="o")
@@ -269,9 +271,12 @@ def chart_gp(rows: list[dict], stem: Path) -> None:
     vals = [r["wte_per_10000"] for r in rows]
     ax.barh([style.QUINTILE_NAME[q] for q in qs], vals, color=[style.QUINTILE[q] for q in qs])
     for y, v in enumerate(vals):
-        ax.annotate(f"{v:.1f}", (v, y), xytext=(4, 0), textcoords="offset points", va="center",
+        # halves round up, as in the paper and the atlas (6.35 -> 6.4)
+        text = str(Decimal(str(v)).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+        ax.annotate(text, (v, y), xytext=(4, 0), textcoords="offset points", va="center",
                     fontsize=7)  # fmt: skip
     ax.invert_yaxis()
+    style.panel(ax, "c")
     ax.set_xlabel("GPs (whole-time equivalent) per 10,000 patients")
     style.titles(
         fig, ax, "GPs per patient by deprivation of the practice's area",

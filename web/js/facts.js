@@ -83,7 +83,7 @@ export function accessFacts(access) {
     waitsTarget: pct(w.target, 0),
     over12First: pct(w.over_12h[0], 2),
     over12Last: pct(w.over_12h[last]),
-    over12LastVisits: formatInt(w.over_12h[last] * w.attendances[last]),
+    over12LastVisits: formatInt(Math.round((w.over_12h[last] * w.attendances[last]) / 1000) * 1000),
     over8Last: pct(w.over_8h[last]),
     gpDate: access.gp.date,
     gpQ1Head: formatNum(q1.headcount_per_10000, 1),

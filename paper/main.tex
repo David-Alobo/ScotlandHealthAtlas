@@ -107,7 +107,12 @@ columns, ranges, missing values and suppressed cells.
 
 To these we added the Scottish Index of Multiple Deprivation 2020 (version 2) look-ups for data
 zones and postcodes \citep{simd2020}, the 2011 data zone boundaries, and the National Records of
-Scotland small area population estimates on 2011 data zones \citep{nrssape}. Scotland has
+Scotland small area population estimates on 2011 data zones \citep{nrssape}. For general practice
+we used NHS Education for Scotland's General Practice Workforce Survey 2025 \citep{nesgpws2025},
+which gives GPs (headcount and whole-time equivalent, excluding specialty trainees) on 31 March 2025
+by health board and by the deprivation quintile of the practice, and Public Health Scotland's
+practice list sizes for April 2025 \citep{phslistsizes2025}, which give each practice's registered
+patients and data zone. Scotland has
 \zonesTotal{} data zones, each with about 800 residents; \zonesQone{} of them form the most deprived
 fifth (quintile~1). Because the deprivation index is defined on 2011 data zones, we used the
 population estimates on the same zones: the rebased estimates for mid-2011 to mid-2021 and the
@@ -151,6 +156,20 @@ from about a quarter in 2019 to \unplacedShare\% in the latest twelve months (Ju
 2026), so we used only those twelve months. We also compared the medicine mix as each chapter's
 share of a quintile's items, which does not depend on population or on where pharmacies are.
 
+\subsection{Waiting times and general practice}
+
+From the A\&E activity file we took, for emergency departments (Type 1 sites) in each whole
+calendar year from \waitsFirstYear{} to \waitsLastYear{}, the share of attendances completed within 4
+hours, as the national standard counts them, and the shares lasting more than 8 and more than 12
+hours, which the file gives only for the episode measure. These waits are recorded by hospital, not
+by where patients live, so they cannot be compared by deprivation.
+
+For general practice we divided the survey's GPs in each deprivation quintile by the registered
+patients of the practices in that quintile, placing each practice by the data zone of its address.
+The survey does not state how it places practices, so this is our assumption. As a check on the
+denominator, the list sizes reproduced the survey's own GPs per 10{,}000 patients within 0.05 for
+\gpBoardsClose{} of the 14 health boards, and within \gpBoardWorst{} for the others.
+
 \subsection{Sensitivity analysis and validation}
 
 The share of A\&E attendances with unknown deprivation, but known age and sex, rose from
@@ -166,7 +185,7 @@ published by Public Health Scotland for 2023/24 and 2024/25 \citep{phsinjuries20
 
 The atlas is a single web page written in plain JavaScript, with no build step. Each of the
 \zonesTotal{} data zones is drawn as a dot at its centre, with brightness by deprivation, and the
-story moves through fifteen scenes as the reader scrolls. A reader can search by postcode or
+story moves through eighteen scenes as the reader scrolls. A reader can search by postcode or
 neighbourhood name, or click a dot, to pin a neighbourhood; the panels then show that
 neighbourhood's deprivation, its council's rates beside Scotland's, and the deaths in its council by
 age. The data behind the page are exported from the same results tables as this paper.
@@ -224,6 +243,32 @@ level with the earlier years. The fall in the ratio is therefore within what the
 produce, and we do not claim that the gap narrowed. Even in the least favourable scenario the most
 deprived fifth attended \aeRatioFloor{} times as often as the least deprived.
 
+\subsection{Waiting in A\&E and time with a GP}
+
+The share of emergency department attendances completed within 4 hours fell from \waitsFirst\% in
+\waitsFirstYear{} to \waitsNineteen\% in 2019 and \waitsLast\% in \waitsLastYear{}, against a
+standard of 95\% that was last met, as a calendar-year average, in \waitsLastMet{}
+(Figure~\ref{fig:access}a). The longest waits grew most: \overTwelveLast\% of attendances lasted
+more than 12 hours in \waitsLastYear{} (about \overTwelveVisits{} visits), against \overTwelveFirst\%
+in \waitsFirstYear{}, and \overEightLast\% lasted more than 8 hours.
+
+Practices in the most deprived fifth of areas had about as many GPs per 10{,}000 registered patients
+as those in the least deprived fifth (\gpHeadQone{} and \gpHeadQfive{}), but less GP time:
+\gpWteQone{} against \gpWteQfive{} whole-time equivalents, \gpWteGap\% less
+(Figure~\ref{fig:access}b). The middle quintiles do not form a gradient, so we compare only the two
+ends.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\textwidth]{2026-11-15-access/waits.pdf}\\[4pt]
+  \includegraphics[width=0.6\textwidth]{2026-11-15-access/gp.pdf}
+  \caption{Access to care. (a, b) Emergency department attendances completed within 4 hours and
+    lasting more than 12 hours, Scotland, \waitsFirstYear{} to \waitsLastYear{}. (c) GPs (whole-time
+    equivalent) per 10{,}000 registered patients by deprivation quintile of the practice's area,
+    31 March 2025 \citep{nesgpws2025,phslistsizes2025}.}
+  \label{fig:access}
+\end{figure}
+
 \subsection{Unintentional injuries over time}
 
 Emergency admissions for unintentional injuries fell from \admRateFirst{} per 100{,}000 in
@@ -253,7 +298,10 @@ died of poisoning; \poisonMidShare\% were aged 25 to 64 and \poisonMenShare\% we
 \admLastYear{} the falls admission rate was \fallsOldRate{} per 100{,}000 at ages 75 and over,
 \fallsMidRate{} at 65 to 74 and \fallsYoungRate{} under 65. The rate at 75 and over was much the same
 in \admFirstYear{} (\fallsOldRateFirst), so the number of falls admissions has followed the size of
-the oldest age group.
+the oldest age group. The files also record where the injury happened, but the place was not
+specified for \fallsDeathsUnplaced\% of deaths after a fall, so they cannot say where fatal falls
+happen. Of falls admissions with a place recorded, \fallsAdmHomePlaced\% happened at home, and
+\poisonDeathsHome\% of poisoning deaths were recorded at home.
 
 \begin{figure}[t]
   \centering
@@ -328,7 +376,9 @@ who receives the medicines. The medicine mix does not depend on where pharmacies
 the central nervous system made up \cnsQone\% of items in the most deprived fifth and \cnsQfive\% in
 the least, and respiratory medicines \respQone\% and \respQfive\%. Cardiovascular medicines were a
 smaller share in the most deprived fifth (\cardioQone\% against \cardioQfive\%), which may reflect
-the older populations of less deprived areas. Across councils, items per person correlated only
+the older populations of less deprived areas. The ingredient cost per item was similar in the four
+more deprived quintiles (from \pounds\costMidLow{} to \pounds\costQone{}) and highest in the least
+deprived (\pounds\costQfive{}). Across councils, items per person correlated only
 weakly with the deprived share ($\rho = \rhoItems$), and these rates are not standardised for age.
 
 \begin{figure}[t]
@@ -398,6 +448,13 @@ picture of drug deaths in Scotland \citep{bloor2008,nrsdrugs2024}. However, we d
 link. Falls, in contrast, behaved as an outcome of age, which agrees with prevention guidance that
 targets older adults \citep{montero2022}. The standardised falls death rate still rose by
 \fallsRateRise\% from \trendFirst{} to \trendLast, so the growth is not only a matter of more older people.
+
+Waiting in emergency departments has lengthened over the whole period, and well before the pandemic.
+General practice adds a related observation: practices in the most deprived areas, where A\&E use is
+highest, had \gpWteGap\% less GP time per patient than those in the least deprived. This is a
+comparison of practices, not of patients, and these data cannot say whether less GP time leads to
+more A\&E use; it is one reading, and the English finding of more attendances from practices with
+deprived populations \citep{scantlebury2015} points the same way.
 
 This work has several limitations. First, the injury and prescribing comparisons are ecological. A
 council with many deprived neighbourhoods and a high poisoning death rate does not show that the
