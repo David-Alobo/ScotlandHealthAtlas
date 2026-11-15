@@ -149,20 +149,23 @@
       <section class="step" data-state="gp-what-if">
         <div class="card whatif">
           <h2>What if?</h2>
-          <p>Suppose GPs in the most deprived fifth worked more sessions, with the same number of
-            GPs. Move the slider, or choose a case.</p>
-          <label for="whatif-mean">Average per GP <output id="whatif-mean-out"></output></label>
-          <input type="range" id="whatif-mean" min="0.6" max="0.9" step="any">
+          <p>Is the potential being used? Each drum is the GP time patients would have if every GP
+            worked full-time; the water is the time actually worked. Change the sessions, with the
+            same number of GPs.</p>
+          <label for="whatif-q1">Most deprived fifth <output id="whatif-q1-out"></output></label>
+          <input type="range" id="whatif-q1" min="0.5" max="1" step="any">
+          <p class="line" id="whatif-q1-line"></p>
+          <label for="whatif-q5">Least deprived fifth <output id="whatif-q5-out"></output></label>
+          <input type="range" id="whatif-q5" min="0.5" max="1" step="any">
+          <p class="line" id="whatif-q5-line"></p>
           <div class="presets">
-            <button type="button" data-whatif="recorded">As now</button>
-            <button type="button" data-whatif="q5">Least deprived hours</button>
+            <button type="button" data-whatif="now">As now</button>
             <button type="button" data-whatif="equal">Equal GP time</button>
+            <button type="button" data-whatif="full">All full-time</button>
           </div>
-          <p class="result" aria-live="polite"><b id="whatif-per10000"></b> full-time GPs per 10,000
-            patients, one for every <b id="whatif-patients"></b> patients: <span id="whatif-extra"></span>,
-            and <span id="whatif-gap"></span>.</p>
-          <p class="small">Arithmetic on the recorded figures, not a forecast. A full-time GP works 8
-            sessions a week.</p>
+          <p class="result" aria-live="polite"><span id="whatif-gap"></span>.</p>
+          <p class="small">Arithmetic on the recorded figures, not a forecast. Full-time is 8 sessions
+            a week; some GPs work more, so a full drum is not a ceiling.</p>
         </div>
       </section>
 

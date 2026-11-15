@@ -4,7 +4,7 @@
 //   #stage (SVG): charts, the council scatter and labels.
 // Each scroll step sets a state; layouts come from stage.js, text from facts.js (all tested).
 
-import { groupedBars, lineChart } from "./charts.js";
+import { drumChart, groupedBars, lineChart } from "./charts.js";
 import { formatNum } from "./format.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
@@ -15,8 +15,9 @@ import { lookupPostcode, parseQuery, searchNames } from "./search.js";
 import {
   aeChart,
   gpChart,
+  gpDrumChart,
+  gpDrums,
   gpWhatIf,
-  gpWhatIfChart,
   longWaitsChart,
   ratioChart,
   tables,
@@ -154,10 +155,12 @@ function build(story, geo) {
   nest(lineChart({ ...longWaitsChart(story, { over8: C.violet, over12: C.cyan }), height: fill }), "waits12");
   nest(groupedBars(gpChart(story, { head: C.grey, wte: C.violet })), "gp");
   // "what if?": redrawn in place as the card's slider moves
-  const whatIf = nest(groupedBars(gpWhatIfChart(story, gpWhatIf(story, 0).recorded)), "gp-what-if");
-  const drawWhatIf = (mean) => {
+  const drumColours = { q1: C.violet, q5: C.cyan };
+  const now = gpDrums(story, { q1: 1, q5: 1 });
+  const whatIf = nest(drumChart(gpDrumChart(story, { q1: now.q1.recorded, q5: now.q5.recorded }, drumColours)), "gp-what-if");
+  const drawWhatIf = (means) => {
     whatIf.innerHTML = "";
-    const g = nest(groupedBars(gpWhatIfChart(story, mean, { set: C.violet, rest: C.grey })), "tmp");
+    const g = nest(drumChart(gpDrumChart(story, means, drumColours)), "tmp");
     whatIf.append(...g.childNodes);
     g.remove();
   };
@@ -758,31 +761,40 @@ async function main() {
       else document.querySelector(`.step[data-state="${b.dataset.go}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
-  // the "what if?" card: a slider for the average GP hours in the most deprived fifth
-  const slider = document.getElementById("whatif-mean");
+  // the "what if?" card: one slider for each fifth's average GP sessions; the drums follow
+  const sliders = { q1: document.getElementById("whatif-q1"), q5: document.getElementById("whatif-q5") };
   const showWhatIf = () => {
-    const w = gpWhatIf(story, Number(slider.value));
-    document.getElementById("whatif-mean-out").textContent = `${formatNum(w.mean * 8, 1)} sessions a week`;
-    document.getElementById("whatif-per10000").textContent = formatNum(Math.round(w.wtePer10000 * 100) / 100, 1); // as the saved table rounds it (6.35 -> 6.4)
-    document.getElementById("whatif-patients").textContent = formatNum(w.patientsPerWte);
-    document.getElementById("whatif-extra").textContent =
-      w.extraWte >= 0.5 ? `${formatNum(w.extraWte)} more full-time GPs (${formatNum(w.extraSessions)} sessions a week)` : "no change";
-    document.getElementById("whatif-gap").textContent =
-      w.gap > 0.005 ? `${formatNum(100 * w.gap)}% less GP time per patient than the least deprived fifth`
-        : w.gap < -0.005 ? `${formatNum(-100 * w.gap)}% more GP time per patient than the least deprived fifth`
-          : "the same GP time per patient as the least deprived fifth";
-    st.drawWhatIf(w.mean);
+    const means = { q1: Number(sliders.q1.value), q5: Number(sliders.q5.value) };
+    const d = gpDrums(story, means);
+    for (const k of ["q1", "q5"]) {
+      document.getElementById(`whatif-${k}-out`).textContent = `${formatNum(means[k] * 8, 1)} sessions a week`;
+      const x = d[k];
+      const change = Math.abs(x.extraWte) < 0.5 ? "as now"
+        : `${x.extraWte > 0 ? "+" : "−"}${formatNum(Math.abs(x.extraWte))} full-time GPs`;
+      document.getElementById(`whatif-${k}-line`).textContent =
+        `one full-time GP per ${formatNum(x.patientsPerWte)} patients (${change})`;
+    }
+    const used = `GPs in the most deprived fifth use ${Math.round(100 * d.q1.full)}% of their full-time ` +
+      `potential, in the least deprived ${Math.round(100 * d.q5.full)}%: `;
+    document.getElementById("whatif-gap").textContent = used + (
+      d.gap > 0.005 ? `${formatNum(100 * d.gap)}% less GP time per patient in the most deprived fifth`
+        : d.gap < -0.005 ? `${formatNum(-100 * d.gap)}% more GP time per patient in the most deprived fifth`
+          : "the same GP time per patient in both");
+    st.drawWhatIf(means);
   };
-  const base = gpWhatIf(story, 0);
-  slider.value = String(base.recorded); // full precision: the presets give the saved figures exactly
-  slider.oninput = showWhatIf;
-  for (const b of document.querySelectorAll("[data-whatif]")) {
-    b.onclick = () => {
-      slider.value = String({ recorded: base.recorded, q5: base.q5Mean, equal: base.equalMean }[b.dataset.whatif]);
-      showWhatIf();
-    };
-  }
-  showWhatIf();
+  const base = gpDrums(story, { q1: 1, q5: 1 });
+  const CASES = {
+    now: { q1: base.q1.recorded, q5: base.q5.recorded },
+    equal: { q1: gpWhatIf(story, 0).equalMean, q5: base.q5.recorded }, // the most deprived catch up
+    full: { q1: 1, q5: 1 }, // every GP full-time: both drums full
+  };
+  const setCase = (c) => {
+    for (const k of ["q1", "q5"]) sliders[k].value = String(c[k]); // full precision, as saved
+    showWhatIf();
+  };
+  for (const s of Object.values(sliders)) s.oninput = showWhatIf;
+  for (const b of document.querySelectorAll("[data-whatif]")) b.onclick = () => setCase(CASES[b.dataset.whatif]);
+  setCase(CASES.now);
   current = wireSteps(getStage, story);
   // ?state=<name> opens a scene directly (for sharing a scene)
   const wanted = new URLSearchParams(location.search).get("state");
@@ -794,7 +806,10 @@ async function main() {
   window.addEventListener("resize", () => {
     if (frame().wide !== wasWide) {
       st = build(story, geo); // a new layout on orientation change
-      st.drawWhatIf(Number(document.getElementById("whatif-mean").value));
+      st.drawWhatIf({
+        q1: Number(document.getElementById("whatif-q1").value),
+        q5: Number(document.getElementById("whatif-q5").value),
+      });
       wasWide = st.f.wide;
       st.dots.setPin(filter.zone ?? -1);
       setState(st, current() || "intro", story);

@@ -217,7 +217,7 @@ describe("access to care", async () => {
 
 it("works out the GP hours scenarios as saved", async () => {
   // results/2026-11-15-access/gp_scenarios.csv
-  const { gpWhatIf, gpWhatIfChart } = await import("../js/scenes.js");
+  const { gpWhatIf } = await import("../js/scenes.js");
   const base = gpWhatIf(story, 0);
   const now = gpWhatIf(story, base.recorded);
   expect(now.extraWte).toBeCloseTo(0, 9);
@@ -232,11 +232,26 @@ it("works out the GP hours scenarios as saved", async () => {
   expect(Math.round(equal.extraSessions)).toBe(985);
   expect(equal.gap).toBeCloseTo(0, 9);
   expect(Math.round(equal.patientsPerWte)).toBe(1575);
-  const svg = groupedBars(gpWhatIfChart(story, base.q5Mean));
-  expect(svg).toContain("With the sessions set, Most deprived fifth: 6.2");
-  expect(svg).toContain("As now, Most deprived fifth: 5.5");
-  // the slider's top stays under the fixed axis
-  expect(gpWhatIf(story, 0.9).wtePer10000).toBeLessThan(8);
+  // the drums: both fifths move; the drum is every GP full-time (= GPs per 10,000)
+  const { gpDrums, gpDrumChart } = await import("../js/scenes.js");
+  const { drumChart } = await import("../js/charts.js");
+  const q = story.access.gp.quintiles;
+  const allFull = gpDrums(story, { q1: 1, q5: 1 });
+  expect(allFull.q1.capacity).toBeCloseTo(q[0].headcount_per_10000, 2);
+  expect(allFull.q5.capacity).toBeCloseTo(q[4].headcount_per_10000, 2);
+  expect(allFull.q1.level).toBeCloseTo(allFull.q1.capacity, 9);
+  const asNow = gpDrums(story, { q1: allFull.q1.recorded, q5: allFull.q5.recorded });
+  expect(asNow.q1.level).toBeCloseTo(q[0].wte_per_10000, 2);
+  expect(asNow.q5.level).toBeCloseTo(q[4].wte_per_10000, 2);
+  expect(asNow.gap).toBeCloseTo(1 - 5.524121 / 6.349449, 4);
+  expect(Math.round(100 * asNow.q1.full)).toBe(71);
+  expect(Math.round(100 * asNow.q5.full)).toBe(80);
+  // the least deprived fifth moves too
+  expect(gpDrums(story, { q1: allFull.q1.recorded, q5: 0.6 }).q5.level).toBeLessThan(asNow.q5.level);
+  const svg = drumChart(gpDrumChart(story, { q1: allFull.q1.recorded, q5: allFull.q5.recorded }));
+  expect(svg).toContain("5.5 of 7.7");
+  expect(svg).toContain("6.4 of 7.9");
+  expect(svg).toContain("71% full");
 });
 
 it("draws the 95% standard as a line with no points to hover", async () => {

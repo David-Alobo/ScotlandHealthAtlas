@@ -156,6 +156,49 @@ export function gpWhatIf(story, mean) {
   };
 }
 
+/**
+ * The drums: for the most and least deprived fifths, GP time per 10,000 patients if every GP worked
+ * full-time (the drum) and with GPs averaging `means.q1` and `means.q5` of a full-time post (the
+ * water). The number of GPs is held. Arithmetic, not a forecast.
+ */
+export function gpDrums(story, means) {
+  const q = story.access.gp.quintiles;
+  const recorded = (r) => r.gp_wte / r.gp_headcount;
+  const fifth = (r, mean) => {
+    const wte = mean * r.gp_headcount;
+    return {
+      mean,
+      recorded: recorded(r),
+      capacity: (1e4 * r.gp_headcount) / r.patients, // every GP full-time
+      level: (1e4 * wte) / r.patients,
+      full: mean,
+      patientsPerWte: r.patients / wte,
+      extraWte: wte - r.gp_wte,
+      extraSessions: 8 * (wte - r.gp_wte),
+    };
+  };
+  const [q1, q5] = [fifth(q[0], means.q1), fifth(q[q.length - 1], means.q5)];
+  return { q1, q5, gap: 1 - q1.level / q5.level };
+}
+
+/** The drums as a chart. */
+export function gpDrumChart(story, means, colours = { q1: COLOURS.quintile[0], q5: COLOURS.quintile[3] }) {
+  const d = gpDrums(story, means);
+  const f1 = (v) => formatNum(Math.round(v * 100) / 100, 1); // as the saved tables round (6.35 -> 6.4)
+  const tip = (name, x) =>
+    `${name}: ${f1(x.level)} full-time GPs per 10,000 patients, ${Math.round(100 * x.full)}% of the ` +
+    `${f1(x.capacity)} if every GP worked full-time; one full-time GP per ${formatNum(x.patientsPerWte)} patients`;
+  return {
+    drums: [
+      { name: "Most deprived fifth", capacity: d.q1.capacity, level: d.q1.level, colour: colours.q1, tip: tip("Most deprived fifth", d.q1) },
+      { name: "Least deprived fifth", capacity: d.q5.capacity, level: d.q5.level, colour: colours.q5, tip: tip("Least deprived fifth", d.q5) },
+    ],
+    max: 9,
+    fmt: f1,
+    label: "GP time per 10,000 patients in the most and least deprived fifths: the drum if every GP worked full-time, the water as set",
+  };
+}
+
 /** The "what if?" chart: full-time GPs per 10,000 patients by fifth, the most deprived as set. */
 export function gpWhatIfChart(story, mean, colours = { set: COLOURS.quintile[0], rest: COLOURS.quintile[3] }) {
   const q = story.access.gp.quintiles;

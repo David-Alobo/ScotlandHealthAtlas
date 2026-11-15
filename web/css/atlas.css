@@ -585,3 +585,13 @@ thead th { color: var(--ink-3); font-weight: 500; }
 /* the three cases on one row */
 .whatif .presets { flex-wrap: nowrap; gap: 0.3rem; }
 .whatif .presets button { flex: 1 1 auto; white-space: nowrap; padding: 0.3rem 0.5rem; font-size: 0.74rem; }
+
+/* the drums */
+.drum-inside { fill: #10131d; }
+.drum-rim { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
+.drum-surface { filter: brightness(1.25); }
+.drum-water { cursor: pointer; }
+.drum-water rect, .drum-water ellipse { transition: y 0.25s, height 0.25s, cy 0.25s; }
+.chart .drum-full, .drum-full { font: 600 13px var(--mono); fill: #07080c; }
+.whatif .line { margin: 0 0 0.3rem; font-size: 0.82rem; color: var(--ink-3); }
+.whatif label { margin-top: 0.4rem; }

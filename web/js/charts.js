@@ -217,3 +217,40 @@ export function dumbbell({ rows, aLabel, bLabel, aColour, bColour, xLabel, label
   out += text(m.l + (W - m.l - m.r) / 2, H - 8, xLabel, 'class="axis-title" text-anchor="middle"');
   return `${out}</svg>`;
 }
+
+/**
+ * Drums with water: each drum's height is a capacity, its water the level reached, with the value,
+ * the share full and the name written on it.
+ * opts: { drums: [{ name, capacity, level, colour, tip }], max, fmt, label }
+ */
+export function drumChart({ drums, max, fmt = (v) => formatNum(v, 1), label }) {
+  const H = 340;
+  const m = { t: 34, b: 44 };
+  const slot = W / drums.length;
+  const dw = Math.min(150, slot * 0.46);
+  const ry = dw * 0.14; // the depth of the ellipses: how far we look down on the drums
+  const y = linear([0, max], [H - m.b - ry, m.t + ry]);
+  let out = svgOpen(H, label);
+  drums.forEach((d, i) => {
+    const cx = slot * (i + 0.5);
+    const [l, r] = [cx - dw / 2, cx + dw / 2];
+    const [top, water, base] = [y(d.capacity), y(d.level), y(0)];
+    const full = d.capacity > 0 ? d.level / d.capacity : 0;
+    // the drum's inside, then the water, then the rim over both
+    out += `<rect x="${l}" y="${top}" width="${dw}" height="${base - top}" class="drum-inside"/>`;
+    out += `<ellipse cx="${cx}" cy="${top}" rx="${dw / 2}" ry="${ry}" class="drum-inside"/>`;
+    out +=
+      `<g class="drum-water" data-tip="${esc(d.tip)}" tabindex="0">` +
+      `<ellipse cx="${cx}" cy="${base}" rx="${dw / 2}" ry="${ry}" fill="${d.colour}"/>` +
+      `<rect x="${l}" y="${water}" width="${dw}" height="${Math.max(0, base - water)}" fill="${d.colour}" fill-opacity="0.82"/>` +
+      `<ellipse cx="${cx}" cy="${water}" rx="${dw / 2}" ry="${ry}" fill="${d.colour}" class="drum-surface"/>` +
+      "</g>";
+    out += `<path d="M${l},${top} V${base} A${dw / 2},${ry} 0 0 0 ${r},${base} V${top}" class="drum-rim"/>`;
+    out += `<ellipse cx="${cx}" cy="${top}" rx="${dw / 2}" ry="${ry}" class="drum-rim"/>`;
+    out += text(cx, top - ry - 8, `${fmt(d.level)} of ${fmt(d.capacity)}`, 'class="value-label" text-anchor="middle"');
+    out += text(cx, Math.min(base - 10, (water + base) / 2 + 5), `${Math.round(100 * full)}% full`,
+      'class="drum-full" text-anchor="middle"');
+    out += text(cx, H - 12, d.name, 'class="axis-label" text-anchor="middle"');
+  });
+  return `${out}</svg>`;
+}
