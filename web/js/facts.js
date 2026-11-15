@@ -91,6 +91,11 @@ export function accessFacts(access) {
     gpQ1Wte: formatNum(q1.wte_per_10000, 1),
     gpQ5Wte: formatNum(q5.wte_per_10000, 1),
     gpWteGap: pct(1 - q1.wte_per_10000 / q5.wte_per_10000, 0),
+    // the same as patients per GP, and per full-time GP
+    gpQ1PerGp: formatInt(q1.patients / q1.gp_headcount),
+    gpQ5PerGp: formatInt(q5.patients / q5.gp_headcount),
+    gpQ1PerWte: formatInt(q1.patients / q1.gp_wte),
+    gpQ5PerWte: formatInt(q5.patients / q5.gp_wte),
   };
 }
 

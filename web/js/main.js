@@ -12,7 +12,16 @@ import { MIN_DEATHS, areaFacts, areaHead, areaPanel, councilUnits, localNotes } 
 import { picker } from "./picker.js";
 import { niceTicks } from "./scale.js";
 import { lookupPostcode, parseQuery, searchNames } from "./search.js";
-import { aeChart, gpChart, longWaitsChart, ratioChart, tables, waitsChart } from "./scenes.js";
+import {
+  aeChart,
+  gpChart,
+  gpWhatIf,
+  gpWhatIfChart,
+  longWaitsChart,
+  ratioChart,
+  tables,
+  waitsChart,
+} from "./scenes.js";
 import {
   ageLayout,
   binColour,
@@ -113,6 +122,7 @@ function build(story, geo) {
     const vb = /viewBox="0 0 (\d+) (\d+)"/.exec(markup);
     const h = (A.w * Number(vb[2])) / Number(vb[1]);
     g.innerHTML = markup.replace("<svg ", `<svg x="${A.x}" y="${A.y + (A.h - h) / 2}" width="${A.w}" height="${h}" `);
+    return g;
   };
   const ae = aeChart(story, [C.violet, C.grey, C.grey, C.grey, C.cyan]);
   for (const i of [1, 2, 3]) ae.series[i].label = "";
@@ -143,6 +153,14 @@ function build(story, geo) {
   nest(lineChart({ ...waitsChart(story, { line: C.violet, target: C.grey }), height: fill }), "waits");
   nest(lineChart({ ...longWaitsChart(story, { over8: C.violet, over12: C.cyan }), height: fill }), "waits12");
   nest(groupedBars(gpChart(story, { head: C.grey, wte: C.violet })), "gp");
+  // "what if?": redrawn in place as the card's slider moves
+  const whatIf = nest(groupedBars(gpWhatIfChart(story, gpWhatIf(story, 0).recorded)), "gp-what-if");
+  const drawWhatIf = (mean) => {
+    whatIf.innerHTML = "";
+    const g = nest(groupedBars(gpWhatIfChart(story, mean, { set: C.violet, rest: C.grey })), "tmp");
+    whatIf.append(...g.childNodes);
+    g.remove();
+  };
 
   // death dots: the three layouts, for whichever dots are shown (Scotland, or one council)
   const a = story.injury_ages;
@@ -214,6 +232,7 @@ function build(story, geo) {
     f, under, svg, base, zoom, zoomTo, councilIndex, councilPaths, dots, layoutsFor, national,
     shown: national, shownFor: null, councilDots, labels, ring, cs, index: gridIndex(geo.zones, 8),
     state: "intro",
+    drawWhatIf,
   };
 }
 
@@ -739,6 +758,31 @@ async function main() {
       else document.querySelector(`.step[data-state="${b.dataset.go}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
+  // the "what if?" card: a slider for the average GP hours in the most deprived fifth
+  const slider = document.getElementById("whatif-mean");
+  const showWhatIf = () => {
+    const w = gpWhatIf(story, Number(slider.value));
+    document.getElementById("whatif-mean-out").textContent = `${formatNum(w.mean * 8, 1)} sessions a week`;
+    document.getElementById("whatif-per10000").textContent = formatNum(Math.round(w.wtePer10000 * 100) / 100, 1); // as the saved table rounds it (6.35 -> 6.4)
+    document.getElementById("whatif-patients").textContent = formatNum(w.patientsPerWte);
+    document.getElementById("whatif-extra").textContent =
+      w.extraWte >= 0.5 ? `${formatNum(w.extraWte)} more full-time GPs (${formatNum(w.extraSessions)} sessions a week)` : "no change";
+    document.getElementById("whatif-gap").textContent =
+      w.gap > 0.005 ? `${formatNum(100 * w.gap)}% less GP time per patient than the least deprived fifth`
+        : w.gap < -0.005 ? `${formatNum(-100 * w.gap)}% more GP time per patient than the least deprived fifth`
+          : "the same GP time per patient as the least deprived fifth";
+    st.drawWhatIf(w.mean);
+  };
+  const base = gpWhatIf(story, 0);
+  slider.value = String(base.recorded); // full precision: the presets give the saved figures exactly
+  slider.oninput = showWhatIf;
+  for (const b of document.querySelectorAll("[data-whatif]")) {
+    b.onclick = () => {
+      slider.value = String({ recorded: base.recorded, q5: base.q5Mean, equal: base.equalMean }[b.dataset.whatif]);
+      showWhatIf();
+    };
+  }
+  showWhatIf();
   current = wireSteps(getStage, story);
   // ?state=<name> opens a scene directly (for sharing a scene)
   const wanted = new URLSearchParams(location.search).get("state");
@@ -750,6 +794,7 @@ async function main() {
   window.addEventListener("resize", () => {
     if (frame().wide !== wasWide) {
       st = build(story, geo); // a new layout on orientation change
+      st.drawWhatIf(Number(document.getElementById("whatif-mean").value));
       wasWide = st.f.wide;
       st.dots.setPin(filter.zone ?? -1);
       setState(st, current() || "intro", story);

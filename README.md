@@ -3,7 +3,7 @@
 **[Explore the atlas](https://david-alobo.github.io/ScotlandHealthAtlas/)** ·
 **[Read the paper](paper/main.pdf)** ·
 **[Poster](docs/poster/poster.pdf)** ·
-**[Video tour](docs/video/atlas-tour.mp4)** (3 minutes, with [music](docs/video/music/CREDITS.md))
+**[Video tour](docs/video/atlas-tour.mp4)** (4 minutes, with [music](docs/video/music/CREDITS.md))
 
 An open atlas of health in Scotland: A&E attendances, unintentional injuries and community
 prescribing, turned into rates by age, sex, place and deprivation, and followed over time. Built
@@ -51,7 +51,7 @@ limitations are in the [paper](paper/main.pdf).
 
 ## The atlas
 
-One scrolling page, eighteen scenes. Each of Scotland's 6,976 data zones (neighbourhoods of about
+One scrolling page, nineteen scenes. Each of Scotland's 6,976 data zones (neighbourhoods of about
 800 people) is a dot, brighter where it is more deprived. Search by postcode or neighbourhood name,
 or click a dot, to pin a neighbourhood: the cards then show its deprivation, its council's rates
 beside Scotland's, and deaths in its council by age. Click anywhere on the map to clear the pin.

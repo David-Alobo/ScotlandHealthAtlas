@@ -1821,31 +1821,41 @@
      "quintile": 1,
      "patients": 1492002,
      "wte_per_10000": 5.52,
-     "headcount_per_10000": 7.73
+     "headcount_per_10000": 7.73,
+     "gp_headcount": 1154,
+     "gp_wte": 824.2
     },
     {
      "quintile": 2,
      "patients": 1493485,
      "wte_per_10000": 5.61,
-     "headcount_per_10000": 7.13
+     "headcount_per_10000": 7.13,
+     "gp_headcount": 1065,
+     "gp_wte": 838.4
     },
     {
      "quintile": 3,
      "patients": 1120588,
      "wte_per_10000": 6.69,
-     "headcount_per_10000": 8.51
+     "headcount_per_10000": 8.51,
+     "gp_headcount": 954,
+     "gp_wte": 749.3
     },
     {
      "quintile": 4,
      "patients": 1066810,
      "wte_per_10000": 5.92,
-     "headcount_per_10000": 8.0
+     "headcount_per_10000": 8.0,
+     "gp_headcount": 853,
+     "gp_wte": 631.6
     },
     {
      "quintile": 5,
      "patients": 863067,
      "wte_per_10000": 6.35,
-     "headcount_per_10000": 7.91
+     "headcount_per_10000": 7.91,
+     "gp_headcount": 683,
+     "gp_wte": 548.0
     }
    ],
    "board_check_max_difference": 0.25

@@ -256,6 +256,16 @@ await caption("Before A&E: the GP", "GP time per patient by the practice's area"
 await sleep(2500);
 await hoverMarks([0.0, 0.9]);
 await uncaption();
+await scrollToScene("gp-what-if");
+await caption("What if?", "more GP sessions in the most deprived fifth");
+await sleep(2000);
+await clickOn('[data-whatif="q5"]');
+await sleep(2200);
+await clickOn('[data-whatif="equal"]');
+await sleep(2200);
+await clickOn('[data-whatif="recorded"]');
+await sleep(1200);
+await uncaption();
 await scrollToScene("crowd");
 await caption("A year of injury deaths", "one dot for each death");
 await sleep(4000);

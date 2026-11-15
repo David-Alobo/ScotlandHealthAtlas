@@ -201,9 +201,10 @@ strong.p { color: #b69af9; }
 .charts .chart-layer, .scatter, .scatter .axes { opacity: 0; pointer-events: none; }
 [data-state="ae"] .chart-layer.ae, [data-state="ae-ratio"] .chart-layer.ratio,
 [data-state="trend"] .chart-layer.trend, [data-state="waits"] .chart-layer.waits,
-[data-state="waits-12"] .chart-layer.waits12, [data-state="gp"] .chart-layer.gp { opacity: 1; pointer-events: auto; }
+[data-state="waits-12"] .chart-layer.waits12, [data-state="gp"] .chart-layer.gp,
+[data-state="gp-what-if"] .chart-layer.gp-what-if { opacity: 1; pointer-events: auto; }
 [data-state="ae"] .map, [data-state="ae-ratio"] .map, [data-state="trend"] .map,
-[data-state="waits"] .map, [data-state="waits-12"] .map, [data-state="gp"] .map,
+[data-state="waits"] .map, [data-state="waits-12"] .map, [data-state="gp"] .map, [data-state="gp-what-if"] .map,
 [data-state="crowd"] .map, [data-state="split"] .map, [data-state="age"] .map { opacity: 0; }
 [data-state="scatter"] .map, [data-state="find"] .map, [data-state="scatter-falls"] .map { opacity: 0.18; }
 [data-state="scatter"] .scatter, [data-state="find"] .scatter, [data-state="scatter-falls"] .scatter { opacity: 1; pointer-events: auto; }
@@ -570,3 +571,14 @@ thead th { color: var(--ink-3); font-weight: 500; }
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
 }
 .area-panel .ap-tabs { background: rgb(255 255 255 / 0.06); }
+
+/* the "what if?" card: a slider and three presets */
+.whatif label { display: block; font: 500 0.72rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 0.6rem 0 0.2rem; }
+.whatif label output { float: right; font: 600 0.8rem var(--mono); letter-spacing: 0; text-transform: none; color: var(--ink); }
+.whatif input[type="range"] { width: 100%; accent-color: var(--violet); height: 30px; }
+.whatif .presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.3rem 0 0.7rem; }
+.whatif .presets button { font: 500 0.78rem var(--body); color: var(--ink); background: var(--panel); border: 1px solid rgb(167 139 250 / 0.45); border-radius: 999px; padding: 0.3rem 0.7rem; cursor: pointer; }
+.whatif .presets button:hover { border-color: var(--violet); }
+.whatif .result b { color: var(--ink); }
+/* on phones the card keeps only the control and the result, so the chart above stays in view */
+@media (max-width: 760px) { .whatif > p:not(.result), .whatif h2 { display: none; } .whatif .presets { margin-bottom: 0.4rem; } }

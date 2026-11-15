@@ -134,14 +134,35 @@
       <section class="step" data-state="gp">
         <div class="card">
           <h2>Before A&amp;E: the GP</h2>
-          <p>Practices in the most deprived fifth of areas have about as many GPs per patient as the
-            least deprived (<span data-fact="gpQ1Head"></span> and <span data-fact="gpQ5Head"></span>
-            per 10,000), but their GPs work fewer sessions: <span data-fact="gpQ1Wte"></span> against
-            <span data-fact="gpQ5Wte"></span> full-time, <span data-fact="gpWteGap"></span> less GP
-            time per patient where A&amp;E use is about twice as high.</p>
+          <p>Practices in the most deprived fifth of areas have one GP for every
+            <span data-fact="gpQ1PerGp"></span> patients, much as in the least deprived
+            (<span data-fact="gpQ5PerGp"></span>). But their GPs work fewer sessions, so each
+            full-time GP there serves <span data-fact="gpQ1PerWte"></span> patients against
+            <span data-fact="gpQ5PerWte"></span>: <span data-fact="gpWteGap"></span> less GP time per
+            patient, where A&amp;E use is about twice as high.</p>
           <p class="small">GPs on <span data-fact="gpDate"></span> (NHS Education for Scotland) per
             patient registered in April 2025 (Public Health Scotland), by the practice's address.
             Areas are compared, not people.</p>
+        </div>
+      </section>
+
+      <section class="step" data-state="gp-what-if">
+        <div class="card whatif">
+          <h2>What if?</h2>
+          <p>Suppose GPs in the most deprived fifth worked more sessions, with the same number of
+            GPs. Move the slider, or choose a case.</p>
+          <label for="whatif-mean">Average per GP <output id="whatif-mean-out"></output></label>
+          <input type="range" id="whatif-mean" min="0.6" max="0.9" step="any">
+          <div class="presets">
+            <button type="button" data-whatif="recorded">As now</button>
+            <button type="button" data-whatif="q5">Hours of the least deprived</button>
+            <button type="button" data-whatif="equal">Equal GP time</button>
+          </div>
+          <p class="result" aria-live="polite"><b id="whatif-per10000"></b> full-time GPs per 10,000
+            patients, one for every <b id="whatif-patients"></b> patients: <span id="whatif-extra"></span>,
+            and <span id="whatif-gap"></span>.</p>
+          <p class="small">Arithmetic on the recorded figures, not a forecast. A full-time GP works 8
+            sessions a week.</p>
         </div>
       </section>
 

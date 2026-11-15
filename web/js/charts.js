@@ -123,7 +123,7 @@ export function groupedBars({
       const h = y(0) - y(v);
       out +=
         `<rect x="${(x0 + j * bw + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${(bw - 2).toFixed(1)}" ` +
-        `height="${Math.max(h, 0).toFixed(1)}" rx="2" fill="${g.colour}" class="bar g-${g.key}" ` +
+        `height="${Math.max(h, 0).toFixed(1)}" rx="2" fill="${g.colours?.[i] ?? g.colour}" class="bar g-${g.key}" ` +
         `data-tip="${esc(`${g.label}, ${b}: ${fmt(v)}${unit}`)}" tabindex="0"/>`;
     });
   });

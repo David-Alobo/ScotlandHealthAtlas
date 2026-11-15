@@ -226,6 +226,7 @@ def macros() -> dict[str, str]:
     met = [y for y, v in zip(w["years"], w["within_4h"], strict=True) if v >= w["target"]]
     q = {r["quintile"]: r for r in s["access"]["gp"]["quintiles"]}
     boards = read(ACCESS / "gp_board.csv")
+    scen = {r["scenario"]: r for r in read(ACCESS / "gp_scenarios.csv")}
     close = [r for r in boards if r["health_board"] != "Scotland"]
     m |= {
         "waitsFirstYear": str(w["years"][0]),
@@ -252,6 +253,17 @@ def macros() -> dict[str, str]:
             )
         ),
         "gpBoardWorst": f"{s['access']['gp']['board_check_max_difference']:.2f}",
+        "gpQonePerGp": num(q[1]["patients"] / q[1]["gp_headcount"]),
+        "gpQfivePerGp": num(q[5]["patients"] / q[5]["gp_headcount"]),
+        "gpQonePerWte": num(q[1]["patients"] / q[1]["gp_wte"]),
+        "gpQfivePerWte": num(q[5]["patients"] / q[5]["gp_wte"]),
+        "gpScenGap": half_up(
+            100 * float(scen["quintile 1 GPs work quintile 5's mean WTE"]["gap_to_q5"])
+        ),
+        "gpScenExtra": num(float(scen["quintile 1 GPs work quintile 5's mean WTE"]["extra_wte"])),
+        "gpScenSessions": num(
+            float(scen["quintile 1 GPs work quintile 5's mean WTE"]["extra_sessions_a_week"])
+        ),
     }
 
     # two more fields: where injuries happen, and what medicines cost

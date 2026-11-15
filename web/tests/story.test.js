@@ -200,6 +200,8 @@ describe("access to care", async () => {
     // "fewer sessions": less full-time equivalent per patient in the most deprived fifth
     expect(q1.wte_per_10000).toBeLessThan(q5.wte_per_10000);
     expect(f.gpWteGap).toBe("13%");
+    // the ratios, as saved in results/2026-11-15-access/gp_ratios.csv
+    expect([f.gpQ1PerGp, f.gpQ5PerGp, f.gpQ1PerWte, f.gpQ5PerWte]).toEqual(["1,293", "1,264", "1,810", "1,575"]);
     // the denominators reproduce NES's own board rates
     expect(a.gp.board_check_max_difference).toBeLessThan(0.3);
   });
@@ -211,6 +213,26 @@ describe("access to care", async () => {
     expect(gp).toContain("per 10,000 patients");
     expect(gp).not.toContain("a year");
   });
+});
+
+it("works out the GP hours scenarios as saved", async () => {
+  // results/2026-11-15-access/gp_scenarios.csv
+  const { gpWhatIf, gpWhatIfChart } = await import("../js/scenes.js");
+  const base = gpWhatIf(story, 0);
+  const now = gpWhatIf(story, base.recorded);
+  expect(now.extraWte).toBeCloseTo(0, 9);
+  expect(Math.round(now.patientsPerWte)).toBe(1810);
+  const q5 = gpWhatIf(story, base.q5Mean);
+  expect(q5.extraWte).toBeCloseTo(101.7, 1);
+  expect(Math.round(q5.extraSessions)).toBe(814);
+  expect(q5.wtePer10000).toBeCloseTo(6.21, 2);
+  expect(q5.gap).toBeCloseTo(0.0226, 4);
+  const equal = gpWhatIf(story, base.equalMean);
+  expect(equal.extraWte).toBeCloseTo(123.1, 1);
+  expect(Math.round(equal.extraSessions)).toBe(985);
+  expect(equal.gap).toBeCloseTo(0, 9);
+  expect(Math.round(equal.patientsPerWte)).toBe(1575);
+  expect(groupedBars(gpWhatIfChart(story, base.q5Mean))).toContain("Most deprived: 6.2");
 });
 
 it("draws the 95% standard as a line with no points to hover", async () => {

@@ -132,6 +132,53 @@ export function gpChart(story, colours = { head: COLOURS.quintile[3], wte: COLOU
   };
 }
 
+/**
+ * "What if?": GP time per patient in the most deprived fifth if its GPs averaged `mean` of a
+ * full-time post (1 = 8 sessions a week), with the number of GPs held. Arithmetic, not a forecast.
+ */
+export function gpWhatIf(story, mean) {
+  const q = story.access.gp.quintiles;
+  const [q1, q5] = [q[0], q[q.length - 1]];
+  const wte = mean * q1.gp_headcount;
+  const extra = wte - q1.gp_wte;
+  const target = q5.gp_wte / q5.patients; // full-time GPs per patient in the least deprived fifth
+  return {
+    mean,
+    recorded: q1.gp_wte / q1.gp_headcount,
+    q5Mean: q5.gp_wte / q5.gp_headcount,
+    equalMean: (target * q1.patients) / q1.gp_headcount, // the mean that matches the least deprived
+    wtePer10000: (1e4 * wte) / q1.patients,
+    q5Per10000: 1e4 * target,
+    patientsPerWte: q1.patients / wte,
+    extraWte: extra,
+    extraSessions: 8 * extra,
+    gap: 1 - wte / (target * q1.patients),
+  };
+}
+
+/** The "what if?" chart: full-time GPs per 10,000 patients by fifth, the most deprived as set. */
+export function gpWhatIfChart(story, mean, colours = { set: COLOURS.quintile[0], rest: COLOURS.quintile[3] }) {
+  const q = story.access.gp.quintiles;
+  const w = gpWhatIf(story, mean);
+  return {
+    bands: ["Most deprived", "2", "3", "4", "Least deprived"],
+    groups: [
+      {
+        key: "wte",
+        label: "Full-time GPs per 10,000 patients",
+        values: q.map((r, i) => (i === 0 ? w.wtePer10000 : r.wte_per_10000)),
+        colour: colours.rest,
+        colours: q.map((_, i) => (i === 0 ? colours.set : colours.rest)),
+      },
+    ],
+    yLabel: "Full-time GPs per 10,000 patients",
+    xLabel: "Deprivation fifth of the practice's area",
+    fmt: (v) => formatNum(v, 1),
+    unit: "",
+    label: "Full-time GPs per 10,000 patients by deprivation fifth, with the most deprived fifth's GP hours as set",
+  };
+}
+
 /** An HTML table: head is a list of column names, rows a list of lists of cell text. */
 export function table(head, rows) {
   const th = head.map((h) => `<th scope="col">${esc(h)}</th>`).join("");
@@ -185,12 +232,15 @@ export function tables(story) {
       ]),
     ),
     gp: table(
-      ["Practice area", "Registered patients", "GPs per 10,000", "Full-time equivalent per 10,000"],
+      ["Practice area", "Registered patients", "GPs per 10,000", "Full-time equivalent per 10,000",
+        "Patients per GP", "Patients per full-time GP"],
       story.access.gp.quintiles.map((r) => [
         QUINTILE_NAMES[r.quintile - 1],
         formatNum(r.patients),
         formatNum(r.headcount_per_10000, 1),
         formatNum(r.wte_per_10000, 1),
+        formatNum(r.patients / r.gp_headcount),
+        formatNum(r.patients / r.gp_wte),
       ]),
     ),
   };

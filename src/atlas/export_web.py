@@ -306,6 +306,8 @@ def access() -> dict:
                     "patients": int(r["patients"]),
                     "wte_per_10000": float(r["wte_per_10000"]),
                     "headcount_per_10000": float(r["headcount_per_10000"]),
+                    "gp_headcount": int(r["gp_headcount"]),
+                    "gp_wte": float(r["gp_wte"]),
                 }
                 for r in gp
             ],
