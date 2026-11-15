@@ -101,14 +101,16 @@ export function lineChart({
 /**
  * Bars by band, one bar per group side by side; a legend at the top left.
  * opts: { bands, groups: [{ key, label, values, colour }], yLabel, xLabel, label,
- *         fmt: how values read (default whole numbers), unit: after each value in tooltips }
+ *         fmt: how values read (default whole numbers), unit: after each value in tooltips,
+ *         labels: write each value above its bar, yMax: a fixed top for the value axis }
  */
 export function groupedBars({
-  bands, groups, yLabel, xLabel, label, fmt = (v) => formatNum(v), unit = " a year",
+  bands, groups, yLabel, xLabel, label, fmt = (v) => formatNum(v), unit = " a year", labels = false,
+  yMax,
 }) {
   const H = 320;
   const m = { t: 34, r: 16, b: 52, l: 58 };
-  const top = niceMax(Math.max(...groups.flatMap((g) => g.values)));
+  const top = yMax ?? niceMax(Math.max(...groups.flatMap((g) => g.values)));
   const y = linear([0, top], [H - m.b, m.t]);
   const slot = (W - m.l - m.r) / bands.length;
   const bw = (slot * 0.78) / groups.length;
@@ -125,6 +127,9 @@ export function groupedBars({
         `<rect x="${(x0 + j * bw + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${(bw - 2).toFixed(1)}" ` +
         `height="${Math.max(h, 0).toFixed(1)}" rx="2" fill="${g.colours?.[i] ?? g.colour}" class="bar g-${g.key}" ` +
         `data-tip="${esc(`${g.label}, ${b}: ${fmt(v)}${unit}`)}" tabindex="0"/>`;
+      if (labels) {
+        out += text(x0 + j * bw + bw / 2, y(v) - 6, fmt(v), 'class="value-label" text-anchor="middle"');
+      }
     });
   });
   out += text(m.l + (W - m.l - m.r) / 2, H - 8, xLabel, 'class="axis-title" text-anchor="middle"');

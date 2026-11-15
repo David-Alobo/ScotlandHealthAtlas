@@ -160,22 +160,21 @@ export function gpWhatIf(story, mean) {
 export function gpWhatIfChart(story, mean, colours = { set: COLOURS.quintile[0], rest: COLOURS.quintile[3] }) {
   const q = story.access.gp.quintiles;
   const w = gpWhatIf(story, mean);
+  const [q1, q5] = [q[0], q[q.length - 1]];
+  // two places, before and after: the least deprived fifth does not change, so it is the yardstick
   return {
-    bands: ["Most deprived", "2", "3", "4", "Least deprived"],
+    bands: ["Most deprived fifth", "Least deprived fifth"],
     groups: [
-      {
-        key: "wte",
-        label: "Full-time GPs per 10,000 patients",
-        values: q.map((r, i) => (i === 0 ? w.wtePer10000 : r.wte_per_10000)),
-        colour: colours.rest,
-        colours: q.map((_, i) => (i === 0 ? colours.set : colours.rest)),
-      },
+      { key: "now", label: "As now", values: [q1.wte_per_10000, q5.wte_per_10000], colour: colours.rest },
+      { key: "set", label: "With the sessions set", values: [w.wtePer10000, q5.wte_per_10000], colour: colours.set },
     ],
     yLabel: "Full-time GPs per 10,000 patients",
-    xLabel: "Deprivation fifth of the practice's area",
-    fmt: (v) => formatNum(v, 1),
-    unit: "",
-    label: "Full-time GPs per 10,000 patients by deprivation fifth, with the most deprived fifth's GP hours as set",
+    xLabel: "Area of the practice",
+    fmt: (v) => formatNum(Math.round(v * 100) / 100, 1),
+    unit: " per 10,000 patients",
+    labels: true,
+    yMax: 8, // fixed, so the bar moves against a still scale (the slider's top gives 6.96)
+    label: "Full-time GPs per 10,000 patients in the most and least deprived fifths, as now and with the most deprived fifth's GP sessions as set",
   };
 }
 

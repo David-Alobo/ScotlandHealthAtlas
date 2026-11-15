@@ -232,7 +232,11 @@ it("works out the GP hours scenarios as saved", async () => {
   expect(Math.round(equal.extraSessions)).toBe(985);
   expect(equal.gap).toBeCloseTo(0, 9);
   expect(Math.round(equal.patientsPerWte)).toBe(1575);
-  expect(groupedBars(gpWhatIfChart(story, base.q5Mean))).toContain("Most deprived: 6.2");
+  const svg = groupedBars(gpWhatIfChart(story, base.q5Mean));
+  expect(svg).toContain("With the sessions set, Most deprived fifth: 6.2");
+  expect(svg).toContain("As now, Most deprived fifth: 5.5");
+  // the slider's top stays under the fixed axis
+  expect(gpWhatIf(story, 0.9).wtePer10000).toBeLessThan(8);
 });
 
 it("draws the 95% standard as a line with no points to hover", async () => {
