@@ -91,7 +91,7 @@ export function waitsChart(story, colours = { line: COLOURS.quintile[2], target:
     years: w.years,
     series: [
       { label: "Seen within 4 hours", values: w.within_4h.map((v) => 100 * v), colour: colours.line },
-      { label: "95% standard", values: w.years.map(() => 100 * w.target), colour: colours.target },
+      { label: "95% standard", values: w.years.map(() => 100 * w.target), colour: colours.target, marks: false },
     ],
     yLabel: "Share of attendances (%)",
     fmt: (v) => `${formatNum(v, 1)}%`,

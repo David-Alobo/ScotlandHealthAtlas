@@ -1,5 +1,5 @@
 // A one-page static version of the story (A3 landscape PDF and PNG), for entry forms that want a
-// file: six scenes captured from the live page, numbers from the same story.json.
+// file: eight scenes captured from the live page, numbers from the same story.json.
 // Usage (from web/, with tools/serve.py running): node tools/poster.mjs [out dir] [url]
 import { mkdirSync, readFileSync } from "node:fs";
 import puppeteer from "puppeteer-core";
@@ -15,6 +15,8 @@ mkdirSync(out, { recursive: true });
 const SCENES = [
   ["deprived", "Where the most deprived neighbourhoods are", `Each dot is a neighbourhood of about 800 people. Lit: the most deprived fifth, ${f.zonesQ1} neighbourhoods; Glasgow holds ${f.glasgowQ1} of them.`],
   ["ae", "Twice as often", `A&E visits per 1,000 people by deprivation fifth, same age and sex: ${f.aeQ1Latest} in the most deprived fifth against ${f.aeQ5Latest} in the least (${f.aeLatestYear}).`],
+  ["waits", "Waiting longer", `Emergency department visits completed within 4 hours: ${f.waitsFirst} in ${f.waitsFirstYear}, ${f.waitsLast} in ${f.waitsLastYear}, against a ${f.waitsTarget} standard.`],
+  ["gp", "Before A&E: the GP", `GPs per 10,000 patients, by the practice's area: about as many in the most deprived fifth (${f.gpQ1Head}) as the least (${f.gpQ5Head}), but ${f.gpWteGap} less GP time.`],
   ["age", "Two kinds of injury death", `One dot per death a year. ${f.falls75Share} of deaths after a fall are at 75 or over; ${f.poisoning2564Share} of poisoning deaths at 25 to 64.`],
   ["trend", "The rise and fall", `Poisoning deaths rose from ${f.poisonFirst} (${f.trendFirst}) to ${f.poisonPeak} (${f.poisonPeakYear}), then fell to ${f.poisonLast}; deaths after a fall rose to ${f.fallsLast}.`],
   ["poison-map", "Where poisoning kills", `Poisoning death rates by council, ${f.councilPeriod}: ${f.aboveCount} councils clearly above Scotland's rate and ${f.belowCount} clearly below. Hatched: too few deaths.`],
@@ -58,7 +60,7 @@ const html = `<!doctype html><html lang="en-GB"><head><meta charset="utf-8">
   .tile b { display: block; font: 700 20pt/1 "Space Grotesk", sans-serif; background: linear-gradient(100deg,#fff,#a78bfa 55%,#22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .tile span { font-size: 8pt; color: #8d94a6; }
   .daylabel { grid-column: 1 / -1; font: 500 7.5pt "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: #8d94a6; }
-  .grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 5mm; min-height: 0; }
+  .grid { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 5mm; min-height: 0; }
   .panel { background: #0d0f16; border: 1px solid rgb(255 255 255 / .08); border-radius: 4mm; padding: 4mm; display: flex; flex-direction: column; min-height: 0; }
   .panel h2 { font: 600 12pt "Space Grotesk", sans-serif; color: #eef0f5; margin: 0 0 1.5mm; }
   .panel p { margin: 0 0 2mm; font-size: 8.5pt; }
@@ -79,7 +81,7 @@ const html = `<!doctype html><html lang="en-GB"><head><meta charset="utf-8">
 </div>
 <footer>
   <div class="suggests"><b>What this suggests.</b> Poisoning deaths are concentrated where deprivation is, so work in those places reaches much of the risk. Falls are spread across older people wherever they live, so they call for help that reaches older people everywhere.</div>
-  <div>Data: Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2; data zone boundaries 2011, Scottish Government (OGL). Rates standardised for age and sex. Every number is read from the saved analysis tables.
+  <div>Data: Public Health Scotland (Data Lab competition package, 2026); NRS small area population estimates; SIMD 2020v2; data zone boundaries 2011, Scottish Government (OGL); GPs: NHS Education for Scotland, GP Workforce Survey 2025; practice list sizes: Public Health Scotland, April 2025. Rates standardised for age and sex. Every number is read from the saved analysis tables.
   Explore it and find your neighbourhood: <a href="https://david-alobo.github.io/ScotlandHealthAtlas/">david-alobo.github.io/ScotlandHealthAtlas</a> · David Obeh Alobo, Monstrous Data</div>
 </footer>
 </body></html>`;

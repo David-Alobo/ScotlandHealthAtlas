@@ -212,3 +212,10 @@ describe("access to care", async () => {
     expect(gp).not.toContain("a year");
   });
 });
+
+it("draws the 95% standard as a line with no points to hover", async () => {
+  const { waitsChart } = await import("../js/scenes.js");
+  const svg = lineChart(waitsChart(story));
+  expect(svg).not.toContain("95% standard, 20");
+  expect(svg).toContain("Seen within 4 hours, 2008");
+});

@@ -48,7 +48,8 @@ export function bracket(x, yTop, yBottom, label) {
 
 /**
  * Lines over years, labelled at their ends.
- * opts: { years, series: [{ label, values, colour }], yLabel, fmt, label, height (default 340),
+ * opts: { years, series: [{ label, values, colour, marks }], yLabel, fmt, label, height (default 340),
+ *         (marks: false draws a reference line with no points to hover)
  *         yMin: where the value axis starts (default 0),
  *         note: optional { at, from, to, text }, a bracket between two values at year index at }
  */
@@ -78,6 +79,7 @@ export function lineChart({
   for (const s of series) {
     const d = s.values.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
     out += `<path d="${d}" fill="none" stroke="${s.colour}" stroke-width="2.2" class="series"/>`;
+    if (s.marks === false) continue;
     out += s.values
       .map(
         (v, i) =>

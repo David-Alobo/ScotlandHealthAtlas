@@ -72,6 +72,18 @@ export function localNotes(story, geo, filter) {
     notes.ae = aeLevel;
   }
   notes["ae-ratio"] = aeLevel;
+  // waits are by hospital and GPs by the practice's area: national figures, said so while pinned
+  notes.waits = "A&E waits are shown for all of Scotland's emergency departments, not by council.";
+  notes["waits-12"] = notes.waits;
+  const gpLevel = "GP figures are by the deprivation fifth of the practice's area, for all of Scotland.";
+  if (z) {
+    const g = story.access.gp.quintiles[z[2] - 1];
+    notes.gp =
+      `${zname} is in the ${FIFTHS[z[2] - 1]}: practices in neighbourhoods of that fifth have ` +
+      `${formatNum(g.headcount_per_10000, 1)} GPs (${formatNum(g.wte_per_10000, 1)} full-time) per 10,000 patients. ${gpLevel}`;
+  } else {
+    notes.gp = gpLevel;
+  }
 
   const u = councilUnits(story, name);
   const years = cs.pooled_years;

@@ -36,6 +36,8 @@ describe("notes", () => {
     expect(n["poison-map"]).toMatch(/^Renfrewshire: \d+\.\d poisoning deaths per 100,000/);
     expect(n.crowd).toContain("1 dot = 1 death");
     expect(n.age).toBeUndefined(); // the card itself shows the figures
+    expect(n.waits).toContain("all of Scotland");
+    expect(n.gp).toMatch(/^Paisley Ferguslie - 06 is in the most deprived fifth: practices in neighbourhoods of that fifth have 7\.7 GPs \(5\.5 full-time\)/);
   });
 
   it("flag small numbers", () => {
