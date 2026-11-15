@@ -67,6 +67,33 @@ export function trendFacts(t) {
   };
 }
 
+/** Waiting in emergency departments, and GPs per patient by deprivation of the practice's area. */
+export function accessFacts(access) {
+  const w = access.waits;
+  const last = w.years.length - 1;
+  const y2019 = w.years.indexOf(2019);
+  const q = access.gp.quintiles;
+  const [q1, q5] = [q[0], q[q.length - 1]];
+  return {
+    waitsFirstYear: String(w.years[0]),
+    waitsLastYear: String(w.years[last]),
+    waitsFirst: pct(w.within_4h[0]),
+    waits2019: pct(w.within_4h[y2019]),
+    waitsLast: pct(w.within_4h[last]),
+    waitsTarget: pct(w.target, 0),
+    over12First: pct(w.over_12h[0], 2),
+    over12Last: pct(w.over_12h[last]),
+    over12LastVisits: formatInt(w.over_12h[last] * w.attendances[last]),
+    over8Last: pct(w.over_8h[last]),
+    gpDate: access.gp.date,
+    gpQ1Head: formatNum(q1.headcount_per_10000, 1),
+    gpQ5Head: formatNum(q5.headcount_per_10000, 1),
+    gpQ1Wte: formatNum(q1.wte_per_10000, 1),
+    gpQ5Wte: formatNum(q5.wte_per_10000, 1),
+    gpWteGap: pct(1 - q1.wte_per_10000 / q5.wte_per_10000, 0),
+  };
+}
+
 /** Every fact the text needs, as display strings keyed by name. */
 export function facts(story) {
   const { hero, ae, injury_ages: ages, councils, medicines } = story;
@@ -146,6 +173,8 @@ export function facts(story) {
       0,
     ),
 
+    // waiting in A&E and GPs per patient
+    ...accessFacts(story.access),
     cnsQ1: cns ? pct(cns.q1) : "",
     cnsQ5: cns ? pct(cns.q5) : "",
     medicinesPeriod: medicines.period,

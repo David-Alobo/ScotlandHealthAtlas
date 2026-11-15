@@ -4,7 +4,7 @@
 //   #stage (SVG): charts, the council scatter and labels.
 // Each scroll step sets a state; layouts come from stage.js, text from facts.js (all tested).
 
-import { lineChart } from "./charts.js";
+import { groupedBars, lineChart } from "./charts.js";
 import { formatNum } from "./format.js";
 import { DotCanvas, typeColours, zoneColours } from "./dots.js";
 import { facts } from "./facts.js";
@@ -12,7 +12,7 @@ import { MIN_DEATHS, areaFacts, areaHead, areaPanel, councilUnits, localNotes } 
 import { picker } from "./picker.js";
 import { niceTicks } from "./scale.js";
 import { lookupPostcode, parseQuery, searchNames } from "./search.js";
-import { aeChart, ratioChart, tables } from "./scenes.js";
+import { aeChart, gpChart, longWaitsChart, ratioChart, tables, waitsChart } from "./scenes.js";
 import {
   ageLayout,
   binColour,
@@ -139,6 +139,10 @@ function build(story, geo) {
     }),
     "trend",
   );
+  // access to care: waiting in emergency departments, and GPs per patient
+  nest(lineChart({ ...waitsChart(story, { line: C.violet, target: C.grey }), height: fill }), "waits");
+  nest(lineChart({ ...longWaitsChart(story, { over8: C.violet, over12: C.cyan }), height: fill }), "waits12");
+  nest(groupedBars(gpChart(story, { head: C.grey, wte: C.violet })), "gp");
 
   // death dots: the three layouts, for whichever dots are shown (Scotland, or one council)
   const a = story.injury_ages;

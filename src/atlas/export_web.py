@@ -19,6 +19,7 @@ AE = RESULTS / "2026-11-14-ae-deprivation"
 DIST = RESULTS / "2026-11-14-distributions"
 INJ = RESULTS / "2026-11-14-injuries"
 RX = RESULTS / "2026-11-14-prescribing"
+ACCESS = RESULTS / "2026-11-15-access"
 LOOKUP = Path("data/derived/dz_lookup.csv")  # data zone, SIMD quintile, council (atlas.geo)
 AE_YEAR = 2025  # latest whole calendar year of A&E data
 CHAPTERS = 6
@@ -277,6 +278,44 @@ def deprived_zones() -> dict:
     }
 
 
+def access() -> dict:
+    """Waiting in emergency departments by year, and GPs per patient by practice deprivation.
+
+    Returns:
+        Years with the shares seen within 4 hours and waiting over 8 and 12 hours (Type 1 sites);
+        per SIMD quintile of the practice, patients and GPs (headcount and whole-time equivalent)
+        per 10,000 patients; and the board check against NES's own rates.
+    """
+    ed = [r for r in read(ACCESS / "waits.csv") if r["site"] == "Type 1"]
+    gp = read(ACCESS / "gp_quintile.csv")
+    boards = read(ACCESS / "gp_board.csv")
+    return {
+        "waits": {
+            "years": [int(r["year"]) for r in ed],
+            "within_4h": [float(r["within_4h"]) for r in ed],
+            "over_8h": [float(r["over_8h"]) for r in ed],
+            "over_12h": [float(r["over_12h"]) for r in ed],
+            "attendances": [int(r["attendances"]) for r in ed],
+            "target": 0.95,
+        },
+        "gp": {
+            "date": "31 March 2025",
+            "quintiles": [
+                {
+                    "quintile": int(r["simd_quintile"]),
+                    "patients": int(r["patients"]),
+                    "wte_per_10000": float(r["wte_per_10000"]),
+                    "headcount_per_10000": float(r["headcount_per_10000"]),
+                }
+                for r in gp
+            ],
+            "board_check_max_difference": max(
+                abs(float(r["wte_per_10000"]) - float(r["nes_wte_per_10000"])) for r in boards
+            ),
+        },
+    }
+
+
 def story() -> dict:
     """Everything the page needs.
 
@@ -292,6 +331,7 @@ def story() -> dict:
         "councils": councils(),
         "medicines": medicines(),
         "deprived_zones": deprived_zones(),
+        "access": access(),
         "source": "Public Health Scotland (Data Lab competition package, 2026); NRS small area "
         "population estimates; SIMD 2020v2. Analysis: Monstrous Data.",
     }

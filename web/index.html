@@ -103,6 +103,48 @@
         </div>
       </section>
 
+      <section class="step" data-state="waits">
+        <div class="card">
+          <h2>Waiting longer</h2>
+          <p>Going to A&amp;E is one thing; being seen is another. In
+            <span data-fact="waitsFirstYear"></span>, <span data-fact="waitsFirst"></span> of
+            people at Scotland's emergency departments were admitted, transferred or discharged
+            within 4 hours. By <span data-fact="waitsLastYear"></span> it was
+            <span data-fact="waitsLast"></span>, against a standard of
+            <span data-fact="waitsTarget"></span>; it was already falling before the pandemic
+            (<span data-fact="waits2019"></span> in 2019).</p>
+          <p class="small">Emergency departments (Type 1 sites), whole calendar years. The axis starts
+            at 50%.</p>
+        </div>
+      </section>
+
+      <section class="step" data-state="waits-12">
+        <div class="card">
+          <h2>Twelve hours or more</h2>
+          <p>The longest waits grew fastest. In <span data-fact="waitsLastYear"></span>,
+            <span data-fact="over12Last"></span> of emergency department attendances lasted more
+            than 12 hours, about <span data-fact="over12LastVisits"></span> visits; in
+            <span data-fact="waitsFirstYear"></span>, <span data-fact="over12First"></span>.
+            <span data-fact="over8Last"></span> lasted more than 8 hours.</p>
+          <p class="small">Waits are recorded by hospital, not by where people live, so this data
+            cannot say whether people from deprived areas wait longer.</p>
+        </div>
+      </section>
+
+      <section class="step" data-state="gp">
+        <div class="card">
+          <h2>Before A&amp;E: the GP</h2>
+          <p>Practices in the most deprived fifth of areas have about as many GPs per patient as the
+            least deprived (<span data-fact="gpQ1Head"></span> and <span data-fact="gpQ5Head"></span>
+            per 10,000), but their GPs work fewer sessions: <span data-fact="gpQ1Wte"></span> against
+            <span data-fact="gpQ5Wte"></span> full-time, <span data-fact="gpWteGap"></span> less GP
+            time per patient where A&amp;E use is about twice as high.</p>
+          <p class="small">GPs on <span data-fact="gpDate"></span> (NHS Education for Scotland) per
+            patient registered in April 2025 (Public Health Scotland), by the practice's address.
+            Areas are compared, not people.</p>
+        </div>
+      </section>
+
       <section class="step" data-state="crowd">
         <div class="card">
           <h2>Deaths from accidents</h2>
@@ -243,6 +285,8 @@
       <li>Council comparisons compare areas; they do not show that deprived people are the ones
         who die.</li>
       <li>Prescriptions are counted where they are dispensed, not always where people live.</li>
+      <li>A&amp;E waits are recorded by hospital, not by where people live; GPs are counted by the
+        area of their practice, not of their patients.</li>
       <li>The injury figures reproduce Public Health Scotland's published totals (deaths exactly,
         admissions within 2%).</li>
     </ul>
@@ -267,10 +311,16 @@
       <div id="table-councils" class="table-box"></div>
       <h3>Share of items dispensed by medicine group</h3>
       <div id="table-medicines" class="table-box"></div>
+      <h3>Waiting in emergency departments (Type 1 sites)</h3>
+      <div id="table-waits" class="table-box"></div>
+      <h3>GPs per 10,000 registered patients, by deprivation fifth of the practice's area, 31 March 2025</h3>
+      <div id="table-gp" class="table-box"></div>
     </details>
     <p class="src">Data: Public Health Scotland (Data Lab competition package, 2026); National
       Records of Scotland small area population estimates; Scottish Index of Multiple Deprivation
-      2020v2; data zone boundaries 2011, Scottish Government (Open Government Licence). Methods,
+      2020v2; data zone boundaries 2011, Scottish Government (Open Government Licence); GPs: NHS
+      Education for Scotland, General Practice Workforce Survey 2025 (Table 8); registered patients:
+      Public Health Scotland, GP practices and list sizes, April 2025 (Open Government Licence). Methods,
       code and every table: <a href="https://github.com/David-Alobo/ScotlandHealthAtlas">github.com/David-Alobo/ScotlandHealthAtlas</a>.</p>
     <p class="by">David Obeh Alobo · <a href="https://monstrous.com.ng">Monstrous Data</a></p>
     <p id="load-error" class="error" hidden>The data could not be loaded. Serve the folder (for

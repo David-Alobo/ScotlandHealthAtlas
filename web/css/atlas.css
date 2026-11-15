@@ -200,8 +200,10 @@ strong.p { color: #b69af9; }
 
 .charts .chart-layer, .scatter, .scatter .axes { opacity: 0; pointer-events: none; }
 [data-state="ae"] .chart-layer.ae, [data-state="ae-ratio"] .chart-layer.ratio,
-[data-state="trend"] .chart-layer.trend { opacity: 1; pointer-events: auto; }
+[data-state="trend"] .chart-layer.trend, [data-state="waits"] .chart-layer.waits,
+[data-state="waits-12"] .chart-layer.waits12, [data-state="gp"] .chart-layer.gp { opacity: 1; pointer-events: auto; }
 [data-state="ae"] .map, [data-state="ae-ratio"] .map, [data-state="trend"] .map,
+[data-state="waits"] .map, [data-state="waits-12"] .map, [data-state="gp"] .map,
 [data-state="crowd"] .map, [data-state="split"] .map, [data-state="age"] .map { opacity: 0; }
 [data-state="scatter"] .map, [data-state="find"] .map, [data-state="scatter-falls"] .map { opacity: 0.18; }
 [data-state="scatter"] .scatter, [data-state="find"] .scatter, [data-state="scatter-falls"] .scatter { opacity: 1; pointer-events: auto; }

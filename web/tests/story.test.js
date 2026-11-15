@@ -171,3 +171,44 @@ describe("headline facts", async () => {
     for (const c of colours) expect(counts[c]).toBeGreaterThanOrEqual(5);
   });
 });
+
+describe("access to care", async () => {
+  const { accessFacts } = await import("../js/facts.js");
+  const { gpChart, longWaitsChart, waitsChart } = await import("../js/scenes.js");
+  const a = story.access;
+
+  it("quotes the emergency department waits from the data", () => {
+    const f = accessFacts(a);
+    expect(f.waitsFirstYear).toBe("2008");
+    expect(f.waitsFirst).toBe("97.6%");
+    expect(f.waitsLast).toBe("65.0%");
+    expect(f.waitsTarget).toBe("95%");
+    // "already falling before the pandemic": 2019 below 2008 and above the latest year
+    const i = a.waits.years.indexOf(2019);
+    expect(a.waits.within_4h[i]).toBeLessThan(a.waits.within_4h[0]);
+    expect(a.waits.within_4h[i]).toBeGreaterThan(a.waits.within_4h.at(-1));
+    // "the longest waits grew fastest": 12-hour waits grew by a larger factor than 8-hour waits
+    const growth = (xs) => xs.at(-1) / xs[0];
+    expect(growth(a.waits.over_12h)).toBeGreaterThan(growth(a.waits.over_8h));
+  });
+
+  it("describes GPs per patient as the data has them", () => {
+    const f = accessFacts(a);
+    const [q1, q5] = [a.gp.quintiles[0], a.gp.quintiles[4]];
+    // "about as many GPs per patient": headcounts within 5% of each other
+    expect(Math.abs(q1.headcount_per_10000 / q5.headcount_per_10000 - 1)).toBeLessThan(0.05);
+    // "fewer sessions": less full-time equivalent per patient in the most deprived fifth
+    expect(q1.wte_per_10000).toBeLessThan(q5.wte_per_10000);
+    expect(f.gpWteGap).toBe("13%");
+    // the denominators reproduce NES's own board rates
+    expect(a.gp.board_check_max_difference).toBeLessThan(0.3);
+  });
+
+  it("draws the new charts", () => {
+    expect(lineChart(waitsChart(story))).toContain("95% standard");
+    expect(lineChart(longWaitsChart(story))).toContain("Over 12 hours");
+    const gp = groupedBars(gpChart(story));
+    expect(gp).toContain("per 10,000 patients");
+    expect(gp).not.toContain("a year");
+  });
+});

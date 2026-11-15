@@ -84,6 +84,54 @@ export function medicineChart(story) {
   };
 }
 
+/** Emergency departments: the share seen within 4 hours, against the 95% standard. */
+export function waitsChart(story, colours = { line: COLOURS.quintile[2], target: COLOURS.ink3 }) {
+  const w = story.access.waits;
+  return {
+    years: w.years,
+    series: [
+      { label: "Seen within 4 hours", values: w.within_4h.map((v) => 100 * v), colour: colours.line },
+      { label: "95% standard", values: w.years.map(() => 100 * w.target), colour: colours.target },
+    ],
+    yLabel: "Share of attendances (%)",
+    fmt: (v) => `${formatNum(v, 1)}%`,
+    yMin: 50, // the axis starts at 50%: every year is above 60%
+    label: "Share of emergency department attendances seen within 4 hours, Scotland, by year",
+  };
+}
+
+/** Emergency departments: the share waiting more than 8 and more than 12 hours. */
+export function longWaitsChart(story, colours = { over8: COLOURS.quintile[3], over12: COLOURS.quintile[0] }) {
+  const w = story.access.waits;
+  return {
+    years: w.years,
+    series: [
+      { label: "Over 8 hours", values: w.over_8h.map((v) => 100 * v), colour: colours.over8 },
+      { label: "Over 12 hours", values: w.over_12h.map((v) => 100 * v), colour: colours.over12 },
+    ],
+    yLabel: "Share of attendances (%)",
+    fmt: (v) => `${formatNum(v, 1)}%`,
+    label: "Share of emergency department attendances waiting more than 8 and more than 12 hours, Scotland, by year",
+  };
+}
+
+/** GPs per 10,000 registered patients by the deprivation fifth of the practice's area. */
+export function gpChart(story, colours = { head: COLOURS.quintile[3], wte: COLOURS.quintile[0] }) {
+  const q = story.access.gp.quintiles;
+  return {
+    bands: ["Most deprived", "2", "3", "4", "Least deprived"],
+    groups: [
+      { key: "head", label: "GPs", values: q.map((r) => r.headcount_per_10000), colour: colours.head },
+      { key: "wte", label: "Full-time equivalent", values: q.map((r) => r.wte_per_10000), colour: colours.wte },
+    ],
+    yLabel: "Per 10,000 patients",
+    xLabel: "Deprivation fifth of the practice's area",
+    fmt: (v) => formatNum(v, 1),
+    unit: " per 10,000 patients",
+    label: `GPs and their full-time equivalent per 10,000 registered patients, by deprivation fifth of the practice's area, ${story.access.gp.date}`,
+  };
+}
+
 /** An HTML table: head is a list of column names, rows a list of lists of cell text. */
 export function table(head, rows) {
   const th = head.map((h) => `<th scope="col">${esc(h)}</th>`).join("");
@@ -125,6 +173,25 @@ export function tables(story) {
     medicines: table(
       ["Medicine group", "Most deprived fifth", "Least deprived fifth"],
       story.medicines.chapters.map((c) => [c.chapter, pct(c.q1), pct(c.q5)]),
+    ),
+    waits: table(
+      ["Year", "Attendances", "Seen within 4 hours", "Over 8 hours", "Over 12 hours"],
+      story.access.waits.years.map((y, i) => [
+        y,
+        formatNum(story.access.waits.attendances[i]),
+        pct(story.access.waits.within_4h[i]),
+        pct(story.access.waits.over_8h[i]),
+        pct(story.access.waits.over_12h[i]),
+      ]),
+    ),
+    gp: table(
+      ["Practice area", "Registered patients", "GPs per 10,000", "Full-time equivalent per 10,000"],
+      story.access.gp.quintiles.map((r) => [
+        QUINTILE_NAMES[r.quintile - 1],
+        formatNum(r.patients),
+        formatNum(r.headcount_per_10000, 1),
+        formatNum(r.wte_per_10000, 1),
+      ]),
     ),
   };
 }

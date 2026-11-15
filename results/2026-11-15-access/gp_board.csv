@@ -1,0 +1,16 @@
+health_board,gp_headcount,gp_wte,patients,wte_per_10000,nes_wte_per_10000,headcount_per_10000,nes_headcount_per_10000
+NHS Ayrshire & Arran,306,245.6,390628,6.29,6.3,7.83,7.8
+NHS Borders,103,81.1,121643,6.67,6.7,8.47,8.5
+NHS Dumfries & Galloway,108,90.4,156455,5.78,5.8,6.9,6.9
+NHS Fife,283,220.4,396480,5.56,5.6,7.14,7.1
+NHS Forth Valley,241,185.7,330714,5.62,5.6,7.29,7.3
+NHS Grampian,461,361.0,621416,5.81,5.7,7.42,7.3
+NHS Greater Glasgow & Clyde,953,747.0,1391249,5.37,5.4,6.85,6.9
+NHS Highland,379,300.0,339337,8.84,8.8,11.17,11.2
+NHS Lanarkshire,393,315.4,713258,4.42,4.4,5.51,5.5
+NHS Lothian,913,682.6,1054525,6.47,6.5,8.66,8.7
+NHS Orkney,38,33.6,22298,15.07,15.1,17.04,17.0
+NHS Shetland,24,20.3,22932,8.85,8.6,10.47,10.2
+NHS Tayside,386,284.0,447960,6.34,6.3,8.62,8.6
+NHS Western Isles,30,24.3,27057,8.98,9.0,11.09,11.1
+Scotland,4582,3591.5,6035952,5.95,5.9,7.59,7.6

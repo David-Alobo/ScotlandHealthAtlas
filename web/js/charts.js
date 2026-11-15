@@ -67,7 +67,10 @@ export function lineChart({
     .map(
       (yr, i) =>
         `<line x1="${x(i)}" x2="${x(i)}" y1="${y(yMin)}" y2="${y(yMin) + 4}" class="tick"/>` +
-        text(x(i), H - m.b + 18, yr, 'class="axis-label" text-anchor="middle"'),
+        // long series label every other year (and the last), so the years never overlap
+        (years.length <= 12 || i % 2 === (years.length - 1) % 2
+          ? text(x(i), H - m.b + 18, yr, 'class="axis-label" text-anchor="middle"')
+          : ""),
     )
     .join("");
   out += text(14, (H - m.b + m.t) / 2, yLabel,
@@ -95,9 +98,12 @@ export function lineChart({
 
 /**
  * Bars by band, one bar per group side by side; a legend at the top left.
- * opts: { bands, groups: [{ key, label, values, colour }], yLabel, xLabel, label }
+ * opts: { bands, groups: [{ key, label, values, colour }], yLabel, xLabel, label,
+ *         fmt: how values read (default whole numbers), unit: after each value in tooltips }
  */
-export function groupedBars({ bands, groups, yLabel, xLabel, label }) {
+export function groupedBars({
+  bands, groups, yLabel, xLabel, label, fmt = (v) => formatNum(v), unit = " a year",
+}) {
   const H = 320;
   const m = { t: 34, r: 16, b: 52, l: 58 };
   const top = niceMax(Math.max(...groups.flatMap((g) => g.values)));
@@ -116,7 +122,7 @@ export function groupedBars({ bands, groups, yLabel, xLabel, label }) {
       out +=
         `<rect x="${(x0 + j * bw + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${(bw - 2).toFixed(1)}" ` +
         `height="${Math.max(h, 0).toFixed(1)}" rx="2" fill="${g.colour}" class="bar g-${g.key}" ` +
-        `data-tip="${esc(`${g.label}, ${b}: ${formatNum(v)} a year`)}" tabindex="0"/>`;
+        `data-tip="${esc(`${g.label}, ${b}: ${fmt(v)}${unit}`)}" tabindex="0"/>`;
     });
   });
   out += text(m.l + (W - m.l - m.r) / 2, H - 8, xLabel, 'class="axis-title" text-anchor="middle"');
@@ -125,7 +131,7 @@ export function groupedBars({ bands, groups, yLabel, xLabel, label }) {
   out += groups
     .map(
       (g, j) =>
-        `<g class="legend g-${g.key}" transform="translate(${m.l + 10 + j * 120},10)">` +
+        `<g class="legend g-${g.key}" transform="translate(${m.l + 10 + j * 190},10)">` +
         `<rect width="12" height="12" rx="2" fill="${g.colour}"/>` +
         text(18, 10, g.label, 'class="legend-label"') +
         "</g>",

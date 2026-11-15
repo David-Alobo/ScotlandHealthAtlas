@@ -37,6 +37,13 @@ Where you live and how old you are shape different health risks.
 - **Prescribing** looks steeply graded by deprivation, but mostly because pharmacies cluster in
   more deprived data zones; the medicine mix differs too (central nervous system medicines 21.2%
   of items in the most deprived fifth against 16.8% in the least).
+- **Waiting in A&E has grown.** In emergency departments, 97.6% of attendances were dealt with
+  within 4 hours in 2008 and 65.0% in 2025, against a 95% standard last met in 2011; 5.3% lasted
+  more than 12 hours in 2025, against 0.03% in 2008.
+- **GP time per patient is lower where A&E use is highest.** Practices in the most deprived fifth
+  of areas have about as many GPs per 10,000 patients as the least deprived (7.7 and 7.9), but 13%
+  less GP time (5.5 against 6.4 full-time equivalent), from NHS Education for Scotland's workforce
+  survey and PHS list sizes; practices, not patients, are compared.
 - **Checked:** our injury counts match Public Health Scotland's published figures within 1.8%.
 
 Comparisons between council areas describe areas, not individuals. Full methods, figures and
@@ -44,7 +51,7 @@ limitations are in the [paper](paper/main.pdf).
 
 ## The atlas
 
-One scrolling page, fifteen scenes. Each of Scotland's 6,976 data zones (neighbourhoods of about
+One scrolling page, eighteen scenes. Each of Scotland's 6,976 data zones (neighbourhoods of about
 800 people) is a dot, brighter where it is more deprived. Search by postcode or neighbourhood name,
 or click a dot, to pin a neighbourhood: the cards then show its deprivation, its council's rates
 beside Scotland's, and deaths in its council by age. Click anywhere on the map to clear the pin.
@@ -98,6 +105,7 @@ uv run python -m atlas.distributions results/2026-11-14-distributions
 uv run python -m atlas.injuries results/2026-11-14-injuries
 uv run python -m atlas.prescribing results/2026-11-14-prescribing
 uv run python -m atlas.validate results/2026-11-14-validation
+uv run python -m atlas.access                 # A&E waits; GPs per patient (needs data/external/gp/)
 uv run python -m atlas.geo                    # writes web/data/geo.json (needs npm ci in web/ first)
 uv run python -m atlas.export_web             # writes web/data/story.json
 uv run python -m atlas.paper_numbers          # writes paper/generated/
