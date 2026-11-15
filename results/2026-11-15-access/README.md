@@ -12,6 +12,8 @@ competition data not yet shown (the A&E activity file's waiting times).
 | `waits_board.csv` | Emergency departments by health board of the hospital, 2025 |
 | `gp_quintile.csv` | Per SIMD 2020v2 quintile of the practice address: practices, registered patients (April 2025), GP headcount and whole-time equivalent (NES Table 8, 31 March 2025), and both per 10,000 patients |
 | `gp_board.csv` | Per health board: NES GP headcount and WTE (Table 5), patients from the April 2025 list sizes, our rates per 10,000, and NES's own rates (the check) |
+| `gp_ratios.csv` | Registered patients per GP and per full-time GP, by quintile and for Scotland |
+| `gp_scenarios.csv` | Quintile 1 with longer GP hours (headcount held): its GPs at quintile 5's mean WTE, or enough to match quintile 5's GP time per patient; extra WTE and sessions a week (1 WTE = 8 sessions) |
 | `gp_trend.csv` | NES Table 6: GP headcount and WTE in each survey year, 2013-2025 |
 | `waits.pdf/.svg/.png`, `gp.pdf/.svg/.png` | Figures |
 
@@ -58,3 +60,17 @@ third is highest), so this is a comparison of the two ends, not a gradient.
   than one practice; WTE sums exactly to 3,591.5. Specialty trainees and locums are excluded, as in
   NES's figures.
 - Practices are compared, not patients: people need not live in their practice's area.
+
+## Patients per GP, and longer hours (scenarios, not forecasts)
+
+| | Patients per GP | Patients per full-time GP |
+|---|---|---|
+| Most deprived fifth | 1,293 | 1,810 |
+| Least deprived fifth | 1,264 | 1,575 |
+| Scotland | 1,317 | 1,681 |
+
+If the GPs in the most deprived fifth worked the same mean hours as those in the least deprived
+(0.80 WTE rather than 0.71), that fifth would gain 101.7 full-time GPs (814 sessions a week, 0.71 a
+GP), and GP time per 10,000 patients would rise from 5.52 to 6.21, 2.3% below the least deprived
+fifth (6.35) rather than 13%. Matching the least deprived fifth exactly would take 123.1 full-time
+GPs more (985 sessions a week, 0.85 a GP).

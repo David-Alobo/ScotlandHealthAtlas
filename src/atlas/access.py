@@ -184,6 +184,68 @@ def gps(nes: dict[int, list[list[str]]]) -> tuple[list[dict], list[dict], list[d
     return by_q, boards, trend
 
 
+def gp_ratios(by_q: list[dict], boards: list[dict]) -> list[dict]:
+    """Registered patients per GP and per full-time GP, by quintile and for Scotland.
+
+    Args:
+        by_q: The quintile rows.
+        boards: The board rows (the Scotland row gives the national figures).
+
+    Returns:
+        One row per quintile and one for Scotland.
+    """
+    scot = next(r for r in boards if r["health_board"] == "Scotland")
+    rows = [(f"quintile {r['simd_quintile']}", r) for r in by_q] + [("Scotland", scot)]
+    return [
+        {
+            "area": name,
+            "patients": r["patients"],
+            "gp_headcount": r["gp_headcount"],
+            "gp_wte": r["gp_wte"],
+            "patients_per_gp": round(r["patients"] / r["gp_headcount"]),
+            "patients_per_wte_gp": round(r["patients"] / r["gp_wte"]),
+        }
+        for name, r in rows
+    ]
+
+
+def gp_scenarios(by_q: list[dict]) -> list[dict]:
+    """What longer GP hours in the most deprived fifth would give (arithmetic, not a forecast).
+
+    Two scenarios for practices in quintile 1, its GP headcount held: its GPs work the mean
+    whole-time equivalent of quintile 5's GPs; or they work enough to give quintile 1's patients
+    as much GP time per patient as quintile 5's. One WTE is 8 sessions a week (NES).
+
+    Args:
+        by_q: The quintile rows.
+
+    Returns:
+        One row per scenario, with the real figures first.
+    """
+    q1, q5 = by_q[0], by_q[-1]
+    mean5 = q5["gp_wte"] / q5["gp_headcount"]
+    target = q5["gp_wte"] / q5["patients"]  # WTE per patient in quintile 5
+    cases = [
+        ("as recorded", q1["gp_wte"]),
+        ("quintile 1 GPs work quintile 5's mean WTE", q1["gp_headcount"] * mean5),
+        ("quintile 1 patients get quintile 5's GP time", target * q1["patients"]),
+    ]
+    out = []
+    for name, wte in cases:
+        extra = wte - q1["gp_wte"]
+        out.append({
+            "scenario": name, "q1_wte": round(wte, 1),
+            "mean_wte_per_gp": round(wte / q1["gp_headcount"], 3),
+            "extra_wte": round(extra, 1), "extra_sessions_a_week": round(8 * extra),
+            "extra_sessions_per_gp_a_week": round(8 * extra / q1["gp_headcount"], 2),
+            "q1_wte_per_10000": round(1e4 * wte / q1["patients"], 2),
+            "q5_wte_per_10000": round(1e4 * target, 2),
+            "q1_patients_per_wte_gp": round(q1["patients"] / wte),
+            "gap_to_q5": round(1 - wte / (target * q1["patients"]), 4),
+        })  # fmt: skip
+    return out
+
+
 def write(rows: list[dict], path: Path) -> None:
     """Write rows of dicts to a CSV file."""
     with path.open("w", newline="", encoding="utf-8") as f:
@@ -209,6 +271,8 @@ def main() -> None:
     write(by_q, out / "gp_quintile.csv")
     write(gp_boards, out / "gp_board.csv")
     write(trend, out / "gp_trend.csv")
+    write(gp_ratios(by_q, gp_boards), out / "gp_ratios.csv")
+    write(gp_scenarios(by_q), out / "gp_scenarios.csv")
     chart_waits(national, out / "waits")
     chart_gp(by_q, out / "gp")
     for r in national:

@@ -1,0 +1,7 @@
+area,patients,gp_headcount,gp_wte,patients_per_gp,patients_per_wte_gp
+quintile 1,1492002,1154,824.2,1293,1810
+quintile 2,1493485,1065,838.4,1402,1781
+quintile 3,1120588,954,749.3,1175,1496
+quintile 4,1066810,853,631.6,1251,1689
+quintile 5,863067,683,548.0,1264,1575
+Scotland,6035952,4582,3591.5,1317,1681

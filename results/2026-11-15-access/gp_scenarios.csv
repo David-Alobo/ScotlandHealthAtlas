@@ -1,0 +1,4 @@
+scenario,q1_wte,mean_wte_per_gp,extra_wte,extra_sessions_a_week,extra_sessions_per_gp_a_week,q1_wte_per_10000,q5_wte_per_10000,q1_patients_per_wte_gp,gap_to_q5
+as recorded,824.2,0.714,0.0,0,0.0,5.52,6.35,1810,0.13
+quintile 1 GPs work quintile 5's mean WTE,925.9,0.802,101.7,814,0.71,6.21,6.35,1611,0.0226
+quintile 1 patients get quintile 5's GP time,947.3,0.821,123.1,985,0.85,6.35,6.35,1575,0.0
